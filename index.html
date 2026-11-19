@@ -15,7 +15,7 @@
 
   
   
-  <link rel="preload" as="image" href="assets/boot_scene.webp?v=4">
+  <link rel="preload" as="image" href="assets/boot_scene3.webp">
   <link rel="preload" as="image" href="assets/hero_miner2.webp">
   <link rel="preload" as="image" href="assets/tombstone_center.webp">
   <style>
@@ -117,6 +117,9 @@
     #boot-bar{position:relative;height:18px;margin-top:10px;background:#070b06;border:1px solid rgba(110,255,170,.35);border-radius:999px;box-shadow:inset 0 3px 9px rgba(0,0,0,.95)}
     #boot-progress{height:100%;width:0%;background:linear-gradient(180deg,#d9ffe9 0%,#4dff9d 38%,#22c55e 74%,#15803d 100%)!important;box-shadow:0 0 16px 3px rgba(34,197,94,.55), inset 0 0 6px rgba(255,255,255,.4);border-radius:999px;transition:width .15s}
     #boot-coin{position:absolute;top:50%;left:0%;width:38px;height:38px;transform:translate(-50%,-50%);z-index:3;pointer-events:none;filter:drop-shadow(0 0 9px rgba(34,197,94,.85));transition:left .15s}
+    #boot-skulls{display:flex;gap:3px;justify-content:center;align-items:center;margin-top:12px}
+    .boot-skull{width:27px;height:27px;flex:0 1 27px;object-fit:contain;opacity:.92}
+    .boot-skull.lit{opacity:1;filter:drop-shadow(0 0 6px rgba(74,255,157,.85))}
     #boot-status-text{position:static;width:100%;margin:11px 0 0!important;text-align:center;color:var(--mut)!important;letter-spacing:2.5px;text-transform:uppercase;font-size:10.5px!important}
     #boot-retry-btn{position:static;transform:none;display:none;margin:12px auto 0}
     .boot-plaque-zm{display:flex;flex-direction:column;align-items:center;gap:9px;filter:drop-shadow(0 12px 24px rgba(0,0,0,.75))}
@@ -394,6 +397,7 @@
     /* ---------- PASS 18: owner's own nav artwork (painted glyphs+labels in the stones) ---------- */
     .nav-item .nav-ic{display:none}
     .nav-item span{display:none}
+  
   </style>
   <style>
     /* ===== REDESIGN3 — EXACT SCENE MATCH (owner reference 2026-11-19) =====
@@ -671,23 +675,525 @@
     #page-mine .mn-stage-stats{padding-top:2px;padding-bottom:2px}
     #page-mine .mn-stat{padding-top:3px;padding-bottom:3px}
     #page-mine .mn-row .mn-card{padding-top:4px;padding-bottom:7px}
-  </style>
+    /* ---------- PASS 19: potion-vial nav (owner pick: قوارير سم) ----------
+       The five tombstones are replaced by glass potion vials (nav_vial_1..5)
+       sliced from the owner's chosen sheet: glowing toxic liquid with the
+       tab glyph floating inside, each vial on its own rusty iron stand.
+       The ground lip and the light pool go (the vials stand on the
+       painting's own rocks; the bar's bottom gradient stays). The HTML
+       labels return under the vials — the vial art carries none. */
+    .bottom-nav-3d{height:118px;padding:0 10px 20px}
+    .bottom-nav-3d::before{display:none}
+    .bottom-nav-3d::after{display:none}
+    .app-shell{padding-bottom:124px}
+    #page-mine.page.active{padding-bottom:112px}
+    .nav-item{width:54px;height:92px}
+    .nav-item.active{height:98px}
+    .nav-item:nth-child(1){background-image:url('assets/nav_vial_1.webp')}
+    .nav-item:nth-child(2){background-image:url('assets/nav_vial_2.webp')}
+    .nav-item:nth-child(3){background-image:url('assets/nav_vial_3.webp')}
+    .nav-item:nth-child(4){background-image:url('assets/nav_vial_4.webp')}
+    .nav-item:nth-child(5){background-image:url('assets/nav_vial_5.webp')}
+    .nav-item[data-tab="boost"]{width:62px;height:106px}
+    .nav-item[data-tab="boost"].active{height:112px}
+    .nav-item .nav-ic{display:none}
+    .nav-item span{display:block;top:auto;bottom:-17px;font-size:9.5px}
+      /* ---------- PASS 20: owner's iron medallion bar ---------- */
+    .bottom-nav-3d{height:100px;padding:0 6px 24px;background-image:url('assets/nav_plate.webp');background-repeat:repeat-x;background-size:auto 100%;background-position:center}
+    .app-shell{padding-bottom:110px}
+    #page-mine.active{padding-bottom:100px}
+    .nav-item{width:62px;height:62px;border:none;border-radius:50%;box-shadow:none;transform:none;background-color:transparent;background-size:contain;background-repeat:no-repeat;background-position:center}
+    .nav-item:nth-child(1){background-image:url('assets/nav_medal_1.webp')}
+    .nav-item:nth-child(2){background-image:url('assets/nav_medal_2.webp')}
+    .nav-item[data-tab="boost"]{background-image:url('assets/nav_medal_3.webp');width:76px;height:76px;transform:none}
+    .nav-item:nth-child(4){background-image:url('assets/nav_medal_4.webp')}
+    .nav-item:nth-child(5){background-image:url('assets/nav_medal_5.webp')}
+    .nav-item.active{height:62px;transform:translateY(-3px);filter:brightness(1.18) drop-shadow(0 0 12px rgba(110,255,160,.85))}
+    .nav-item[data-tab="boost"].active{height:76px;transform:translateY(-3px)}
+    .nav-item::before{display:none}
+    .nav-item::after{display:none}
+    .nav-item span{display:block;top:auto;bottom:-17px;font-size:9.5px;color:#7dffb0;text-shadow:0 0 6px rgba(110,255,160,.55)}
+
+    /* ---------- PASS 21: clean procedural iron plate (no image seams) ---------- */
+    .bottom-nav-3d{background-image:radial-gradient(circle at 50% 7px,rgba(196,214,196,.55) 2.2px,rgba(0,0,0,.4) 3.4px,transparent 4.5px),radial-gradient(circle at 50% calc(100% - 7px),rgba(196,214,196,.55) 2.2px,rgba(0,0,0,.4) 3.4px,transparent 4.5px),linear-gradient(180deg,#2b302b,#181b18 32%,#101210 68%,#1d201d);background-size:56px 100%,56px 100%,100% 100%;background-repeat:repeat-x,repeat-x,no-repeat;border-top:2px solid #3d443c;box-shadow:inset 0 1px 0 rgba(190,255,205,.10),inset 0 -8px 14px rgba(0,0,0,.45)}
+
+    /* ---------- PASS 22: boot progress floats on the scene — no card behind it ---------- */
+    .boot-panel{background:transparent;border:none;border-image:none;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;padding:6px 0}
+    #boot-pct{text-shadow:0 2px 14px rgba(0,0,0,.85),0 0 22px rgba(110,255,160,.35)}
+
+    /* ---------- PASS 23: SIMPLE nav — flat bar, medallions, labels ---------- */
+    .bottom-nav-3d{height:92px;padding:6px 6px 22px;background:#0b0e0b;background-image:none;border-top:1px solid rgba(125,255,176,.28);box-shadow:0 -4px 14px rgba(0,0,0,.45)}
+    .app-shell{padding-bottom:102px}
+    #page-mine.active{padding-bottom:92px}
+    .nav-item{width:56px;height:56px;transform:none;filter:none}
+    .nav-item[data-tab="boost"]{width:64px;height:64px}
+    .nav-item.active{height:56px;transform:none;filter:brightness(1.22) drop-shadow(0 0 9px rgba(110,255,160,.75))}
+    .nav-item[data-tab="boost"].active{height:64px;transform:none}
+    .nav-item span{bottom:-16px;color:#9fe8bb;text-shadow:none}
+    .nav-item.active span{color:#e4ffef}
+
+    /* ---------- PASS 24: no percent counter — skulls are the only progress ---------- */
+    #boot-pct{display:none}
+
+    /* ================= PASS 25: APPROVED MOCKUP BUILD (owner: نفذ دي بالظبط) =================
+       Layout + MEDIUM palette of the approved mockup: dark charcoal cracked
+       stone (generated tex_stone_dark), rich emerald #63d97a with a SOFT glow
+       (not neon, not muted). All art on this pass is AI-generated for this
+       build: mock_hero / mock_sign / mock_hand / mock_skull_deco /
+       nav_cell_1..5 / tex_stone_dark. Presentation only — no id, handler or
+       boot-logic changes (the wired .mn-userbar block moved, intact, into
+       the new .mn-player-card). */
+    :root{--num:#63d97a;--acc:#63d97a;--acc2:#3f9e58;--accsoft:#9fe8b0;--line:rgba(99,217,122,.30);--line2:rgba(99,217,122,.45);--mut:#a9bfa9;--gold:#63d97a;--gold2:#9fe8b0;--gb:#63d97a}
+    body{background-color:#070907;background-image:radial-gradient(120% 55% at 50% 0%,rgba(46,90,54,.30),rgba(0,0,0,0) 60%),linear-gradient(180deg,#0b100b,#050605 55%,#070907)}
+
+    /* ---- stone material for every card family ---- */
+    .card-3d,.mn-card,.mn-stat,.q-wrap,.miner-card-3d,.fr-sec,.fr-tablet,.pf-sec,.pf-stat,.pf-modal-card,.mn-verify-wide,.top-bar,.pf-set-cell,.fr-row{
+      background-color:#141713;background-image:linear-gradient(180deg,rgba(9,13,9,.52),rgba(9,13,9,.70)),url('assets/tex_stone_dark.webp');background-size:cover;background-position:center;
+      border:1px solid #333b31;border-image:none;border-radius:10px;
+      box-shadow:inset 0 1px 0 rgba(190,255,205,.07),inset 0 -10px 18px rgba(0,0,0,.50),0 8px 18px rgba(0,0,0,.50)}
+    .mn-lbl,.mn-stat-lbl{color:#a9bfa9}
+    #page-mine>.mn-card .mn-val,#page-mine .mn-stat-num,#page-mine .mn-val-sm{color:#63d97a;text-shadow:0 0 10px rgba(99,217,122,.35)}
+
+    /* ---- header: hanging sign + two real stone buttons ---- */
+    .mn-head{background:transparent;border:none;border-image:none;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;padding:0 2px;flex:none}
+    .mn-head-logo{font-size:0;line-height:0}
+    .mn-sign-img{height:62px;width:auto;display:block;filter:drop-shadow(0 4px 7px rgba(0,0,0,.65))}
+    .mn-head-meta{display:none}
+    .mn-head-btns{display:flex;gap:8px;flex:none}
+    .mn-head-btn{width:42px;height:42px;flex:none;border-radius:9px;background-color:#171a16;background-image:linear-gradient(180deg,rgba(0,0,0,.22),rgba(0,0,0,.48)),url('assets/tex_stone_dark.webp');background-size:cover;border:1px solid #3c453a;color:#63d97a;box-shadow:inset 0 1px 0 rgba(190,255,205,.09),0 4px 10px rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+    .mn-head-btn svg{width:21px;height:21px;fill:#63d97a;stroke:#63d97a;filter:drop-shadow(0 0 4px rgba(99,217,122,.45))}
+    .mn-head-btn:active{transform:scale(.94)}
+
+    /* ---- hero scene (generated art) ---- */
+    #page-mine.page.active{gap:8px}
+    #page-mine .mn-stage{height:212px;min-height:212px;border:1px solid #333b31;border-radius:12px;overflow:hidden;box-shadow:0 10px 22px rgba(0,0,0,.55);flex:none}
+    #page-mine #hero-img{visibility:visible;-webkit-mask-image:none;mask-image:none;width:100%;height:100%;object-fit:cover;object-position:50% 32%;display:block}
+    #page-mine #hero-video{display:none}
+
+    /* ---- player card (the wired userbar, moved intact) ---- */
+    .mn-player-card{order:1;position:relative;display:flex;align-items:center;gap:10px;padding:10px 12px;background-color:#141713;background-image:linear-gradient(180deg,rgba(9,13,9,.52),rgba(9,13,9,.70)),url('assets/tex_stone_dark.webp');background-size:cover;background-position:center;border:1px solid #333b31;border-radius:10px;box-shadow:inset 0 1px 0 rgba(190,255,205,.07),inset 0 -10px 18px rgba(0,0,0,.50),0 8px 18px rgba(0,0,0,.50);flex:none}
+    .mn-player-card .mn-userbar{position:static;flex:1;min-width:0;display:flex;flex-wrap:wrap;align-items:center;column-gap:11px;row-gap:2px;background:none;border:none;border-radius:0;backdrop-filter:none;-webkit-backdrop-filter:none;padding:0}
+    .mn-player-card .mn-userbar>img{order:0;width:58px;height:58px;border-radius:50%;object-fit:cover;object-position:50% 16%;border:2px solid #63d97a;box-shadow:0 0 0 3px rgba(99,217,122,.16),0 0 14px rgba(99,217,122,.45);background:#0b120d;flex:none}
+    .mn-player-card .mn-user-name{order:1;flex:1;min-width:120px;font-size:19px;font-weight:800;color:#f2f5ee;display:flex;align-items:center;gap:6px}
+    .mn-player-card .mn-wallet-btn{order:2;flex:none;width:36px;height:36px;border-radius:50%;border:1px solid #3c453a;background-color:#171a16;background-image:linear-gradient(180deg,rgba(0,0,0,.22),rgba(0,0,0,.48)),url('assets/tex_stone_dark.webp');background-size:cover;box-shadow:inset 0 1px 0 rgba(190,255,205,.09),0 4px 10px rgba(0,0,0,.5)}
+    .mn-player-card .mn-wallet-btn svg{stroke:#63d97a}
+    .mn-player-card .mn-wallet-btn svg circle{fill:#63d97a}
+    .mn-player-card .mn-lvl-chip{order:3;margin-left:69px;background:rgba(20,30,20,.92);border:1px solid rgba(99,217,122,.50);border-radius:8px;color:#63d97a;padding:3px 10px;font-size:12px;font-weight:800;letter-spacing:.6px;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+    .mn-player-card .mn-lvl-chip img{display:none}
+    .mn-player-card .mn-lvl-chip::before{content:'\2605';color:#63d97a;margin-right:2px}
+    .mn-skull-deco{height:72px;width:auto;flex:none;filter:drop-shadow(0 3px 6px rgba(0,0,0,.6))}
+
+    /* ---- MINED vault ---- */
+    #page-mine>.mn-card.mn-vault{order:2;padding:12px 14px 14px;text-align:center}
+    .mn-mined-head{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:2px}
+    .mn-pick{color:#63d97a;font-size:17px;line-height:1;text-shadow:0 0 8px rgba(99,217,122,.5)}
+    #page-mine>.mn-card.mn-vault .mn-lbl{font-size:15px;letter-spacing:3.5px;color:#d7e6d2;font-weight:800;margin:0}
+    #page-mine>.mn-card.mn-vault .mn-val{display:flex;align-items:center;justify-content:center;gap:11px;font-size:42px;font-weight:900;line-height:1.1}
+    #page-mine>.mn-card.mn-vault .mn-val .mn-coin{width:38px;height:38px}
+
+    /* ---- 3 tiles: panel becomes transparent, each tile its own stone card ---- */
+    #page-mine .mn-stage-stats{order:3;background:none;background-image:none;border:none;border-image:none;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;padding:0;display:flex;gap:8px}
+    #page-mine .mn-stage-stats>.mn-stat{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;padding:10px 6px 11px;background-color:#141713;background-image:linear-gradient(180deg,rgba(9,13,9,.52),rgba(9,13,9,.70)),url('assets/tex_stone_dark.webp');background-size:cover;background-position:center;border:1px solid #333b31;border-radius:10px;box-shadow:inset 0 1px 0 rgba(190,255,205,.07),inset 0 -10px 18px rgba(0,0,0,.50),0 8px 18px rgba(0,0,0,.50)}
+    #page-mine .mn-stage-stats .mn-stat-tab{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 50% 36%,#242824,#0f110f);border:1px solid #3a433a;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 2px 6px rgba(0,0,0,.75);margin-bottom:5px}
+    #page-mine .mn-stage-stats .mn-stat-tab svg{width:22px;height:22px;stroke:#63d97a}
+    #page-mine .mn-stage-stats .mn-stat-tab svg circle{fill:#63d97a}
+    #page-mine .mn-stage-stats>.mn-card.mn-tile-rate{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:10px 6px 11px;margin:0;background-color:#141713!important;background-image:linear-gradient(180deg,rgba(9,13,9,.52),rgba(9,13,9,.70)),url('assets/tex_stone_dark.webp')!important;background-size:cover;border:1px solid #333b31;border-radius:10px;box-shadow:inset 0 1px 0 rgba(190,255,205,.07),inset 0 -10px 18px rgba(0,0,0,.50),0 8px 18px rgba(0,0,0,.50);backdrop-filter:none;-webkit-backdrop-filter:none}
+    .mn-tile-rate::before{content:'';width:44px;height:44px;border-radius:50%;background-color:#0f110f;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2363d97a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 17l5-6 4 3 6-8'/%3E%3Cpath d='M15 6h4v4'/%3E%3C/svg%3E");background-size:22px;background-position:center;background-repeat:no-repeat;border:1px solid #3a433a;box-shadow:inset 0 2px 6px rgba(0,0,0,.75);margin-bottom:5px;flex:none}
+    #page-mine .mn-stage-stats .mn-tile-rate .mn-lbl{font-size:11px;letter-spacing:1.6px;color:#a9bfa9;margin:0 0 2px}
+    #page-mine .mn-stage-stats .mn-tile-rate .mn-val-sm{font-size:21px;font-weight:800}
+    #page-mine .mn-stage-stats .mn-verify-wide{flex:2}
+
+    /* ---- countdown: hourglass + label left, time right, thin line on the bottom edge ---- */
+    #page-mine .mn-row{order:4}
+    #page-mine .mn-row .mn-card.mn-count-card{display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:11px 14px 15px;text-align:left}
+    .mn-hourglass{width:21px;height:21px;object-fit:contain;flex:none}
+    #page-mine .mn-row .mn-count-card .mn-lbl{margin:0;font-size:12px;letter-spacing:1.8px;color:#c4d6c0}
+    #page-mine .mn-row .mn-count-card .mn-val-sm{margin-left:auto;font-size:20px;font-weight:900}
+    #mine-prog-bar{left:10px;bottom:6px;height:4px;border-radius:2px;background:linear-gradient(90deg,#3f9e58,#63d97a);clip-path:none;filter:drop-shadow(0 0 3px rgba(99,217,122,.45))}
+
+    /* ---- actions: COLLECT slab bar -> BUY pill -> LEVELS divider ---- */
+    #page-mine .mn-actions{order:5;flex-direction:column;align-items:stretch;gap:9px;padding-top:0}
+    #page-mine .mn-collect{order:1;width:100%;height:68px;border-radius:12px;display:flex;flex-direction:row;align-items:center;gap:8px;padding:6px 12px;margin:0;background-color:#141713;background-image:linear-gradient(180deg,rgba(9,13,9,.45),rgba(9,13,9,.62)),url('assets/tex_stone_dark.webp');background-size:cover;background-position:center;border:1px solid #39423a;box-shadow:inset 0 1px 0 rgba(190,255,205,.08),inset 0 -10px 18px rgba(0,0,0,.5),0 8px 18px rgba(0,0,0,.5);cursor:pointer}
+    #page-mine .mn-collect img.collect-hand{order:1;height:56px;width:auto;flex:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.6))}
+    #page-mine .mn-collect>span[data-i18n="collect_lbl"]{order:2;flex:1;background:linear-gradient(180deg,#2f8349,#1d5c31);border:1px solid #4caf6d;border-radius:9px;color:#cdf5d4;font-size:23px;font-weight:900;letter-spacing:3.5px;text-align:center;padding:11px 0;box-shadow:inset 0 1px 0 rgba(205,255,220,.28),inset 0 -8px 14px rgba(0,0,0,.35),0 0 16px rgba(99,217,122,.22);text-shadow:0 1px 2px rgba(0,0,0,.45)}
+    #page-mine .mn-collect img.collect-coin{order:3;width:42px;height:42px;flex:none}
+    #page-mine .mn-actions .btn-stonfi-buy{order:2;align-self:center;width:56%;display:flex;align-items:center;justify-content:center;gap:9px;background-color:#171a16;background-image:linear-gradient(180deg,rgba(9,13,9,.52),rgba(9,13,9,.70)),url('assets/tex_stone_dark.webp');background-size:cover;border:1px solid #3c453a;border-radius:10px;padding:10px 6px;box-shadow:inset 0 1px 0 rgba(190,255,205,.07),0 6px 14px rgba(0,0,0,.5)}
+    #page-mine .mn-actions .btn-stonfi-buy::before{content:'';width:20px;height:20px;flex:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d9a441' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='20' r='1.6'/%3E%3Ccircle cx='17' cy='20' r='1.6'/%3E%3Cpath d='M3 3h2l2.4 12.4a1.5 1.5 0 0 0 1.5 1.1h7.9a1.5 1.5 0 0 0 1.5-1.2L20.5 7H6'/%3E%3C/svg%3E") center/contain no-repeat}
+    #page-mine .mn-actions .btn-stonfi-buy span{text-transform:uppercase;letter-spacing:2.5px;font-size:14px;font-weight:800;color:#e8e4da}
+    #btn-goto-boost{order:3;width:100%;position:relative;background:none;background-image:linear-gradient(90deg,rgba(0,0,0,0) 0%,#46523f 12%,#46523f 36%,rgba(0,0,0,0) 47%,rgba(0,0,0,0) 53%,#46523f 64%,#46523f 88%,rgba(0,0,0,0) 100%);background-size:100% 1px;background-position:center;background-repeat:no-repeat;border:none;border-radius:0;box-shadow:none;padding:7px 6px;color:#d7e6d2;font-size:13.5px;letter-spacing:2px;backdrop-filter:none;-webkit-backdrop-filter:none}
+    #btn-goto-boost span::before{content:'\2605  ';color:#63d97a}
+
+    /* ---- nav: generated octagon cells + skull on a flat dark bar ---- */
+    .bottom-nav-3d{height:112px;background:#0a0c0a;background-image:none;border-top:1px solid #31382f;box-shadow:0 -6px 18px rgba(0,0,0,.6);padding:5px 8px 7px;align-items:flex-start;gap:4px}
+    .bottom-nav-3d::before,.bottom-nav-3d::after{display:none}
+    .nav-item{flex:1;height:98px;background-color:transparent;background-repeat:no-repeat;background-position:50% 0;background-size:auto 72px;border:none;border-image:none;box-shadow:none;clip-path:none;border-radius:0;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;color:#8fd79e;transform:none}
+    .nav-item:nth-child(1){background-image:url('assets/nav_cell_1.webp')}
+    .nav-item:nth-child(2){background-image:url('assets/nav_cell_2.webp')}
+    .nav-item:nth-child(4){background-image:url('assets/nav_cell_4.webp')}
+    .nav-item:nth-child(5){background-image:url('assets/nav_cell_5.webp')}
+    .nav-item[data-tab="boost"]{flex:1.35;height:106px;background-image:url('assets/nav_cell_3.webp');background-size:auto 88px}
+    .nav-item .nav-ic,.nav-item .nav-tomb-img{display:none}
+    .nav-item span{display:block;position:static;font-size:9.5px;font-weight:800;letter-spacing:1.2px;color:#8fd79e;text-shadow:0 1px 3px rgba(0,0,0,.9)}
+    .nav-item.active{filter:brightness(1.14) drop-shadow(0 0 10px rgba(99,217,122,.55))}
+    .nav-item.active span{color:#dcffe4}
+    .app-shell{padding-bottom:120px}
+    #page-mine.active{padding-bottom:114px}
+
+    /* ---------- PASS 25b: compact fit — the whole Mine stack clears the nav ---------- */
+    #page-mine.page.active{gap:6px}
+    .mn-sign-img{height:54px}
+    #page-mine .mn-stage{height:160px;min-height:160px}
+    .mn-player-card{padding:8px 12px}
+    .mn-player-card .mn-userbar>img{width:52px;height:52px}
+    .mn-player-card .mn-lvl-chip{margin-left:63px}
+    .mn-skull-deco{height:64px}
+    #page-mine>.mn-card.mn-vault{padding:9px 14px 11px}
+    #page-mine>.mn-card.mn-vault .mn-val{font-size:38px}
+    #page-mine>.mn-card.mn-vault .mn-val .mn-coin{width:34px;height:34px}
+    #page-mine .mn-stage-stats>.mn-stat{padding:8px 6px 9px}
+    #page-mine .mn-stage-stats .mn-stat-tab{width:38px;height:38px;margin-bottom:4px}
+    #page-mine .mn-stage-stats .mn-stat-tab svg{width:19px;height:19px}
+    #page-mine .mn-stage-stats>.mn-card.mn-tile-rate{padding:8px 6px 9px}
+    .mn-tile-rate::before{width:38px;height:38px;background-size:19px;margin-bottom:4px}
+    #page-mine .mn-row .mn-card.mn-count-card{padding:9px 14px 13px}
+    #page-mine .mn-actions{gap:7px}
+    #page-mine .mn-collect{height:60px}
+    #page-mine .mn-collect img.collect-hand{height:50px}
+    #page-mine .mn-collect>span[data-i18n="collect_lbl"]{font-size:21px;padding:9px 0}
+    #page-mine .mn-collect img.collect-coin{width:38px;height:38px}
+    #page-mine .mn-actions .btn-stonfi-buy{padding:8px 6px}
+    #btn-goto-boost{padding:5px 6px}
+    .bottom-nav-3d{height:106px}
+    .nav-item{height:94px;background-size:auto 68px}
+    .nav-item[data-tab="boost"]{height:100px;background-size:auto 82px}
+
+    /* ---------- PASS 25c: final fit — LEVELS fully inside the page box ---------- */
+    #page-mine .mn-stage{height:148px;min-height:148px}
+    #page-mine .mn-stage-stats>.mn-stat{padding-bottom:7px}
+    #page-mine .mn-stage-stats>.mn-card.mn-tile-rate{padding-bottom:7px}
+    #page-mine .mn-stat-num{font-size:19px}
+    #page-mine .mn-stage-stats .mn-tile-rate .mn-val-sm{font-size:19px}
+    #page-mine .mn-row .mn-card.mn-count-card{padding-top:7px;padding-bottom:11px}
+    #page-mine .mn-actions .btn-stonfi-buy{padding-top:7px;padding-bottom:7px}
+    #btn-goto-boost{padding-top:4px;padding-bottom:4px}
+
+    /* ---------- PASS 26: boot = owner's artwork; name is the painted image ---------- */
+    #boot-loader{background:linear-gradient(rgba(3,7,4,0),rgba(3,7,4,.38) 78%,rgba(3,7,4,.72)),url('assets/boot_scene3.webp') center/cover #04070a;justify-content:flex-end;padding-bottom:40px}
+    .boot-plaque-zm,.boot-plaque-zm-name{display:none}
+
+    /* ================= PASS 27: PAINTED COMPONENTS (owner: اعمل صور علشان تطلع نفس النتيجه) =================
+       Every visual is a generated IMAGE; HTML carries only live text.
+       mine_scene = page background; card_frame = border-image for the
+       cards; collect_frame = the collect button; nav_bar_full = the
+       whole nav bar art with transparent hit areas over the tiles. */
+
+    /* ---- Mine scene: full-bleed background, no boxed hero band ---- */
+    #page-mine{background-color:#070907;background-image:url('assets/mine_scene.webp');background-size:cover;background-position:50% 0;background-repeat:no-repeat}
+    #page-mine.page.active{gap:11px}
+    #page-mine .mn-stage{height:148px;min-height:148px;background:none;border:none;border-radius:0;box-shadow:none;overflow:visible}
+    #page-mine #hero-img{display:none}
+    #page-mine #hero-video{display:none}
+
+    /* ---- painted card frame (border-image; corners never distort) ---- */
+    .mn-player-card,#page-mine>.mn-card.mn-vault,#page-mine .mn-stage-stats>.mn-stat,#page-mine .mn-row .mn-card.mn-count-card{
+      border-style:solid;border-image-source:url('assets/card_frame.webp');border-image-slice:21% 5.2% 21% 5.2% fill;border-image-repeat:stretch;
+      background:none;border-radius:0;box-shadow:0 10px 22px rgba(0,0,0,.55)}
+    .mn-player-card{border-width:19px 14px;padding:3px 8px}
+    #page-mine>.mn-card.mn-vault{border-width:19px 14px;padding:2px 12px 5px}
+    #page-mine>.mn-card.mn-vault .mn-val{font-size:41px}
+    #page-mine .mn-stage-stats>.mn-stat{border-width:16px 11px;padding:0 3px;height:108px;justify-content:center}
+    #page-mine .mn-stage-stats>.mn-card.mn-tile-rate{border-style:solid;border-width:16px 11px;border-image-source:url('assets/card_frame.webp');border-image-slice:21% 5.2% 21% 5.2% fill;border-image-repeat:stretch;background:none!important;border-radius:0;box-shadow:0 10px 22px rgba(0,0,0,.55);height:108px;justify-content:center;padding:0 3px}
+    #page-mine .mn-verify-wide{border-style:solid;border-width:14px 11px;border-image-source:url('assets/card_frame.webp');border-image-slice:21% 5.2% 21% 5.2% fill;border-image-repeat:stretch;background:none;border-radius:0;box-shadow:0 10px 22px rgba(0,0,0,.55)}
+    #page-mine .mn-row .mn-card.mn-count-card{border-width:12px 10px;padding:1px 10px;min-height:54px}
+    #mine-prog-bar{left:14px;right:14px;bottom:3px}
+
+    /* ---- COLLECT: the painted frame is the button ---- */
+    #page-mine .mn-collect{position:relative;display:block;width:100%;height:78px;padding:0;border:none;border-radius:4px;background:url('assets/collect_frame.webp') 50% 50%/100% 100% no-repeat;box-shadow:0 10px 22px rgba(0,0,0,.55);cursor:pointer}
+    #page-mine .mn-collect img.collect-hand{display:none}
+    #page-mine .mn-collect>span[data-i18n="collect_lbl"]{position:absolute;left:50.5%;top:50%;transform:translate(-50%,-50%);background:none;border:none;border-radius:0;box-shadow:none;padding:0;color:#eaffef;font-size:24px;font-weight:900;letter-spacing:4px;text-shadow:0 2px 6px rgba(0,0,0,.55),0 0 14px rgba(120,255,170,.35)}
+    #page-mine .mn-collect img.collect-coin{position:absolute;left:84.5%;top:50%;transform:translate(-50%,-50%);width:47px;height:47px}
+    #page-mine .mn-collect.locked{background:url('assets/collect_frame.webp') 50% 50%/100% 100% no-repeat;filter:grayscale(.65) brightness(.72)}
+    #page-mine .mn-collect .lk-wrap{position:absolute;inset:0;flex-direction:row;align-items:center;justify-content:center;gap:7px}
+    #page-mine .mn-collect .lk-ic{font-size:20px}
+    #page-mine .mn-collect .lk-txt{font-size:13px;letter-spacing:1.6px;padding:0}
+
+    /* ---- NAV: one painted bar, transparent hit areas over the tiles ---- */
+    .bottom-nav-3d{display:block;height:104px;padding:0;background:#05070a url('assets/nav_bar_full.webp') 50% 50%/100% 100% no-repeat;border-top:none;box-shadow:0 -6px 18px rgba(0,0,0,.65)}
+    .bottom-nav-3d::before,.bottom-nav-3d::after{display:none}
+    .nav-item{position:absolute;top:0;height:100%;width:19%;background:none!important;border:none;border-image:none;box-shadow:none;clip-path:none;border-radius:0;padding:0;transform:none;filter:none;cursor:pointer}
+    .nav-item:nth-child(1){left:0%}
+    .nav-item:nth-child(2){left:18%}
+    .nav-item:nth-child(3){left:40.5%}
+    .nav-item:nth-child(4){left:63.5%}
+    .nav-item:nth-child(5){left:81%}
+    .nav-item .nav-ic,.nav-item .nav-tomb-img,.nav-item span{display:none}
+    .nav-item::before{display:none}
+    .nav-item::after{content:'';position:absolute;left:50%;top:42%;width:88px;height:88px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(99,255,160,.34) 0%,rgba(99,255,160,.10) 55%,transparent 72%);opacity:0;transition:opacity .18s;pointer-events:none}
+    .nav-item.active{background:none!important;filter:none}
+    .nav-item.active::after{opacity:1}
+    .app-shell{padding-bottom:112px}
+    #page-mine.active{padding-bottom:106px}
+
+    /* ---------- PASS 27b: fit — whole Mine stack clears the painted nav ---------- */
+    .nav-item.active{height:100%}
+    #page-mine.page.active{gap:10px}
+    #page-mine .mn-stage{height:84px;min-height:84px}
+    .mn-player-card{padding:1px 8px}
+    .mn-player-card .mn-userbar>img{width:46px;height:46px}
+    .mn-player-card .mn-userbar{row-gap:0}
+    .mn-skull-deco{height:60px}
+    #page-mine>.mn-card.mn-vault{padding-bottom:3px}
+    #page-mine .mn-stage-stats>.mn-stat{height:102px}
+    #page-mine .mn-stage-stats>.mn-card.mn-tile-rate{height:102px}
+    #page-mine .mn-row .mn-card.mn-count-card{min-height:50px}
+    #page-mine .mn-collect{height:74px}
+    #page-mine .mn-actions{gap:8px}
+
+    /* ---------- PASS 28: mockup scene plate (giant zombie) + slim painted nav ---------- */
+    #page-mine{background-image:url('assets/mine_scene2.webp')}
+    #page-mine .mn-stage{height:204px;min-height:204px}
+    #page-mine.page.active{gap:7px}
+    .mn-player-card .mn-userbar>img{width:40px;height:40px}
+    .mn-skull-deco{height:46px}
+    #page-mine>.mn-card.mn-vault .mn-val{font-size:37px}
+    #page-mine .mn-stage-stats>.mn-stat{height:90px}
+    #page-mine .mn-stage-stats>.mn-card.mn-tile-rate{height:90px}
+    #page-mine .mn-row .mn-card.mn-count-card{min-height:42px}
+    #page-mine .mn-collect{height:66px}
+    #page-mine .mn-actions{gap:6px}
+    .bottom-nav-3d{height:70px}
+    .nav-item::after{top:40%}
+    .app-shell{padding-bottom:78px}
+    #page-mine.active{padding-bottom:72px}
+
+    /* ---------- PASS 28b: fit trims — full stack clears the 70px nav ---------- */
+    #page-mine>.mn-card.mn-vault{border-width:15px 14px}
+    #page-mine>.mn-card.mn-vault .mn-val{font-size:36px}
+    #page-mine .mn-stage-stats>.mn-stat{height:84px}
+    #page-mine .mn-stage-stats>.mn-card.mn-tile-rate{height:84px}
+    #page-mine .mn-row .mn-card.mn-count-card{min-height:34px}
+    #page-mine .mn-collect{height:62px}
+    .mn-skull-deco{height:42px}
+    #page-mine.page.active{gap:6px}
+
+    /* ---------- PASS 28c: last fit trims ---------- */
+    #page-mine .mn-row .mn-card.mn-count-card{border-width:9px 10px}
+    #page-mine.page.active{gap:5px}
+    #page-mine .mn-actions{gap:4px}
+
+    /* ---------- PASS 29: full-skull nav painting (nav_bar_full2) + cards raised ---------- */
+    .bottom-nav-3d{height:76px;background-image:url('assets/nav_bar_full2.webp')}
+    .nav-item:nth-child(1){left:0%}
+    .nav-item:nth-child(2){left:17.5%}
+    .nav-item:nth-child(3){left:40.5%}
+    .nav-item:nth-child(4){left:63%}
+    .nav-item:nth-child(5){left:81.5%}
+    .nav-item::after{top:46%}
+    .app-shell{padding-bottom:84px}
+    #page-mine.active{padding-bottom:78px}
+    #page-mine .mn-stage{height:186px;min-height:186px}
+    #page-mine.page.active{gap:4px}
+
+    /* ---------- PASS 30: player card deleted — name+avatar chip in the header ---------- */
+    .mn-head .mn-userbar{position:static;flex:none;display:flex;align-items:center;gap:8px;background:rgba(6,14,9,.55);border:1px solid rgba(99,217,122,.35);border-radius:999px;padding:4px 13px 4px 4px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+    .mn-head .mn-userbar>img{width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:50% 16%;border:2px solid #63d97a;box-shadow:0 0 0 3px rgba(99,217,122,.15),0 0 10px rgba(99,217,122,.45);background:#0b120d;flex:none}
+    .mn-head .mn-user-name{font-size:15px;font-weight:800;color:#f2f5ee;display:flex;align-items:center;gap:6px;white-space:nowrap}
+    .mn-head .mn-user-name svg{width:15px;height:15px;flex:none}
+    #page-mine .mn-stage{height:236px;min-height:236px}
+
+    /* ---------- PASS 31: LEVELS divider row deleted (owner) + tile values fit ---------- */
+    #page-mine .mn-stage{height:260px;min-height:260px}
+    #page-mine .mn-stat-num{font-size:16px;line-height:1.15}
+    #page-mine .mn-stage-stats .mn-tile-rate .mn-val-sm{font-size:16px;line-height:1.15}
+
+    /* ---------- PASS 32: painted tile medallions + tile stack fits the frame ---------- */
+    #page-mine .mn-stage-stats>.mn-stat,#page-mine .mn-stage-stats>.mn-card.mn-tile-rate{height:98px}
+    #page-mine .mn-stage-stats .mn-stat-tab{width:32px;height:32px;padding:0;overflow:hidden;background:#0c0f0c;margin-bottom:2px}
+    #page-mine .mn-stage-stats .mn-stat-tab img{width:100%;height:100%;display:block;object-fit:cover;border-radius:50%}
+    #page-mine .mn-stat-num img{width:15px;height:15px;vertical-align:-2px}
+    #page-mine .mn-stat-num{line-height:1.1}
+    #page-mine .mn-stage-stats .mn-tile-rate .mn-val-sm{line-height:1.1}
+    .mn-tile-rate::before{width:32px;height:32px;background-color:#0c0f0c;background-image:url('assets/tile_icon_rate.webp');background-size:cover;background-position:center;margin-bottom:2px}
+    #page-mine .mn-stage-stats .mn-tile-rate .mn-lbl{margin-bottom:0}
+
+    /* ---------- PASS 33: nav blends into the page — no bar background, painted cutout tiles float over the page art ---------- */
+    .bottom-nav-3d{height:76px;background:transparent;box-shadow:none}
+    .nav-item .nav-ic{display:block;position:absolute;left:50%;top:0;transform:translateX(-50%);width:54px;height:54px;margin:0;padding:0;background:none;border-radius:0;box-shadow:none;object-fit:contain;mix-blend-mode:normal;opacity:1;z-index:2;filter:drop-shadow(0 3px 5px rgba(0,0,0,.55))}
+    .nav-item:nth-child(3) .nav-ic{width:74px;height:74px;top:-12px;margin-top:0}
+    .nav-item[data-tab="boost"]{width:19%;height:100%}
+    .nav-item[data-tab="boost"].active{height:100%}
+    .nav-item span{display:block;position:absolute;left:0;right:0;top:auto;bottom:2px;transform:none;text-align:center;font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:#8fae97;text-shadow:0 1px 3px rgba(0,0,0,.95),0 0 8px rgba(0,0,0,.85);white-space:nowrap}
+    .nav-item::after{top:36%}
+    .nav-item.active .nav-ic{filter:drop-shadow(0 3px 5px rgba(0,0,0,.55)) drop-shadow(0 0 9px rgba(92,255,157,.55)) brightness(1.1)}
+    .nav-item.active span{color:#5cff9d}
+
+    /* ---------- PASS 34: the scene's stone floor continues behind the nav (owner) ----------
+       Diagnosis: #page-mine's box ended 84px above the viewport bottom (the app-shell's
+       bottom padding), so behind the transparent nav only the body's dark gradient painted —
+       a smoky strip unlike the rubble above it. Fix: stretch the Mine page box by exactly
+       that shell padding (84px) so the page — and its cover scene painting — reaches the
+       very bottom of the screen. One element, one background: the rocky floor is continuous
+       by construction, no seam, at any viewport height. Content is flex-start from the top,
+       so nothing on the page moves; the extra 84px is pure scene floor behind the nav.
+       NOTE: .page sizes via flex:1 (flex-basis 0%), which overrides height — the stretch
+       must be expressed as a flex basis with shrink off, not as height. */
+    #page-mine.page.active{flex:0 0 calc(100% + 84px)}
+
+    /* ---------- PASS 35: nav icons regenerated as INDIVIDUAL images (owner: the sliced
+       tiles looked melted and MINE/TASKS merged into each other) ----------
+       Each of the 5 icons is now its own generated square (single chunky stone octagon
+       on pure black), converted to a clean transparent cutout — no shared painting,
+       no polygon slicing. Same filenames (nav_cut_1..5.webp) so markup/preload are
+       untouched. Display sizes per owner spec: tiles 52px, center skull 76px raised.
+       At 420px wide the 5 hit areas keep tile centers ~79px apart, so with 52px
+       tiles there is a clear ~27px gap between neighbours — nothing bleeds across.
+       The only glow is the tight drop-shadow below + the active-state glow. */
+    .nav-item .nav-ic{width:52px;height:52px}
+    .nav-item:nth-child(3) .nav-ic{width:76px;height:76px}
+    /* Root cause of the MINE/TASKS merge, measured: an older active-state rule
+       (.nav-item.active .nav-ic{transform:scale(1.07)}, higher specificity than
+       PASS 33's base rule) REPLACED the translateX(-50%) centering on whichever
+       tab is active, shifting its icon +26px right — MINE is active by default,
+       so it slid into TASKS (icon overlap measured at -6px). Keep both transforms. */
+    .nav-item.active .nav-ic{transform:translateX(-50%) scale(1.07)}
+
+    /* ---------- PASS 36: top bar lowered (owner: نزل الشريط اللي فوق شويه علشان
+       ايقونات التيليجرام) ----------
+       Telegram's native WebApp overlay (close / menu at the top corners) sat over
+       the header row. Shell top clearance +16px (66px -> 82px: the base rule is
+       calc(10px + max(var(--sat),56px)), now 26px + the same max) — the header
+       (user chip + gear/speaker) and every page move down together, as intended.
+       Mine compensates by trimming .mn-stage the same 16px (260 -> 244) so the
+       Mine stack bottom stays exactly where it was above the nav. */
+    .app-shell{padding-top:calc(26px + max(var(--sat),56px))}
+    #page-mine .mn-stage{height:244px;min-height:244px}
+
+    /* ---------- PASS 37: every page gets its own painted world (owner: حط خلفيه
+       وحط التاتش بتاعك) ----------
+       Tasks / Boost / Friends / Profile each get a generated scene in the Mine
+       scene's family (charcoal + toxic emerald, painterly, calm dark centre so
+       the coffin-wood cards stay readable): Tasks = graveyard with a torn quest
+       banner, Boost = mine shaft with lantern + emerald crystals, Friends = the
+       iron graveyard gate with the horde in the fog, Profile = candlelit crypt
+       with the leaning coffin. The finishing layer ("the touch") is ONE shared
+       overlay stack laid over every page scene: a top shade for the header zone,
+       a soft emerald fog band low in the frame, a deepened foot, and a gentle
+       vignette — cards pop and all 5 pages read as one world.
+       Mechanics mirror PASS 34: each page box is stretched by the shell's 84px
+       bottom padding (flex basis — .page sizes via flex:1, so height is ignored)
+       so its scene reaches the screen bottom behind the transparent nav; the
+       scrollable pages also get inner bottom padding so the last card still
+       clears the nav at full scroll. Their layers use background-attachment:
+       fixed so the scene stays a still backdrop while the content scrolls over
+       it (the same behaviour the old body painting had), sized/positioned
+       against the viewport; painting is still clipped to the (extended) page
+       box, which is why the stretch is still needed. Mine does not scroll, so
+       it keeps the default attachment and a gentler top shade (the hero's head
+       and the moon live up there). */
+    #page-tasks.page.active,#page-boost.page.active,#page-friends.page.active,#page-profile.page.active{flex:0 0 calc(100% + 84px);padding-bottom:96px}
+    #page-tasks,#page-boost,#page-friends,#page-profile{background-color:#070a07;background-repeat:no-repeat;background-size:100% 100%,100% 100%,100% 100%,100% 100%,cover;background-position:0 0,0 0,0 0,0 0,50% 0;background-attachment:fixed,fixed,fixed,fixed,fixed}
+    #page-tasks{background-image:linear-gradient(180deg,rgba(3,8,5,.55),rgba(3,8,5,.16) 120px,rgba(3,8,5,0) 230px),linear-gradient(0deg,rgba(2,7,4,.78),rgba(2,7,4,.30) 110px,rgba(2,7,4,0) 210px),linear-gradient(180deg,rgba(0,0,0,0) 42%,rgba(72,199,116,.12) 62%,rgba(72,199,116,.19) 76%,rgba(0,0,0,0) 94%),radial-gradient(118% 82% at 50% 40%,rgba(0,0,0,0) 56%,rgba(0,0,0,.42) 100%),url('assets/bg_tasks.webp')}
+    #page-boost{background-image:linear-gradient(180deg,rgba(3,8,5,.55),rgba(3,8,5,.16) 120px,rgba(3,8,5,0) 230px),linear-gradient(0deg,rgba(2,7,4,.78),rgba(2,7,4,.30) 110px,rgba(2,7,4,0) 210px),linear-gradient(180deg,rgba(0,0,0,0) 42%,rgba(72,199,116,.12) 62%,rgba(72,199,116,.19) 76%,rgba(0,0,0,0) 94%),radial-gradient(118% 82% at 50% 40%,rgba(0,0,0,0) 56%,rgba(0,0,0,.42) 100%),url('assets/bg_boost.webp')}
+    #page-friends{background-image:linear-gradient(180deg,rgba(3,8,5,.55),rgba(3,8,5,.16) 120px,rgba(3,8,5,0) 230px),linear-gradient(0deg,rgba(2,7,4,.78),rgba(2,7,4,.30) 110px,rgba(2,7,4,0) 210px),linear-gradient(180deg,rgba(0,0,0,0) 42%,rgba(72,199,116,.12) 62%,rgba(72,199,116,.19) 76%,rgba(0,0,0,0) 94%),radial-gradient(118% 82% at 50% 40%,rgba(0,0,0,0) 56%,rgba(0,0,0,.42) 100%),url('assets/bg_friends.webp')}
+    #page-profile{background-image:linear-gradient(180deg,rgba(3,8,5,.55),rgba(3,8,5,.16) 120px,rgba(3,8,5,0) 230px),linear-gradient(0deg,rgba(2,7,4,.78),rgba(2,7,4,.30) 110px,rgba(2,7,4,0) 210px),linear-gradient(180deg,rgba(0,0,0,0) 42%,rgba(72,199,116,.12) 62%,rgba(72,199,116,.19) 76%,rgba(0,0,0,0) 94%),radial-gradient(118% 82% at 50% 40%,rgba(0,0,0,0) 56%,rgba(0,0,0,.42) 100%),url('assets/bg_profile.webp')}
+    #page-mine{background-image:linear-gradient(180deg,rgba(3,8,5,.28),rgba(3,8,5,0) 170px),linear-gradient(0deg,rgba(2,7,4,.50),rgba(2,7,4,0) 160px),linear-gradient(180deg,rgba(0,0,0,0) 46%,rgba(72,199,116,.09) 66%,rgba(72,199,116,.14) 78%,rgba(0,0,0,0) 94%),radial-gradient(118% 82% at 50% 40%,rgba(0,0,0,0) 60%,rgba(0,0,0,.32) 100%),url('assets/mine_scene2.webp');background-size:100% 100%,100% 100%,100% 100%,100% 100%,cover;background-position:0 0,0 0,0 0,0 0,50% 0;background-repeat:no-repeat}
+
+    /* ================= PASS 38: ONE FAMILY — every page wears the Mine stone
+       (owner: خلي تصميم باقي الصفحات بنفس استايل الصفحه الرئيسيه وارفع) =================
+       Tasks / Boost / Friends / Profile stop mixing translucent glass and
+       coffin wood: every card family off Mine now takes the Mine recipe —
+       assets/card_frame.webp as a border-image frame (slice 21% 5.2% fill,
+       corners never distort), transparent surface, no backdrop blur.
+       Primary actions become the COLLECT-style emerald slab (deep emerald,
+       bright glowing label); secondary actions become Mine's dark stone
+       (tex_stone_dark under a charcoal wash, #3c453a edge). Skin only —
+       every id, handler and layout flow is untouched. */
+
+    /* ---- the stone frame for every card family off Mine ---- */
+    .card-3d,.q-wrap,.miner-card-3d,.fr-sec,.pf-sec,.pf-modal-card,#page-friends .fr-tablets{
+      background:none!important;background-color:transparent!important;
+      backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+      border-style:solid;border-color:transparent;border-width:16px 12px;
+      border-image-source:url('assets/card_frame.webp');border-image-slice:21% 5.2% 21% 5.2% fill;
+      border-image-width:16px 12px;border-image-repeat:stretch;
+      border-radius:0;box-shadow:0 10px 22px rgba(0,0,0,.55)}
+    /* level rows: a slightly slimmer frame so the 64px portrait column breathes */
+    #levels-grid-container .miner-card-3d{border-width:13px 10px;border-image-width:13px 10px}
+    #levels-grid-container .miner-card-3d.active-lvl{box-shadow:0 0 18px rgba(77,255,157,.35),0 10px 22px rgba(0,0,0,.55)}
+    /* slim frames for small cells, referral rows and the contract strip */
+    .pf-set-cell,.fr-row,.pf-contract{
+      background:none!important;background-color:transparent!important;
+      backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+      border-style:solid;border-color:transparent;border-width:10px 8px;
+      border-image-source:url('assets/card_frame.webp');border-image-slice:21% 5.2% 21% 5.2% fill;
+      border-image-width:10px 8px;border-image-repeat:stretch;
+      border-radius:0;box-shadow:0 8px 16px rgba(0,0,0,.5)}
+    /* profile stat bars: each bar its own framed plaque, like the Mine
+       tiles — the -1px merged stack and its rounded ends go away */
+    #page-profile .pf-stat{
+      background:none!important;background-color:transparent!important;
+      backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+      border-style:solid;border-color:transparent;border-width:11px 9px;
+      border-image-source:url('assets/card_frame.webp');border-image-slice:21% 5.2% 21% 5.2% fill;
+      border-image-width:11px 9px;border-image-repeat:stretch;
+      border-radius:0;box-shadow:0 10px 22px rgba(0,0,0,.55)}
+    #page-profile .pf-stats{gap:8px}
+    #page-profile .pf-stat + .pf-stat{margin-top:0}
+    /* Friends tablet cells stay frameless inside their framed panel */
+    #page-friends .fr-tablet{border:none!important;border-image:none!important;background:none!important;box-shadow:none;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+
+    /* ---- primary actions: the emerald slab (COLLECT language) ---- */
+    .btn-3d-gold,.fr-gold-btn,.fr-collect,.pf-wd-btn,.btn-3d-dark.tier-active{
+      background:linear-gradient(180deg,#35a866 0%,#1e7042 48%,#14512e 100%);
+      border:1px solid rgba(148,255,190,.55);color:#eaffef;
+      text-shadow:0 1px 3px rgba(0,0,0,.65),0 0 12px rgba(120,255,170,.35);
+      box-shadow:inset 0 1px 0 rgba(215,255,228,.38),inset 0 -9px 15px rgba(0,0,0,.38),0 8px 18px rgba(0,0,0,.5)}
+    /* ---- secondary actions: Mine dark stone ---- */
+    .btn-3d-dark,.btn-3d-bronze,.pf-modal-cancel,.pf-modal-x{
+      background-color:#141713;background-image:linear-gradient(180deg,rgba(9,13,9,.52),rgba(9,13,9,.70)),url('assets/tex_stone_dark.webp');background-size:cover;background-position:center;
+      border:1px solid #3c453a;color:#d7e6d2;
+      box-shadow:inset 0 1px 0 rgba(190,255,205,.07),inset 0 -8px 14px rgba(0,0,0,.45),0 6px 14px rgba(0,0,0,.45)}
+    .pf-modal-x{color:#8affc1}
+    /* claimed pill: a quiet stone chip with an emerald label */
+    .q-claimed{background:linear-gradient(180deg,#243528,#131a14);border:1px solid rgba(99,217,122,.45);color:#8affc1;box-shadow:inset 0 1px 0 rgba(190,255,205,.08),0 4px 10px rgba(0,0,0,.4)}
+    /* profile section ribbons: stone plaques instead of bright pills */
+    .pf-ribbon{background-color:#141713;background-image:linear-gradient(180deg,rgba(9,13,9,.52),rgba(9,13,9,.70)),url('assets/tex_stone_dark.webp');background-size:cover;background-position:center;border:1px solid #46523f;color:#8affc1;text-shadow:0 0 10px rgba(99,217,122,.4);box-shadow:0 4px 10px rgba(0,0,0,.5)}
+    /* task medallions take Mine's stat-tab metal */
+    #page-tasks .q-ic{background:radial-gradient(circle at 50% 36%,#242824,#0f110f);border:1px solid #3a433a;box-shadow:inset 0 2px 6px rgba(0,0,0,.75),0 4px 10px rgba(0,0,0,.4)}
+    /* the big numbers keep the Mine glow */
+    .pf-stat-num,.fr-tab-num,.fr-profits-num{text-shadow:0 0 10px rgba(99,217,122,.35)}
+
+    /* Friends stacks four framed sections in a row; the frames' extra
+       height pushed the COLLECT button's centre into the nav's hit band
+       at scroll 0 (it was tappable on first view before this pass) —
+       slim the section frames and gaps on this page only to win it back. */
+    #page-friends .fr-sec{border-width:13px 11px;border-image-width:13px 11px;margin-bottom:4px;padding-top:9px;padding-bottom:9px}
+    #page-friends .fr-tablets{border-width:13px 11px;border-image-width:13px 11px}
+</style>
 </head>
 <body oncontextmenu="return false;">
 
   <div id="boot-loader">
-    <img src="assets/boot_scene.webp?v=4" alt="Zombie" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+    <img src="assets/boot_scene3.webp" alt="Zombie" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
     <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(5,7,11,0.30) 0%, rgba(5,7,11,0) 30%, rgba(5,7,11,0) 52%, rgba(5,7,11,0.60) 100%);"></div>
-    <div style="position:relative;z-index:2;width:88%;max-width:340px;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:36px 0 34px;">
+    <div style="position:relative;z-index:2;width:88%;max-width:340px;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:36px 0 34px;">
       <div class="boot-plaque-zm">
         <img src="assets/coin_icon.webp" alt="ZM">
         <div class="boot-plaque-zm-name">ZOMBIE MINE</div>
       </div>
       <div class="boot-panel">
         <div id="boot-pct">0%</div>
-        <div id="boot-bar">
-          <div id="boot-progress"></div>
-          <img id="boot-coin" src="assets/coin_icon.webp" alt="">
+        <div id="boot-skulls">
+          <img class="boot-skull" src="assets/load_skull_off.webp" alt="">
+          <img class="boot-skull" src="assets/load_skull_off.webp" alt="">
+          <img class="boot-skull" src="assets/load_skull_off.webp" alt="">
+          <img class="boot-skull" src="assets/load_skull_off.webp" alt="">
+          <img class="boot-skull" src="assets/load_skull_off.webp" alt="">
+          <img class="boot-skull" src="assets/load_skull_off.webp" alt="">
+          <img class="boot-skull" src="assets/load_skull_off.webp" alt="">
+          <img class="boot-skull" src="assets/load_skull_off.webp" alt="">
+          <img class="boot-skull" src="assets/load_skull_off.webp" alt="">
+          <img class="boot-skull" src="assets/load_skull_off.webp" alt="">
         </div>
         <div id="boot-status-text" style="color:#cbd5e1;font-size:11px;">RAISING THE DEAD</div>
         <button id="boot-retry-btn" class="btn-3d-gold" style="display:none;">🔄 Retry</button>
@@ -750,7 +1256,10 @@
     <!-- 1. MINE PAGE -->
     <div id="page-mine" class="page active">
       <div class="mn-head">
-        <div class="mn-head-logo">ZOMBIE MINING &bull; SECTOR 7</div>
+        <div class="mn-userbar">
+          <img id="mine-user-ava" src="assets/avatar_1.webp" alt="">
+          <div class="mn-user-name"><span id="mine-user-name">Warrior</span><span id="mine-user-badge"></span></div>
+        </div>
         <div class="mn-head-meta">Sector 7 &bull; Depth 120m &#9760;</div>
         <div class="mn-head-btns">
           <button class="mn-head-btn" id="hdr-settings-btn" type="button" aria-label="Settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
@@ -758,25 +1267,22 @@
         </div>
       </div>
       <div class="mn-stage" id="coin-3d-trigger">
-        <img id="hero-img" src="assets/hero_miner2.webp" alt="Zombie">
+        <img id="hero-img" src="assets/mock_hero.webp" alt="Zombie">
         <video id="hero-video" src="assets/hero_miner2.mp4" poster="assets/hero_miner2.webp" autoplay muted loop playsinline preload="auto"></video>
-        <div class="mn-userbar">
-          <img id="mine-user-ava" src="assets/avatar_1.webp" alt="">
-          <div class="mn-user-name"><span id="mine-user-name">Warrior</span><span id="mine-user-badge"></span></div>
-          <div class="mn-lvl-chip"><img src="assets/icon_shield.webp" alt=""><span>LV. <span id="mine-lvl-num">1</span></span></div>
-          <button class="mn-wallet-btn" id="mine-wallet-btn" type="button" aria-label="Wallet"><svg viewBox="0 0 24 24" fill="none" stroke="#052e12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v1"/><path d="M3 7v10a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1H5a2 2 0 0 1-2-2z"/><circle cx="16.6" cy="14" r="1.2" fill="#3a2403" stroke="none"/></svg></button>
-        </div>
+
 
       </div>
 
-        <div class="mn-stage-stats">
+  
+
+      <div class="mn-stage-stats">
           <div class="mn-stat" id="mine-stat-hold">
-            <div class="mn-stat-tab"><svg viewBox="0 0 24 24" fill="none" stroke="#4dff9d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v1"/><path d="M3 7v10a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1H5a2 2 0 0 1-2-2z"/><circle cx="16.6" cy="14" r="1.2" fill="#4dff9d" stroke="none"/></svg></div>
+            <div class="mn-stat-tab"><img src="assets/tile_icon_hold.webp" alt=""></div>
             <div class="mn-stat-lbl" data-i18n="hold_wallet_lbl">Wallet Hold (On-Chain)</div>
             <div class="mn-stat-num"><span id="mine-hold-bal">0</span> <img src="assets/coin_icon.webp" alt=""></div>
           </div>
           <div class="mn-stat" id="mine-stat-app">
-            <div class="mn-stat-tab"><svg viewBox="0 0 24 24" fill="none" stroke="#4dff9d" stroke-width="1.9" stroke-linecap="round"><path d="M5.5 18.5L14.5 9.5"/><path d="M7.5 5C11 3.6 16.5 4.2 20.5 8.2 17 6.8 13 6.6 9.5 7.6"/></svg></div>
+            <div class="mn-stat-tab"><img src="assets/tile_icon_app.webp" alt=""></div>
             <div class="mn-stat-lbl" data-i18n="mine_wallet_lbl">Mined Balance</div>
             <div class="mn-stat-num"><span id="mine-app-bal">0</span> <img src="assets/coin_icon.webp" alt=""></div>
           </div>
@@ -796,15 +1302,16 @@
           </div>
         </div>
 
-      <div class="mn-card">
-        <div class="mn-lbl" data-i18n="mined_lbl">MINED</div>
+      <div class="mn-card mn-vault">
+        <div class="mn-mined-head"><span class="mn-pick">&#9874;</span><div class="mn-lbl" data-i18n="mined_lbl">MINED</div></div>
         <div class="mn-val"><span id="live-mined-num">0</span> <img class="mn-coin" src="assets/coin_icon.webp" alt=""></div>
       </div>
 
       <div class="mn-row">
-        <div class="mn-card">
+        <div class="mn-card mn-count-card">
+          <img class="mn-hourglass" src="assets/emblem_hourglass.webp" alt="">
           <div class="mn-lbl" data-i18n="shift_cd_lbl">SHIFT COUNTDOWN</div>
-          <div class="mn-val-sm" style="direction:ltr;">⏳ <span id="shift-timer">24:00:00</span></div>
+          <div class="mn-val-sm" style="direction:ltr;"><span id="shift-timer">24:00:00</span></div>
           <!-- 24h fill (moved out of the hidden block, de-VIKING layout
                2026-11-19): updateLiveMining() sets this element's width %
                every tick — it is now the visible countdown bar fill. -->
@@ -814,8 +1321,7 @@
 
       <div class="mn-actions">
         <button class="btn-3d-dark btn-stonfi-buy mn-side"><span data-i18n="buy_btn">Buy</span></button>
-        <button class="mn-collect" id="btn-collect-main"><img src="assets/coin_icon.webp" alt=""><span data-i18n="collect_lbl">COLLECT</span><span class="lk-wrap" id="collect-lock-wrap"><span class="lk-ic">🔒</span><span class="lk-txt" data-i18n="collect_verify_first">VERIFY FIRST</span></span></button>
-        <button class="btn-3d-dark mn-side" id="btn-goto-boost"><span data-i18n="levels_btn">Levels (1–100)</span></button>
+        <button class="mn-collect" id="btn-collect-main"><img class="collect-hand" src="assets/mock_hand.webp" alt=""><img class="collect-coin" src="assets/coin_icon.webp" alt=""><span data-i18n="collect_lbl">COLLECT</span><span class="lk-wrap" id="collect-lock-wrap"><span class="lk-ic">🔒</span><span class="lk-txt" data-i18n="collect_verify_first">VERIFY FIRST</span></span></button>
       </div>
 
       <div style="display:none;">
@@ -1137,24 +1643,24 @@
 
   <div class="bottom-nav-3d">
     <div class="nav-item active" data-tab="mine">
-      <img class="nav-ic" src="assets/nav_glyph_mine.webp" alt="">
+      <img class="nav-ic" src="assets/nav_cut_1.webp" alt="">
       <span data-i18n="nav_mine">Mine</span>
     </div>
     <div class="nav-item" data-tab="tasks">
-      <img class="nav-ic" src="assets/nav_glyph_tasks.webp" alt="">
+      <img class="nav-ic" src="assets/nav_cut_2.webp" alt="">
       <span data-i18n="nav_tasks">Tasks</span>
     </div>
     <div class="nav-item" data-tab="boost">
       <img class="nav-tomb-img" src="assets/tombstone_center.webp" alt="">
-      <img class="nav-ic" src="assets/nav_glyph_boost.webp" alt="">
+      <img class="nav-ic" src="assets/nav_cut_3.webp" alt="">
       <span data-i18n="nav_boost">Boost</span>
     </div>
     <div class="nav-item" data-tab="friends">
-      <img class="nav-ic" src="assets/nav_glyph_friends.webp" alt="">
+      <img class="nav-ic" src="assets/nav_cut_4.webp" alt="">
       <span data-i18n="nav_friends">Friends</span>
     </div>
     <div class="nav-item" data-tab="profile">
-      <img class="nav-ic" src="assets/nav_glyph_profile.webp" alt="">
+      <img class="nav-ic" src="assets/nav_cut_5.webp" alt="">
       <span data-i18n="nav_profile">Profile</span>
     </div>
   </div>
@@ -1882,6 +2388,19 @@
     const BOOT_STARTED_AT = Date.now();
     const BOOT_MIN_MS = 3000; // owner order 2026-11-14: the loading page stays at least 3 seconds
     let bootProg = 0;
+    // Skull-row boot progress: every 10% lights one more skull's eyes.
+    function bootSkulls(pct) {
+      const row = document.getElementById('boot-skulls');
+      if (!row) return;
+      const lit = Math.max(0, Math.min(10, Math.round(pct / 10)));
+      for (let i = 0; i < row.children.length; i++) {
+        const on = i < lit;
+        const want = on ? 'assets/load_skull_on.webp' : 'assets/load_skull_off.webp';
+        const im = row.children[i];
+        if (!im.src.endsWith(want)) im.src = want;
+        im.classList.toggle('lit', on);
+      }
+    }
     const bootTimer = setInterval(() => {
       bootProg += Math.random() * 20;
       if (bootProg > 95) bootProg = 95;
@@ -1891,6 +2410,7 @@
       if (bp) bp.textContent = Math.floor(bootProg) + '%';
       const bc = document.getElementById('boot-coin');
       if (bc) bc.style.left = bootProg + '%';
+      bootSkulls(bootProg);
     }, 150);
 
     function finishBoot() {
@@ -1910,6 +2430,7 @@
       if (bp) bp.textContent = '100%';
       const bc2 = document.getElementById('boot-coin');
       if (bc2) bc2.style.left = '100%';
+      bootSkulls(100);
       setTimeout(() => {
         const loader = document.getElementById('boot-loader');
         if (loader) loader.style.display = 'none';
@@ -1957,9 +2478,14 @@
       } catch (e) { /* the loader must never hang on the wallet settle */ }
     }
     const BOOT_IMAGES = [
-      'assets/boot_scene.webp?v=4',
+      'assets/load_skull_off.webp', 'assets/load_skull_on.webp',
+      'assets/boot_scene3.webp',
       'assets/bg_fjord.webp', 'assets/bg_wood.webp', 'assets/ref_stone_plain.webp', 'assets/ref_stone_card.webp', 'assets/coin_icon.webp',
       'assets/hero_miner2.webp',
+      'assets/mock_hero.webp', 'assets/mock_sign.webp', 'assets/tex_stone_dark.webp', 'assets/mock_hand.webp', 'assets/mock_skull_deco.webp',
+      'assets/nav_cell_1.webp', 'assets/nav_cell_2.webp', 'assets/nav_cell_3.webp', 'assets/nav_cell_4.webp', 'assets/nav_cell_5.webp',
+      'assets/mine_scene2.webp', 'assets/card_frame.webp', 'assets/collect_frame.webp', 'assets/nav_cut_1.webp', 'assets/nav_cut_2.webp', 'assets/nav_cut_3.webp', 'assets/nav_cut_4.webp', 'assets/nav_cut_5.webp',
+      'assets/bg_tasks.webp', 'assets/bg_boost.webp', 'assets/bg_friends.webp', 'assets/bg_profile.webp',
       'assets/nav_glyph_mine.webp', 'assets/nav_glyph_tasks.webp', 'assets/nav_glyph_boost.webp', 'assets/nav_glyph_friends.webp', 'assets/nav_glyph_profile.webp',
       'assets/icon_shield.webp', 'assets/icon_verified.webp', 'assets/icon_chest.webp',
       'assets/quest_scroll.webp', 'assets/icon_q_sun.webp', 'assets/icon_q_flag.webp', 'assets/icon_q_feather.webp', 'assets/icon_q_chest.webp',
@@ -3494,9 +4020,7 @@
 
 
     document.getElementById('coin-3d-trigger').addEventListener('click', collectMining);
-    document.getElementById('mine-wallet-btn').addEventListener('click', (e) => { e.stopPropagation(); switchTab('profile'); });
     document.getElementById('btn-collect-main').addEventListener('click', collectMining);
-    document.getElementById('btn-goto-boost').addEventListener('click', () => switchTab('boost'));
     document.getElementById('btn-collect-ref').addEventListener('click', collectReferralProfits);
     document.getElementById('btn-claim-daily').addEventListener('click', claimDailyLogin);
     document.getElementById('btn-watch-ad').addEventListener('click', watchRewardAd);
