@@ -16,7 +16,8 @@
   
   
   <link rel="preload" as="image" href="assets/boot_scene.webp?v=4">
-  <link rel="preload" as="image" href="assets/hero_forge.webp">
+  <link rel="preload" as="image" href="assets/hero_miner2.webp">
+  <link rel="preload" as="image" href="assets/tombstone_center.webp">
   <style>
     /* ===== ZOMBIE MINE — TOXIC GRAVEYARD LAB (owner redesign 2026-11-19) =====
        A completely new visual identity: near-black green-tinted glass,
@@ -24,8 +25,9 @@
        textures, no Norse/serif display fonts. Every id and class the JS
        queries is styled here exactly as before — only the look changed. */
     :root{
-      --bg:#070a08; --glass:rgba(255,255,255,.045); --glass2:rgba(255,255,255,.08);
-      --line:rgba(110,255,170,.16); --line2:rgba(110,255,170,.34);
+      --bg:#070a08; --glass:rgba(7,17,11,.72); --glass2:rgba(12,26,17,.88);
+      --line:rgba(110,255,170,.34); --line2:rgba(74,255,150,.55);
+      --num:#5cff9d;
       --acc:#4dff9d; --acc2:#22c55e; --accsoft:#7dffb8; --accink:#04150b;
       --txt:#eceade; --mut:#9db3a4;
       /* legacy variable names re-mapped onto the green palette so any
@@ -36,21 +38,21 @@
     }
     *{box-sizing:border-box;margin:0;padding:0;font-family:var(--font);user-select:none;-webkit-tap-highlight-color:transparent}
     html,body{background:#070a08;color:var(--txt);height:100dvh;width:100vw;overflow:hidden;position:fixed;inset:0}
-    body{background-image:linear-gradient(rgba(4,10,6,.90),rgba(4,10,6,.95)),url('assets/bg_wood.webp');background-size:auto,340px}
+    body{background-color:#060a07;background-image:linear-gradient(180deg,rgba(3,7,4,.92),rgba(3,7,4,0)),linear-gradient(rgba(3,8,5,.18),rgba(3,8,5,.42)),url('assets/bg_scene2.webp');background-size:100% 150px,cover,135% auto;background-position:0 0,50% 0,88% 4%;background-repeat:no-repeat}
     body.rtl-mode .page{direction:rtl;text-align:right}
     #tc-widget-root,[data-tc-wallets-modal-container="true"]{direction:ltr!important;text-align:left!important;z-index:999999!important}
     h2,h3,h4{font-family:var(--font)}
     /* ---------- shell / pages ---------- */
-    .app-shell{display:none;flex-direction:column;height:100dvh;width:100%;max-width:460px;margin-left:auto;margin-right:auto;padding:calc(10px + max(var(--sat),56px)) 12px 86px}
+    .app-shell{display:none;flex-direction:column;height:100dvh;width:100%;max-width:460px;margin-left:auto;margin-right:auto;padding:calc(10px + max(var(--sat),56px)) 12px 150px}
     @media (min-width:520px){ .app-shell{border-left:1px solid var(--line);border-right:1px solid var(--line);box-shadow:0 0 60px rgba(0,0,0,.65)} }
     .page{display:none;flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:10px;scrollbar-width:none}
     .page::-webkit-scrollbar{display:none}
     .page.active{display:block}
-    #page-mine{background-image:linear-gradient(rgba(4,10,6,.42),rgba(4,10,6,.62)),url('assets/bg_fjord.webp');background-size:cover;background-position:center top;border-radius:20px}
+    #page-mine{background:none;border-radius:0}
     #page-mine.page.active{display:flex;flex-direction:column;justify-content:space-between;overflow:hidden!important;height:100%;padding-bottom:4px}
     #epic-frame{display:none!important}
     /* ---------- top bar remnants (controls live in Profile now) ---------- */
-    .top-bar{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;margin-bottom:8px;background:var(--glass);border:1px solid var(--line);border-radius:16px;direction:ltr;position:relative;z-index:50}
+    .top-bar{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;margin-bottom:8px;background:var(--glass);border:1px solid var(--line2);border-radius:14px;direction:ltr;position:relative;z-index:50}
     .icon-3d{min-width:38px;height:36px;padding:0 9px;border-radius:11px;background:var(--glass2);border:1px solid var(--line);color:var(--acc);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;cursor:pointer;gap:5px}
     .icon-3d:active{transform:scale(.95)}
     .brand-logo-3d{font-size:17px;font-weight:900;color:var(--acc);cursor:pointer;letter-spacing:1.2px;text-transform:uppercase}
@@ -59,7 +61,7 @@
     .lang-opt{display:flex;justify-content:space-between;padding:8px 10px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;color:var(--txt)}
     .lang-opt.active{background:rgba(77,255,157,.16);color:var(--acc)}
     /* ---------- generic cards / buttons / inputs ---------- */
-    .card-3d{background:var(--glass);border:1px solid var(--line);border-radius:20px;padding:14px;margin-bottom:10px;box-shadow:0 8px 20px rgba(0,0,0,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    .card-3d{background:var(--glass);border:1px solid var(--line2);border-radius:14px;padding:14px;margin-bottom:10px;box-shadow:0 0 14px rgba(50,255,140,.12),0 10px 22px rgba(0,0,0,.5),inset 0 1px 0 rgba(150,255,195,.13);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
     .sub-3d{background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:14px;padding:8px 10px}
     .btn-3d-gold{width:100%;padding:12px;border-radius:14px;border:none;background:linear-gradient(180deg,#4dff9d,#22c55e);color:var(--accink);font-size:13px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 6px 16px rgba(34,197,94,.30);letter-spacing:.3px}
     .btn-3d-gold:active{transform:scale(.98)}
@@ -85,20 +87,32 @@
     .prog-row{display:flex;justify-content:space-between;font-size:11px;color:var(--mut);margin-bottom:4px}
     .prog-bg-3d{width:100%;height:11px;background:#05080a;border-radius:99px;overflow:hidden;border:1px solid var(--line)}
     .prog-fill-3d{height:100%;width:0%;background:linear-gradient(90deg,#22c55e,#4dff9d);transition:width .2s}
-    /* ---------- bottom nav: floating glass pill ---------- */
-    .bottom-nav-3d{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);width:calc(100% - 20px);max-width:440px;height:66px;background:rgba(9,15,11,.86);border:1px solid var(--line2);border-radius:22px;display:flex;justify-content:space-around;align-items:center;padding:0 6px;z-index:100;direction:ltr;box-shadow:0 12px 30px rgba(0,0,0,.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-    .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--mut);font-size:10px;font-weight:700;cursor:pointer;padding:6px 0;border-radius:16px;gap:3px;transition:all .15s}
+    /* ---------- bottom nav: coffin bar (owner style pick 2026-11-19) ----------
+       Five wooden coffin doors on a shared plank frame; the active door
+       stands taller with toxic-green light spilling from inside it. */
+    .bottom-nav-3d{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:460px;height:124px;display:flex;align-items:flex-end;gap:5px;padding:0 9px 10px;z-index:100;direction:ltr;background:linear-gradient(180deg,transparent 0%,rgba(3,7,4,.34) 36%,rgba(3,7,4,.88) 100%)}
+    .bottom-nav-3d::before{content:'';position:absolute;left:5px;right:5px;bottom:6px;height:90px;background-image:linear-gradient(rgba(9,7,4,.50),rgba(9,7,4,.60)),url('assets/tex_coffin.webp');background-size:cover;background-position:center 64%;border:1px solid rgba(0,0,0,.85);border-radius:9px;box-shadow:0 14px 30px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.06),inset 0 -12px 20px rgba(0,0,0,.55);z-index:0}
+    .nav-item{position:relative;z-index:1;flex:1;height:100px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:5px;padding:18px 2px 0;color:#93b39c;font-size:9.5px;font-weight:800;letter-spacing:1.1px;text-transform:uppercase;cursor:pointer;clip-path:polygon(31% 0%,69% 0%,100% 27%,87% 100%,13% 100%,0% 27%);background-color:#181008;background-image:radial-gradient(circle 2.2px at 50% 8px,rgba(205,210,214,.55) 98%,transparent),radial-gradient(circle 2px at 17% 35%,rgba(205,210,214,.38) 98%,transparent),radial-gradient(circle 2px at 83% 35%,rgba(205,210,214,.38) 98%,transparent),linear-gradient(180deg,rgba(0,0,0,.34) 0%,rgba(0,0,0,.04) 30%,rgba(0,0,0,.42) 100%),url('assets/tex_coffin.webp');background-size:auto,auto,auto,cover,cover;background-position:center,center,center,center,var(--coffin-pos,50% 32%);transition:height .18s,filter .18s,color .18s}
+    .nav-item:nth-child(1){--coffin-pos:12% 30%}
+    .nav-item:nth-child(2){--coffin-pos:34% 58%}
+    .nav-item:nth-child(3){--coffin-pos:55% 26%}
+    .nav-item:nth-child(4){--coffin-pos:76% 52%}
+    .nav-item:nth-child(5){--coffin-pos:94% 34%}
+    .nav-item::before{content:'';position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 90% 60% at 50% 26%,rgba(150,255,195,.92) 0%,rgba(64,240,140,.50) 44%,rgba(18,110,55,.18) 70%,transparent 84%);opacity:0;transition:opacity .18s}
     .nav-item svg{width:20px;height:20px;fill:currentColor}
-    .nav-item .nav-ic{width:38px;height:38px;border-radius:50%;object-fit:cover;box-shadow:0 3px 8px rgba(0,0,0,.6);transition:all .15s}
-    .nav-item.active{color:var(--acc);background:rgba(77,255,157,.10);box-shadow:none;transform:none}
-    .nav-item.active .nav-ic{box-shadow:0 0 0 2px var(--acc),0 0 16px rgba(77,255,157,.65);transform:translateY(-2px) scale(1.05)}
+    .nav-item .nav-ic{position:relative;z-index:2;width:40px;height:40px;border-radius:11px;object-fit:cover;box-shadow:0 4px 10px rgba(0,0,0,.65);filter:saturate(.92) brightness(.94);transition:all .18s}
+    .nav-item span{position:relative;z-index:2;text-shadow:0 1px 3px rgba(0,0,0,.95)}
+    .nav-item.active{height:112px;color:#5cff9d;filter:drop-shadow(0 0 8px rgba(60,255,150,.38)) drop-shadow(0 -3px 16px rgba(60,255,150,.30))}
+    .nav-item.active::before{opacity:1}
+    .nav-item.active .nav-ic{filter:brightness(1.32) saturate(1.12) drop-shadow(0 0 11px rgba(92,255,157,.95));transform:scale(1.07)}
+    .nav-item:active{transform:scale(.97)}
     /* ---------- overlays ---------- */
-    #boot-loader{position:fixed;inset:0;background:#04070a;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;padding-top:var(--sat);text-align:center;overflow:hidden}
+    #boot-loader{position:fixed;inset:0;background:linear-gradient(rgba(3,7,4,.62),rgba(3,7,4,.84)),url('assets/bg_scene2.webp') center/cover #04070a;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;padding-top:var(--sat);text-align:center;overflow:hidden}
     #banned-screen{position:fixed;inset:0;background:#04070a;z-index:99999;display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
     #maintenance-screen{position:fixed;inset:0;background:#04070a;z-index:100005;display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
     #toast{position:fixed;top:calc(max(var(--sat),56px) + 10px);left:50%;transform:translateX(-50%);background:#0d1f14;color:var(--txt);padding:8px 16px;border-radius:18px;font-size:12px;font-weight:800;display:none;z-index:100000;border:1px solid var(--acc);text-align:center;min-width:240px;box-shadow:0 10px 24px rgba(0,0,0,.6)}
     /* ---------- boot / loading ---------- */
-    .boot-panel{position:relative;width:100%;background:rgba(9,16,11,.78);border:1px solid var(--line2);border-radius:20px;padding:18px;box-shadow:0 14px 30px rgba(0,0,0,.65);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    .boot-panel{position:relative;width:100%;background:rgba(6,16,10,.80);border:1px solid var(--line2);border-radius:14px;padding:18px;box-shadow:0 0 14px rgba(50,255,140,.12),0 10px 22px rgba(0,0,0,.5),inset 0 1px 0 rgba(150,255,195,.13);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
     #boot-pct{position:static;width:100%;margin:0;font-size:44px;font-weight:900;text-align:center;color:var(--acc);line-height:1.1}
     #boot-bar{position:relative;height:18px;margin-top:10px;background:#070b06;border:1px solid rgba(110,255,170,.35);border-radius:999px;box-shadow:inset 0 3px 9px rgba(0,0,0,.95)}
     #boot-progress{height:100%;width:0%;background:linear-gradient(180deg,#d9ffe9 0%,#4dff9d 38%,#22c55e 74%,#15803d 100%)!important;box-shadow:0 0 16px 3px rgba(34,197,94,.55), inset 0 0 6px rgba(255,255,255,.4);border-radius:999px;transition:width .15s}
@@ -107,16 +121,16 @@
     #boot-retry-btn{position:static;transform:none;display:none;margin:12px auto 0}
     .boot-plaque-zm{display:flex;flex-direction:column;align-items:center;gap:9px;filter:drop-shadow(0 12px 24px rgba(0,0,0,.75))}
     .boot-plaque-zm img{width:96px;height:96px;filter:drop-shadow(0 0 16px rgba(34,197,94,.45))}
-    .boot-plaque-zm-name{font-weight:900;font-size:27px;letter-spacing:4px;color:var(--acc);text-transform:uppercase;background:rgba(9,16,11,.78);border:1px solid var(--line2);border-radius:14px;padding:8px 22px 7px;box-shadow:0 8px 20px rgba(0,0,0,.55)}
+    .boot-plaque-zm-name{font-weight:900;font-size:27px;letter-spacing:4px;color:var(--acc);text-transform:uppercase;background:rgba(6,16,10,.80);border:1px solid var(--line2);border-radius:14px;padding:8px 22px 7px;box-shadow:0 0 14px rgba(50,255,140,.12),0 8px 20px rgba(0,0,0,.55)}
     /* ---------- Mine page ---------- */
     #page-mine{gap:8px}
-    .mn-stage{position:relative;flex:none;height:36.5dvh;min-height:240px;border-radius:20px;overflow:hidden;border:1px solid var(--line2);box-shadow:0 10px 22px rgba(0,0,0,.6);cursor:pointer}
+    .mn-stage{position:relative;flex:none;height:33.5dvh;min-height:228px;border-radius:14px;overflow:hidden;border:1px solid var(--line2);box-shadow:0 0 14px rgba(50,255,140,.12),0 10px 22px rgba(0,0,0,.5),inset 0 1px 0 rgba(150,255,195,.13);cursor:pointer}
     .mn-stage>img{width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block}
     .mn-stage:active>img{transform:scale(1.02)}
     #page-mine #hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;display:block}
     #hero-img{width:100%;height:100%;object-fit:cover;object-position:50% 22%;display:block;animation:heroBreath 7s ease-in-out infinite}
     @keyframes heroBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
-    .mn-userbar{position:absolute;top:10px;left:10px;right:10px;z-index:4;display:flex;align-items:center;gap:9px;background:rgba(7,12,9,.78);border:1px solid var(--line2);border-radius:999px;padding:5px 6px;box-shadow:0 4px 12px rgba(0,0,0,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    .mn-userbar{position:absolute;left:0;right:0;bottom:0;top:auto;z-index:4;display:flex;align-items:center;gap:9px;background:linear-gradient(180deg,rgba(4,10,6,.28),rgba(4,10,6,.86) 58%);border:none;border-top:1px solid rgba(74,255,150,.45);border-radius:0;padding:17px 12px 8px;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
     .mn-userbar>img{width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:50% 16%;border:1.5px solid var(--acc);flex:none;background:#0b120d}
     .mn-lvl-chip{flex:none;display:flex;align-items:center;gap:4px;background:rgba(9,16,11,.92);border:1px solid var(--line2);border-radius:999px;padding:4px 10px 4px 6px;font-size:12px;font-weight:900;color:var(--acc);letter-spacing:.6px}
     .mn-lvl-chip img{width:16px;height:16px}
@@ -125,16 +139,16 @@
     .mn-wallet-btn svg{width:19px;height:19px}
     .mn-wallet-btn:active{transform:scale(.93)}
     .mn-stage-stats{display:flex;gap:8px;margin-top:4px}
-    .mn-stat{flex:1;position:relative;background:var(--glass);border:1px solid var(--line);border-radius:18px;padding:14px 8px 11px;text-align:center;box-shadow:0 6px 14px rgba(0,0,0,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    .mn-stat{flex:1;position:relative;background:var(--glass);border:1px solid var(--line2);border-radius:14px;padding:14px 8px 11px;text-align:center;box-shadow:0 0 14px rgba(50,255,140,.12),0 10px 22px rgba(0,0,0,.5),inset 0 1px 0 rgba(150,255,195,.13);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
     .mn-stat-tab{position:absolute;top:-9px;left:10px;width:25px;height:25px;border-radius:8px;background:#0b120d;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center}
     .mn-stat-tab svg{width:14px;height:14px}
-    .mn-stat-lbl{font-size:10.5px;font-weight:900;letter-spacing:1.4px;color:var(--acc);white-space:nowrap;text-transform:uppercase}
-    .mn-stat-num{font-size:21px;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;gap:5px;margin-top:2px;font-variant-numeric:tabular-nums}
+    .mn-stat-lbl{font-size:10.5px;font-weight:900;letter-spacing:1.4px;color:#a9c6b1;white-space:nowrap;text-transform:uppercase}
+    .mn-stat-num{font-size:21px;font-weight:800;color:var(--num);display:flex;align-items:center;justify-content:center;gap:5px;margin-top:2px;font-variant-numeric:tabular-nums}
     .mn-stat-num img{width:19px;height:19px}
-    .mn-card{background:var(--glass);border:1px solid var(--line);border-radius:20px;padding:14px;text-align:center;box-shadow:0 8px 18px rgba(0,0,0,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-    .mn-lbl{font-size:12px;letter-spacing:2.5px;color:var(--acc);font-weight:900;margin-bottom:3px;text-transform:uppercase}
-    .mn-val{font-size:31px;font-weight:900;color:#fff;line-height:1.15;font-variant-numeric:tabular-nums}
-    .mn-val-sm{font-size:22px;font-weight:900;color:#fff;line-height:1.2;font-variant-numeric:tabular-nums}
+    .mn-card{background:var(--glass);border:1px solid var(--line2);border-radius:14px;padding:14px;text-align:center;box-shadow:0 0 14px rgba(50,255,140,.12),0 10px 22px rgba(0,0,0,.5),inset 0 1px 0 rgba(150,255,195,.13);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    .mn-lbl{font-size:12px;letter-spacing:2.5px;color:#a9c6b1;font-weight:900;margin-bottom:3px;text-transform:uppercase}
+    .mn-val{font-size:31px;font-weight:900;color:var(--num);line-height:1.15;font-variant-numeric:tabular-nums}
+    .mn-val-sm{font-size:22px;font-weight:900;color:var(--num);line-height:1.2;font-variant-numeric:tabular-nums}
     .mn-coin{width:23px;height:23px;vertical-align:-4px}
     .mn-row{display:flex;gap:8px}
     .mn-row .mn-card{flex:1}
@@ -142,7 +156,7 @@
     .mn-side{flex:1;text-transform:uppercase;letter-spacing:1.5px;font-size:13px;padding:14px 6px}
     .mn-actions .mn-side{transform:translateY(-8px)}
     @media (max-height:830px){
-      .mn-stage{height:30dvh;min-height:210px}
+      .mn-stage{height:26dvh;min-height:196px}
       .mn-card{padding:11px 14px}
       .mn-stat{padding:11px 8px 9px}
       .mn-actions{padding-top:4px}
@@ -155,7 +169,7 @@
     .mn-collect .lk-wrap{display:none;flex-direction:column;align-items:center;justify-content:center;gap:1px}
     .mn-collect.locked .lk-ic{font-size:23px;line-height:1}
     .mn-collect.locked .lk-txt{font-size:10px;font-weight:900;color:#eef1f4;letter-spacing:.6px;text-align:center;line-height:1.25;padding:0 8px}
-    .mn-verify-wide{flex:1;display:flex;align-items:center;gap:11px;background:var(--glass);border:1px solid var(--line2);border-radius:18px;padding:15px 14px;box-shadow:0 6px 14px rgba(0,0,0,.45);cursor:pointer;text-align:left;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    .mn-verify-wide{flex:1;display:flex;align-items:center;gap:11px;background:var(--glass);border:1px solid var(--line2);border-radius:14px;padding:15px 14px;box-shadow:0 0 14px rgba(50,255,140,.12),0 10px 22px rgba(0,0,0,.5),inset 0 1px 0 rgba(150,255,195,.13);cursor:pointer;text-align:left;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
     body.rtl-mode .mn-verify-wide{text-align:right}
     .mn-verify-wide .mv-ic{font-size:21px;flex:none}
     .mn-verify-wide .mv-txt{flex:1;color:var(--acc);font-size:14.5px;font-weight:800;line-height:1.45}
@@ -164,8 +178,12 @@
     .mn-verify-wide:active{transform:scale(.985)}
     .live-counter-3d{text-align:center;font-size:24px;font-weight:900;color:var(--acc);font-variant-numeric:tabular-nums;direction:ltr}
     div[data-i18n="claimed_in_app"]{background:rgba(77,255,157,.10)!important;color:var(--acc);border:1px solid var(--line2)}
+    /* ---------- Mine header strip (reference mockup) ---------- */
+    .mn-head{display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(6,16,10,.72);border:1px solid var(--line2);border-radius:14px;padding:8px 13px;box-shadow:0 0 14px rgba(50,255,140,.12),inset 0 1px 0 rgba(150,255,195,.13);flex:none}
+    .mn-head-logo{font-size:19px;font-weight:900;letter-spacing:2.6px;line-height:.96;color:#5cff9d;text-transform:uppercase;text-shadow:0 0 14px rgba(92,255,157,.55),0 2px 0 rgba(0,0,0,.6)}
+    .mn-head-meta{font-size:9.5px;font-weight:700;letter-spacing:1.8px;color:var(--mut);text-transform:uppercase;text-align:right;white-space:nowrap}
     /* ---------- Tasks / Quests ---------- */
-    .q-wrap{background:var(--glass);background-image:none!important;border:1px solid var(--line);border-radius:20px;padding:12px;margin-bottom:10px;box-shadow:0 8px 18px rgba(0,0,0,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    .q-wrap{background:var(--glass);background-image:none!important;border:1px solid var(--line2);border-radius:14px;padding:12px;margin-bottom:10px;box-shadow:0 0 14px rgba(50,255,140,.12),0 10px 22px rgba(0,0,0,.5),inset 0 1px 0 rgba(150,255,195,.13);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
     .q-row{position:relative;margin:0}
     #ref-ach-list .q-row{margin-top:5px}
     .q-scroll{display:none!important}
@@ -206,7 +224,7 @@
     .bh-bar{height:9px;background:rgba(0,0,0,.55);border:1px solid var(--line);border-radius:99px;margin-top:4px;overflow:hidden}
     #boost-hold-fill{height:100%;width:0%;background:linear-gradient(90deg,#22c55e,#4dff9d);transition:width .5s}
     .bh-buy{margin-top:12px;width:100%}
-    .miner-card-3d{background:var(--glass);border:1px solid var(--line);border-radius:18px;padding:10px;box-shadow:0 8px 16px rgba(0,0,0,.45);display:flex;flex-direction:column;justify-content:space-between;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    .miner-card-3d{background:var(--glass);border:1px solid var(--line2);border-radius:14px;padding:10px;box-shadow:0 0 14px rgba(50,255,140,.12),0 10px 22px rgba(0,0,0,.5),inset 0 1px 0 rgba(150,255,195,.13);display:flex;flex-direction:column;justify-content:space-between;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
     .miner-card-3d.active-lvl{border-color:var(--acc);box-shadow:0 0 18px rgba(77,255,157,.35)}
     .miner-art-3d{width:100%;height:86px;border-radius:14px;background:radial-gradient(circle at 50% 35%,rgba(34,197,94,.22),#070b08 80%);border:1px solid var(--line);box-shadow:inset 0 4px 10px rgba(0,0,0,.85);display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:8px;position:relative;overflow:hidden}
     .miner-art-3d.locked{filter:grayscale(.85);opacity:.6}
@@ -219,12 +237,12 @@
     .fr-head-earn{font-size:15px;font-weight:900;color:#fff;letter-spacing:.4px}
     .fr-head-sub{font-size:10.5px;color:var(--mut);margin-top:3px}
     .fr-tablets{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:0 0 9px}
-    .fr-tablet{position:relative;background:var(--glass);border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 18px rgba(0,0,0,.45);aspect-ratio:380/500;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:7px 2px;text-align:center}
+    .fr-tablet{position:relative;background:var(--glass);border:1px solid var(--line2);border-radius:14px;box-shadow:0 0 14px rgba(50,255,140,.12),0 10px 22px rgba(0,0,0,.5),inset 0 1px 0 rgba(150,255,195,.13);aspect-ratio:380/500;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:7px 2px;text-align:center}
     .fr-tab-notch{display:none}
     .fr-tablet small{display:block;font-size:9px;font-weight:900;letter-spacing:1.6px;color:var(--mut);text-transform:uppercase;margin-bottom:4px}
-    .fr-tab-num{font-size:21px;font-weight:900;color:#fff;line-height:1.05;font-variant-numeric:tabular-nums}
+    .fr-tab-num{font-size:21px;font-weight:900;color:var(--num);line-height:1.05;font-variant-numeric:tabular-nums}
     .fr-num-pending{color:#ffd76a}
-    .fr-sec{background:var(--glass);border:1px solid var(--line);border-radius:20px;box-shadow:0 8px 18px rgba(0,0,0,.45);padding:13px 12px;margin-bottom:10px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    .fr-sec{background:var(--glass);border:1px solid var(--line2);border-radius:14px;box-shadow:0 0 14px rgba(50,255,140,.12),0 10px 22px rgba(0,0,0,.5),inset 0 1px 0 rgba(150,255,195,.13);padding:13px 12px;margin-bottom:10px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
     .fr-sec-profits{padding:14px 12px}
     .fr-sec-lbl{font-size:11px;font-weight:900;letter-spacing:2px;color:var(--acc);text-transform:uppercase;margin-bottom:8px}
     .fr-link-row{display:flex;gap:8px;direction:ltr}
@@ -238,7 +256,7 @@
     .fr-rule-ic{flex:none;font-size:13px}
     .fr-friends-head{font-size:11px;font-weight:900;letter-spacing:2px;color:var(--acc);margin:3px 0 7px;padding:0 4px;text-transform:uppercase}
     #my-referrals-list{max-height:330px;overflow-y:auto}
-    .fr-row{display:flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--line);border-radius:16px;box-shadow:0 6px 14px rgba(0,0,0,.4);padding:6px 8px;margin-bottom:6px}
+    .fr-row{display:flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--line);border-radius:14px;box-shadow:0 6px 14px rgba(0,0,0,.4);padding:6px 8px;margin-bottom:6px}
     .fr-ava{width:33px!important;height:33px!important;border-radius:50%!important;border:2px solid var(--line2)!important;object-fit:cover;flex:none;box-shadow:0 4px 10px rgba(0,0,0,.6)}
     .ref-ava{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid var(--line2);flex:none;margin-right:8px;background:#0b120d}
     body.rtl-mode .ref-ava{margin-right:0;margin-left:8px}
@@ -257,9 +275,9 @@
     .fr-tasks-sum{font-size:12.5px;font-weight:800;color:var(--txt);line-height:1.35}
     .fr-tasks-hint{font-size:10px;color:var(--mut);margin-top:2px}
     /* ---------- Profile ---------- */
-    .pf-titlebar{font-size:19px;font-weight:900;letter-spacing:4px;color:var(--acc);text-align:center;border:1px solid var(--line2);background:rgba(9,16,11,.72);border-radius:16px;padding:10px 0 9px;margin-bottom:12px;text-transform:uppercase}
+    .pf-titlebar{font-size:19px;font-weight:900;letter-spacing:4px;color:var(--acc);text-align:center;border:1px solid var(--line2);background:rgba(6,16,10,.72);border-radius:14px;padding:10px 0 9px;margin-bottom:12px;text-transform:uppercase;box-shadow:0 0 14px rgba(50,255,140,.12),0 10px 22px rgba(0,0,0,.5),inset 0 1px 0 rgba(150,255,195,.13)}
     .pf-settings{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px;direction:ltr}
-    .pf-set-cell{position:relative;background:var(--glass);border:1px solid var(--line);border-radius:16px;padding:10px 4px 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;color:var(--acc);box-shadow:0 5px 12px rgba(0,0,0,.4);transition:transform .1s}
+    .pf-set-cell{position:relative;background:var(--glass);border:1px solid var(--line2);border-radius:14px;padding:10px 4px 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;color:var(--acc);box-shadow:0 5px 12px rgba(0,0,0,.4);transition:transform .1s}
     .pf-set-cell:active{transform:scale(.95)}
     .pf-set-cell > svg{width:21px;height:21px}
     .pf-set-cell > span{font-size:9.5px;font-weight:900;letter-spacing:1.6px;color:var(--mut)}
@@ -267,7 +285,7 @@
     .pf-set-top svg{width:19px;height:19px}
     .pf-set-caret{font-size:10px;color:var(--mut)}
     #page-profile .lang-menu-popup{top:calc(100% + 6px);right:0;left:auto}
-    .pf-sec{position:relative;background:var(--glass);border:1px solid var(--line);border-radius:20px;padding:17px 14px 14px;margin:0 0 14px;box-shadow:0 8px 18px rgba(0,0,0,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    .pf-sec{position:relative;background:var(--glass);border:1px solid var(--line2);border-radius:14px;padding:17px 14px 14px;margin:0 0 14px;box-shadow:0 0 14px rgba(50,255,140,.12),0 10px 22px rgba(0,0,0,.5),inset 0 1px 0 rgba(150,255,195,.13);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
     .pf-sec + .pf-sec{margin-top:24px}
     .pf-ribbon{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,#4dff9d,#22c55e);color:var(--accink);font-size:11px;font-weight:900;letter-spacing:2.5px;padding:4px 22px;white-space:nowrap;border-radius:999px;text-transform:uppercase;box-shadow:0 4px 10px rgba(0,0,0,.45)}
     .pf-id{display:flex;gap:14px;align-items:stretch;overflow:hidden}
@@ -290,11 +308,11 @@
     .pf-disconnect{background:rgba(255,120,100,.10);border:1px solid rgba(255,150,130,.45);color:#ffb0a0;font-weight:900;font-size:10.5px;letter-spacing:1.2px;padding:8px 13px;border-radius:10px;cursor:pointer}
     .pf-disconnect:active{transform:scale(.95)}
     .pf-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
-    .pf-stat{position:relative;border:1px solid var(--line);background:var(--glass);border-radius:16px;padding:24px 8px 13px;text-align:center}
+    .pf-stat{position:relative;border:1px solid var(--line2);background:var(--glass);border-radius:14px;padding:24px 8px 13px;text-align:center;box-shadow:0 0 14px rgba(50,255,140,.12),0 10px 22px rgba(0,0,0,.5),inset 0 1px 0 rgba(150,255,195,.13)}
     .pf-stat-ic{position:absolute;top:-15px;left:10px;width:32px;height:32px;background:#0b120d;border:1px solid var(--line2);border-radius:9px;display:flex;align-items:center;justify-content:center}
     .pf-stat-ic svg{width:19px;height:19px}
     .pf-stat-lbl{font-size:10.5px;letter-spacing:2px;color:var(--mut);font-weight:800;text-transform:uppercase;margin-bottom:5px}
-    .pf-stat-num{font-size:25px;font-weight:900;color:#fff;display:flex;align-items:center;justify-content:center;gap:7px;font-variant-numeric:tabular-nums}
+    .pf-stat-num{font-size:25px;font-weight:900;color:var(--num);display:flex;align-items:center;justify-content:center;gap:7px;font-variant-numeric:tabular-nums}
     .pf-stat-num img{width:21px;height:21px}
     .pf-info-btn{position:absolute;top:7px;inset-inline-end:7px;width:21px;height:21px;border-radius:50%;border:1.5px solid var(--acc);background:rgba(0,0,0,.35);color:var(--acc);font-style:italic;font-weight:700;font-size:13px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;z-index:2}
     .pf-amt{position:relative;margin-top:18px}
@@ -324,7 +342,7 @@
     .pf-pill.bad{background:#5d2626;color:#ffb0b0;border:1px solid #8a4040}
     /* ---------- modals ---------- */
     .pf-modal{position:fixed;inset:0;background:rgba(2,8,4,.78);display:flex;align-items:center;justify-content:center;z-index:100002;padding:22px}
-    .pf-modal-card{background:#0b120d;border:1px solid var(--line2);border-radius:20px;max-width:340px;width:100%;padding:22px 18px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.7)}
+    .pf-modal-card{background:#060f09;border:1px solid var(--line2);border-radius:14px;max-width:340px;width:100%;padding:22px 18px;text-align:center;box-shadow:0 0 14px rgba(50,255,140,.12),0 18px 50px rgba(0,0,0,.7)}
     .pf-modal-title{font-weight:900;font-size:17px;letter-spacing:1px;color:#fff;margin-bottom:10px;text-transform:uppercase}
     .pf-modal-body{font-size:13.5px;line-height:1.55;color:var(--txt);margin-bottom:18px}
     .pf-modal-row{display:flex;gap:10px}
@@ -349,6 +367,306 @@
     .user-row-card.suspect{border-color:#f59e0b}
     .user-row-card.banned{border-color:#ef4444;opacity:.8}
 
+  
+    /* ---------- PASS 15: compact nav + clear icons (owner: smaller, VIKING-like clarity) ---------- */
+    .bottom-nav-3d{height:106px;padding:0 10px 20px}
+    .app-shell{padding-bottom:112px}
+    #page-mine.active{padding-bottom:100px}
+    .nav-item{width:58px;height:84px}
+    .nav-item.active{height:90px}
+    .nav-item[data-tab="boost"]{width:66px;height:94px}
+    .nav-item[data-tab="boost"].active{height:100px}
+    .nav-item .nav-ic{width:32px;height:32px;margin-top:11px;opacity:1;filter:brightness(1.5) saturate(1.3) drop-shadow(0 0 6px rgba(110,255,160,.95))}
+    .nav-item[data-tab="boost"] .nav-ic{margin-top:-8px}
+    .nav-item span{bottom:-17px;font-size:9.5px}
+    .nav-item::before{width:96px;height:20px;bottom:-8px}
+    .bottom-nav-3d::before{height:54px;bottom:2px}
+    .bottom-nav-3d::after{bottom:13px;height:22px}
+  
+    /* ---------- PASS 16: glyph clarity — dark carved medallion behind each icon ---------- */
+    .nav-item .nav-ic{mix-blend-mode:normal;width:36px;height:36px;padding:5px;border-radius:50%;background:radial-gradient(circle,rgba(3,12,6,.80) 56%,rgba(3,12,6,0) 72%);filter:brightness(1.25) saturate(1.2) drop-shadow(0 0 5px rgba(110,255,160,.85))}
+    .nav-item[data-tab="boost"] .nav-ic{margin-top:-6px}
+  
+    /* ---------- PASS 17: flat neon glyph icons (solid silhouettes, no medallion) ---------- */
+    .nav-item .nav-ic{width:34px;height:34px;padding:0;background:none;border-radius:0;filter:drop-shadow(0 0 4px rgba(110,255,160,.55))}
+    .nav-item[data-tab="boost"] .nav-ic{margin-top:-4px}
+  </style>
+  <style>
+    /* ===== REDESIGN3 — EXACT SCENE MATCH (owner reference 2026-11-19) =====
+       Full toxic-cave/graveyard scene behind FROSTED, SCRATCHED GLASS cards
+       with pale green-white worn borders; the hero melts frameless into the
+       scene; the bottom nav is a row of gravestones with one BIG cracked,
+       glowing tombstone in the center (Boost). Only the look changes —
+       every id/class the JS queries is untouched. */
+    :root{
+      --glass:rgba(148,196,164,.13); --glass2:rgba(148,196,164,.22);
+      --line:rgba(186,255,214,.30); --line2:rgba(186,255,214,.42);
+      --mut:#cfe6d6; --num:#8affc1;
+    }
+    /* ---------- frosted scratched glass cards ---------- */
+    .card-3d,.mn-card,.mn-stat,.q-wrap,.miner-card-3d,.fr-sec,.fr-tablet,.pf-sec,.pf-stat,.boot-panel,.pf-modal-card,.mn-verify-wide,.top-bar,.pf-set-cell,.fr-row{
+      background-color:var(--glass);
+      background-image:linear-gradient(125deg,rgba(255,255,255,.16),rgba(255,255,255,0) 42%),repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 1px,transparent 1px 7px),repeating-linear-gradient(63deg,rgba(0,0,0,.09) 0 1px,transparent 1px 11px)!important;
+      border:1px solid rgba(213,255,228,.50);
+      border-radius:13px 9px 14px 10px/10px 14px 9px 13px;
+      box-shadow:0 0 14px rgba(90,255,160,.10),0 10px 22px rgba(0,0,0,.45),inset 0 1px 0 rgba(220,255,235,.14);
+      backdrop-filter:blur(10px) saturate(1.15) brightness(1.07);-webkit-backdrop-filter:blur(10px) saturate(1.15) brightness(1.07);
+    }
+    .btn-3d-gold,.fr-gold-btn,.fr-collect,.pf-wd-btn,.q-claimed,.pf-ribbon,.pf-amt-lbl{border:1px solid rgba(186,255,214,.5)}
+    .mn-lvl-chip{background:rgba(10,20,13,.55);border:1px solid rgba(186,255,214,.38);backdrop-filter:blur(7px) saturate(1.25);-webkit-backdrop-filter:blur(7px) saturate(1.25)}
+    /* ---------- Mine header: transparent, hairline only, horror-glow wordmark ---------- */
+    .mn-head{background:transparent;background-image:linear-gradient(90deg,transparent,rgba(186,255,214,.45) 18%,rgba(186,255,214,.45) 82%,transparent);background-size:100% 1px;background-position:bottom left;background-repeat:no-repeat;border:none;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;padding-bottom:10px}
+    .mn-head-logo{color:#8affc1;text-shadow:0 0 12px rgba(80,255,150,.55),0 2px 0 rgba(20,80,40,.8);font-size:15px;letter-spacing:2.4px;white-space:nowrap}
+    .mn-head-logo br{display:none}
+    #page-mine .mn-head{position:relative;z-index:2}
+    /* ---------- hero: full-bleed, painted into the scene (no rectangle) ---------- */
+    .mn-stage{border:none;border-radius:0;box-shadow:none;overflow:visible;background:none;height:320px;min-height:300px}
+    @media (max-height:830px){ .mn-stage{height:34dvh;min-height:280px} }
+    #hero-img,#page-mine #hero-video{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 5%,#000 95%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 8%,#000 70%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent 0,#000 5%,#000 95%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 8%,#000 70%,transparent 100%);mask-composite:intersect;animation:none}
+    @keyframes zmKenBurns{from{transform:scale(1)}to{transform:scale(1.07)}}
+    /* the artwork spills past the stage box on every side and melts into the
+       body scene through the masks; page content is lifted above the spill */
+    #hero-img{position:absolute;left:10%;top:0;width:80%;height:100%;object-position:50% 26%}
+    #page-mine #hero-video{left:10%;top:0;width:80%;height:100%;object-position:50% 26%}
+    #page-mine .mn-stage-stats,#page-mine .mn-card,#page-mine .mn-row,#page-mine .mn-actions{position:relative;z-index:2}
+    .mn-userbar{background:linear-gradient(180deg,rgba(8,16,11,0),rgba(8,16,11,.34) 42%,rgba(6,13,9,.60));border-top:1px solid rgba(186,255,214,.35);backdrop-filter:blur(7px) saturate(1.25);-webkit-backdrop-filter:blur(7px) saturate(1.25);padding:9px 12px 6px}
+    .mn-userbar>img{width:30px;height:30px}
+    #page-mine.page.active{padding-bottom:128px}
+    /* ---------- Mine compaction: room for the full-bleed hero ---------- */
+    #page-mine{gap:3px}
+    #page-mine .mn-head{padding-top:6px}
+    #page-mine .mn-stat{padding:9px 8px 8px}
+    #page-mine .mn-card{padding:7px 12px}
+    #page-mine .mn-val{font-size:26px}
+    #page-mine .mn-val-sm{font-size:19px}
+    /* ---------- Mine stats: ONE frosted panel, transparent cells ---------- */
+    #page-mine .mn-stage-stats{position:relative;z-index:3;margin-top:-52px;gap:0;padding:12px 6px 10px;background-color:var(--glass);background-image:linear-gradient(125deg,rgba(255,255,255,.16),rgba(255,255,255,0) 42%),repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 1px,transparent 1px 7px),repeating-linear-gradient(63deg,rgba(0,0,0,.09) 0 1px,transparent 1px 11px);border:1px solid rgba(213,255,228,.50);border-radius:14px;box-shadow:0 0 14px rgba(90,255,160,.10),0 10px 22px rgba(0,0,0,.45),inset 0 1px 0 rgba(220,255,235,.14);backdrop-filter:blur(10px) saturate(1.15) brightness(1.07);-webkit-backdrop-filter:blur(10px) saturate(1.15) brightness(1.07)}
+    .mn-stage-stats .mn-stat{background:transparent;background-image:none!important;border:none;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+    .mn-stage-stats .mn-stat + .mn-stat{border-inline-start:1px solid rgba(213,255,228,.28)}
+    .mn-stage-stats .mn-stat-tab{position:static;margin:0 auto 2px}
+    .mn-collect{width:84px;height:84px}
+    .mn-collect img{width:37px;height:37px}
+    .mn-collect span{font-size:11.5px}
+    .mn-stage-stats .mn-verify-wide{background:transparent;background-image:none!important;border:none;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;transform:translateY(10px)}
+    /* ---------- page titles on an ornament divider ---------- */
+    .pf-titlebar{display:flex;align-items:center;gap:14px;background:transparent;border:none;box-shadow:none;padding:8px 6px;text-shadow:0 0 12px rgba(92,255,157,.35)}
+    .q-sec-title{display:flex;align-items:center;gap:12px}
+    .pf-titlebar::before,.pf-titlebar::after,.q-sec-title::before,.q-sec-title::after{content:'';flex:1;height:12px;background-repeat:no-repeat}
+    .pf-titlebar::before,.q-sec-title::before{background-image:linear-gradient(90deg,transparent,rgba(186,255,214,.55)),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9'%3E%3Crect x='1.9' y='1.9' width='5.2' height='5.2' transform='rotate(45 4.5 4.5)' fill='%23baffd6'/%3E%3C/svg%3E");background-size:calc(100% - 16px) 1px,9px 9px;background-position:left center,right center}
+    .pf-titlebar::after,.q-sec-title::after{background-image:linear-gradient(90deg,rgba(186,255,214,.55),transparent),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9'%3E%3Crect x='1.9' y='1.9' width='5.2' height='5.2' transform='rotate(45 4.5 4.5)' fill='%23baffd6'/%3E%3C/svg%3E");background-size:calc(100% - 16px) 1px,9px 9px;background-position:right center,left center}
+    /* ---------- progress bars: pointed glowing tip ---------- */
+    .prog-bg-3d,.bh-bar,.q-prog-bg{background:rgba(3,10,6,.55);border:1px solid rgba(186,255,214,.30)}
+    .prog-fill-3d,.q-prog-fill,#boost-hold-fill{background:linear-gradient(90deg,#22c55e,#5cff9d);clip-path:polygon(0 0,calc(100% - 7px) 0,100% 50%,calc(100% - 7px) 100%,0 100%);filter:drop-shadow(0 0 5px rgba(92,255,157,.75))}
+    /* ---------- bottom nav: TOMBSTONES ---------- */
+    .bottom-nav-3d{height:140px;padding:0 10px 22px;gap:4px;justify-content:space-between;background:linear-gradient(180deg,transparent 52%,rgba(2,6,3,.38) 82%,rgba(2,6,3,.62) 100%);perspective:620px}
+    .bottom-nav-3d::before{display:none}
+    .nav-item{flex:0 0 auto;width:68px;height:80px;clip-path:none;z-index:auto;padding:9px 2px 5px;gap:3px;justify-content:flex-start;color:#cfe8d6;font-size:9px;letter-spacing:1.2px;background-color:#1a211a;background-image:linear-gradient(0deg,rgba(16,34,20,.88) 0 10px,transparent 22px),linear-gradient(180deg,rgba(170,200,180,.16),rgba(0,0,0,.32) 78%),linear-gradient(rgba(200,220,205,.13),rgba(200,220,205,.13)),url('assets/tex_stone.webp');background-size:cover,cover,cover,cover;background-position:center,center,center,var(--stone-pos,50% 30%);border:1px solid rgba(186,255,214,.34);border-radius:47% 53% 10px 11px/36% 33% 10px 11px;box-shadow:inset 0 1px 0 rgba(220,255,235,.35),inset 0 10px 14px rgba(230,255,240,.12),inset 7px 0 12px rgba(220,255,235,.06),inset -9px 0 15px rgba(0,0,0,.48),inset 0 -16px 20px rgba(0,0,0,.55),0 12px 20px rgba(0,0,0,.55);transition:height .18s,box-shadow .18s,transform .18s;transform:rotateX(7deg) rotate(var(--tilt,0deg)) scale(var(--s,1));transform-origin:50% 100%}
+    .nav-item:nth-child(1){--stone-pos:14% 26%}
+    .nav-item:nth-child(2){--stone-pos:36% 58%}
+    .nav-item:nth-child(4){--stone-pos:64% 30%}
+    .nav-item:nth-child(5){--stone-pos:86% 54%}
+    .nav-item::before{content:'';position:absolute;left:50%;bottom:-6px;top:auto;transform:translateX(-50%);width:96%;height:30px;background:radial-gradient(ellipse at 50% 100%,rgba(80,255,150,.55),rgba(80,255,150,0) 70%);opacity:0;transition:opacity .18s;z-index:-1}
+    .nav-item .nav-ic{width:38px;height:38px;border-radius:8px;object-fit:cover;mix-blend-mode:screen;opacity:.72;filter:saturate(.75);box-shadow:none}
+    .nav-item span{color:#cfe8d6;position:absolute;left:50%;transform:translateX(-50%);top:calc(100% + 3px);white-space:nowrap;z-index:2;text-shadow:0 1px 4px rgba(0,0,0,.95),0 0 10px rgba(0,0,0,.7)}
+    .nav-item.active{height:88px;color:#5cff9d;filter:none;background-image:linear-gradient(0deg,rgba(16,34,20,.88) 0 10px,transparent 22px),linear-gradient(180deg,rgba(140,255,190,.20),rgba(0,0,0,.26) 78%),linear-gradient(rgba(200,220,205,.13),rgba(200,220,205,.13)),url('assets/tex_stone.webp');box-shadow:inset 0 1px 0 rgba(220,255,235,.35),inset 0 10px 14px rgba(230,255,240,.12),inset 7px 0 12px rgba(220,255,235,.06),inset -9px 0 15px rgba(0,0,0,.48),inset 0 -16px 20px rgba(0,0,0,.55),inset 0 -2px 6px rgba(92,255,157,.5),0 12px 20px rgba(0,0,0,.55),0 0 20px rgba(80,255,150,.30);transform:translateY(-4px) rotateX(7deg) rotate(var(--tilt,0deg)) scale(var(--s,1))}
+    .nav-item.active::before{opacity:1}
+    .nav-item.active .nav-ic{opacity:1;filter:drop-shadow(0 0 10px rgba(92,255,157,.9));transform:scale(1.06)}
+    .nav-item.active span{color:#5cff9d}
+    /* center tab (Boost): same small tombstone as the rest (owner order 2026-11-19) */
+    .nav-item[data-tab="boost"]{--stone-pos:50% 42%}
+    .nav-tomb-img{display:none}
+    /* ---------- bottom nav: 3D planted tombstones (perspective arc, bevel, ground shadow) ---------- */
+    .nav-item:nth-child(1){--s:.86;--tilt:-1.6deg;border-radius:52% 48% 11px 10px/38% 34% 11px 10px}
+    .nav-item:nth-child(2){--s:.94;--tilt:-.7deg;border-radius:46% 54% 10px 12px/34% 37% 10px 12px}
+    .nav-item:nth-child(3){--s:1;--tilt:0deg;border-radius:50% 50% 11px 11px/37% 35% 11px 11px}
+    .nav-item:nth-child(4){--s:.94;--tilt:.7deg;border-radius:54% 46% 12px 10px/35% 38% 12px 10px}
+    .nav-item:nth-child(5){--s:.86;--tilt:1.6deg;border-radius:48% 52% 10px 11px/33% 36% 10px 11px}
+    .nav-item::after{content:'';position:absolute;left:50%;transform:translateX(-50%);bottom:-7px;width:118%;height:15px;background:radial-gradient(ellipse at center,rgba(0,0,0,.62),transparent 68%);filter:blur(2px);z-index:-1;pointer-events:none}
+    .nav-item.active::before{width:130%;height:40px;bottom:-12px}
+    .nav-item:active{transform:rotateX(7deg) rotate(var(--tilt,0deg)) scale(calc(var(--s,1)*.97))}
+    /* ---------- bottom nav: REAL painted tombstone art per stone (owner reference) ---------- */
+    .nav-item{width:74px;height:96px;padding:0 2px;justify-content:center;background-color:transparent;border:none;border-radius:0;box-shadow:none}
+    .nav-item.active{height:104px;background-color:transparent;box-shadow:none;filter:brightness(1.14) drop-shadow(0 0 14px rgba(80,255,150,.45))}
+    .nav-item:nth-child(1){background-image:url('assets/nav_stone_1.webp');background-size:contain;background-position:50% 100%;background-repeat:no-repeat;border-radius:0}
+    .nav-item:nth-child(2){background-image:url('assets/nav_stone_2.webp');background-size:contain;background-position:50% 100%;background-repeat:no-repeat;border-radius:0}
+    .nav-item:nth-child(3){background-image:url('assets/nav_stone_3.webp');background-size:contain;background-position:50% 100%;background-repeat:no-repeat;border-radius:0}
+    .nav-item:nth-child(4){background-image:url('assets/nav_stone_4.webp');background-size:contain;background-position:50% 100%;background-repeat:no-repeat;border-radius:0}
+    .nav-item:nth-child(5){background-image:url('assets/nav_stone_5.webp');background-size:contain;background-position:50% 100%;background-repeat:no-repeat;border-radius:0}
+    /* ---------- bottom nav: PLANTED ON THE GROUND (ground pool + grass lip over the bases) ---------- */
+    .bottom-nav-3d{height:148px;background:linear-gradient(180deg,transparent 58%,rgba(2,6,3,.30) 84%,rgba(2,6,3,.55) 100%)}
+    .bottom-nav-3d::before{content:'';display:block;position:absolute;left:0;right:0;bottom:14px;height:48px;background:radial-gradient(ellipse 92% 100% at 50% 100%,rgba(46,120,66,.30),rgba(20,60,32,.12) 55%,transparent 76%);z-index:0;pointer-events:none}
+    .bottom-nav-3d::after{content:'';position:absolute;left:0;right:0;bottom:20px;height:30px;background:url('assets/nav_ground.webp') 50% 100%/100% 100% no-repeat;z-index:3;pointer-events:none}
+    .nav-item{width:78px;height:108px}
+    .nav-item.active{height:116px}
+    .nav-item::after{bottom:-2px;width:132%;background:radial-gradient(ellipse at center,rgba(0,0,0,.78),transparent 68%)}
+    .app-shell{padding-bottom:158px}
+    #page-mine.page.active{padding-bottom:138px}
+    /* ---------- center stone (Boost): the BIG cracked monolith, exactly like the reference ---------- */
+    .nav-item[data-tab="boost"]{width:97px;height:136px;filter:drop-shadow(0 0 12px rgba(80,255,150,.35))}
+    .nav-item[data-tab="boost"].active{height:142px;filter:brightness(1.15) drop-shadow(0 0 18px rgba(80,255,150,.55))}
+    .nav-item[data-tab="boost"] .nav-ic{margin-top:-16px}
+    /* ---------- bottom nav: PRESENCE pass — bigger stones, tighter row, smaller carved glyphs ---------- */
+    .bottom-nav-3d{height:162px;padding:0 4px 22px;gap:2px}
+    .bottom-nav-3d::before{height:56px}
+    .bottom-nav-3d::after{height:38px}
+    .nav-item{width:74px;height:124px}
+    .nav-item.active{height:132px}
+    .nav-item .nav-ic{width:30px;height:30px}
+    .nav-item[data-tab="boost"]{width:100px;height:152px}
+    .nav-item[data-tab="boost"].active{height:158px}
+    .nav-item[data-tab="boost"] .nav-ic{margin-top:-24px}
+    .app-shell{padding-bottom:172px}
+    #page-mine.page.active{padding-bottom:152px}
+    /* ---------- OWNER PAINTING v2 (bg_scene4): built tombstone nav restored ---------- */
+    body{background-image:linear-gradient(180deg,rgba(3,7,4,.88),rgba(3,7,4,0)),linear-gradient(rgba(3,8,5,.10),rgba(3,8,5,.22)),url('assets/bg_scene4.webp');background-size:100% 150px,cover,100% 100%;background-position:0 0,50% 0,0 0}
+    #hero-img,#hero-video{visibility:hidden}
+    /* ---------- FINAL PASS: reference top bar + smoky mist cards ---------- */
+    .mn-head{height:54px;padding:8px 12px;align-items:center}
+    #page-mine .mn-head{padding-top:8px}
+    .mn-head-logo{font-size:17px;letter-spacing:1.5px;font-weight:900;color:#8affc1;text-shadow:0 0 14px rgba(80,255,150,.5),0 2px 2px rgba(10,40,20,.9);filter:drop-shadow(0 3px 3px rgba(60,255,140,.22))}
+    .mn-head-meta{display:none}
+    .mn-head-btns{display:flex;gap:8px;align-items:center;flex:none}
+    .mn-head-btn{width:38px;height:38px;border-radius:9px;background-color:var(--glass);background-image:linear-gradient(125deg,rgba(255,255,255,.16),rgba(255,255,255,0) 55%);border:1px solid rgba(213,255,228,.50);box-shadow:0 0 10px rgba(90,255,160,.10),inset 0 1px 0 rgba(220,255,235,.14);backdrop-filter:blur(10px) saturate(1.15) brightness(1.07);-webkit-backdrop-filter:blur(10px) saturate(1.15) brightness(1.07);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+    .mn-head-btn svg{width:20px;height:20px;stroke:#8affc1;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .mn-head-btn:active{transform:scale(.94)}
+    /* smoky marble-mist baked into the frost of every card (stats panel too) */
+    .card-3d,.mn-card,.mn-stat,.q-wrap,.miner-card-3d,.fr-sec,.fr-tablet,.pf-sec,.pf-stat,.boot-panel,.pf-modal-card,.mn-verify-wide,.top-bar,.pf-set-cell,.fr-row,#page-mine .mn-stage-stats{
+      background-image:url('assets/tex_mist.webp'),linear-gradient(125deg,rgba(255,255,255,.16),rgba(255,255,255,0) 42%),repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 1px,transparent 1px 7px),repeating-linear-gradient(63deg,rgba(0,0,0,.09) 0 1px,transparent 1px 11px)!important;
+      background-size:cover,cover,cover,cover;background-position:center,center,center,center;
+    }
+    /* ===== DE-VIKING CARD LAYOUTS (2026-11-19) =====
+       New arrangement / sizes / order / style for the cards on every
+       page, so the pages no longer mirror the VIKING layout. The
+       frosted-glass material, the painting background, the header
+       strip and the painting nav are NOT touched. Mine DOM moves
+       (same page only): the DAY RATE card now lives in .mn-stage-stats
+       as the 3rd tile, and #mine-prog-bar lives in the countdown card
+       as its fill (updateLiveMining sets its width % every tick). */
+
+    /* ---------- MINE: vault → 3 tiles → countdown bar → COLLECT bar → ghost rows ---------- */
+    #page-mine .mn-stage{height:232px;min-height:232px}
+    @media (max-height:830px){ #page-mine .mn-stage{height:30dvh;min-height:220px} }
+    /* pack from the top (not space-between) so the bottom rows end above
+       the painting nav's Boost hit area, which reaches ~211px up from
+       the screen bottom in the centre */
+    #page-mine.page.active{justify-content:flex-start;gap:2px}
+    #page-mine>.mn-card{order:2;margin-top:0;padding:9px 12px}
+    #page-mine .mn-stage-stats{order:3;margin-top:0;padding:6px 6px 5px}
+    #page-mine .mn-stat{padding:6px 8px}
+    #page-mine .mn-stage-stats .mn-stat-tab{margin-bottom:0}
+    #page-mine .mn-row{order:4}
+    #page-mine .mn-actions{order:5}
+    /* (a) the vault — MINED as the hero number, coin beside it */
+    #page-mine>.mn-card .mn-lbl{font-size:11px;letter-spacing:3px;margin-bottom:1px}
+    #page-mine>.mn-card .mn-val{display:flex;align-items:center;justify-content:center;gap:9px;font-size:33px}
+    #page-mine>.mn-card .mn-val .mn-coin{width:30px;height:30px}
+    /* (b) 3-tile row inside the frosted stats panel */
+    #page-mine .mn-stage-stats>.mn-stat,#page-mine .mn-stage-stats>.mn-card{min-width:0}
+    #page-mine .mn-stage-stats>.mn-card{flex:1;background:transparent;background-image:none!important;border:none;border-inline-start:1px solid rgba(213,255,228,.28);border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;padding:0 8px;margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    #page-mine .mn-stage-stats .mn-tile-rate .mn-lbl{font-size:10.5px;letter-spacing:1.4px;color:#a9c6b1;margin-bottom:0}
+    #page-mine .mn-stage-stats .mn-tile-rate .mn-val-sm{font-size:21px;font-weight:800;color:var(--num);line-height:1.2}
+    #page-mine .mn-stage-stats .mn-verify-wide{flex:1.6}
+    /* (c) countdown — slim bar: label left, time right, 24h fill along the bottom edge */
+    #page-mine .mn-row .mn-card{position:relative;display:flex;align-items:center;justify-content:space-between;text-align:left;padding:8px 14px 11px;overflow:hidden}
+    #page-mine .mn-row .mn-lbl{margin:0;font-size:11px}
+    #page-mine .mn-row .mn-val-sm{font-size:17px}
+    #page-mine .mn-row .mn-card::after{content:'';position:absolute;left:0;right:0;bottom:0;height:5px;background:rgba(186,255,214,.14)}
+    #mine-prog-bar{position:absolute;left:0;bottom:0;height:5px;max-width:100%;background:linear-gradient(90deg,#22c55e,#5cff9d);clip-path:polygon(0 0,calc(100% - 6px) 0,100% 50%,calc(100% - 6px) 100%,0 100%);filter:drop-shadow(0 0 4px rgba(92,255,157,.7));z-index:1}
+    /* (d)+(e) actions — COLLECT as a wide bar, then BUY / LEVELS slim ghost rows */
+    #page-mine .mn-actions{flex-direction:column;align-items:stretch;gap:5px;padding-top:2px}
+    #page-mine .mn-actions .mn-collect{order:1}
+    #page-mine .mn-actions .btn-stonfi-buy{order:2}
+    #page-mine .mn-actions #btn-goto-boost{order:3}
+    #page-mine .mn-collect{width:100%;height:50px;border-radius:16px;flex-direction:row;gap:10px;margin-top:0;padding:0 18px}
+    #page-mine .mn-collect img{width:29px;height:29px}
+    #page-mine .mn-collect span{font-size:15px;letter-spacing:2.5px}
+    #page-mine .mn-actions .mn-side{transform:none;flex:none;width:100%;background:rgba(148,196,164,.05);border:1px solid rgba(186,255,214,.35);border-radius:12px;padding:8px 6px;font-size:12px;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+
+    /* ---------- BOOST: level cards become single-column wide rows ---------- */
+    #levels-grid-container{grid-template-columns:1fr;gap:8px}
+    #levels-grid-container .miner-card-3d{display:grid;grid-template-columns:64px 1fr auto;grid-template-rows:auto auto;column-gap:12px;row-gap:1px;align-items:center;padding:10px 12px}
+    #levels-grid-container .miner-card-3d>div:first-child{display:contents}
+    #levels-grid-container .miner-art-3d{grid-column:1;grid-row:1/3;width:64px;height:64px;border-radius:50%;margin:0}
+    #levels-grid-container .miner-card-3d h4{grid-column:2;grid-row:1;margin:0!important;font-size:14px!important;align-self:end}
+    #levels-grid-container .miner-card-3d>div:first-child>div:last-of-type{grid-column:2;grid-row:2;align-self:start;margin-bottom:0!important}
+    #levels-grid-container .miner-card-3d>.btn-3d-gold,#levels-grid-container .miner-card-3d>.btn-3d-dark{grid-column:3;grid-row:1/3;align-self:center;width:auto;border-radius:99px;padding:6px 12px!important;font-size:10.5px!important;white-space:nowrap}
+    #levels-grid-container .lvl-ribbon{display:none}
+    #levels-grid-container .lvl-pill-tag{top:auto;bottom:0;font-size:8px;padding:1px 5px}
+
+    /* ---------- TASKS: page grid; channel tasks as 2-column tiles ---------- */
+    #page-tasks.page.active{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-content:start}
+    #page-tasks .pf-titlebar{grid-column:1/-1}
+    #page-tasks .q-wrap:has(#daily-streak-container){grid-column:1/-1}
+    #ads-wrap{grid-column:1/-1}
+    #bio-task-card{grid-column:1/-1}
+    #page-tasks .q-wrap:has(#hold-task-list){grid-column:1/-1}
+    #page-tasks .q-wrap:has(>#ch3-row){grid-column:1/-1}
+    #page-tasks .q-wrap{padding:14px}
+    /* daily card: slimmer, day chips as larger circles in one row */
+    #page-tasks .q-wrap:has(#daily-streak-container){padding:10px 12px}
+    #page-tasks .daily-grid{gap:6px;margin:10px 0 2px}
+    #page-tasks .daily-box{aspect-ratio:1;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px;font-size:9.5px}
+    #page-tasks .daily-box .day-num{font-size:12px;margin-bottom:1px}
+    /* round icon medallions across the Tasks page */
+    #page-tasks .q-ic{width:50px;height:50px;border-radius:50%;object-fit:contain;padding:7px;background:radial-gradient(circle at 50% 32%,rgba(77,255,157,.18),rgba(3,10,6,.55));border:1px solid rgba(186,255,214,.42);box-shadow:inset 0 2px 7px rgba(0,0,0,.55),0 4px 10px rgba(0,0,0,.4);filter:none}
+    /* channel tiles: icon medallion on top, name + reward, full-width button at the bottom */
+    #page-tasks .q-wrap:has(>.q-row[id^="ch"]){display:flex;flex-direction:column;padding:14px 12px}
+    #page-tasks .q-wrap:has(>.q-row[id^="ch"]) .q-row{flex:1;display:flex}
+    #page-tasks .q-wrap:has(>.q-row[id^="ch"]) .q-row-in{flex:1;flex-direction:column;align-items:center;text-align:center;gap:7px;padding:2px 0}
+    #page-tasks .q-wrap:has(>.q-row[id^="ch"]) .q-ic{width:60px;height:60px;padding:9px}
+    #page-tasks .q-wrap:has(>.q-row[id^="ch"]) .q-mid{display:flex;flex-direction:column;align-items:center}
+    #page-tasks .q-wrap:has(>.q-row[id^="ch"]) .q-rew{justify-content:center}
+    #page-tasks .q-wrap:has(>.q-row[id^="ch"]) .q-btn{width:100%!important;max-width:none;margin-top:auto;padding:10px 8px!important}
+
+    /* ---------- PROFILE: the 3 stat cards become a stacked bar list ---------- */
+    #page-profile .pf-stats{display:flex;flex-direction:column;gap:0;margin-top:14px}
+    #page-profile .pf-stat{display:flex;align-items:center;gap:11px;text-align:left;padding:13px 14px;border-radius:0}
+    #page-profile .pf-stat:first-child{border-radius:14px 14px 0 0}
+    #page-profile .pf-stat:last-child{border-radius:0 0 14px 14px}
+    #page-profile .pf-stat + .pf-stat{margin-top:-1px}
+    #page-profile .pf-stat-ic{position:static;flex:none}
+    #page-profile .pf-stat-lbl{flex:1;margin:0}
+    #page-profile .pf-stat-num{margin-left:auto;font-size:21px}
+    #page-profile #btn-hold-info{position:static;flex:none}
+
+    /* ---------- FRIENDS: tablets merge into ONE divided card; rounder referral medallions ---------- */
+    #page-friends .fr-tablets{gap:0;padding:12px 4px;background-color:var(--glass);background-image:url('assets/tex_mist.webp'),linear-gradient(125deg,rgba(255,255,255,.16),rgba(255,255,255,0) 42%),repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 1px,transparent 1px 7px),repeating-linear-gradient(63deg,rgba(0,0,0,.09) 0 1px,transparent 1px 11px);border:1px solid rgba(213,255,228,.50);border-radius:14px;box-shadow:0 0 14px rgba(90,255,160,.10),0 10px 22px rgba(0,0,0,.45),inset 0 1px 0 rgba(220,255,235,.14);backdrop-filter:blur(10px) saturate(1.15) brightness(1.07);-webkit-backdrop-filter:blur(10px) saturate(1.15) brightness(1.07)}
+    #page-friends .fr-tablet{background:transparent;background-image:none!important;border:none;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;aspect-ratio:auto;padding:8px 2px}
+    #page-friends .fr-tablet + .fr-tablet{border-inline-start:1px solid rgba(213,255,228,.28)}
+    #page-friends .fr-tab-notch{display:none}
+    #page-friends .fr-row{padding:8px 10px}
+    #page-friends .fr-ava{width:42px!important;height:42px!important;box-shadow:0 0 0 3px rgba(77,255,157,.16),0 4px 10px rgba(0,0,0,.6)}
+
+    /* ---------- PICTURE CARDS: coffin-wood + iron (owner pick #2, 2026-11-19) ----------
+       The glass recipe (fill / blur / pale border / mist) is removed from
+       every content card; each card's surface is now the coffin-wood art
+       via border-image with fill, so the iron frame stays proportional
+       at any card size. Inner transparent cells (.mn-stat / .mn-card
+       inside the Mine stats panel, .fr-tablet inside .fr-tablets) keep
+       their higher-specificity border:none rules and stay frameless. */
+    .card-3d,.mn-card,.mn-stat,.q-wrap,.miner-card-3d,.fr-sec,.fr-tablet,.pf-sec,.pf-stat,.boot-panel,.pf-modal-card,.mn-verify-wide,.top-bar,.pf-set-cell,.fr-row,#page-mine .mn-stage-stats,#page-friends .fr-tablets{
+      background-color:transparent!important;
+      background-image:none!important;
+      backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+      border:13px solid transparent;
+      border-image-source:url('assets/card_coffin.webp');
+      border-image-slice:12% fill;
+      border-image-width:13px;
+      border-image-repeat:stretch;
+      box-shadow:0 10px 22px rgba(0,0,0,.5),0 0 14px rgba(90,255,160,.07);
+    }
+    /* profile stat bars stack directly on each other: a slimmer frame
+       keeps the three plaques from doubling into a 26px wood band */
+    #page-profile .pf-stat{border-width:9px;border-image-width:9px}
+    /* the 13px frames made the Mine stack ~72px taller and pushed the
+       LEVELS row under the Boost stone's hit area — reclaim the height
+       (shorter stage, tighter card padding) so every row stays clickable */
+    #page-mine .mn-stage{height:188px;min-height:188px}
+    @media (max-height:830px){ #page-mine .mn-stage{min-height:196px} }
+    #page-mine>.mn-card{padding-top:5px;padding-bottom:5px}
+    #page-mine .mn-stage-stats{padding-top:2px;padding-bottom:2px}
+    #page-mine .mn-stat{padding-top:3px;padding-bottom:3px}
+    #page-mine .mn-row .mn-card{padding-top:4px;padding-bottom:7px}
   </style>
 </head>
 <body oncontextmenu="return false;">
@@ -427,9 +745,17 @@
 
     <!-- 1. MINE PAGE -->
     <div id="page-mine" class="page active">
+      <div class="mn-head">
+        <div class="mn-head-logo">ZOMBIE MINING &bull; SECTOR 7</div>
+        <div class="mn-head-meta">Sector 7 &bull; Depth 120m &#9760;</div>
+        <div class="mn-head-btns">
+          <button class="mn-head-btn" id="hdr-settings-btn" type="button" aria-label="Settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+          <button class="mn-head-btn" id="hdr-sound-btn" type="button" aria-label="Sound"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></button>
+        </div>
+      </div>
       <div class="mn-stage" id="coin-3d-trigger">
-        <img id="hero-img" src="assets/hero_forge.webp" alt="Zombie">
-        <video id="hero-video" src="assets/hero_forge.mp4" poster="assets/hero_forge.webp" autoplay muted loop playsinline preload="auto"></video>
+        <img id="hero-img" src="assets/hero_miner2.webp" alt="Zombie">
+        <video id="hero-video" src="assets/hero_miner2.mp4" poster="assets/hero_miner2.webp" autoplay muted loop playsinline preload="auto"></video>
         <div class="mn-userbar">
           <img id="mine-user-ava" src="assets/avatar_1.webp" alt="">
           <div class="mn-user-name"><span id="mine-user-name">Warrior</span><span id="mine-user-badge"></span></div>
@@ -457,6 +783,13 @@
             <span class="mv-txt" data-i18n="mine_verify_card">Verify your wallet to claim earnings</span>
             <span class="mv-arrow">›</span>
           </div>
+          <!-- DAY RATE tile (moved here from .mn-row, de-VIKING layout
+               2026-11-19): the stats panel is now a 3-tile row —
+               WALLET HOLD / IN-APP BALANCE / DAY RATE. Id untouched. -->
+          <div class="mn-card mn-tile-rate">
+            <div class="mn-lbl" data-i18n="day_rate_lbl">DAY RATE</div>
+            <div class="mn-val-sm">+<span id="mine-day-rate">500</span></div>
+          </div>
         </div>
 
       <div class="mn-card">
@@ -466,12 +799,12 @@
 
       <div class="mn-row">
         <div class="mn-card">
-          <div class="mn-lbl" data-i18n="day_rate_lbl">DAY RATE</div>
-          <div class="mn-val-sm">+<span id="mine-day-rate">500</span></div>
-        </div>
-        <div class="mn-card">
           <div class="mn-lbl" data-i18n="shift_cd_lbl">SHIFT COUNTDOWN</div>
           <div class="mn-val-sm" style="direction:ltr;">⏳ <span id="shift-timer">24:00:00</span></div>
+          <!-- 24h fill (moved out of the hidden block, de-VIKING layout
+               2026-11-19): updateLiveMining() sets this element's width %
+               every tick — it is now the visible countdown bar fill. -->
+          <div id="mine-prog-bar"></div>
         </div>
       </div>
 
@@ -484,7 +817,7 @@
       <div style="display:none;">
         <span id="mine-ths"></span><span id="mine-status-dot"></span><span id="mine-lvl-txt"></span>
         <span id="mine-rank-title"></span><span id="mine-claimed-total"></span><span id="mine-cycle-label"></span>
-        <strong id="mine-to-go"></strong><div id="mine-prog-bar"></div>
+        <strong id="mine-to-go"></strong>
       </div>
     </div>
 
@@ -800,23 +1133,24 @@
 
   <div class="bottom-nav-3d">
     <div class="nav-item active" data-tab="mine">
-      <img class="nav-ic" src="assets/nav_mine.webp" alt="">
+      <img class="nav-ic" src="assets/nav_glyph_mine.webp" alt="">
       <span data-i18n="nav_mine">Mine</span>
     </div>
     <div class="nav-item" data-tab="tasks">
-      <img class="nav-ic" src="assets/nav_tasks.webp" alt="">
+      <img class="nav-ic" src="assets/nav_glyph_tasks.webp" alt="">
       <span data-i18n="nav_tasks">Tasks</span>
     </div>
     <div class="nav-item" data-tab="boost">
-      <img class="nav-ic" src="assets/nav_boost.webp" alt="">
+      <img class="nav-tomb-img" src="assets/tombstone_center.webp" alt="">
+      <img class="nav-ic" src="assets/nav_glyph_boost.webp" alt="">
       <span data-i18n="nav_boost">Boost</span>
     </div>
     <div class="nav-item" data-tab="friends">
-      <img class="nav-ic" src="assets/nav_friends.webp" alt="">
+      <img class="nav-ic" src="assets/nav_glyph_friends.webp" alt="">
       <span data-i18n="nav_friends">Friends</span>
     </div>
     <div class="nav-item" data-tab="profile">
-      <img class="nav-ic" src="assets/nav_profile.webp" alt="">
+      <img class="nav-ic" src="assets/nav_glyph_profile.webp" alt="">
       <span data-i18n="nav_profile">Profile</span>
     </div>
   </div>
@@ -1621,8 +1955,8 @@
     const BOOT_IMAGES = [
       'assets/boot_scene.webp?v=4',
       'assets/bg_fjord.webp', 'assets/bg_wood.webp', 'assets/ref_stone_plain.webp', 'assets/ref_stone_card.webp', 'assets/coin_icon.webp',
-      'assets/hero_forge.webp',
-      'assets/nav_mine.webp', 'assets/nav_tasks.webp', 'assets/nav_boost.webp', 'assets/nav_friends.webp', 'assets/nav_profile.webp',
+      'assets/hero_miner2.webp',
+      'assets/nav_glyph_mine.webp', 'assets/nav_glyph_tasks.webp', 'assets/nav_glyph_boost.webp', 'assets/nav_glyph_friends.webp', 'assets/nav_glyph_profile.webp',
       'assets/icon_shield.webp', 'assets/icon_verified.webp', 'assets/icon_chest.webp',
       'assets/quest_scroll.webp', 'assets/icon_q_sun.webp', 'assets/icon_q_flag.webp', 'assets/icon_q_feather.webp', 'assets/icon_q_chest.webp',
       'assets/icon_q_warriors.webp', 'assets/icon_q_skull.webp', 'assets/icon_q_banner.webp', 'assets/icon_q_crown.webp', 'assets/icon_q_coins.webp',
@@ -3286,6 +3620,13 @@
     // finishBoot only fires once state is applied AND all critical
     // images have loaded — see the readiness gates above.
   })();
+  </script>
+  <script>
+    // Header shortcut buttons (redesign3 final pass): the gear jumps to the
+    // Profile tab (where the real settings live); the speaker reuses the
+    // real Profile sound toggle so both buttons genuinely work.
+    document.getElementById('hdr-settings-btn').addEventListener('click', function(){ document.querySelector('.nav-item[data-tab="profile"]').click(); });
+    document.getElementById('hdr-sound-btn').addEventListener('click', function(){ document.getElementById('sound-toggle-btn').click(); });
   </script>
 </body>
 </html>
