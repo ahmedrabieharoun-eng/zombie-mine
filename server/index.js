@@ -127,7 +127,7 @@ const DEFAULTS = {
   // deposits, payout failures). settings/global can override the list.
   adminUsers: [],
   buySwapUrl: 'https://app.ston.fi/swap?chartVisible=false&tt=EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c&ft=GRAM',
-  channel1: 'https://t.me/YGRAM1', channel2: 'https://t.me/telegram', channel3: 'https://t.me/telegram', botUsername: 'ZOMBIE_MINE_BOT',
+  channel1: 'https://t.me/YGRAM1', channel2: 'https://t.me/telegram', channel3: 'https://t.me/telegram', botUsername: 'Vdtukuy_bot',
   // Wallet verification (owner order 2026-11-14): the fee is paid to
   // verifyDepositWallet with the comment ZM-<userNo>.
   // verifyMinAgeDays is LEGACY since 2026-11-17 (owner order):
