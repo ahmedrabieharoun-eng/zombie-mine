@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>لوحة تحكم ZOMBIE MINE</title>
+<style>
+  :root{
+    --bg:#12100d; --bg2:#171410; --card:#1e1a14; --card2:#26211a;
+    --line:#3d3527; --gold:#d9a441; --gold2:#f0c869; --txt:#f2ead8;
+    --mut:#ab9d80; --red:#e5534b; --green:#4caf7d; --yellow:#e3ba3c;
+    --blue:#5aa2e8;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--txt);
+    font-family:"Segoe UI",Tahoma,Arial,sans-serif;font-size:15px}
+  .hidden{display:none!important}
+  button{font-family:inherit;cursor:pointer}
+  input,select,textarea{font-family:inherit;background:var(--bg2);color:var(--txt);
+    border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:14px}
+  input:focus,select:focus,textarea:focus{outline:1px solid var(--gold)}
+  .btn{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#241a05;
+    border:none;border-radius:9px;padding:8px 16px;font-weight:700;font-size:14px}
+  .btn:active{transform:translateY(1px)}
+  .btn-ghost{background:transparent;color:var(--gold2);border:1px solid var(--gold)}
+  .btn-danger{background:linear-gradient(180deg,#f0685f,#c93a32);color:#fff;border:none;
+    border-radius:9px;padding:8px 14px;font-weight:700;font-size:14px}
+  .btn-small{padding:5px 10px;font-size:13px;border-radius:7px}
+  .btn[disabled]{opacity:.5;cursor:default}
+  /* ---------- gate ---------- */
+  #gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+  .gate-card{background:var(--card);border:1px solid var(--gold);border-radius:16px;
+    padding:28px 24px;max-width:380px;width:100%;text-align:center;
+    box-shadow:0 10px 40px rgba(0,0,0,.5)}
+  .gate-card h1{margin:6px 0 2px;font-size:22px;color:var(--gold2)}
+  .gate-card p{color:var(--mut);margin:4px 0 16px;font-size:13px}
+  .gate-card input{width:100%;text-align:center;margin-bottom:12px}
+  .gate-card .btn{width:100%}
+  #gate-err{color:var(--red);min-height:20px;font-size:13px;margin-top:10px}
+  /* ---------- layout ---------- */
+  header{display:flex;align-items:center;gap:10px;padding:12px 16px;
+    background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+  header .ttl{font-size:18px;font-weight:800;color:var(--gold2)}
+  header .sp{flex:1}
+  nav#tabs{display:flex;gap:6px;flex-wrap:wrap;padding:10px 16px 0}
+  nav#tabs button{background:var(--card);color:var(--mut);border:1px solid var(--line);
+    border-bottom:none;border-radius:10px 10px 0 0;padding:9px 14px;font-size:14px;font-weight:700}
+  nav#tabs button.on{color:#241a05;background:linear-gradient(180deg,var(--gold2),var(--gold))}
+  main{padding:14px 16px 40px;max-width:1180px;margin:0 auto}
+  section.tabpane{background:var(--bg2);border:1px solid var(--line);border-radius:0 12px 12px 12px;padding:16px}
+  /* ---------- cards & tables ---------- */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+  .stat .v{font-size:24px;font-weight:800;color:var(--gold2)}
+  .stat .k{color:var(--mut);font-size:13px;margin-top:2px}
+  .stat.warn .v{color:var(--yellow)}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{padding:8px 8px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
+  th{color:var(--mut);font-size:12.5px;font-weight:700;white-space:nowrap}
+  tr.rowlink{cursor:pointer}
+  tr.rowlink:hover td{background:var(--card2)}
+  .badge{display:inline-block;padding:1px 8px;border-radius:20px;font-size:12px;font-weight:700}
+  .b-green{background:rgba(76,175,125,.18);color:var(--green)}
+  .b-red{background:rgba(229,83,75,.16);color:var(--red)}
+  .b-yellow{background:rgba(227,186,60,.16);color:var(--yellow)}
+  .b-grey{background:rgba(171,157,128,.16);color:var(--mut)}
+  .b-blue{background:rgba(90,162,232,.16);color:var(--blue)}
+  .mono{font-family:Consolas,monospace;font-size:12.5px;word-break:break-all}
+  .mut{color:var(--mut)} .small{font-size:12.5px}
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+  .toolbar .sp{flex:1}
+  .chips{display:flex;gap:6px;flex-wrap:wrap}
+  .chips button{background:var(--card);border:1px solid var(--line);color:var(--mut);
+    border-radius:20px;padding:5px 14px;font-weight:700;font-size:13px}
+  .chips button.on{color:#241a05;background:linear-gradient(180deg,var(--gold2),var(--gold));border-color:var(--gold)}
+  .pager{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:12px}
+  /* ---------- drawer / modal / toast ---------- */
+  #drawer-wrap{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:20}
+  #drawer{position:absolute;top:0;bottom:0;inset-inline-start:0;width:min(560px,96vw);
+    background:var(--bg2);border-inline-end:1px solid var(--gold);overflow-y:auto;padding:18px}
+  #drawer h2{margin:0 0 2px;font-size:19px;color:var(--gold2)}
+  .kv{display:grid;grid-template-columns:130px 1fr;gap:5px 10px;font-size:14px;margin:12px 0}
+  .kv .k{color:var(--mut)}
+  .sec-t{font-weight:800;color:var(--gold2);margin:18px 0 8px;font-size:15px}
+  .act-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+  #modal-wrap{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:30;
+    display:flex;align-items:center;justify-content:center;padding:18px}
+  .modal-card{background:var(--card);border:1px solid var(--gold);border-radius:14px;
+    max-width:440px;width:100%;padding:20px}
+  .modal-card h3{margin:0 0 8px;color:var(--gold2)}
+  .modal-card .body{color:var(--txt);font-size:14px;line-height:1.7;white-space:pre-line}
+  .modal-card .row{display:flex;gap:8px;justify-content:flex-start;margin-top:16px}
+  #toast{position:fixed;bottom:18px;inset-inline-start:50%;transform:translateX(50%);
+    z-index:40;display:flex;flex-direction:column;gap:8px;align-items:center}
+  [dir="rtl"] #toast{transform:translateX(-50%)}
+  .toast-it{background:var(--card);border:1px solid var(--gold);color:var(--txt);
+    border-radius:10px;padding:10px 18px;font-size:14px;box-shadow:0 8px 30px rgba(0,0,0,.5);max-width:92vw}
+  .toast-it.err{border-color:var(--red);color:#ffb3ae}
+  pre.json{background:var(--bg);border:1px solid var(--line);border-radius:10px;
+    padding:10px;font-size:12px;overflow:auto;max-height:300px;direction:ltr;text-align:left}
+  details{margin:10px 0}
+  summary{cursor:pointer;color:var(--gold2);font-weight:700;font-size:14px}
+  .cfg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px 16px}
+  .cfg-grid label{display:block;color:var(--mut);font-size:12.5px;margin-bottom:4px}
+  .cfg-grid input{width:100%}
+  .def-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+  .def-row input{width:130px}
+  textarea{width:100%;min-height:74px;resize:vertical}
+  .req-it{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+  .req-it .txt{white-space:pre-wrap;line-height:1.7}
+  .req-it .reply{background:var(--bg);border:1px solid var(--line);border-radius:12px;
+    padding:12px 14px;margin-top:10px}
+  .req-it .reply-body{white-space:pre-wrap;line-height:1.9;font-size:14.5px;word-break:break-word}
+  .reply-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .reply-head .sp{flex:1}
+  .copy-btn{background:var(--card);border:1px solid var(--line);color:var(--gold2);
+    border-radius:8px;padding:4px 12px;font-size:12.5px;cursor:pointer}
+  .copy-btn:active{transform:scale(.96)}
+  .empty{color:var(--mut);text-align:center;padding:26px 0}
+  .spin{color:var(--mut);text-align:center;padding:26px 0}
+  a{color:var(--blue)}
+</style>
+</head>
+<body>
+
+<!-- ======== key gate ======== -->
+<div id="gate">
+  <div class="gate-card">
+    <div style="font-size:40px">⚔️</div>
+    <h1>لوحة تحكم ZOMBIE MINE</h1>
+    <p>دخّل مفتاح اللوحة للمتابعة</p>
+    <input id="gate-key" type="password" placeholder="مفتاح اللوحة" autocomplete="off">
+    <button class="btn" id="gate-btn">دخول</button>
+    <div id="gate-err"></div>
+  </div>
+</div>
+
+<!-- ======== app ======== -->
+<div id="app" class="hidden">
+  <header>
+    <span class="ttl">⚔️ لوحة تحكم ZOMBIE MINE</span>
+    <span class="sp"></span>
+    <button class="btn-ghost btn-small" id="btn-refresh">⟳ تحديث</button>
+    <button class="btn-ghost btn-small" id="btn-key">تغيير المفتاح</button>
+  </header>
+  <nav id="tabs">
+    <button data-tab="stats" class="on">الرئيسية</button>
+    <button data-tab="players">اللاعبين</button>
+    <button data-tab="wds">السحوبات</button>
+    <button data-tab="verify">التوثيقات</button>
+    <button data-tab="config">الإعدادات</button>
+    <button data-tab="requests">الطلبات</button>
+    <button data-tab="audit">سجل الإجراءات</button>
+  </nav>
+  <main>
+    <section class="tabpane" id="pane-stats"></section>
+    <section class="tabpane hidden" id="pane-players"></section>
+    <section class="tabpane hidden" id="pane-wds"></section>
+    <section class="tabpane hidden" id="pane-verify"></section>
+    <section class="tabpane hidden" id="pane-config"></section>
+    <section class="tabpane hidden" id="pane-requests"></section>
+    <section class="tabpane hidden" id="pane-audit"></section>
+  </main>
+</div>
+
+<div id="drawer-wrap" class="hidden"><div id="drawer"></div></div>
+<div id="modal-wrap" class="hidden"><div class="modal-card">
+  <h3 id="modal-title"></h3>
+  <div class="body" id="modal-body"></div>
+  <div class="row">
+    <button class="btn" id="modal-ok">تأكيد</button>
+    <button class="btn-ghost" id="modal-cancel">إلغاء</button>
+  </div>
+</div></div>
+<div id="toast"></div>
+
+<script>
+"use strict";
+/* ================= helpers ================= */
+const $ = (s, r) => (r || document).querySelector(s);
+const $$ = (s, r) => [...(r || document).querySelectorAll(s)];
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+const fmtN = (n) => (Number(n) || 0).toLocaleString("en-US");
+const fmtDate = (ts) => { if (!ts) return "—"; try { return new Date(Number(ts)).toLocaleString("ar-EG-u-nu-latn", { timeZone: "Africa/Cairo", day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }); } catch (e) { return new Date(Number(ts)).toLocaleString(); } };
+const shortAddr = (a) => { a = String(a || ""); return a.length > 18 ? a.slice(0, 10) + "…" + a.slice(-6) : (a || "—"); };
+const AVATAR_NAMES = { 1: "SHIELDBEARER", 2: "SILENTBLADE", 3: "IRONBEARD", 4: "FLAMEHEART", 5: "STONEBEARD", 6: "WOLFKIN", 7: "EMBERWISP", 8: "STORMBORN" };
+
+let KEY = localStorage.getItem("viking_admin_key") || "";
+const apiBase = () => localStorage.getItem("viking_api_base") || "https://viking-api-9x27.duckdns.org";
+async function api(action, payload) {
+  const r = await fetch(apiBase(), { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action, key: KEY, ...(payload || {}) }) });
+  let j = null; try { j = await r.json(); } catch (e) { /* ignore */ }
+  if (!r.ok) { const err = new Error((j && j.error) || ("HTTP " + r.status)); err.status = r.status; throw err; }
+  return j;
+}
+function toast(msg, isErr) {
+  const d = document.createElement("div");
+  d.className = "toast-it" + (isErr ? " err" : "");
+  d.innerHTML = msg;
+  $("#toast").appendChild(d);
+  setTimeout(() => d.remove(), isErr ? 7000 : 4500);
+}
+function errToast(e) { toast("❌ " + esc(e.message || e), true); }
+let modalResolve = null;
+function showConfirm(title, body, okText, danger) {
+  $("#modal-title").textContent = title;
+  $("#modal-body").textContent = body;
+  const ok = $("#modal-ok");
+  ok.textContent = okText || "تأكيد";
+  ok.className = danger ? "btn-danger" : "btn";
+  $("#modal-wrap").classList.remove("hidden");
+  return new Promise((res) => { modalResolve = res; });
+}
+$("#modal-ok").addEventListener("click", () => { $("#modal-wrap").classList.add("hidden"); if (modalResolve) modalResolve(true); });
+$("#modal-cancel").addEventListener("click", () => { $("#modal-wrap").classList.add("hidden"); if (modalResolve) modalResolve(false); });
+
+/* ================= gate ================= */
+async function tryEnter() {
+  const err = $("#gate-err"); err.textContent = "";
+  try {
+    await api("panelStats");
+    localStorage.setItem("viking_admin_key", KEY);
+    $("#gate").classList.add("hidden");
+    $("#app").classList.remove("hidden");
+    loadStats();
+  } catch (e) {
+    if (e.status === 503) err.textContent = "اللوحة غير مفعّلة على السيرفر (المفتاح غير مضبوط).";
+    else if (e.status === 401) err.textContent = "المفتاح غير صحيح.";
+    else err.textContent = "تعذر الاتصال بالسيرفر: " + e.message;
+  }
+}
+$("#gate-btn").addEventListener("click", () => { KEY = $("#gate-key").value.trim(); tryEnter(); });
+$("#gate-key").addEventListener("keydown", (e) => { if (e.key === "Enter") { KEY = e.target.value.trim(); tryEnter(); } });
+$("#btn-key").addEventListener("click", () => {
+  localStorage.removeItem("viking_admin_key"); KEY = "";
+  $("#app").classList.add("hidden"); $("#gate").classList.remove("hidden"); $("#gate-key").value = "";
+});
+$("#btn-refresh").addEventListener("click", () => { const t = currentTab; loaded[t] = false; showTab(t); });
+
+/* ================= tabs ================= */
+let currentTab = "stats";
+const loaded = {};
+const loaders = {};
+function showTab(t) {
+  currentTab = t;
+  $$("#tabs button").forEach((b) => b.classList.toggle("on", b.dataset.tab === t));
+  $$("section.tabpane").forEach((s) => s.classList.add("hidden"));
+  $("#pane-" + t).classList.remove("hidden");
+  if (!loaded[t] && loaders[t]) { loaded[t] = true; loaders[t](); }
+}
+$$("#tabs button").forEach((b) => b.addEventListener("click", () => showTab(b.dataset.tab)));
+
+/* ================= stats ================= */
+async function loadStats() {
+  const pane = $("#pane-stats");
+  pane.innerHTML = '<div class="spin">جارٍ التحميل…</div>';
+  try {
+    const s = await api("panelStats");
+    const p = s.players || {}, w = s.withdrawals || {}, v = s.verify || {};
+    const stat = (k, val, warn) => `<div class="stat${warn ? " warn" : ""}"><div class="v">${val}</div><div class="k">${k}</div></div>`;
+    let html = '<div class="cards">'
+      + stat("إجمالي اللاعبين", fmtN(p.total))
+      + stat("الموثّقون ✅", fmtN(p.verified))
+      + stat("المحظورون 🚫", fmtN(p.banned))
+      + stat("جداد النهاردة", fmtN(p.newToday))
+      + stat("إجمالي المعدّن", fmtN(p.totalMined))
+      + stat("سحوبات معلّقة ⏳", fmtN(w.pending), w.pending > 0)
+      + stat("سحوبات مدفوعة", fmtN(w.paidCount))
+      + stat("سحوبات مرفوضة", fmtN(w.rejectedCount))
+      + stat("توثيقات مفتوحة ⚠️", fmtN(v.openUnresolved), v.openUnresolved > 0)
+      + "</div>";
+    html += '<div class="sec-t">محفظة الدفع</div><div class="cards">'
+      + (s.payout
+        ? stat("رصيد TON", Number(s.payout.ton).toFixed(4)) + stat("رصيد ZM", fmtN(s.payout.viking))
+        : '<div class="stat"><div class="v">—</div><div class="k">الدفع غير مفعّل أو تعذرت القراءة</div></div>')
+      + "</div>";
+    html += '<div class="sec-t">حالة التوثيق التلقائي</div><div class="cards">'
+      + stat("مدفوعات معالَجة", fmtN(v.processedTotal))
+      + stat("تأخر المؤشر (ثانية)", v.cursorLagSec == null ? "—" : fmtN(v.cursorLagSec), v.cursorLagSec > 600)
+      + stat("تشغيل السيرفر", Math.floor((s.uptimeSec || 0) / 3600) + " ساعة")
+      + stat("وقت السيرفر", esc(fmtDate(s.serverTime)))
+      + "</div>";
+    pane.innerHTML = html;
+  } catch (e) { pane.innerHTML = '<div class="empty">تعذر تحميل الإحصائيات</div>'; errToast(e); }
+}
+loaders.stats = loadStats;
+
+/* ================= players ================= */
+const plState = { q: "", page: 0, total: 0, pages: 0 };
+async function loadPlayers() {
+  const pane = $("#pane-players");
+  pane.innerHTML = `
+    <div class="toolbar">
+      <input id="pl-q" type="text" placeholder="بحث: رقم لاعب (1-6 أرقام) أو آيدي تيليجرام أو اسم / يوزر" style="flex:1;min-width:220px" value="${esc(plState.q)}">
+      <button class="btn" id="pl-search">بحث</button>
+      <button class="btn-ghost" id="pl-all">الكل (الأحدث نشاطًا)</button>
+    </div>
+    <div id="pl-body"><div class="spin">جارٍ التحميل…</div></div>
+    <div class="pager">
+      <button class="btn-ghost btn-small" id="pl-prev">السابق</button>
+      <span class="mut" id="pl-pinfo"></span>
+      <button class="btn-ghost btn-small" id="pl-next">التالي</button>
+    </div>`;
+  $("#pl-search").addEventListener("click", () => { plState.q = $("#pl-q").value.trim(); plState.page = 0; fetchPlayers(); });
+  $("#pl-q").addEventListener("keydown", (e) => { if (e.key === "Enter") { plState.q = e.target.value.trim(); plState.page = 0; fetchPlayers(); } });
+  $("#pl-all").addEventListener("click", () => { plState.q = ""; $("#pl-q").value = ""; plState.page = 0; fetchPlayers(); });
+  $("#pl-prev").addEventListener("click", () => { if (plState.page > 0) { plState.page--; fetchPlayers(); } });
+  $("#pl-next").addEventListener("click", () => { if (plState.page < plState.pages - 1) { plState.page++; fetchPlayers(); } });
+  fetchPlayers();
+}
+async function fetchPlayers() {
+  const body = $("#pl-body"); if (!body) return;
+  body.innerHTML = '<div class="spin">جارٍ التحميل…</div>';
+  try {
+    const r = await api("panelPlayers", { q: plState.q, page: plState.page });
+    plState.total = r.total; plState.pages = r.pages; plState.page = r.page;
+    $("#pl-pinfo").textContent = `صفحة ${r.page + 1} من ${Math.max(r.pages, 1)} — الإجمالي ${fmtN(r.total)}`;
+    if (!r.rows.length) { body.innerHTML = '<div class="empty">لا توجد نتائج</div>'; return; }
+    body.innerHTML = `<table><thead><tr>
+      <th>اللاعب</th><th>رقم</th><th>معدّن</th><th>هولد</th><th>توثيق</th><th>حالة</th><th>آخر ظهور</th>
+      </tr></thead><tbody>${r.rows.map((p) => `
+      <tr class="rowlink" data-id="${esc(p.id)}">
+        <td><b>${esc(p.name || "—")}</b> ${p.username ? `<span class="mut">@${esc(p.username)}</span>` : ""}<br><span class="mono mut">${esc(p.id)}</span></td>
+        <td>${p.userNo || "—"}</td>
+        <td>${fmtN(p.mined)}</td>
+        <td>${fmtN(p.hold)}</td>
+        <td>${p.walletVerified ? '<span class="badge b-green">موثّق ✅</span>' : '<span class="badge b-grey">غير موثّق</span>'}</td>
+        <td>${p.banned ? '<span class="badge b-red">محظور 🚫</span>' : '<span class="badge b-green">نشط</span>'}</td>
+        <td class="small">${esc(fmtDate(p.lastSeen))}</td>
+      </tr>`).join("")}</tbody></table>`;
+    $$("#pl-body tr.rowlink").forEach((tr) => tr.addEventListener("click", () => openPlayer(tr.dataset.id)));
+  } catch (e) { body.innerHTML = '<div class="empty">تعذر التحميل</div>'; errToast(e); }
+}
+loaders.players = loadPlayers;
+
+/* ================= player drawer ================= */
+let drawerPlayerId = null;
+function closeDrawer() { $("#drawer-wrap").classList.add("hidden"); drawerPlayerId = null; }
+$("#drawer-wrap").addEventListener("click", (e) => { if (e.target.id === "drawer-wrap") closeDrawer(); });
+
+async function openPlayer(id) {
+  drawerPlayerId = String(id);
+  const wrap = $("#drawer-wrap"), dr = $("#drawer");
+  wrap.classList.remove("hidden");
+  dr.innerHTML = '<div class="spin">جارٍ التحميل…</div>';
+  try {
+    const r = await api("panelPlayer", { id: drawerPlayerId });
+    renderDrawer(r);
+  } catch (e) { dr.innerHTML = '<div class="empty">تعذر تحميل اللاعب</div>'; errToast(e); }
+}
+function kv(k, v) { return `<div class="k">${k}</div><div>${v}</div>`; }
+function renderDrawer(r) {
+  const p = r.player || {}, dr = $("#drawer");
+  const verified = p.walletVerified === true;
+  const openRec = (r.verifyRecords || []).find((x) => x.status === "open");
+  let html = `
+    <div style="display:flex;align-items:flex-start;gap:8px">
+      <div style="flex:1">
+        <h2>${esc(p.name || "—")} ${verified ? "🛡️✅" : ""} ${p.banned ? "🚫" : ""}</h2>
+        <div class="mut">${p.username ? "@" + esc(p.username) : ""} · رقم اللاعب <b>${p.userNo || "—"}</b></div>
+      </div>
+      <button class="btn-ghost btn-small" id="dr-close">✕ إغلاق</button>
+    </div>
+    <div class="kv">
+      ${kv("آيدي تيليجرام", `<span class="mono">${esc(p.id || drawerPlayerId)}</span>`)}
+      ${kv("الأفاتار", p.avatar ? `${p.avatar} — ${esc(AVATAR_NAMES[p.avatar] || "")}` : "غير مختار")}
+      ${kv("المحفظة", p.walletAddr ? `<span class="mono">${esc(p.walletAddr)}</span>` : "غير مربوطة")}
+      ${kv("التوثيق", verified ? `موثّق ✅ — ${esc(fmtDate(p.verifiedAt))}` : "غير موثّق")}
+      ${kv("عمر المحفظة", p.walletAgeDays == null ? "—" : fmtN(p.walletAgeDays) + " يوم")}
+      ${kv("الهولد (آخر مزامنة)", fmtN(p.hold) + " ZM")}
+      ${kv("المعدّن", "<b>" + fmtN(p.mined) + "</b> ZM")}
+      ${kv("أرباح التعدين", fmtN(p.earnMining))}
+      ${kv("أرباح المهام", fmtN(p.earnTasks))}
+      ${kv("أرباح اليومية", fmtN(p.earnDaily))}
+      ${kv("أرباح الإحالات", fmtN(p.earnRef))}
+      ${kv("عمولة إحالات معلقة", fmtN(p.pendingRefComm))}
+      ${kv("الإحالات", fmtN((p.referrals || []).length) + " (موثّقة: " + fmtN((p.referrals || []).filter((x) => x && x.verified === true).length) + ")")}
+      ${kv("دعاه", r.inviter ? `${esc(r.inviter.name || "")} ${r.inviter.username ? "@" + esc(r.inviter.username) : ""} (رقم ${r.inviter.userNo || "—"})` : (p.invitedBy ? `<span class="mono">${esc(p.invitedBy)}</span>` : "—"))}
+      ${kv("تاريخ الانضمام", esc(fmtDate(p.createdAt)))}
+      ${kv("آخر ظهور", esc(fmtDate(p.lastSeen)))}
+      ${kv("بصمة الجهاز", p.deviceHash ? `<span class="mono">${esc(p.deviceHash)}</span>` : "—")}
+      ${kv("الحالة", p.banned ? '<span class="badge b-red">محظور 🚫</span>' : '<span class="badge b-green">نشط</span>')}
+    </div>
+    <div class="sec-t">إجراءات</div>
+    <div class="act-row">
+      <button class="${p.banned ? "btn" : "btn-danger"}" id="dr-ban">${p.banned ? "فك الحظر" : "🚫 حظر اللاعب"}</button>
+      ${verified ? "" : '<button class="btn" id="dr-verify">🛡️ توثيق يدوي الآن</button>'}
+    </div>
+    <div class="act-row">
+      <input id="dr-adj" type="number" placeholder="تعديل الرصيد: مبلغ (+ أو -)" style="width:210px">
+      <button class="btn-ghost" id="dr-adj-btn">تطبيق التعديل</button>
+    </div>
+    <div class="act-row">
+      <select id="dr-avatar">
+        ${[0, 1, 2, 3, 4, 5, 6, 7, 8].map((a) => `<option value="${a}" ${Number(p.avatar || 0) === a ? "selected" : ""}>${a === 0 ? "0 — تصفير (غير مختار)" : a + " — " + AVATAR_NAMES[a]}</option>`).join("")}
+      </select>
+      <button class="btn-ghost" id="dr-avatar-btn">تعيين الأفاتار</button>
+    </div>`;
+  if (r.risk) {
+    html += `<div class="sec-t">تقييم تعدد الحسابات</div><details><summary>عرض التقييم</summary><pre class="json">${esc(JSON.stringify(r.risk, null, 1))}</pre></details>`;
+  }
+  const wds = r.withdrawals || [];
+  html += `<div class="sec-t">سحوباته (${wds.length})</div>`;
+  html += wds.length ? `<table><thead><tr><th>رقم</th><th>المبلغ</th><th>الصافي</th><th>الحالة</th><th>التاريخ</th></tr></thead><tbody>
+    ${wds.map((w) => `<tr><td>#${w.wdNum || "—"}</td><td>${fmtN(w.amt)}</td><td>${fmtN(w.net)}</td><td>${esc(w.status || "")}</td><td class="small">${esc(fmtDate(w.createdAt || w.at))}</td></tr>`).join("")}
+    </tbody></table>` : '<div class="mut small">لا توجد سحوبات</div>';
+  const vrs = r.verifyRecords || [];
+  html += `<div class="sec-t">سجلات توثيقه (${vrs.length})</div>`;
+  html += vrs.length ? `<table><thead><tr><th>الحالة</th><th>السبب</th><th>القيمة</th><th>التاريخ</th></tr></thead><tbody>
+    ${vrs.map((x) => `<tr><td>${x.status === "open" ? '<span class="badge b-yellow">مفتوح</span>' : '<span class="badge b-green">محلول</span>'}</td><td>${esc(x.reason || "")}</td><td>${x.valueNano ? (Number(x.valueNano) / 1e9) + " TON" : "—"}</td><td class="small">${esc(fmtDate(x.utime ? x.utime * 1000 : x.firstSeenAt))}</td></tr>`).join("")}
+    </tbody></table>` : '<div class="mut small">لا توجد سجلات</div>';
+  html += `<details><summary>كل بيانات اللاعب (JSON)</summary><pre class="json">${esc(JSON.stringify(p, null, 1))}</pre></details>`;
+  dr.innerHTML = html;
+
+  $("#dr-close").addEventListener("click", closeDrawer);
+  $("#dr-ban").addEventListener("click", async () => {
+    const target = !p.banned;
+    if (!await showConfirm(target ? "حظر اللاعب" : "فك حظر اللاعب", `${target ? "حظر" : "فك حظر"} ${p.name || ""} (رقم ${p.userNo || "—"})؟`, target ? "حظر" : "فك الحظر", target)) return;
+    try { await api("panelBan", { id: drawerPlayerId, banned: target }); toast(target ? "تم الحظر 🚫" : "تم فك الحظر"); openPlayer(drawerPlayerId); loaded.players = false; }
+    catch (e) { errToast(e); }
+  });
+  const vBtn = $("#dr-verify");
+  if (vBtn) vBtn.addEventListener("click", async () => {
+    if (!await showConfirm("توثيق يدوي", `توثيق محفظة ${p.name || ""} (رقم ${p.userNo || "—"}) الآن؟\nسيصله إشعار التوثيق الرسمي.`, "توثيق", false)) return;
+    try {
+      const res = openRec ? await api("panelVerifyResolve", { hash: openRec.hash }) : await api("panelVerifyPlayer", { id: drawerPlayerId });
+      if (res.won) toast("تم التوثيق ✅"); else toast("لم يتم: " + esc(res.reason || ""), true);
+      openPlayer(drawerPlayerId);
+    } catch (e) { errToast(e); }
+  });
+  $("#dr-adj-btn").addEventListener("click", async () => {
+    const amt = Number($("#dr-adj").value);
+    if (!amt || !Number.isFinite(amt)) { toast("دخّل مبلغًا صحيحًا", true); return; }
+    if (!await showConfirm("تعديل الرصيد", `تعديل رصيد ${p.name || ""} بمقدار ${amt > 0 ? "+" : ""}${fmtN(amt)} ZM؟\nالرصيد الحالي: ${fmtN(p.mined)}`, "تطبيق", amt < 0)) return;
+    try { const res = await api("panelAdjust", { id: drawerPlayerId, amount: amt }); toast("الرصيد الجديد: " + fmtN(res.mined)); openPlayer(drawerPlayerId); }
+    catch (e) { errToast(e); }
+  });
+  $("#dr-avatar-btn").addEventListener("click", async () => {
+    const av = Number($("#dr-avatar").value);
+    try { await api("panelSetAvatar", { id: drawerPlayerId, avatar: av }); toast("تم تعيين الأفاتار"); openPlayer(drawerPlayerId); }
+    catch (e) { errToast(e); }
+  });
+}
+
+/* ================= withdrawals ================= */
+const wdState = { status: "pending" };
+const WD_FILTERS = [["pending", "معلّقة ⏳"], ["paid", "مدفوعة ✅"], ["rejected", "مرفوضة ❌"], ["all", "الكل"]];
+async function loadWds() {
+  const pane = $("#pane-wds");
+  pane.innerHTML = `
+    <div class="toolbar"><div class="chips">${WD_FILTERS.map(([v, t]) => `<button data-st="${v}" class="${wdState.status === v ? "on" : ""}">${t}</button>`).join("")}</div>
+    <span class="sp"></span><span class="mut small">اعتماد السحب = إرسال فعلي من محفظة الدفع · الرفض نهائي وبدون استرداد</span></div>
+    <div id="wd-body"><div class="spin">جارٍ التحميل…</div></div>`;
+  $$("#pane-wds .chips button").forEach((b) => b.addEventListener("click", () => { wdState.status = b.dataset.st; loadWds(); }));
+  fetchWds();
+}
+async function fetchWds() {
+  const body = $("#wd-body"); if (!body) return;
+  body.innerHTML = '<div class="spin">جارٍ التحميل…</div>';
+  try {
+    const r = await api("panelWithdrawals", { status: wdState.status });
+    if (!r.rows.length) { body.innerHTML = '<div class="empty">لا توجد سحوبات في هذه الحالة</div>'; return; }
+    body.innerHTML = `<table><thead><tr><th>رقم</th><th>اللاعب</th><th>المبلغ</th><th>الرسوم</th><th>الصافي</th><th>المحفظة</th><th>التاريخ</th><th>الحالة</th><th></th></tr></thead><tbody>
+      ${r.rows.map((w) => `<tr>
+        <td>#${w.wdNum || "—"}</td>
+        <td><b>${esc(w.userName || "—")}</b> ${w.userVerified ? "🛡️" : ""}<br><span class="mono mut">${esc(w.userId || "")}</span></td>
+        <td>${fmtN(w.amt)}</td><td>${fmtN(w.fee)}</td><td><b>${fmtN(w.net)}</b></td>
+        <td><span class="mono" title="${esc(w.walletAddr || "")}">${esc(shortAddr(w.walletAddr))}</span></td>
+        <td class="small">${esc(fmtDate(w.createdAt || w.at))}</td>
+        <td>${esc(w.status || "")}${w.payoutState && w.payoutState !== "none" ? `<br><span class="badge b-grey">${esc(w.payoutState)}</span>` : ""}${w.payoutTx ? `<br><a href="https://tonviewer.com/transaction/${esc(w.payoutTx)}" target="_blank" rel="noopener">المعاملة</a>` : ""}</td>
+        <td>${String(w.status || "").includes("Pending") ? `
+          <button class="btn btn-small" data-act="ok" data-num="${w.wdNum}">اعتماد</button>
+          <button class="btn-ghost btn-small" data-act="no" data-num="${w.wdNum}">رفض</button>
+          <button class="btn-danger btn-small" data-act="ban" data-num="${w.wdNum}">حظر+رفض</button>` : ""}
+        </td></tr>`).join("")}
+      </tbody></table>`;
+    $$("#wd-body [data-act]").forEach((b) => b.addEventListener("click", () => wdAction(b.dataset.act, Number(b.dataset.num), r.rows.find((x) => x.wdNum === Number(b.dataset.num)))));
+  } catch (e) { body.innerHTML = '<div class="empty">تعذر التحميل</div>'; errToast(e); }
+}
+async function wdAction(act, num, w) {
+  if (!w) return;
+  try {
+    if (act === "ok") {
+      if (!await showConfirm("اعتماد سحب", `اعتماد سحب #${num} للاعب ${w.userName || ""}؟\nسيتم إرسال ${fmtN(w.net)} ZM فعليًا إلى المحفظة:\n${w.walletAddr || ""}\n(المبلغ ${fmtN(w.amt)} — الرسوم ${fmtN(w.fee)})`, "اعتماد وإرسال", false)) return;
+      const res = await api("panelWdApprove", { wdNum: num });
+      if (res.payoutState === "paid") toast(`تم الدفع ✅ #${num}${res.payoutTx ? ` — <a href="https://tonviewer.com/transaction/${esc(res.payoutTx)}" target="_blank" rel="noopener">المعاملة</a>` : ""}`);
+      else toast(`نتيجة الاعتماد: ${esc(res.status || "")} / ${esc(res.payoutState || "")}${res.payoutError ? " — " + esc(res.payoutError) : ""}`, res.payoutState !== "paid");
+    } else if (act === "no") {
+      if (!await showConfirm("رفض سحب", `رفض سحب #${num} (${fmtN(w.amt)} ZM)؟\nلن تُسترد العملات للاعب — قرار نهائي.`, "رفض نهائي", true)) return;
+      await api("panelWdReject", { wdNum: num });
+      toast(`تم رفض السحب #${num} ❌`);
+    } else if (act === "ban") {
+      if (!await showConfirm("حظر + رفض", `حظر اللاعب ${w.userName || ""} ورفض سحبه #${num}؟\nلن تُسترد العملات.`, "حظر ورفض", true)) return;
+      await api("panelWdBan", { wdNum: num });
+      toast(`تم حظر اللاعب ورفض السحب #${num} 🚫`);
+    }
+    loaded.stats = false; fetchWds();
+  } catch (e) { errToast(e); }
+}
+loaders.wds = loadWds;
+
+/* ================= verify queue ================= */
+async function loadVerify() {
+  const pane = $("#pane-verify");
+  pane.innerHTML = '<div id="vq-body"><div class="spin">جارٍ التحميل…</div></div>';
+  try {
+    const r = await api("panelVerifyQueue");
+    const body = $("#vq-body");
+    if (!r.rows.length) { body.innerHTML = '<div class="empty">لا توجد توثيقات عالقة 🎉</div>'; return; }
+    body.innerHTML = `<table><thead><tr><th>التاريخ</th><th>اللاعب</th><th>رقم</th><th>المصدر</th><th>القيمة</th><th>السبب</th><th>فحوصات</th><th></th></tr></thead><tbody>
+      ${r.rows.map((x) => `<tr>
+        <td class="small">${esc(fmtDate(x.utime ? x.utime * 1000 : null))}</td>
+        <td>${x.player ? `<b>${esc(x.player.name || "—")}</b> ${x.player.username ? `<span class="mut">@${esc(x.player.username)}</span>` : ""}` : '<span class="mut">لاعب غير موجود</span>'}</td>
+        <td>${x.userNo || "—"}</td>
+        <td><span class="mono" title="${esc(x.source || "")}">${esc(shortAddr(x.source))}</span></td>
+        <td>${x.valueNano ? (Number(x.valueNano) / 1e9) + " TON" : "—"}</td>
+        <td><span class="badge b-yellow">${esc(x.reason || "")}</span></td>
+        <td>${x.checks || 0}</td>
+        <td>${x.player ? `<button class="btn-ghost btn-small" data-open="${esc(x.player.id)}">فتح</button>` : ""}
+        ${x.player && !x.player.walletVerified ? `<button class="btn btn-small" data-resolve="${esc(x.hash)}" data-name="${esc(x.player.name || "")}">توثيق الآن</button>` : ""}</td>
+      </tr>`).join("")}
+      </tbody></table>`;
+    $$("#vq-body [data-open]").forEach((b) => b.addEventListener("click", () => openPlayer(b.dataset.open)));
+    $$("#vq-body [data-resolve]").forEach((b) => b.addEventListener("click", async () => {
+      if (!await showConfirm("توثيق يدوي", `توثيق اللاعب ${b.dataset.name} من دفعة التوثيق هذه؟\nسيصله إشعار التوثيق الرسمي.`, "توثيق", false)) return;
+      try {
+        const res = await api("panelVerifyResolve", { hash: b.dataset.resolve });
+        if (res.won) toast("تم التوثيق ✅"); else toast("لم يتم: " + esc(res.reason || ""), true);
+        loaded.stats = false; loadVerify();
+      } catch (e) { errToast(e); }
+    }));
+  } catch (e) { $("#vq-body").innerHTML = '<div class="empty">تعذر التحميل</div>'; errToast(e); }
+}
+loaders.verify = loadVerify;
+
+/* ================= config ================= */
+const NUM_FIELDS = [
+  ["taskReward", "مكافأة مهام القنوات"], ["bioReward", "مكافأة مهمة البايو"],
+  ["refAchReward1", "مكافأة إحالة — مرحلة 1"], ["refAchReward10", "مكافأة إحالة — مرحلة 10"],
+  ["refAchReward25", "مكافأة إحالة — مرحلة 25"], ["refAchReward50", "مكافأة إحالة — مرحلة 50"],
+  ["refAchReward100", "مكافأة إحالة — مرحلة 100"], ["refClaimPercent", "نسبة عمولة الإحالات %"],
+  ["refMinHold", "حد الهولد لتفعيل الإحالة"], ["minWithdraw", "الحد الأدنى للسحب"],
+  ["holdPercentReq", "نسبة الهولد المطلوبة للسحب %"], ["withdrawFeePercent", "رسوم السحب %"],
+  ["verifyFeeTon", "رسوم التوثيق (TON)"], ["withdrawMinAgeDays", "عمر المحفظة الأدنى للسحب (أيام)"],
+  ["verifyMinAgeDays", "عمر المحفظة للتوثيق (قديم — غير مستخدم)"], ["lvl1PerDay", "أرباح اليوم للمستوى 1"]
+];
+const STR_FIELDS = [
+  ["brandTitle", "اسم العلامة"], ["coinSym", "رمز العملة"], ["channel1", "رابط القناة 1"],
+  ["channel2", "رابط القناة 2"], ["channel3", "رابط القناة 3"], ["botUsername", "يوزر البوت"],
+  ["buySwapUrl", "رابط الشراء"], ["verifyDepositWallet", "محفظة إيداع التوثيق"],
+  ["payoutWallet", "محفظة الدفع"], ["payoutChannel", "قناة إثبات الدفع"], ["adminChatId", "آيدي شات الإدارة"]
+];
+let cfgSnap = null;
+async function loadConfig() {
+  const pane = $("#pane-config");
+  pane.innerHTML = '<div class="spin">جارٍ التحميل…</div>';
+  try {
+    const r = await api("panelConfigGet");
+    const cfg = r.config || {};
+    cfgSnap = JSON.parse(JSON.stringify(cfg));
+    const numIn = ([k, t]) => `<div><label>${t} <span class="mono mut">${k}</span></label><input type="number" step="any" id="cfg-${k}" value="${cfg[k] == null ? "" : esc(cfg[k])}"></div>`;
+    const strIn = ([k, t]) => `<div><label>${t} <span class="mono mut">${k}</span></label><input type="text" id="cfg-${k}" value="${esc(cfg[k] == null ? "" : cfg[k])}"></div>`;
+    const defs = Array.isArray(cfg.holdTaskDefs) && cfg.holdTaskDefs.length ? cfg.holdTaskDefs : [];
+    pane.innerHTML = `
+      <div class="sec-t" style="margin-top:0">القيم الرقمية</div>
+      <div class="cfg-grid">${NUM_FIELDS.map(numIn).join("")}</div>
+      <div class="sec-t">نصوص وروابط</div>
+      <div class="cfg-grid">${STR_FIELDS.map(strIn).join("")}</div>
+      <div class="sec-t">مهام الاحتفاظ (هولد ← مكافأة)</div>
+      <div id="cfg-defs">${defs.map((d) => defRow(d)).join("")}</div>
+      <button class="btn-ghost btn-small" id="cfg-def-add">+ إضافة مستوى</button>
+      <div class="sec-t">أخرى</div>
+      <div class="act-row"><label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="cfg-ownerOnly" ${cfg.ownerOnly ? "checked" : ""} style="width:18px;height:18px"> وضع الصيانة — التطبيق للمالك فقط (ownerOnly)</label></div>
+      <div class="act-row"><label class="mut small" style="width:100%">المدراء الإضافيون (آيديات تيليجرام مفصولة بفواصل) — adminUsers
+        <input type="text" id="cfg-adminUsers" value="${esc((cfg.adminUsers || []).join(", "))}" style="width:100%;margin-top:4px"></label></div>
+      <div class="act-row" style="margin-top:16px"><button class="btn" id="cfg-save">حفظ التغييرات</button>
+      <span class="mut small">تُحفظ فقط الحقول المعدّلة. الإعدادات المحفوظة فعليًا في قاعدة البيانات تظهر أسفل الصفحة.</span></div>
+      <details><summary>الإعدادات المحفوظة (settings/global)</summary><pre class="json">${esc(JSON.stringify(r.stored || {}, null, 1))}</pre></details>`;
+    $("#cfg-def-add").addEventListener("click", () => { $("#cfg-defs").insertAdjacentHTML("beforeend", defRow({ hold: "", reward: "" })); bindDefDel(); });
+    bindDefDel();
+    $("#cfg-save").addEventListener("click", saveConfig);
+  } catch (e) { pane.innerHTML = '<div class="empty">تعذر التحميل</div>'; errToast(e); }
+}
+function defRow(d) {
+  return `<div class="def-row"><span class="mut small">هولد</span><input type="number" class="def-hold" value="${d.hold == null ? "" : esc(d.hold)}"><span class="mut small">مكافأة</span><input type="number" class="def-reward" value="${d.reward == null ? "" : esc(d.reward)}"><button class="btn-danger btn-small def-del">حذف</button></div>`;
+}
+function bindDefDel() { $$("#cfg-defs .def-del").forEach((b) => b.onclick = () => b.closest(".def-row").remove()); }
+async function saveConfig() {
+  if (!cfgSnap) return;
+  const out = {};
+  for (const [k] of NUM_FIELDS) {
+    const v = $("#cfg-" + k).value.trim();
+    const nv = v === "" ? null : Number(v);
+    if (nv !== Number(cfgSnap[k] == null ? null : cfgSnap[k]) && nv !== null) out[k] = nv;
+  }
+  for (const [k] of STR_FIELDS) {
+    const v = $("#cfg-" + k).value;
+    if (v !== String(cfgSnap[k] == null ? "" : cfgSnap[k])) out[k] = v;
+  }
+  const defs = $$("#cfg-defs .def-row").map((row) => ({ hold: Number($(".def-hold", row).value), reward: Number($(".def-reward", row).value) }));
+  if (JSON.stringify(defs) !== JSON.stringify(cfgSnap.holdTaskDefs || [])) out.holdTaskDefs = defs;
+  const admins = $("#cfg-adminUsers").value.split(",").map((s) => s.trim()).filter(Boolean);
+  if (JSON.stringify(admins) !== JSON.stringify((cfgSnap.adminUsers || []).map(String))) out.adminUsers = admins;
+  const oo = $("#cfg-ownerOnly").checked;
+  if (oo !== !!cfgSnap.ownerOnly) out.ownerOnly = oo;
+  if (!Object.keys(out).length) { toast("لا توجد تغييرات لحفظها"); return; }
+  if (out.ownerOnly === true && !await showConfirm("وضع الصيانة", "تفعيل وضع الصيانة سيغلق التطبيق على كل اللاعبين (عدا المدراء). متأكد؟", "تفعيل", true)) return;
+  try {
+    const res = await api("panelConfigSet", { settings: out });
+    toast("تم حفظ: " + esc((res.applied || []).join("، ")));
+    loaded.config = false; loadConfig();
+  } catch (e) { errToast(e); }
+}
+loaders.config = loadConfig;
+
+/* ================= requests ================= */
+async function loadRequests() {
+  const pane = $("#pane-requests");
+  pane.innerHTML = `
+    <div class="sec-t" style="margin-top:0">اطلب من المساعد</div>
+    <p class="mut small" style="margin-top:0">اكتب طلبك هنا (سؤال عن البوت، تعديل، تقرير…) وسيصل إلى المساعد في الشات، ورده سيظهر هنا وفي الشات.</p>
+    <textarea id="req-text" placeholder="اكتب طلبك…"></textarea>
+    <div class="act-row"><button class="btn" id="req-send">إرسال الطلب</button></div>
+    <div class="sec-t">الطلبات</div>
+    <div id="req-body"><div class="spin">جارٍ التحميل…</div></div>`;
+  $("#req-send").addEventListener("click", async () => {
+    const t = $("#req-text").value.trim();
+    if (!t) { toast("اكتب الطلب أولًا", true); return; }
+    try { await api("panelRequestAdd", { text: t }); $("#req-text").value = ""; toast("تم إرسال الطلب ✅"); fetchRequests(); }
+    catch (e) { errToast(e); }
+  });
+  fetchRequests();
+}
+async function fetchRequests() {
+  const body = $("#req-body"); if (!body) return;
+  try {
+    const r = await api("panelRequestList");
+    if (!r.rows.length) { body.innerHTML = '<div class="empty">لا توجد طلبات بعد</div>'; return; }
+    window._reqReplies = {};
+    r.rows.forEach((x) => { if (x.reply) window._reqReplies[x.id] = x.reply; });
+    body.innerHTML = r.rows.map((x) => `<div class="req-it">
+      <div style="display:flex;gap:8px;align-items:center">
+        ${x.status === "done" ? '<span class="badge b-green">تم الرد ✅</span>' : '<span class="badge b-yellow">جديد ⏳</span>'}
+        <span class="mut small">${esc(fmtDate(x.at))}</span>
+      </div>
+      <div class="txt">${esc(x.text)}</div>
+      ${x.reply ? `<div class="reply"><div class="reply-head"><b>رد المساعد</b> <span class="mut small">${esc(fmtDate(x.repliedAt))}</span><span class="sp"></span><button class="copy-btn" data-copyreq="${x.id}">📋 نسخ الرد</button></div><div class="reply-body">${esc(x.reply)}</div></div>` : ""}
+    </div>`).join("");
+    body.querySelectorAll("[data-copyreq]").forEach((b) => b.addEventListener("click", () => copyReplyText(b.getAttribute("data-copyreq"))));
+  } catch (e) { body.innerHTML = '<div class="empty">تعذر التحميل</div>'; errToast(e); }
+}
+async function copyReplyText(id) {
+  const t = (window._reqReplies || {})[id];
+  if (!t) return;
+  try { await navigator.clipboard.writeText(t); toast("اتنسخ الرد ✅"); return; } catch (e) { /* fallback below */ }
+  const ta = document.createElement("textarea");
+  ta.value = t; ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand("copy"); toast("اتنسخ الرد ✅"); } catch (_) { toast("تعذر النسخ", true); }
+  ta.remove();
+}
+loaders.requests = loadRequests;
+
+/* ================= audit ================= */
+async function loadAudit() {
+  const pane = $("#pane-audit");
+  pane.innerHTML = '<div class="spin">جارٍ التحميل…</div>';
+  try {
+    const r = await api("panelAuditList");
+    if (!r.rows.length) { pane.innerHTML = '<div class="empty">لا توجد إجراءات مسجلة بعد</div>'; return; }
+    pane.innerHTML = `<table><thead><tr><th>الوقت</th><th>الإجراء</th><th>الهدف</th><th>التفاصيل</th></tr></thead><tbody>
+      ${r.rows.map((x) => `<tr><td class="small" style="white-space:nowrap">${esc(fmtDate(x.at))}</td><td>${esc(x.action)}</td><td><span class="mono">${esc(x.target || "")}</span></td><td>${esc(x.detail || "")}</td></tr>`).join("")}
+      </tbody></table>`;
+  } catch (e) { pane.innerHTML = '<div class="empty">تعذر التحميل</div>'; errToast(e); }
+}
+loaders.audit = loadAudit;
+
+/* ================= init ================= */
+if (KEY) { $("#gate-key").value = KEY; tryEnter(); }
+</script>
+</body>
+</html>
