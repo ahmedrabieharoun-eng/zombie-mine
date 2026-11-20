@@ -141,13 +141,6 @@
     .mn-wallet-btn{flex:none;width:37px;height:37px;border-radius:50%;border:1px solid var(--acc);background:linear-gradient(180deg,#4dff9d,#22c55e);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(0,0,0,.5);padding:0}
     .mn-wallet-btn svg{width:19px;height:19px}
     .mn-wallet-btn:active{transform:scale(.93)}
-    .mn-stage-stats{display:flex;gap:8px;margin-top:4px}
-    .mn-stat{flex:1;position:relative;background:var(--glass);border:1px solid var(--line2);border-radius:14px;padding:14px 8px 11px;text-align:center;box-shadow:0 0 14px rgba(50,255,140,.12),0 10px 22px rgba(0,0,0,.5),inset 0 1px 0 rgba(150,255,195,.13);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-    .mn-stat-tab{position:absolute;top:-9px;left:10px;width:25px;height:25px;border-radius:8px;background:#0b120d;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center}
-    .mn-stat-tab svg{width:14px;height:14px}
-    .mn-stat-lbl{font-size:10.5px;font-weight:900;letter-spacing:1.4px;color:#a9c6b1;white-space:nowrap;text-transform:uppercase}
-    .mn-stat-num{font-size:21px;font-weight:800;color:var(--num);display:flex;align-items:center;justify-content:center;gap:5px;margin-top:2px;font-variant-numeric:tabular-nums}
-    .mn-stat-num img{width:19px;height:19px}
     .mn-card{background:var(--glass);border:1px solid var(--line2);border-radius:14px;padding:14px;text-align:center;box-shadow:0 0 14px rgba(50,255,140,.12),0 10px 22px rgba(0,0,0,.5),inset 0 1px 0 rgba(150,255,195,.13);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
     .mn-lbl{font-size:12px;letter-spacing:2.5px;color:#a9c6b1;font-weight:900;margin-bottom:3px;text-transform:uppercase}
     .mn-val{font-size:31px;font-weight:900;color:var(--num);line-height:1.15;font-variant-numeric:tabular-nums}
@@ -161,7 +154,6 @@
     @media (max-height:830px){
       .mn-stage{height:26dvh;min-height:196px}
       .mn-card{padding:11px 14px}
-      .mn-stat{padding:11px 8px 9px}
       .mn-actions{padding-top:4px}
     }
     .mn-collect{width:98px;height:98px;flex:none;border-radius:50%;background:radial-gradient(circle at 35% 28%,#baffd9,#4dff9d 46%,#22c55e 76%,#15803d);border:3px solid #0d5c2e;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;box-shadow:0 10px 24px rgba(0,0,0,.6),0 0 22px rgba(77,255,157,.35),inset 0 2px 6px rgba(255,255,255,.55);margin-top:-24px;cursor:pointer;padding:0}
@@ -412,7 +404,20 @@
       --mut:#cfe6d6; --num:#8affc1;
     }
     /* ---------- frosted scratched glass cards ---------- */
-    .card-3d,.mn-card,.mn-stat,.q-wrap,.miner-card-3d,.fr-sec,.fr-tablet,.pf-sec,.pf-stat,.boot-panel,.pf-modal-card,.mn-verify-wide,.top-bar,.pf-set-cell,.fr-row{
+    .card-3d,
+    .mn-card,
+    .q-wrap,
+    .miner-card-3d,
+    .fr-sec,
+    .fr-tablet,
+    .pf-sec,
+    .pf-stat,
+    .boot-panel,
+    .pf-modal-card,
+    .mn-verify-wide,
+    .top-bar,
+    .pf-set-cell,
+    .fr-row{
       background-color:var(--glass);
       background-image:linear-gradient(125deg,rgba(255,255,255,.16),rgba(255,255,255,0) 42%),repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 1px,transparent 1px 7px),repeating-linear-gradient(63deg,rgba(0,0,0,.09) 0 1px,transparent 1px 11px)!important;
       border:1px solid rgba(213,255,228,.50);
@@ -436,26 +441,22 @@
        body scene through the masks; page content is lifted above the spill */
     #hero-img{position:absolute;left:10%;top:0;width:80%;height:100%;object-position:50% 26%}
     #page-mine #hero-video{left:10%;top:0;width:80%;height:100%;object-position:50% 26%}
-    #page-mine .mn-stage-stats,#page-mine .mn-card,#page-mine .mn-row,#page-mine .mn-actions{position:relative;z-index:2}
+    #page-mine .mn-card,
+    #page-mine .mn-row,
+    #page-mine .mn-actions{position:relative;z-index:2}
     .mn-userbar{background:linear-gradient(180deg,rgba(8,16,11,0),rgba(8,16,11,.34) 42%,rgba(6,13,9,.60));border-top:1px solid rgba(186,255,214,.35);backdrop-filter:blur(7px) saturate(1.25);-webkit-backdrop-filter:blur(7px) saturate(1.25);padding:9px 12px 6px}
     .mn-userbar>img{width:30px;height:30px}
     #page-mine.page.active{padding-bottom:128px}
     /* ---------- Mine compaction: room for the full-bleed hero ---------- */
     #page-mine{gap:3px}
     #page-mine .mn-head{padding-top:6px}
-    #page-mine .mn-stat{padding:9px 8px 8px}
     #page-mine .mn-card{padding:7px 12px}
     #page-mine .mn-val{font-size:26px}
     #page-mine .mn-val-sm{font-size:19px}
     /* ---------- Mine stats: ONE frosted panel, transparent cells ---------- */
-    #page-mine .mn-stage-stats{position:relative;z-index:3;margin-top:-52px;gap:0;padding:12px 6px 10px;background-color:var(--glass);background-image:linear-gradient(125deg,rgba(255,255,255,.16),rgba(255,255,255,0) 42%),repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 1px,transparent 1px 7px),repeating-linear-gradient(63deg,rgba(0,0,0,.09) 0 1px,transparent 1px 11px);border:1px solid rgba(213,255,228,.50);border-radius:14px;box-shadow:0 0 14px rgba(90,255,160,.10),0 10px 22px rgba(0,0,0,.45),inset 0 1px 0 rgba(220,255,235,.14);backdrop-filter:blur(10px) saturate(1.15) brightness(1.07);-webkit-backdrop-filter:blur(10px) saturate(1.15) brightness(1.07)}
-    .mn-stage-stats .mn-stat{background:transparent;background-image:none!important;border:none;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
-    .mn-stage-stats .mn-stat + .mn-stat{border-inline-start:1px solid rgba(213,255,228,.28)}
-    .mn-stage-stats .mn-stat-tab{position:static;margin:0 auto 2px}
     .mn-collect{width:84px;height:84px}
     .mn-collect img{width:37px;height:37px}
     .mn-collect span{font-size:11.5px}
-    .mn-stage-stats .mn-verify-wide{background:transparent;background-image:none!important;border:none;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;transform:translateY(10px)}
     /* ---------- page titles on an ornament divider ---------- */
     .pf-titlebar{display:flex;align-items:center;gap:14px;background:transparent;border:none;box-shadow:none;padding:8px 6px;text-shadow:0 0 12px rgba(92,255,157,.35)}
     .q-sec-title{display:flex;align-items:center;gap:12px}
@@ -538,7 +539,20 @@
     .mn-head-btn svg{width:20px;height:20px;stroke:#8affc1;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
     .mn-head-btn:active{transform:scale(.94)}
     /* smoky marble-mist baked into the frost of every card (stats panel too) */
-    .card-3d,.mn-card,.mn-stat,.q-wrap,.miner-card-3d,.fr-sec,.fr-tablet,.pf-sec,.pf-stat,.boot-panel,.pf-modal-card,.mn-verify-wide,.top-bar,.pf-set-cell,.fr-row,#page-mine .mn-stage-stats{
+    .card-3d,
+    .mn-card,
+    .q-wrap,
+    .miner-card-3d,
+    .fr-sec,
+    .fr-tablet,
+    .pf-sec,
+    .pf-stat,
+    .boot-panel,
+    .pf-modal-card,
+    .mn-verify-wide,
+    .top-bar,
+    .pf-set-cell,
+    .fr-row{
       background-image:url('assets/tex_mist.webp'),linear-gradient(125deg,rgba(255,255,255,.16),rgba(255,255,255,0) 42%),repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 1px,transparent 1px 7px),repeating-linear-gradient(63deg,rgba(0,0,0,.09) 0 1px,transparent 1px 11px)!important;
       background-size:cover,cover,cover,cover;background-position:center,center,center,center;
     }
@@ -559,9 +573,6 @@
        the screen bottom in the centre */
     #page-mine.page.active{justify-content:flex-start;gap:2px}
     #page-mine>.mn-card{order:2;margin-top:0;padding:9px 12px}
-    #page-mine .mn-stage-stats{order:3;margin-top:0;padding:6px 6px 5px}
-    #page-mine .mn-stat{padding:6px 8px}
-    #page-mine .mn-stage-stats .mn-stat-tab{margin-bottom:0}
     #page-mine .mn-row{order:4}
     #page-mine .mn-actions{order:5}
     /* (a) the vault — MINED as the hero number, coin beside it */
@@ -569,11 +580,6 @@
     #page-mine>.mn-card .mn-val{display:flex;align-items:center;justify-content:center;gap:9px;font-size:33px}
     #page-mine>.mn-card .mn-val .mn-coin{width:30px;height:30px}
     /* (b) 3-tile row inside the frosted stats panel */
-    #page-mine .mn-stage-stats>.mn-stat,#page-mine .mn-stage-stats>.mn-card{min-width:0}
-    #page-mine .mn-stage-stats>.mn-card{flex:1;background:transparent;background-image:none!important;border:none;border-inline-start:1px solid rgba(213,255,228,.28);border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;padding:0 8px;margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-    #page-mine .mn-stage-stats .mn-tile-rate .mn-lbl{font-size:10.5px;letter-spacing:1.4px;color:#a9c6b1;margin-bottom:0}
-    #page-mine .mn-stage-stats .mn-tile-rate .mn-val-sm{font-size:21px;font-weight:800;color:var(--num);line-height:1.2}
-    #page-mine .mn-stage-stats .mn-verify-wide{flex:1.6}
     /* (c) countdown — slim bar: label left, time right, 24h fill along the bottom edge */
     #page-mine .mn-row .mn-card{position:relative;display:flex;align-items:center;justify-content:space-between;text-align:left;padding:8px 14px 11px;overflow:hidden}
     #page-mine .mn-row .mn-lbl{margin:0;font-size:11px}
@@ -652,7 +658,21 @@
        at any card size. Inner transparent cells (.mn-stat / .mn-card
        inside the Mine stats panel, .fr-tablet inside .fr-tablets) keep
        their higher-specificity border:none rules and stay frameless. */
-    .card-3d,.mn-card,.mn-stat,.q-wrap,.miner-card-3d,.fr-sec,.fr-tablet,.pf-sec,.pf-stat,.boot-panel,.pf-modal-card,.mn-verify-wide,.top-bar,.pf-set-cell,.fr-row,#page-mine .mn-stage-stats,#page-friends .fr-tablets{
+    .card-3d,
+    .mn-card,
+    .q-wrap,
+    .miner-card-3d,
+    .fr-sec,
+    .fr-tablet,
+    .pf-sec,
+    .pf-stat,
+    .boot-panel,
+    .pf-modal-card,
+    .mn-verify-wide,
+    .top-bar,
+    .pf-set-cell,
+    .fr-row,
+    #page-friends .fr-tablets{
       background-color:transparent!important;
       background-image:none!important;
       backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
@@ -672,8 +692,6 @@
     #page-mine .mn-stage{height:188px;min-height:188px}
     @media (max-height:830px){ #page-mine .mn-stage{min-height:196px} }
     #page-mine>.mn-card{padding-top:5px;padding-bottom:5px}
-    #page-mine .mn-stage-stats{padding-top:2px;padding-bottom:2px}
-    #page-mine .mn-stat{padding-top:3px;padding-bottom:3px}
     #page-mine .mn-row .mn-card{padding-top:4px;padding-bottom:7px}
     /* ---------- PASS 19: potion-vial nav (owner pick: قوارير سم) ----------
        The five tombstones are replaced by glass potion vials (nav_vial_1..5)
@@ -747,12 +765,25 @@
     body{background-color:#070907;background-image:radial-gradient(120% 55% at 50% 0%,rgba(46,90,54,.30),rgba(0,0,0,0) 60%),linear-gradient(180deg,#0b100b,#050605 55%,#070907)}
 
     /* ---- stone material for every card family ---- */
-    .card-3d,.mn-card,.mn-stat,.q-wrap,.miner-card-3d,.fr-sec,.fr-tablet,.pf-sec,.pf-stat,.pf-modal-card,.mn-verify-wide,.top-bar,.pf-set-cell,.fr-row{
+    .card-3d,
+    .mn-card,
+    .q-wrap,
+    .miner-card-3d,
+    .fr-sec,
+    .fr-tablet,
+    .pf-sec,
+    .pf-stat,
+    .pf-modal-card,
+    .mn-verify-wide,
+    .top-bar,
+    .pf-set-cell,
+    .fr-row{
       background-color:#141713;background-image:linear-gradient(180deg,rgba(9,13,9,.52),rgba(9,13,9,.70)),url('assets/tex_stone_dark.webp');background-size:cover;background-position:center;
       border:1px solid #333b31;border-image:none;border-radius:10px;
       box-shadow:inset 0 1px 0 rgba(190,255,205,.07),inset 0 -10px 18px rgba(0,0,0,.50),0 8px 18px rgba(0,0,0,.50)}
-    .mn-lbl,.mn-stat-lbl{color:#a9bfa9}
-    #page-mine>.mn-card .mn-val,#page-mine .mn-stat-num,#page-mine .mn-val-sm{color:#63d97a;text-shadow:0 0 10px rgba(99,217,122,.35)}
+    .mn-lbl{color:#a9bfa9}
+    #page-mine>.mn-card .mn-val,
+    #page-mine .mn-val-sm{color:#63d97a;text-shadow:0 0 10px rgba(99,217,122,.35)}
 
     /* ---- header: hanging sign + two real stone buttons ---- */
     .mn-head{background:transparent;border:none;border-image:none;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;padding:0 2px;flex:none}
@@ -792,16 +823,6 @@
     #page-mine>.mn-card.mn-vault .mn-val .mn-coin{width:38px;height:38px}
 
     /* ---- 3 tiles: panel becomes transparent, each tile its own stone card ---- */
-    #page-mine .mn-stage-stats{order:3;background:none;background-image:none;border:none;border-image:none;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;padding:0;display:flex;gap:8px}
-    #page-mine .mn-stage-stats>.mn-stat{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;padding:10px 6px 11px;background-color:#141713;background-image:linear-gradient(180deg,rgba(9,13,9,.52),rgba(9,13,9,.70)),url('assets/tex_stone_dark.webp');background-size:cover;background-position:center;border:1px solid #333b31;border-radius:10px;box-shadow:inset 0 1px 0 rgba(190,255,205,.07),inset 0 -10px 18px rgba(0,0,0,.50),0 8px 18px rgba(0,0,0,.50)}
-    #page-mine .mn-stage-stats .mn-stat-tab{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 50% 36%,#242824,#0f110f);border:1px solid #3a433a;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 2px 6px rgba(0,0,0,.75);margin-bottom:5px}
-    #page-mine .mn-stage-stats .mn-stat-tab svg{width:22px;height:22px;stroke:#63d97a}
-    #page-mine .mn-stage-stats .mn-stat-tab svg circle{fill:#63d97a}
-    #page-mine .mn-stage-stats>.mn-card.mn-tile-rate{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:10px 6px 11px;margin:0;background-color:#141713!important;background-image:linear-gradient(180deg,rgba(9,13,9,.52),rgba(9,13,9,.70)),url('assets/tex_stone_dark.webp')!important;background-size:cover;border:1px solid #333b31;border-radius:10px;box-shadow:inset 0 1px 0 rgba(190,255,205,.07),inset 0 -10px 18px rgba(0,0,0,.50),0 8px 18px rgba(0,0,0,.50);backdrop-filter:none;-webkit-backdrop-filter:none}
-    .mn-tile-rate::before{content:'';width:44px;height:44px;border-radius:50%;background-color:#0f110f;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2363d97a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 17l5-6 4 3 6-8'/%3E%3Cpath d='M15 6h4v4'/%3E%3C/svg%3E");background-size:22px;background-position:center;background-repeat:no-repeat;border:1px solid #3a433a;box-shadow:inset 0 2px 6px rgba(0,0,0,.75);margin-bottom:5px;flex:none}
-    #page-mine .mn-stage-stats .mn-tile-rate .mn-lbl{font-size:11px;letter-spacing:1.6px;color:#a9bfa9;margin:0 0 2px}
-    #page-mine .mn-stage-stats .mn-tile-rate .mn-val-sm{font-size:21px;font-weight:800}
-    #page-mine .mn-stage-stats .mn-verify-wide{flex:2}
 
     /* ---- countdown: hourglass + label left, time right, thin line on the bottom edge ---- */
     #page-mine .mn-row{order:4}
@@ -850,11 +871,6 @@
     #page-mine>.mn-card.mn-vault{padding:9px 14px 11px}
     #page-mine>.mn-card.mn-vault .mn-val{font-size:38px}
     #page-mine>.mn-card.mn-vault .mn-val .mn-coin{width:34px;height:34px}
-    #page-mine .mn-stage-stats>.mn-stat{padding:8px 6px 9px}
-    #page-mine .mn-stage-stats .mn-stat-tab{width:38px;height:38px;margin-bottom:4px}
-    #page-mine .mn-stage-stats .mn-stat-tab svg{width:19px;height:19px}
-    #page-mine .mn-stage-stats>.mn-card.mn-tile-rate{padding:8px 6px 9px}
-    .mn-tile-rate::before{width:38px;height:38px;background-size:19px;margin-bottom:4px}
     #page-mine .mn-row .mn-card.mn-count-card{padding:9px 14px 13px}
     #page-mine .mn-actions{gap:7px}
     #page-mine .mn-collect{height:60px}
@@ -869,10 +885,6 @@
 
     /* ---------- PASS 25c: final fit — LEVELS fully inside the page box ---------- */
     #page-mine .mn-stage{height:148px;min-height:148px}
-    #page-mine .mn-stage-stats>.mn-stat{padding-bottom:7px}
-    #page-mine .mn-stage-stats>.mn-card.mn-tile-rate{padding-bottom:7px}
-    #page-mine .mn-stat-num{font-size:19px}
-    #page-mine .mn-stage-stats .mn-tile-rate .mn-val-sm{font-size:19px}
     #page-mine .mn-row .mn-card.mn-count-card{padding-top:7px;padding-bottom:11px}
     #page-mine .mn-actions .btn-stonfi-buy{padding-top:7px;padding-bottom:7px}
     #btn-goto-boost{padding-top:4px;padding-bottom:4px}
@@ -895,14 +907,14 @@
     #page-mine #hero-video{display:none}
 
     /* ---- painted card frame (border-image; corners never distort) ---- */
-    .mn-player-card,#page-mine>.mn-card.mn-vault,#page-mine .mn-stage-stats>.mn-stat,#page-mine .mn-row .mn-card.mn-count-card{
+    .mn-player-card,
+    #page-mine>.mn-card.mn-vault,
+    #page-mine .mn-row .mn-card.mn-count-card{
       border-style:solid;border-image-source:url('assets/card_frame.webp');border-image-slice:21% 5.2% 21% 5.2% fill;border-image-repeat:stretch;
       background:none;border-radius:0;box-shadow:0 10px 22px rgba(0,0,0,.55)}
     .mn-player-card{border-width:19px 14px;padding:3px 8px}
     #page-mine>.mn-card.mn-vault{border-width:19px 14px;padding:2px 12px 5px}
     #page-mine>.mn-card.mn-vault .mn-val{font-size:41px}
-    #page-mine .mn-stage-stats>.mn-stat{border-width:16px 11px;padding:0 3px;height:108px;justify-content:center}
-    #page-mine .mn-stage-stats>.mn-card.mn-tile-rate{border-style:solid;border-width:16px 11px;border-image-source:url('assets/card_frame.webp');border-image-slice:21% 5.2% 21% 5.2% fill;border-image-repeat:stretch;background:none!important;border-radius:0;box-shadow:0 10px 22px rgba(0,0,0,.55);height:108px;justify-content:center;padding:0 3px}
     #page-mine .mn-verify-wide{border-style:solid;border-width:14px 11px;border-image-source:url('assets/card_frame.webp');border-image-slice:21% 5.2% 21% 5.2% fill;border-image-repeat:stretch;background:none;border-radius:0;box-shadow:0 10px 22px rgba(0,0,0,.55)}
     #page-mine .mn-row .mn-card.mn-count-card{border-width:12px 10px;padding:1px 10px;min-height:54px}
     #mine-prog-bar{left:14px;right:14px;bottom:3px}
@@ -943,8 +955,6 @@
     .mn-player-card .mn-userbar{row-gap:0}
     .mn-skull-deco{height:60px}
     #page-mine>.mn-card.mn-vault{padding-bottom:3px}
-    #page-mine .mn-stage-stats>.mn-stat{height:102px}
-    #page-mine .mn-stage-stats>.mn-card.mn-tile-rate{height:102px}
     #page-mine .mn-row .mn-card.mn-count-card{min-height:50px}
     #page-mine .mn-collect{height:74px}
     #page-mine .mn-actions{gap:8px}
@@ -956,8 +966,6 @@
     .mn-player-card .mn-userbar>img{width:40px;height:40px}
     .mn-skull-deco{height:46px}
     #page-mine>.mn-card.mn-vault .mn-val{font-size:37px}
-    #page-mine .mn-stage-stats>.mn-stat{height:90px}
-    #page-mine .mn-stage-stats>.mn-card.mn-tile-rate{height:90px}
     #page-mine .mn-row .mn-card.mn-count-card{min-height:42px}
     #page-mine .mn-collect{height:66px}
     #page-mine .mn-actions{gap:6px}
@@ -969,8 +977,6 @@
     /* ---------- PASS 28b: fit trims — full stack clears the 70px nav ---------- */
     #page-mine>.mn-card.mn-vault{border-width:15px 14px}
     #page-mine>.mn-card.mn-vault .mn-val{font-size:36px}
-    #page-mine .mn-stage-stats>.mn-stat{height:84px}
-    #page-mine .mn-stage-stats>.mn-card.mn-tile-rate{height:84px}
     #page-mine .mn-row .mn-card.mn-count-card{min-height:34px}
     #page-mine .mn-collect{height:62px}
     .mn-skull-deco{height:42px}
@@ -1003,18 +1009,8 @@
 
     /* ---------- PASS 31: LEVELS divider row deleted (owner) + tile values fit ---------- */
     #page-mine .mn-stage{height:260px;min-height:260px}
-    #page-mine .mn-stat-num{font-size:16px;line-height:1.15}
-    #page-mine .mn-stage-stats .mn-tile-rate .mn-val-sm{font-size:16px;line-height:1.15}
 
     /* ---------- PASS 32: painted tile medallions + tile stack fits the frame ---------- */
-    #page-mine .mn-stage-stats>.mn-stat,#page-mine .mn-stage-stats>.mn-card.mn-tile-rate{height:98px}
-    #page-mine .mn-stage-stats .mn-stat-tab{width:32px;height:32px;padding:0;overflow:hidden;background:#0c0f0c;margin-bottom:2px}
-    #page-mine .mn-stage-stats .mn-stat-tab img{width:100%;height:100%;display:block;object-fit:cover;border-radius:50%}
-    #page-mine .mn-stat-num img{width:15px;height:15px;vertical-align:-2px}
-    #page-mine .mn-stat-num{line-height:1.1}
-    #page-mine .mn-stage-stats .mn-tile-rate .mn-val-sm{line-height:1.1}
-    .mn-tile-rate::before{width:32px;height:32px;background-color:#0c0f0c;background-image:url('assets/tile_icon_rate.webp');background-size:cover;background-position:center;margin-bottom:2px}
-    #page-mine .mn-stage-stats .mn-tile-rate .mn-lbl{margin-bottom:0}
 
     /* ---------- PASS 33: nav blends into the page — no bar background, painted cutout tiles float over the page art ---------- */
     .bottom-nav-3d{height:76px;background:transparent;box-shadow:none}
@@ -1268,8 +1264,6 @@
     #page-mine .mn-top-row>.pf-sec,
     #page-mine .pf-stat,
     #page-mine>.mn-card.mn-vault,
-    #page-mine .mn-stage-stats>.mn-stat,
-    #page-mine .mn-stage-stats>.mn-card.mn-tile-rate,
     #page-mine .mn-row .mn-card.mn-count-card,
     #page-mine .mn-verify-wide{
       border-image:none!important;
@@ -1282,8 +1276,6 @@
     #page-mine .mn-top-row>.pf-sec{padding:12px 13px 11px}
     #page-mine .pf-stat{padding:7px 11px}
     #page-mine>.mn-card.mn-vault{padding:6px 17px 7px}
-    #page-mine .mn-stage-stats>.mn-stat,
-    #page-mine .mn-stage-stats>.mn-card.mn-tile-rate{padding:0 7px}
     #page-mine .mn-row .mn-card.mn-count-card{padding:5px 13px}
     #page-mine .mn-verify-wide{padding:15px 16px}
     /* the countdown fill hugs the new thin edge (was tuned to the frame) */
@@ -1375,7 +1367,6 @@
     #page-mine .mn-stage{order:1}
     #page-mine .mn-wv-card{order:2}
     #page-mine .mn-mining-card{order:3}
-    #page-mine .mn-stage-stats{order:4}
     #page-mine .mn-actions{order:5}
     /* --- top bar: one black/green pill --- */
     #page-mine .mn-topbar{flex:none;position:relative;z-index:2;display:flex;align-items:center;gap:9px;
@@ -1423,6 +1414,193 @@
       border-radius:99px;clip-path:none;background:linear-gradient(90deg,#22c55e,#5cff9d);filter:drop-shadow(0 0 3px rgba(99,217,122,.45))}
     #page-mine .mn-mc-meta{display:flex;justify-content:flex-end;gap:4px;margin-top:5px;font-size:12.5px;font-weight:800;color:var(--acc);direction:ltr}
     #page-mine .mn-mining-card .mn-collect{margin-top:12px}
+
+    /* ================= PASS 46: $DOGG-layout mining area + calm
+       immersion (owner refs 2026-11-20) =================
+       Order: topbar -> wallet+verify -> RATE/RANK card -> big coin
+       (the coin IS collect, flanked by two zombie cutouts) -> mined
+       amount (+...) -> 24h shift bar -> tiles -> BUY. The PASS 45
+       mining card and the stage strip retire (stage element stays
+       in the DOM, display:none). Immersion stays HADI (calm): card
+       scenes are ~12% atmosphere under a heavy dark wash, the slime
+       is a thin 13px half-transparent drip on the two big cards,
+       the zombies are modest and tucked behind the coin's edges. */
+    #page-mine .mn-stage{display:none}
+    #page-mine .mn-wv-card{order:2}
+    #page-mine .mn-rate-card{order:3}
+    #page-mine .mn-coin-zone{order:4}
+    #page-mine .mn-acc-zone{order:5}
+    #page-mine .mn-shift-zone{order:6}
+    #page-mine .mn-actions{order:8}
+    /* muted painted scenes inside the cards */
+    #page-mine .mn-topbar{background-image:linear-gradient(180deg,rgba(6,11,8,.70),rgba(2,4,3,.84)),url('assets/bg_cave.webp');background-size:cover;background-position:center 30%}
+    #page-mine .mn-wv-card{background-image:linear-gradient(180deg,rgba(6,11,8,.92),rgba(2,4,3,.95)),url('assets/bg_profile.webp');background-size:cover;background-position:center 22%}
+    /* thin slime drip on the big cards' top edges */
+    #page-mine .mn-wv-card::after,#page-mine .mn-rate-card::after{
+      content:'';position:absolute;left:8px;right:8px;top:-6px;height:30px;z-index:4;pointer-events:none;
+      background:url('assets/slime_real.webp') repeat-x left top/auto 30px}
+    /* --- rate / rank card --- */
+    #page-mine .mn-rate-card{flex:none;position:relative;z-index:2;display:flex;margin:2px 0 6px;padding:13px 16px 12px;
+      background-color:#04070a;background-image:linear-gradient(180deg,rgba(6,11,8,.62),rgba(2,4,3,.80)),url('assets/bg_boost.webp');
+      background-size:cover;background-position:center 30%;
+      border:1.5px solid rgba(64,255,150,.55);border-radius:14px;
+      box-shadow:0 0 12px rgba(46,255,143,.12),0 10px 22px rgba(0,0,0,.55)}
+    #page-mine .mn-rate-cell{flex:1;min-width:0}
+    #page-mine .mn-rate-cell.rk{border-inline-start:1px solid rgba(64,255,150,.18);padding-inline-start:16px;margin-inline-start:16px}
+    #page-mine .mn-rate-lbl{font-size:10.5px;letter-spacing:2.2px;color:#8fae97;font-weight:700}
+    #page-mine .mn-rate-val{font-size:23px;font-weight:900;color:#fff;line-height:1.15;margin-top:3px}
+    #page-mine .mn-rate-val .mn-rate-suffix{font-size:13px;font-weight:700;color:#9fd8b4;margin-inline-start:2px}
+    #page-mine .mn-rate-status{display:flex;align-items:center;gap:7px;margin-top:5px;font-size:12.5px;font-weight:700;color:#7dffb0}
+    #page-mine .mn-rate-dot{flex:none;width:8px;height:8px;border-radius:50%;background:#4dff9d;box-shadow:0 0 8px rgba(77,255,157,.9)}
+    #page-mine .mn-rate-status.paused{color:#93a698}
+    #page-mine .mn-rate-status.paused .mn-rate-dot{background:#8a9a8d;box-shadow:none}
+    #page-mine .mn-rank-val{font-size:23px;font-weight:900;color:#fff;line-height:1.15;margin-top:3px}
+    #page-mine .mn-rank-group{font-size:12.5px;color:#9fd8b4;margin-top:5px;letter-spacing:.6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    /* --- coin zone: the coin IS the collect button --- */
+    #page-mine .mn-coin-zone{flex:none;position:relative;z-index:2;height:214px}
+    #page-mine .mn-flank{position:absolute;top:50%;height:176px;width:auto;z-index:1;pointer-events:none;opacity:.92}
+    #page-mine .mn-flank-l{left:-66px;transform:translateY(-52%)}
+    #page-mine .mn-flank-r{right:-66px;transform:translateY(-52%)}
+    #page-mine .mn-coin-btn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;
+      width:198px;height:198px;padding:0;border:none;background:none;cursor:pointer;border-radius:50%;
+      -webkit-tap-highlight-color:transparent}
+    #page-mine .mn-coin-btn img.mn-coin-big{width:100%;height:100%;display:block;border-radius:50%;
+      filter:drop-shadow(0 0 22px rgba(77,255,157,.26)) drop-shadow(0 14px 22px rgba(0,0,0,.6));transition:transform .08s}
+    #page-mine .mn-coin-btn:active img.mn-coin-big{transform:scale(.965)}
+    #page-mine .mn-coin-btn.locked img.mn-coin-big{filter:grayscale(.85) brightness(.6)}
+    #page-mine .mn-coin-btn .lk-wrap{display:none;position:absolute;left:50%;bottom:16px;transform:translateX(-50%);
+      flex-direction:row;align-items:center;gap:6px;background:rgba(2,6,3,.85);border:1px solid rgba(64,255,150,.4);
+      border-radius:99px;padding:5px 11px;white-space:nowrap}
+    #page-mine .mn-coin-btn.locked .lk-wrap{display:flex}
+    #page-mine .mn-coin-btn .lk-ic{font-size:13px}
+    #page-mine .mn-coin-btn .lk-txt{font-size:11px;font-weight:900;letter-spacing:1.2px;color:#eef1f4}
+    /* --- accrued amount + 24h bar --- */
+    #page-mine .mn-acc-zone{flex:none;position:relative;z-index:2;text-align:center;margin-top:2px}
+    #page-mine .mn-acc-line{display:flex;align-items:baseline;justify-content:center;gap:2px;
+      font-size:37px;font-weight:900;line-height:1.05;color:#63d97a;text-shadow:0 0 16px rgba(99,217,122,.45)}
+    #page-mine .mn-shift-zone{flex:none;position:relative;z-index:2;margin:9px 2px 2px}
+    #page-mine .mn-shift-meta{display:flex;justify-content:flex-end;gap:4px;font-size:12px;font-weight:800;color:var(--acc);direction:ltr;margin-bottom:5px}
+    #page-mine .mn-shift-track{position:relative;height:8px;border-radius:99px;background:rgba(186,255,214,.14);overflow:hidden}
+    #page-mine .mn-shift-track #mine-prog-bar{position:absolute;left:0;right:auto;top:0;bottom:auto;height:100%;max-width:100%;
+      border-radius:99px;clip-path:none;background:linear-gradient(90deg,#22c55e,#5cff9d);filter:drop-shadow(0 0 3px rgba(99,217,122,.45))}
+
+    /* ================= PASS 47: 3 tiles DELETED + wallet+verify card
+       back on Profile (owner 2026-11-20) =================
+       The Mine tile row (WALLET HOLD / IN-APP BALANCE / DAY RATE) is
+       GONE — markup and tile-only CSS removed; the balance still
+       shows in the top bar and the rate in the RATE/RANK card, and
+       the remaining tile paints are null-guarded or repointed. The
+       wallet+verify card (#mn-wv-card) leaves Mine and sits on
+       Profile between the settings row and Withdraw, wearing the
+       PASS 38 stone frame as ONE card (the divider splits linking
+       from verification; #verify-card sits flush inside, its own
+       .card-3d frame stripped). Unverified routes point at Profile
+       again: the locked coin tap and the verify message both
+       switchTab('profile'). */
+    #page-profile .mn-wv-card{position:relative;margin:2px 0 14px;padding:13px 14px 12px;
+      background:none!important;background-color:transparent!important;
+      backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+      border-style:solid;border-color:transparent;border-width:16px 12px;
+      border-image-source:url('assets/card_frame.webp');border-image-slice:21% 5.2% 21% 5.2% fill;
+      border-image-width:16px 12px;border-image-repeat:stretch;
+      border-radius:0;box-shadow:0 10px 22px rgba(0,0,0,.55)}
+    #page-profile .mn-wv-div{height:1px;margin:11px 0 10px;background:linear-gradient(90deg,transparent,rgba(64,255,150,.38),transparent)}
+    #page-profile #verify-card{margin:0!important;padding:2px 0 0!important;border:none!important;border-image:none!important;
+      border-radius:0;background:none!important;background-color:transparent!important;box-shadow:none;
+      backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+    #page-mine .mn-mc-msg{cursor:pointer}
+    /* PASS 47 addendum (owner): the REAL slime picture + scenes you
+       can actually FEEL. The slime is now a photorealistic keyed
+       picture (assets/slime_real.webp) at natural opacity — the
+       PASS 46 ::after above already points at it (30px band, drips
+       vary ~10-24px into the card, text rows padded clear). Card
+       scenes rise from ~5-8% to ~25-35% presence: the washes on the
+       top bar and rate card are lightened in place (PASS 46 rules),
+       still dark, muted and calm, darker toward the text rows. */
+    #page-mine .mn-rate-card{padding-top:24px}
+    /* the wallet+verify card's crypt scene lives on a ::before so it
+       paints inside the PASS 38 frame (above the frame's fill,
+       below the card's real children) */
+    #page-profile .mn-wv-card::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+      background-image:linear-gradient(180deg,rgba(6,11,8,.64),rgba(2,4,3,.80)),url('assets/bg_profile.webp');
+      background-size:cover;background-position:center 22%}
+    #page-profile .mn-wv-card>*{position:relative;z-index:1}
+    #page-profile .mn-wv-card::after{content:'';position:absolute;left:10px;right:10px;top:-2px;height:26px;z-index:4;pointer-events:none;
+      background:url('assets/slime_real.webp') repeat-x left top/auto 26px}
+
+    /* ================= PASS 48: BUY row deleted + Mine spacing
+       distribution + PRICE card + CONTRACT bar + clearer shift
+       bar + framed bottom nav (owner 2026-11-20) =================
+       Mine stack: topbar -> rate/rank -> coin -> amount -> shift
+       -> price -> contract (last). The BUY pill's row is gone; the
+       BUY button lives on in the price card (same .btn-stonfi-buy
+       handler). Distribution: the coin zone grows a touch (max
+       +36px) and two auto margins (above the amount, above the
+       contract) split what is left, so the stack fills the page's
+       content box at any height and the contract bar lands flush
+       at its bottom, clear of the nav. Short screens (<=800px)
+       take a compact trim instead of scrolling. */
+    #page-mine.page.active{gap:10px}
+    #page-mine .mn-coin-zone{flex:1 1 auto;height:auto;min-height:214px;max-height:250px}
+    #page-mine .mn-acc-zone{margin-top:auto}
+    #page-mine .mn-contract{margin-top:auto}
+    /* clearer 24h shift bar: ~2x track, brighter emerald fill with
+       a soft glow, % + countdown larger and bolder — nothing else */
+    #page-mine .mn-shift-meta{font-size:14.5px;margin-bottom:6px}
+    #page-mine .mn-shift-track{height:16px}
+    #page-mine .mn-shift-track #mine-prog-bar{background:linear-gradient(90deg,#2ee06f,#6dffab);filter:drop-shadow(0 0 6px rgba(99,255,160,.65))}
+    /* --- price card: PRICE + live value left, BUY right --- */
+    #page-mine .mn-price-card{order:7;flex:none;position:relative;z-index:2;display:flex;align-items:center;gap:10px;
+      margin:2px 2px 6px;padding:11px 14px;
+      background-color:#04070a;background-image:linear-gradient(180deg,#060b08 0%,#04070a 48%,#020403 100%);
+      border:1.5px solid rgba(64,255,150,.55);border-radius:14px;
+      box-shadow:0 0 12px rgba(46,255,143,.12),0 10px 22px rgba(0,0,0,.55)}
+    #page-mine .mn-price-lbl{font-size:10.5px;letter-spacing:2.2px;color:#8fae97;font-weight:700}
+    #page-mine .mn-price-val{font-size:21px;font-weight:900;color:#fff;line-height:1.15;margin-top:2px}
+    /* PASS 49: the BUY button is a clean GOLD pill sitting directly
+       on the price card's surface — no dark stone box of its own
+       (owner: the BUY button must not live inside its own frame). */
+    #page-mine .mn-price-buy{margin-left:auto;flex:none;width:auto;display:flex;align-items:center;justify-content:center;gap:8px;
+      padding:9px 22px;border-radius:99px;border:1px solid rgba(255,216,132,.85);cursor:pointer;
+      background:linear-gradient(180deg,#f3cd6d 0%,#d9a441 55%,#bd8627 100%);
+      box-shadow:inset 0 1px 0 rgba(255,244,214,.75),inset 0 -6px 10px rgba(120,72,0,.35),0 6px 14px rgba(0,0,0,.45)}
+    #page-mine .mn-price-buy::before{content:'';width:19px;height:19px;flex:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232a1d05' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='20' r='1.6'/%3E%3Ccircle cx='17' cy='20' r='1.6'/%3E%3Cpath d='M3 3h2l2.4 12.4a1.5 1.5 0 0 0 1.5 1.1h7.9a1.5 1.5 0 0 0 1.5-1.2L20.5 7H6'/%3E%3C/svg%3E") center/contain no-repeat}
+    #page-mine .mn-price-buy span{text-transform:uppercase;letter-spacing:2.2px;font-size:13.5px;font-weight:800;color:#2a1d05}
+    /* --- contract bar: a bit larger than Profile's 9.5px strip --- */
+    #page-mine .mn-contract{order:8;flex:none;position:relative;z-index:2;display:flex;align-items:center;gap:8px;
+      margin:0 2px;padding:9px 12px;direction:ltr;
+      background-color:#04070a;background-image:linear-gradient(180deg,#060b08 0%,#04070a 48%,#020403 100%);
+      border:1.5px solid rgba(64,255,150,.55);border-radius:12px;
+      box-shadow:0 0 12px rgba(46,255,143,.10),0 8px 18px rgba(0,0,0,.5)}
+    #page-mine .mn-contract-lbl{font-size:10px;font-weight:800;letter-spacing:1.6px;color:#8fae97;white-space:nowrap}
+    #page-mine #mine-contract-addr{flex:1;min-width:0;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;color:#cfe9d8;white-space:nowrap;overflow:hidden}
+    #page-mine .mn-contract-copy{flex:none;width:30px;height:30px;display:flex;align-items:center;justify-content:center;
+      border-radius:9px;background:rgba(77,255,157,.07);border:1px solid rgba(64,255,150,.45);cursor:pointer}
+    /* --- framed bottom nav (reverses the PASS 33 float): the
+       painted card_frame as a border-image bar behind the icons —
+       one solid piece, scenes no longer show between the icons.
+       ::before rides 15px above the nav box so the raised center
+       skull (top:-12px) stays contained by the frame. Items, hit
+       areas and the active glow are untouched. */
+    .bottom-nav-3d::before{content:'';display:block;position:absolute;left:0;right:0;top:-15px;bottom:0;z-index:-1;pointer-events:none;
+      border-style:solid;border-color:transparent;border-width:15px 12px;
+      border-image-source:url('assets/card_frame.webp');border-image-slice:21% 5.2% 21% 5.2% fill;
+      border-image-width:15px 12px;border-image-repeat:stretch;
+      box-shadow:0 12px 26px rgba(0,0,0,.6)}
+    /* short screens: compact trim so the whole stack still fits */
+    @media (max-height:800px){
+      #page-mine.page.active{gap:4px;padding-bottom:96px}
+      #page-mine .mn-coin-zone{flex:none;height:172px;min-height:172px}
+      #page-mine .mn-coin-btn{width:164px;height:164px}
+      #page-mine .mn-flank{height:148px}
+      #page-mine .mn-rate-card{padding-top:18px;padding-bottom:8px}
+      #page-mine .mn-shift-zone{margin-top:5px}
+      #page-mine .mn-shift-track{height:14px}
+      #page-mine .mn-price-card{padding:8px 12px;margin-bottom:4px}
+      #page-mine .mn-contract{padding:6px 11px}
+      #page-mine:has(.mn-rate-status.paused) .mn-coin-zone{height:148px;min-height:148px}
+      #page-mine:has(.mn-rate-status.paused) .mn-coin-btn{width:144px;height:144px}
+    }
 </style>
 </head>
 <body oncontextmenu="return false;">
@@ -1531,79 +1709,79 @@
 
   
 
-      <!-- PASS 45: wallet LINKING + VERIFICATION in ONE card on Mine
-           (owner: ادمج كارت ربط المحفظه وكارت التوثيق في كارت واحد) —
-           the real subtrees moved back from Profile, ids intact:
-           row 1 linking (address / connect / disconnect), divider,
-           row 2 the whole #verify-card (badge, age row, pay actions). -->
-      <section class="mn-wv-card" id="mn-wv-card">
-        <div class="pf-wallet-row">
-          <img id="pf-verified-ic" src="assets/icon_verified.webp" alt="" style="display:none;">
-          <span id="prof-wallet-addr-display">Not connected yet</span>
-          <span class="badge-tag" id="wallet-badge-status" style="background:#ef4444;display:none;">Disconnected</span>
-          <div id="connected-wallet-actions" style="display:none;">
-            <button class="pf-disconnect" id="btn-disconnect-wallet"><span data-i18n="disconnect_wallet_btn">DISCONNECT</span></button>
-          </div>
+      <!-- PASS 47: the wallet+verify card moved back to Profile (owner) -->
+
+      <!-- PASS 46 RATE / RANK card ($DOGG reference layout): left =
+           mining rate (current level perDay) + the live gate status,
+           right = current rank (Level N + group). Paints: applyUI
+           (rate / rank) and applyMineVerifyUI (status line). -->
+      <div class="mn-rate-card" id="mn-rate-card">
+        <div class="mn-rate-cell">
+          <div class="mn-rate-lbl" data-i18n="rate_lbl">MINING RATE</div>
+          <div class="mn-rate-val"><span id="mine-rate-val">0</span><span class="mn-rate-suffix" data-i18n="rate_day_suffix">/day</span></div>
+          <div class="mn-rate-status" id="rate-status-wrap"><span class="mn-rate-dot"></span><span id="rate-status-txt">Mining</span></div>
         </div>
-        <button class="btn-3d-gold" id="btn-connect-wallet">👛 <span data-i18n="connect_wallet_btn">Connect TON Wallet</span></button>
-        <div id="ton-connect-container" style="display:none;"></div>
-        <div class="mn-wv-div"></div>
-      <div class="card-3d" id="verify-card">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <h4>🛡️ <span data-i18n="verify_title">Wallet Verification</span></h4>
-          <span class="badge-tag" id="verify-status-badge" style="background:#64748b;">—</span>
+        <div class="mn-rate-cell rk">
+          <div class="mn-rate-lbl" data-i18n="rank_lbl">CURRENT RANK</div>
+          <div class="mn-rank-val" id="mine-rank-lvl">Level 1</div>
+          <div class="mn-rank-group" id="mine-rank-group">GRAVEDIGGER</div>
         </div>
-        <div id="verify-rows" style="font-size:12px;line-height:1.5;"></div>
-        <div id="verify-actions"></div>
       </div>
-      </section>
 
-      <div class="mn-stage-stats">
-          <div class="mn-stat" id="mine-stat-hold">
-            <div class="mn-stat-tab"><img src="assets/tile_icon_hold.webp" alt=""></div>
-            <div class="mn-stat-lbl" data-i18n="hold_wallet_lbl">Wallet Hold (On-Chain)</div>
-            <div class="mn-stat-num"><span id="mine-hold-bal">0</span> <img src="assets/coin_icon.webp" alt=""></div>
-          </div>
-          <div class="mn-stat" id="mine-stat-app">
-            <div class="mn-stat-tab"><img src="assets/tile_icon_app.webp" alt=""></div>
-            <div class="mn-stat-lbl" data-i18n="mine_wallet_lbl">Mined Balance</div>
-            <div class="mn-stat-num"><span id="mine-app-bal">0</span> <img src="assets/coin_icon.webp" alt=""></div>
-          </div>
-          <!-- DAY RATE tile (moved here from .mn-row, de-VIKING layout
-               2026-11-19): the stats panel is now a 3-tile row —
-               WALLET HOLD / IN-APP BALANCE / DAY RATE. Id untouched. -->
-          <div class="mn-card mn-tile-rate">
-            <div class="mn-lbl" data-i18n="day_rate_lbl">DAY RATE</div>
-            <div class="mn-val-sm">+<span id="mine-day-rate">500</span></div>
-          </div>
-        </div>
+      <!-- PASS 47: the 3 tiles (WALLET HOLD / IN-APP BALANCE /
+           DAY RATE) DELETED (owner) — the balance lives in the
+           top bar, the rate in the RATE/RANK card. -->
 
-      <!-- PASS 45 MINING CARD (owner-approved mockup, replaces the
-           MINED vault): green pickaxe + ACTIVE MINING, the gate status
-           line, the live accrued amount with the COIN PICTURE (never
-           the currency name), the verify message for the unverified,
-           the DAILY SHIFT bar (percent = elapsed share of the mining
-           day; countdown time + % at its right end) and the COLLECT
-           button INSIDE the card. Unverified: Paused, amount frozen
-           at 0.0000, COLLECT routes to the wallet+verify card above. -->
-      <div class="mn-card mn-mining-card" id="mn-mining-card">
-        <div class="mn-mc-head">
-          <div class="mn-mc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#4dff9d" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 18.5L14.5 9.5"/><path d="M7.5 5C11 3.6 16.5 4.2 20.5 8.2 17 6.8 13 6.6 9.5 7.6"/></svg></div>
-          <div class="mn-mc-title" data-i18n="mining_card_title">ACTIVE MINING</div>
-        </div>
-        <div class="mn-mc-status"><span class="mn-mc-dot" id="mining-status-dot"></span><span id="mining-status-txt">Active</span></div>
-        <div class="mn-mc-amt"><span id="live-mined-num">0</span> <img class="mn-coin" src="assets/coin_icon.webp" alt=""></div>
+      <!-- PASS 46: the big ZM coin IS the collect button (the
+           #btn-collect-main subtree, ad gate included), flanked by
+           two zombie cutouts tucked behind its edges; under it the
+           live accrued amount (+...) and the 24h shift bar.
+           Unverified: the coin greys out with the VERIFY FIRST lock
+           pill and its tap scrolls to the wallet+verify card. -->
+      <div class="mn-coin-zone">
+        <img class="mn-flank mn-flank-l" src="assets/zombie_flank_left.webp" alt="">
+        <img class="mn-flank mn-flank-r" src="assets/zombie_flank_right.webp" alt="">
+        <button class="mn-coin-btn" id="btn-collect-main" aria-label="Collect">
+          <img class="mn-coin-big" src="assets/coin_icon.webp" alt="">
+          <span class="lk-wrap" id="collect-lock-wrap"><span class="lk-ic">🔒</span><span class="lk-txt" data-i18n="collect_verify_first">VERIFY FIRST</span></span>
+        </button>
+      </div>
+      <div class="mn-acc-zone">
+        <div class="mn-acc-line"><span>+</span><span id="live-mined-num">0</span></div>
         <div class="mn-mc-msg" id="mining-verify-msg" data-i18n="mining_verify_msg" style="display:none;">Verify your wallet to start mining</div>
-        <div class="mn-mc-prog">
-          <div class="mn-mc-track"><div id="mine-prog-bar"></div></div>
-          <div class="mn-mc-meta"><span id="shift-pct">0%</span> &bull; <span id="shift-timer">24:00:00</span></div>
-        </div>
-        <button class="mn-collect" id="btn-collect-main"><img class="collect-hand" src="assets/mock_hand.webp" alt=""><img class="collect-coin" src="assets/coin_icon.webp" alt=""><span data-i18n="collect_lbl">COLLECT</span><span class="lk-wrap" id="collect-lock-wrap"><span class="lk-ic">🔒</span><span class="lk-txt" data-i18n="collect_verify_first">VERIFY FIRST</span></span></button>
+      </div>
+      <div class="mn-shift-zone">
+        <div class="mn-shift-meta"><span id="shift-pct">0%</span> &bull; <span id="shift-timer">24:00:00</span></div>
+        <div class="mn-shift-track"><div id="mine-prog-bar"></div></div>
       </div>
 
-      <div class="mn-actions">
-        <button class="btn-3d-dark btn-stonfi-buy mn-side"><span data-i18n="buy_btn">Buy</span></button>
+      <!-- PASS 48: PRICE card — live ZM price from DexScreener
+           (keyed by OFFICIAL_JETTON; degrades to —, never a
+           fabricated number) + the BUY button, same .btn-stonfi-buy
+           handler as the deleted pill below. -->
+      <div class="mn-price-card" id="mn-price-card">
+        <div class="mn-price-left">
+          <div class="mn-price-lbl" data-i18n="price_lbl">PRICE</div>
+          <div class="mn-price-val" id="mine-price-val">—</div>
+        </div>
+        <button class="btn-3d-dark btn-stonfi-buy mn-price-buy"><span data-i18n="buy_btn">Buy</span></button>
       </div>
+
+      <!-- PASS 48: CONTRACT bar (last on Mine) — the ZM jetton
+           address from the same OFFICIAL_JETTON source as Profile's
+           #official-contract-addr strip, middle-truncated via
+           shortAddr; the copy button copies the FULL address and
+           shows the usual toast. Painted at init (see bindings). -->
+      <div class="mn-contract">
+        <span class="mn-contract-lbl">OFFICIAL CONTRACT:</span>
+        <span id="mine-contract-addr">—</span>
+        <button class="mn-contract-copy" id="btn-copy-mine-contract" aria-label="Copy contract address"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4dff9d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+      </div>
+
+      <!-- PASS 48: the BUY row (.mn-actions with the lone BUY pill)
+           is DELETED from Mine (owner) — the BUY button lives on in
+           the price card above; Boost's and Profile's buy/swap
+           entry points are untouched. -->
 
       <div style="display:none;">
         <span id="mine-ths"></span><span id="prof-hold-bal"></span><span id="mine-status-dot"></span><span id="mine-lvl-txt"></span>
@@ -1832,6 +2010,33 @@
 
 
 
+
+      <!-- PASS 47: wallet LINKING + VERIFICATION card (moved from
+           Mine, owner) — ONE card: linking row, divider, the whole
+           #verify-card, ids intact; PASS 38 stone-frame skin.
+           Profile order: title -> settings -> this card -> Withdraw
+           -> contract -> History. -->
+      <section class="mn-wv-card" id="mn-wv-card">
+        <div class="pf-wallet-row">
+          <img id="pf-verified-ic" src="assets/icon_verified.webp" alt="" style="display:none;">
+          <span id="prof-wallet-addr-display">Not connected yet</span>
+          <span class="badge-tag" id="wallet-badge-status" style="background:#ef4444;display:none;">Disconnected</span>
+          <div id="connected-wallet-actions" style="display:none;">
+            <button class="pf-disconnect" id="btn-disconnect-wallet"><span data-i18n="disconnect_wallet_btn">DISCONNECT</span></button>
+          </div>
+        </div>
+        <button class="btn-3d-gold" id="btn-connect-wallet">👛 <span data-i18n="connect_wallet_btn">Connect TON Wallet</span></button>
+        <div id="ton-connect-container" style="display:none;"></div>
+        <div class="mn-wv-div"></div>
+      <div class="card-3d" id="verify-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <h4>🛡️ <span data-i18n="verify_title">Wallet Verification</span></h4>
+          <span class="badge-tag" id="verify-status-badge" style="background:#64748b;">—</span>
+        </div>
+        <div id="verify-rows" style="font-size:12px;line-height:1.5;"></div>
+        <div id="verify-actions"></div>
+      </div>
+      </section>
 
       <section class="pf-sec">
         <div class="pf-ribbon"><span data-i18n="withdraw_title">Withdraw</span> ⬇</div>
@@ -2381,7 +2586,7 @@
       en: {
         mining_rate:"MINING RATE", current_rank:"WALLET LEVEL", claimed_in_app:"Claimed in the app",
         streak_txt:"🔥 24h Shift Rule", streak_sub:"Collect every 24h to keep mining",
-        collect_btn:"COLLECT 24H MINING", buy_btn:"Buy", levels_btn:"Levels (1–100)",
+        collect_btn:"COLLECT 24H MINING", buy_btn:"Buy", price_lbl:"PRICE", levels_btn:"Levels (1–100)",
         mined_lbl:"MINED", day_rate_lbl:"DAY RATE", shift_cd_lbl:"SHIFT COUNTDOWN", collect_lbl:"COLLECT",
         maint_title:"Update in progress", maint_sub:"We are updating ZOMBIE MINE right now. Please check back soon!",
         avatar_title:"Choose your warrior", avatar_sub:"Pick your avatar — it becomes your identity everywhere in the game.", avatar_perm:"This choice is permanent — your warrior becomes your identity forever. Choose wisely.", avatar_confirm:"CONFIRM SELECTION", avatar_confirm2:"LOCK IN PERMANENTLY", avatar_warn:"⚠ Once confirmed, your warrior cannot be changed",
@@ -2416,7 +2621,7 @@
         verify_sent_toast:"Confirm the payment in your wallet…",
         verify_notfound_toast:"Payment not found yet — don't worry, the app keeps checking automatically.",
         verify_success_toast:"Wallet verified!", verify_too_new:"Wallet too new: %D% days, needs %N%",
-        gate_title:"🔐 Verify Your Wallet", gate_desc:"To unlock ZOMBIE MINE, connect your TON wallet and verify it with a one-time 0.05 TON payment. Verification protects your account and unlocks mining, withdrawals and referrals.", gate_note:"⛏️ Mining unlocks the moment your verification completes.", collect_verify_first:"VERIFY FIRST", mine_verify_card:"Verify your wallet to claim earnings", mining_card_title:"ACTIVE MINING", mining_status_active:"Active", mining_status_paused:"Paused — verification required", mining_verify_msg:"Verify your wallet to start mining",
+        gate_title:"🔐 Verify Your Wallet", gate_desc:"To unlock ZOMBIE MINE, connect your TON wallet and verify it with a one-time 0.05 TON payment. Verification protects your account and unlocks mining, withdrawals and referrals.", gate_note:"⛏️ Mining unlocks the moment your verification completes.", collect_verify_first:"VERIFY FIRST", mine_verify_card:"Verify your wallet to claim earnings", mining_card_title:"ACTIVE MINING", mining_status_active:"Active", mining_status_paused:"Paused — verification required", mining_verify_msg:"Verify your wallet to start mining", rate_lbl:"MINING RATE", rank_lbl:"CURRENT RANK", rate_day_suffix:"/day", status_mining:"Mining", status_paused_short:"Paused",
         verify_confirming:"Payment sent — confirming on-chain, this can take a minute…", verify_not_completed:"Payment not completed — nothing was sent from your wallet. Tap Verify and approve the payment in your wallet app.",
         verify_manual_hint:"Send the exact amount with the exact comment using the details below.",
         verify_rate_toast:"Too many checks — wait a few seconds and try again.",
@@ -2431,7 +2636,7 @@
       ar: {
         mining_rate:"سرعة التعدين", current_rank:"مستوى المحفظة", claimed_in_app:"رصيدك المجموع بالتطبيق",
         streak_txt:"🔥 نظام الـ 24 ساعة", streak_sub:"اجمع كل 24 ساعة ليستمر التعدين",
-        collect_btn:"اجمع عملات التعدين الآن", buy_btn:"شراء", levels_btn:"المستويات (1–100)",
+        collect_btn:"اجمع عملات التعدين الآن", buy_btn:"شراء", price_lbl:"السعر", levels_btn:"المستويات (1–100)",
         mined_lbl:"المُعدّن", day_rate_lbl:"معدل اليوم", shift_cd_lbl:"عدّاد الوردية", collect_lbl:"اجمع",
         maint_title:"جارٍ التحديث", maint_sub:"بنحدّث ZOMBIE MINE دلوقتي. ارجع تاني قريب!",
         avatar_title:"اختر المحارب بتاعك", avatar_sub:"اختار الأفاتار — دي هتبقى هويتك في اللعبة كلها.", avatar_perm:"الاختيار ده نهائي — المحارب ده هيبقى هويتك للأبد. اختار بحكمة.", avatar_confirm:"تأكيد الاختيار", avatar_confirm2:"قفل نهائي للأبد", avatar_warn:"⚠ بعد التأكيد مش هتقدر تغيّر المحارب",
@@ -2466,7 +2671,7 @@
         verify_sent_toast:"أكّد الدفع في محفظتك…",
         verify_notfound_toast:"الدفع لسه موصلش — متقلقش، التطبيق بيراجع تلقائيًا.",
         verify_success_toast:"المحفظة اتوثّقت!", verify_too_new:"المحفظة جديدة: %D% يوم، محتاجة %N% يوم",
-        gate_title:"🔐 وثّق محفظتك", gate_desc:"علشان يفتح ZOMBIE MINE، اربط محفظة TON ووثّقها بدفع 0.05 TON مرة واحدة بس. التوثيق بيحمي حسابك وبيفتح التعدين والسحب والإحالات.", gate_note:"⛏️ التعدين هيفتح فور ما التوثيق يكتمل.", collect_verify_first:"وثّق أولاً", mine_verify_card:"وثّق محفظتك لاستلام أرباحك", mining_card_title:"التعدين النشط", mining_status_active:"نشط", mining_status_paused:"متوقف — التوثيق مطلوب", mining_verify_msg:"وثّق محفظتك علشان التعدين يشتغل",
+        gate_title:"🔐 وثّق محفظتك", gate_desc:"علشان يفتح ZOMBIE MINE، اربط محفظة TON ووثّقها بدفع 0.05 TON مرة واحدة بس. التوثيق بيحمي حسابك وبيفتح التعدين والسحب والإحالات.", gate_note:"⛏️ التعدين هيفتح فور ما التوثيق يكتمل.", collect_verify_first:"وثّق أولاً", mine_verify_card:"وثّق محفظتك لاستلام أرباحك", mining_card_title:"التعدين النشط", mining_status_active:"نشط", mining_status_paused:"متوقف — التوثيق مطلوب", mining_verify_msg:"وثّق محفظتك علشان التعدين يشتغل", rate_lbl:"سرعة التعدين", rank_lbl:"الرتبة الحالية", rate_day_suffix:"/يوم", status_mining:"التعدين شغال", status_paused_short:"متوقف",
         verify_confirming:"الدفع اتبعت — بنأكّد على الشبكة، ممكن ياخد دقيقة…", verify_not_completed:"الدفع مكملش — مفيش حاجة اتبعتت من محفظتك. دوس توثيق ووافق على الدفع جوه تطبيق المحفظة.",
         verify_manual_hint:"ابعت المبلغ بالظبط بالتعليق بالظبط باستخدام البيانات اللي تحت.",
         verify_rate_toast:"محاولات تحقق كتير — استنى ثواني وجرّب تاني.",
@@ -2481,7 +2686,7 @@
       ru: {
         mining_rate:"СКОРОСТЬ", current_rank:"УРОВЕНЬ КОШЕЛЬКА", claimed_in_app:"Собрано в боте",
         streak_txt:"🔥 Цикл 24 часа", streak_sub:"Собирайте каждые 24ч",
-        collect_btn:"СОБРАТЬ МОНЕТЫ", buy_btn:"Купить", levels_btn:"Уровни (1–100)",
+        collect_btn:"СОБРАТЬ МОНЕТЫ", buy_btn:"Купить", price_lbl:"ЦЕНА", levels_btn:"Уровни (1–100)",
         mined_lbl:"ДОБЫТО", day_rate_lbl:"СТАВКА В ДЕНЬ", shift_cd_lbl:"ОБРАТНЫЙ ОТСЧЁТ", collect_lbl:"СОБРАТЬ",
         maint_title:"Идёт обновление", maint_sub:"Мы обновляем ZOMBIE MINE прямо сейчас. Загляните чуть позже!",
         avatar_title:"Выберите воина", avatar_sub:"Выберите аватар — он станет вашим образом во всей игре.", avatar_perm:"Этот выбор навсегда — воин станет вашим образом навсегда. Выбирайте мудро.", avatar_confirm:"ПОДТВЕРДИТЬ ВЫБОР", avatar_confirm2:"ЗАФИКСИРОВАТЬ НАВСЕГДА", avatar_warn:"⚠ После подтверждения воина изменить нельзя",
@@ -2516,7 +2721,7 @@
         verify_sent_toast:"Подтвердите платёж в кошельке…",
         verify_notfound_toast:"Платёж пока не найден — не волнуйтесь, приложение продолжит проверку автоматически.",
         verify_success_toast:"Кошелёк подтверждён!", verify_too_new:"Кошелёк слишком новый: %D% дн., нужно %N%",
-        gate_title:"🔐 Подтвердите кошелёк", gate_desc:"Чтобы открыть ZOMBIE MINE, подключите кошелёк TON и подтвердите его разовым платежом 0.05 TON. Подтверждение защищает аккаунт и открывает майнинг, вывод и рефералов.", gate_note:"⛏️ Майнинг откроется сразу после подтверждения.", collect_verify_first:"СНАЧАЛА ПОДТВЕРДИТЕ", mine_verify_card:"Подтвердите кошелёк, чтобы получить заработок", mining_card_title:"АКТИВНЫЙ МАЙНИНГ", mining_status_active:"Активен", mining_status_paused:"Пауза — нужно подтверждение", mining_verify_msg:"Подтвердите кошелёк, чтобы начать майнинг",
+        gate_title:"🔐 Подтвердите кошелёк", gate_desc:"Чтобы открыть ZOMBIE MINE, подключите кошелёк TON и подтвердите его разовым платежом 0.05 TON. Подтверждение защищает аккаунт и открывает майнинг, вывод и рефералов.", gate_note:"⛏️ Майнинг откроется сразу после подтверждения.", collect_verify_first:"СНАЧАЛА ПОДТВЕРДИТЕ", mine_verify_card:"Подтвердите кошелёк, чтобы получить заработок", mining_card_title:"АКТИВНЫЙ МАЙНИНГ", mining_status_active:"Активен", mining_status_paused:"Пауза — нужно подтверждение", mining_verify_msg:"Подтвердите кошелёк, чтобы начать майнинг", rate_lbl:"СКОРОСТЬ МАЙНИНГА", rank_lbl:"ТЕКУЩИЙ РАНГ", rate_day_suffix:"/день", status_mining:"Майнинг идёт", status_paused_short:"Пауза",
         verify_confirming:"Платёж отправлен — подтверждаем в сети, это может занять минуту…", verify_not_completed:"Платёж не завершён — из кошелька ничего не отправлено. Нажмите «Подтвердить» и одобрите платёж в приложении кошелька.",
         verify_manual_hint:"Отправьте точную сумму с точным комментарием по реквизитам ниже.",
         verify_rate_toast:"Слишком много проверок — подождите несколько секунд и попробуйте снова.",
@@ -2710,7 +2915,8 @@
       'assets/mock_hero.webp', 'assets/mock_sign.webp', 'assets/tex_stone_dark.webp', 'assets/mock_hand.webp', 'assets/mock_skull_deco.webp',
       'assets/nav_cell_1.webp', 'assets/nav_cell_2.webp', 'assets/nav_cell_3.webp', 'assets/nav_cell_4.webp', 'assets/nav_cell_5.webp',
       'assets/mine_scene2.webp', 'assets/card_frame.webp', 'assets/collect_frame.webp', 'assets/nav_cut_1.webp', 'assets/nav_cut_2.webp', 'assets/nav_cut_3.webp', 'assets/nav_cut_4.webp', 'assets/nav_cut_5.webp',
-      'assets/bg_tasks.webp', 'assets/bg_boost.webp', 'assets/bg_friends.webp', 'assets/bg_profile.webp',
+      'assets/bg_tasks.webp', 'assets/bg_boost.webp', 'assets/bg_friends.webp', 'assets/bg_profile.webp', 'assets/bg_cave.webp',
+      'assets/slime_real.webp', 'assets/zombie_flank_left.webp', 'assets/zombie_flank_right.webp',
       'assets/nav_glyph_mine.webp', 'assets/nav_glyph_tasks.webp', 'assets/nav_glyph_boost.webp', 'assets/nav_glyph_friends.webp', 'assets/nav_glyph_profile.webp',
       'assets/icon_shield.webp', 'assets/icon_verified.webp', 'assets/icon_chest.webp',
       'assets/quest_scroll.webp', 'assets/icon_q_sun.webp', 'assets/icon_q_flag.webp', 'assets/icon_q_feather.webp', 'assets/icon_q_chest.webp',
@@ -3048,6 +3254,7 @@
       wdHistory = (j.withdrawals || []).sort((a, b) => (b.wdNum || 0) - (a.wdNum || 0));
       renderWithdrawHistory();
       applyUI();
+      refreshMinePrice();
       bootStateApplied = true;
       if (!initialLoadDone && !bootSettleInProgress) {
         bootSettleInProgress = true;
@@ -3152,15 +3359,19 @@
       // same timing hole the old gate had, fixed at finishBoot too).
       const unv = !!myUserNo && !myWalletVerified;
       const dict = I18N[currentLang] || I18N.en;
-      const st = document.getElementById('mining-status-txt');
-      if (st) st.innerText = unv ? (dict.mining_status_paused || 'Paused — verification required') : (dict.mining_status_active || 'Active');
+      // PASS 46: the gate status now lives in the RATE/RANK card
+      // (green dot + Mining / grey dot + Paused) and the lock sits
+      // on the big coin (greyscale via .locked + the VERIFY FIRST
+      // pill). The verify message line sits under the amount.
+      const st = document.getElementById('rate-status-txt');
+      if (st) st.innerText = unv ? (dict.status_paused_short || 'Paused') : (dict.status_mining || 'Mining');
+      const sw = document.getElementById('rate-status-wrap');
+      if (sw) sw.classList.toggle('paused', !!unv);
       const msg = document.getElementById('mining-verify-msg');
       if (msg) msg.style.display = unv ? '' : 'none';
       const btn = document.getElementById('btn-collect-main');
       if (btn) {
         btn.classList.toggle('locked', !!unv);
-        const img = btn.querySelector('img'); if (img) img.style.display = unv ? 'none' : '';
-        const cl = btn.querySelector('[data-i18n="collect_lbl"]'); if (cl) cl.style.display = unv ? 'none' : '';
         const lk = document.getElementById('collect-lock-wrap'); if (lk) lk.style.display = unv ? 'flex' : 'none';
       }
     }
@@ -3354,6 +3565,39 @@
     function shortAddr(a) {
       const f = friendlyAddr(a);
       return f ? (f.slice(0, 6) + "..." + f.slice(-6)) : "";
+    }
+
+    // PASS 48: live ZM price for the Mine price card — DexScreener
+    // token endpoint keyed by OFFICIAL_JETTON, 4s timeout, cached
+    // 60s so state refreshes don't hammer the API. ANY failure, no
+    // pair or a bad value paints "—" — a price is never fabricated
+    // (the jetton is still the zero-address placeholder, so "—" is
+    // the expected paint until a real pair exists).
+    let minePriceAt = 0, minePriceTxt = "—";
+    function fmtMinePrice(p) {
+      if (!isFinite(p) || p <= 0) return "—";
+      let s = p >= 1 ? p.toFixed(3) : p >= 0.01 ? p.toFixed(4) : p.toFixed(8);
+      s = s.replace(/0+$/, "").replace(/\.$/, "");
+      return "$" + s;
+    }
+    async function refreshMinePrice() {
+      const el = document.getElementById('mine-price-val');
+      if (!el) return;
+      if (Date.now() - minePriceAt < 60000) { el.textContent = minePriceTxt; return; }
+      minePriceAt = Date.now();
+      try {
+        const ctl = new AbortController();
+        const to = setTimeout(() => ctl.abort(), 4000);
+        const r = await fetch('https://api.dexscreener.com/latest/dex/tokens/' + OFFICIAL_JETTON, { signal: ctl.signal });
+        clearTimeout(to);
+        const j = await r.json();
+        let p = NaN;
+        if (j && Array.isArray(j.pairs)) {
+          for (const pr of j.pairs) { const v = parseFloat(pr && pr.priceUsd); if (isFinite(v) && v > 0) { p = v; break; } }
+        }
+        minePriceTxt = fmtMinePrice(p);
+      } catch (e) { minePriceTxt = "—"; }
+      el.textContent = minePriceTxt;
     }
 
     // Verified-date display: "14 Nov 2026" (D Mon YYYY) with the
@@ -3946,7 +4190,12 @@
       document.getElementById('mine-lvl-txt').innerText = "Level " + cur.level;
       document.getElementById('mine-rank-title').innerText = cur.name;
       document.getElementById('mine-claimed-total').innerText = Math.floor(minedInApp).toLocaleString();
-      document.getElementById('mine-day-rate').innerText = Number(cur.perDay.toFixed(2)).toLocaleString('en-US', {maximumFractionDigits: 2});
+      // PASS 47: the DAY RATE tile is deleted — the rate paints the
+      // RATE/RANK card directly (no tile read-back any more).
+      const drTxt = Number(cur.perDay.toFixed(2)).toLocaleString('en-US', {maximumFractionDigits: 2});
+      const rvEl = document.getElementById('mine-rate-val'); if (rvEl) rvEl.innerText = drTxt;
+      const rkEl = document.getElementById('mine-rank-lvl'); if (rkEl) rkEl.innerText = "Level " + cur.level;
+      const rgEl = document.getElementById('mine-rank-group'); if (rgEl) rgEl.innerText = String(cur.groupName || '').toUpperCase();
       document.getElementById('mine-to-go').innerText = `Hold: ${Math.floor(walletHold).toLocaleString()} ${config.coinSym}`;
 
       paintChBtn(1); paintChBtn(2); paintChBtn(3);
@@ -4161,9 +4410,9 @@
 
     async function collectMining(e) {
       // Unverified (owner order 2026-11-15): mining never starts —
-      // the locked button / stage tap scrolls to the wallet+verify
-      // card on this same page (PASS 45: verification lives on Mine).
-      if (myUserNo && !myWalletVerified) { SoundFX.click(); const wv = document.getElementById('mn-wv-card'); if (wv) wv.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+      // the locked coin tap routes to Profile, where the
+      // wallet+verify card lives again (PASS 47).
+      if (myUserNo && !myWalletVerified) { SoundFX.click(); switchTab('profile'); return; }
       if (isCollecting || !isHumanClick(e)) return;
       isCollecting = true;
       try {
@@ -4266,8 +4515,11 @@
     // 2026-11-14 — wallet connect lives in the WALLET section itself.)
 
 
-    document.getElementById('coin-3d-trigger').addEventListener('click', collectMining);
     document.getElementById('btn-collect-main').addEventListener('click', collectMining);
+    // PASS 47: the «Verify your wallet to start mining» line routes
+    // to Profile too (verification lives there again).
+    const mvmEl = document.getElementById('mining-verify-msg');
+    if (mvmEl) mvmEl.addEventListener('click', () => { if (myUserNo && !myWalletVerified) { SoundFX.click(); switchTab('profile'); } });
     document.getElementById('btn-collect-ref').addEventListener('click', collectReferralProfits);
     document.getElementById('btn-claim-daily').addEventListener('click', claimDailyLogin);
     document.getElementById('btn-watch-ad').addEventListener('click', watchRewardAd);
@@ -4281,6 +4533,16 @@
       SoundFX.click();
       const a = (document.getElementById('official-contract-addr').textContent || "").trim();
       try { navigator.clipboard.writeText(a); showToast("📋 Copied!"); } catch (e) {}
+    });
+    // PASS 48: Mine contract bar — painted from the same
+    // OFFICIAL_JETTON source as Profile's strip, middle-truncated
+    // via shortAddr; the copy button copies the FULL address with
+    // the same toast.
+    const mineContractAddrEl = document.getElementById('mine-contract-addr');
+    if (mineContractAddrEl) mineContractAddrEl.textContent = shortAddr(OFFICIAL_JETTON);
+    document.getElementById('btn-copy-mine-contract').addEventListener('click', () => {
+      SoundFX.click();
+      try { navigator.clipboard.writeText(OFFICIAL_JETTON); showToast("📋 Copied!"); } catch (e) {}
     });
     document.getElementById('btn-disconnect-wallet').addEventListener('click', askUnlinkConfirm);
     document.getElementById('btn-unlink-cancel').addEventListener('click', (e) => {
