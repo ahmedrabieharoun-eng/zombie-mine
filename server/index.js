@@ -136,16 +136,9 @@ const DEFAULTS = {
   // the bound wallet to be at least withdrawMinAgeDays old.
   verifyDepositWallet: 'UQBCoy7KjhL9VnKA_YOp4_hxmYKAQ8P8mIfx5FdIdSA6qvxE', verifyFeeTon: 0.05, verifyMinAgeDays: 7, withdrawMinAgeDays: 7,
   // Hold tasks (owner order 2026-11-17): five tiers — hold at least
-  // `hold` $ZM in the bound wallet, claim `reward`. Each tier is
-  // renewable every holdDaysReq days after a claim (holdTaskAt).
-  // The hold
-  // is read FRESH from the chain at claim time (see holdTask).
-  // settings/global can override the defs.
-  // Aged-hold window (owner order 2026-11-18): money gates (hold
-  // tasks, the withdrawal hold requirement) judge only coins held
-  // continuously for this many days — the aged hold computed from
-  // player.holdLog. Replaces the old snapshot + 48h renewal model.
-  holdDaysReq: 3,
+  // `hold` $ZM in the bound wallet, claim `reward`. The hold is read
+  // FRESH from the chain at claim time and judged as the player's
+  // current hold (see holdTask). settings/global can override the defs.
   // Hold-task renewal (owner order 2026-11-19): ONE claim pays the
   // player's highest qualified tier only, and claims renew every
   // holdRenewDays days (shared across all tiers — see holdTask).
@@ -160,7 +153,7 @@ const DEFAULTS = {
   adsEnabled: 1, adsgramBlockId: '60547', adReward: 5, adDailyLimit: 10, adMinWatchSec: 15, adGateMinSec: 5,
   holdTaskDefs: [ { hold: 1250, reward: 300 }, { hold: 2500, reward: 500 }, { hold: 5000, reward: 1000 }, { hold: 10000, reward: 1500 }, { hold: 20000, reward: 2500 } ]
 };
-const NUM_KEYS = ['lvl1PerDay', 'taskReward', 'bioReward', 'refAchReward1', 'refAchReward10', 'refAchReward25', 'refAchReward50', 'refAchReward100', 'refClaimPercent', 'refMinHold', 'minWithdraw', 'holdPercentReq', 'withdrawFeePercent', 'verifyFeeTon', 'verifyMinAgeDays', 'withdrawMinAgeDays', 'holdDaysReq', 'holdRenewDays', 'adsEnabled', 'adReward', 'adDailyLimit', 'adMinWatchSec', 'adGateMinSec'];
+const NUM_KEYS = ['lvl1PerDay', 'taskReward', 'bioReward', 'refAchReward1', 'refAchReward10', 'refAchReward25', 'refAchReward50', 'refAchReward100', 'refClaimPercent', 'refMinHold', 'minWithdraw', 'holdPercentReq', 'withdrawFeePercent', 'verifyFeeTon', 'verifyMinAgeDays', 'withdrawMinAgeDays', 'holdRenewDays', 'adsEnabled', 'adReward', 'adDailyLimit', 'adMinWatchSec', 'adGateMinSec'];
 const STR_KEYS = ['brandTitle', 'coinSym', 'payoutWallet', 'payoutChannel', 'adminChatId', 'channel1', 'channel2', 'channel3', 'botUsername', 'buySwapUrl', 'verifyDepositWallet', 'adsgramBlockId'];
 
 /* ---------- helpers ---------- */
@@ -780,7 +773,7 @@ async function getConfig() {
   await loadHarvestedEmoji(); // the harvested premium-emoji map rides the same refresh cycle
   return v;
 }
-const PUBLIC_KEYS = ['brandTitle', 'coinSym', 'taskReward', 'bioReward', 'refAchReward1', 'refAchReward10', 'refAchReward25', 'refAchReward50', 'refAchReward100', 'refClaimPercent', 'refMinHold', 'minWithdraw', 'holdPercentReq', 'withdrawFeePercent', 'withdrawMinAgeDays', 'lvl1PerDay', 'buySwapUrl', 'channel1', 'channel2', 'channel3', 'botUsername', 'holdTaskDefs', 'holdDaysReq', 'holdRenewDays', 'adsEnabled', 'adsgramBlockId', 'adReward', 'adDailyLimit'];
+const PUBLIC_KEYS = ['brandTitle', 'coinSym', 'taskReward', 'bioReward', 'refAchReward1', 'refAchReward10', 'refAchReward25', 'refAchReward50', 'refAchReward100', 'refClaimPercent', 'refMinHold', 'minWithdraw', 'holdPercentReq', 'withdrawFeePercent', 'withdrawMinAgeDays', 'lvl1PerDay', 'buySwapUrl', 'channel1', 'channel2', 'channel3', 'botUsername', 'holdTaskDefs', 'holdRenewDays', 'adsEnabled', 'adsgramBlockId', 'adReward', 'adDailyLimit'];
 const publicConfig = (c) => Object.fromEntries(PUBLIC_KEYS.map((k) => [k, c[k]]));
 
 // simple in-memory rate limiter (per server instance)
@@ -800,7 +793,7 @@ function hit(key, max, windowMs) {
 // burst plus a manual re-check must fit with room to spare, or the user
 // hits this limiter for doing exactly what the UI told them to do. The
 // global per-user (90/min) and per-IP caps still bound abuse.
-const ACTION_LIMIT = { state: 20, collect: 6, daily: 6, task: 8, holdTask: 8, bioTask: 8, refAch: 8, wallet: 8, unlink: 6, refCollect: 6, withdraw: 4, verifyInfo: 20, verifyCheck: 20, setAvatar: 8, adTicket: 6, adClaim: 6, adNoFill: 6, holdHistory: 20 }; // per user per minute
+const ACTION_LIMIT = { state: 20, collect: 6, daily: 6, task: 8, holdTask: 8, bioTask: 8, refAch: 8, wallet: 8, unlink: 6, refCollect: 6, withdraw: 4, verifyInfo: 20, verifyCheck: 20, setAvatar: 8, adTicket: 6, adClaim: 6, adNoFill: 6 }; // per user per minute
 
 function verifyInitData(initData) {
   if (!BOT_TOKEN) return { error: 'config' };
@@ -1701,7 +1694,7 @@ const newPlayer = (user, extra) => ({
   deviceHash: '', mined: 0, hold: 0, lastCollectTime: Date.now(), walletAddr: '', banned: false, invitedBy: null,
   refBonusPaid: false, refCommissionEarned: 0, pendingRefComm: 0, lastWithdrawTime: 0, adsWatched: 0,
   earnMining: 0, earnDaily: 0, earnTasks: 0, earnRef: 0, // lifetime earnings by source (owner review card, 2026-11-14); pre-existing players read as 0 until they earn again
-  lastAdUtcDay: dayOf(Date.now()), adsDay: 0, adsDayCount: 0, task1Done: false, task2Done: false, task3Done: false, task1At: 0, task2At: 0, task3At: 0, holdTaskAt: {}, holdLog: [], bioTaskDone: false, dailyStreak: 0, lastDailyCheckIn: 0,
+  lastAdUtcDay: dayOf(Date.now()), adsDay: 0, adsDayCount: 0, task1Done: false, task2Done: false, task3Done: false, task1At: 0, task2At: 0, task3At: 0, holdTaskAt: {}, bioTaskDone: false, dailyStreak: 0, lastDailyCheckIn: 0,
   lastSeen: Date.now(), referrals: [], createdAt: Date.now(), avatar: 0, ...extra
 });
 
@@ -1855,11 +1848,9 @@ async function state(c) {
   // resolveBotUsername, and publicConfig's copy is kept when both are empty.
   const botUsername = await resolveBotUsername(c.cfg);
   const pub = publicPlayer(player);
-  // The aged hold (owner order 2026-11-18): the app displays it next
-  // to the raw wallet hold and judges hold tasks + the withdraw
-  // requirement against it — only coins held cfg.holdDaysReq days
-  // count. Computed from holdLog with the stored hold as endpoint.
-  if (player) pub.agedHold = agedHoldAmount(player, c.cfg, Date.now(), Number(player.hold) || 0);
+  // Compatibility for older frontends: agedHold now mirrors the
+  // player's current stored hold; no aged-hold judgment is computed.
+  if (player) pub.agedHold = Number(player.hold) || 0;
   return { player: pub, settings: { ...publicConfig(c.cfg), ...(botUsername ? { botUsername } : {}) }, withdrawals: wds, now: Date.now() };
 }
 
@@ -2024,220 +2015,24 @@ async function task(c) {
 
 const HOLD_DEFS_FALLBACK = [ { hold: 1250, reward: 300 }, { hold: 2500, reward: 500 }, { hold: 5000, reward: 1000 }, { hold: 10000, reward: 1500 }, { hold: 20000, reward: 2500 } ];
 function holdDefsOf(cfg) { return (Array.isArray(cfg && cfg.holdTaskDefs) && cfg.holdTaskDefs.length) ? cfg.holdTaskDefs : HOLD_DEFS_FALLBACK; }
-function holdNeedMs(cfg) { const d = Number(cfg && cfg.holdDaysReq); return (Number.isFinite(d) && d > 0 ? d : 3) * 86400000; }
 function holdRenewMs(cfg) { const d = Number(cfg && cfg.holdRenewDays); return (Number.isFinite(d) && d > 0 ? d : 7) * 86400000; }
 function lastHoldClaimAt(p) { const m = (p && p.holdTaskAt) || {}; let last = 0; for (const k of Object.keys(m)) { const v = Number(m[k]) || 0; if (v > last) last = v; } return last; }
-function highestHoldTier(defs, aged) { let h = 0; for (let i = 0; i < defs.length; i++) { if (aged >= Number(defs[i].hold)) h = i + 1; } return h; }
-/* Hold history (owner order 2026-11-18): player.holdLog is the
-   change-point history of the player's hold — one { at, hold } entry
-   per fresh read whose value differs from the last entry — appended
-   by every fresh hold read the server makes (wallet sync + the hold
-   watcher), pruned to the configured window
-   plus a day of slack and capped. agedHoldAmount() replays it into
-   the one number every money gate now uses: the AGED hold — the
-   minimum hold over the whole window, with the freshest read as the
-   endpoint. A top-up can never raise it (the window minimum
-   stands), a dip lowers it at the next read, and with no reading at
-   or before the window start it is 0 (no history = no proof,
-   fail-closed like every other check). Only coins that
-   demonstrably sat in the wallet for the full window count. */
-function nextHoldLog(p, hold, cfg, now) {
-  const log = Array.isArray(p && p.holdLog) ? p.holdLog.slice() : [];
-  const last = log.length ? Number(log[log.length - 1].hold) : null;
-  if (last !== null && Math.abs(last - hold) < 1e-9) return null; // unchanged value: no new point
-  log.push({ at: now, hold });
-  const keepFrom = now - holdNeedMs(cfg) - 86400000;
-  while (log.length > 1 && Number(log[0].at) < keepFrom && Number(log[1].at) <= keepFrom) log.shift();
-  while (log.length > 240) log.shift();
-  return log;
-}
-function agedHoldAmount(p, cfg, now, endpoint) {
-  const log = Array.isArray(p && p.holdLog) ? p.holdLog : [];
-  if (!log.length) return 0;
-  const from = now - holdNeedMs(cfg);
-  let val = null;
-  for (const e of log) { if (Number(e.at) <= from) val = Number(e.hold); else break; }
-  if (val === null) return 0; // no reading at/before the window start: nothing is provably aged
-  let aged = val;
-  for (const e of log) { if (Number(e.at) > from) aged = Math.min(aged, Number(e.hold)); }
-  if (endpoint !== null && endpoint !== undefined && Number.isFinite(Number(endpoint))) aged = Math.min(aged, Number(endpoint));
-  return Math.max(0, aged);
-}
-/* One-time history backfill (owner question 2026-11-18: «اللي كان
-   شاري ومخزن بقاله أكثر من 3 ايام»): a player who genuinely held
-   ZM long before the aged-hold system existed must NOT restart
-   from zero — his aged hold is provable from the chain itself. On
-   his first wallet sync (or watcher tick) after the deploy, the
-   server reads the wallet's jetton transfer history ONCE, walks it
-   back from the current balance, and seeds holdLog with the
-   reconstructed change-points; holdLogSeededAt stamps the record so
-   it never runs again. Fail-closed throughout: any read failure, or
-   history that cannot be paged back to the window start within the
-   page cap, seeds NOTHING (the player then accrues history live,
-   like a new holder). Only the VERIFIED wallet is seeded — the same
-   wallet the money gates judge. */
-async function backfillHoldLog(p, cfg, now, maxPages) {
-  const raw = p.walletAddr;
-  const from = now - holdNeedMs(cfg);
-  let bal;
-  try { bal = await jettonHold(raw); } catch (e) { return null; }
-  const unit = Math.pow(10, await jettonDecimals());
-  const evs = []; // newest-first { at, delta }
-  let beforeLt = null, exhausted = false;
-  const pages = Math.max(1, Math.min(5, Number(maxPages) || 5));
-  for (let page = 0; page < pages; page++) {
-    if (page > 0 && TONAPI_PAGE_GAP_MS > 0) await sleepMs(TONAPI_PAGE_GAP_MS);
-    let j;
-    try { j = await tonPage('/accounts/' + encodeURIComponent(raw) + '/jettons/' + JETTON + '/history?limit=100' + (beforeLt ? '&before_lt=' + encodeURIComponent(beforeLt) : '')); }
-    catch (e) { return null; }
-    if (!j || !Array.isArray(j.events) || !j.events.length) { exhausted = true; break; }
-    for (const ev of j.events) {
-      let delta = 0;
-      for (const a of (ev.actions || [])) {
-        if (!a || a.type !== 'JettonTransfer') continue;
-        const t = a.JettonTransfer || a.jetton_transfer || {};
-        const amt = parseFloat(t.amount || '0') / unit;
-        if (!Number.isFinite(amt) || amt === 0) continue;
-        const snd = String((t.sender && t.sender.address) || t.sender || '').toLowerCase();
-        const rcp = String((t.recipient && t.recipient.address) || t.recipient || '').toLowerCase();
-        if (rcp === String(raw).toLowerCase()) delta += amt;
-        if (snd === String(raw).toLowerCase()) delta -= amt;
-      }
-      if (delta !== 0) evs.push({ at: Number(ev.timestamp || 0) * 1000, delta });
-    }
-    const lastEv = j.events[j.events.length - 1];
-    const lastAt = Number(lastEv.timestamp || 0) * 1000;
-    beforeLt = lastEv.lt || null;
-    if (lastAt <= from) { exhausted = true; break; }
-    if (!beforeLt || j.events.length < 100) { exhausted = true; break; }
-  }
-  if (!exhausted) return null; // history does not reach the window start within the cap: nothing provable
-  let run = bal;
-  const inWindow = evs.filter((e) => e.at > from); // newest-first
-  for (const e of inWindow) run -= e.delta;
-  const pts = [{ at: from, hold: Math.max(0, run) }];
-  let b = run;
-  for (const e of inWindow.slice().reverse()) { b += e.delta; pts.push({ at: e.at, hold: Math.max(0, b) }); }
-  return pts;
-}
-async function seedHoldLogIfNeeded(p, cfg, now, maxPages) {
-  if (!p || p.holdLogSeededAt) return null;
-  if (p.walletVerified !== true || !p.walletAddr || (p.verifiedWallet || '') !== p.walletAddr) return null;
-  const pts = await backfillHoldLog(p, cfg, now, maxPages);
-  if (!pts) return null;
-  const existing = Array.isArray(p.holdLog) ? p.holdLog : [];
-  const firstExisting = existing.length ? Number(existing[0].at) : Infinity;
-  return { holdLog: pts.filter((pt) => pt.at < firstExisting).concat(existing), holdLogSeededAt: now };
-}
-/* ---------- hold history (owner order 2026-11-19) ----------
-   Powers the info button on the Profile aged-hold card: the
-   player sees his own wallet's ZM transfer history (receives
-   and sends, newest first) and how his CURRENT coins split by
-   age. The lots are reconstructed FIFO from the chain history —
-   a sale consumes the OLDEST coins first, so what remains is
-   exactly the coins he still holds, each with its real age. This
-   answers the recurring «my coins are 3 days old, why is the
-   aged value 0?» — the player sees the sale that reset his
-   clock. Read-only; fail-closed like the other chain reads (a
-   failed read is a 503, never invented numbers). */
-async function collectJettonEvents(raw, maxPages) {
-  const unit = Math.pow(10, await jettonDecimals());
-  const evs = []; // newest-first { at, delta }
-  let beforeLt = null, exhausted = false;
-  const pages = Math.max(1, Math.min(5, Number(maxPages) || 5));
-  for (let page = 0; page < pages; page++) {
-    if (page > 0 && TONAPI_PAGE_GAP_MS > 0) await sleepMs(TONAPI_PAGE_GAP_MS);
-    const j = await tonPage('/accounts/' + encodeURIComponent(raw) + '/jettons/' + JETTON + '/history?limit=100' + (beforeLt ? '&before_lt=' + encodeURIComponent(beforeLt) : ''));
-    if (!j || !Array.isArray(j.events) || !j.events.length) { exhausted = true; break; }
-    for (const ev of j.events) {
-      let delta = 0;
-      for (const a of (ev.actions || [])) {
-        if (!a || a.type !== 'JettonTransfer') continue;
-        const t = a.JettonTransfer || a.jetton_transfer || {};
-        const amt = parseFloat(t.amount || '0') / unit;
-        if (!Number.isFinite(amt) || amt === 0) continue;
-        const snd = String((t.sender && t.sender.address) || t.sender || '').toLowerCase();
-        const rcp = String((t.recipient && t.recipient.address) || t.recipient || '').toLowerCase();
-        if (rcp === String(raw).toLowerCase()) delta += amt;
-        if (snd === String(raw).toLowerCase()) delta -= amt;
-      }
-      if (delta !== 0) evs.push({ at: Number(ev.timestamp || 0) * 1000, delta });
-    }
-    const lastEv = j.events[j.events.length - 1];
-    beforeLt = lastEv.lt || null;
-    if (!beforeLt || j.events.length < 100) { exhausted = true; break; }
-  }
-  return { evs, exhausted };
-}
-async function holdHistory(c) {
-  const ref = await ensurePlayer(c);
-  const p = await getVal(ref);
-  if (!p) fail(404, 'User not found');
-  if (p.banned === true) fail(403, 'Account banned');
-  const raw = p.walletAddr || '';
-  if (!raw) fail(400, 'Connect a wallet first');
-  let hold;
-  try { hold = await jettonHold(raw); } catch (e) { fail(503, 'Chain read failed, try again'); }
-  let coll;
-  try { coll = await collectJettonEvents(raw, 5); } catch (e) { fail(503, 'Chain read failed, try again'); }
-  const now = Date.now();
-  // FIFO lots over the events, oldest first: a sale consumes the
-  // oldest coins; what remains is the current balance by real age.
-  const lots = []; // { at, amt } oldest first
-  let lotSum = 0;
-  for (const e of coll.evs.slice().reverse()) {
-    if (e.delta > 0) { lots.push({ at: e.at, amt: e.delta }); lotSum += e.delta; }
-    else {
-      let out = -e.delta;
-      while (out > 1e-9 && lots.length) {
-        const take = Math.min(out, lots[0].amt);
-        lots[0].amt -= take; lotSum -= take; out -= take;
-        if (lots[0].amt <= 1e-9) lots.shift();
-      }
-    }
-  }
-  // History cut off at the page cap: the unseen remainder predates
-  // the oldest fetched event, so it sits in a lot of that age —
-  // never younger than the evidence allows.
-  const remainder = Number(hold) - lotSum;
-  if (remainder > 1e-6 && coll.evs.length) {
-    lots.unshift({ at: coll.evs[coll.evs.length - 1].at, amt: remainder });
-  }
-  const DAY = 86400000;
-  const buckets = { ge3: 0, d2: 0, d1: 0, d0: 0 };
-  for (const l of lots) {
-    const age = now - l.at;
-    if (age >= 3 * DAY) buckets.ge3 += l.amt;
-    else if (age >= 2 * DAY) buckets.d2 += l.amt;
-    else if (age >= DAY) buckets.d1 += l.amt;
-    else buckets.d0 += l.amt;
-  }
-  return {
-    ok: true,
-    hold: Number(hold) || 0,
-    agedHold: agedHoldAmount(p, c.cfg, now, Number(hold)),
-    daysReq: Math.round(holdNeedMs(c.cfg) / DAY) || 3,
-    buckets,
-    events: coll.evs.slice(0, 60),
-    truncated: !coll.exhausted
-  };
-}
-/* Hold tasks (owner order 2026-11-17; aged-hold model owner order
-   2026-11-18; top-tier-only + weekly renewal owner order
-   2026-11-19): five tiers in cfg.holdTaskDefs. A claim pays ONLY
-   the highest tier the player's AGED hold qualifies for (owner:
-   «اللي محتفظ بـ20,000 ياخد مكافأة المستوى الخامس بس (2,500) بدل
-   مجموع الخمسة (5,800)») — the AGED hold being coins held for
-   cfg.holdDaysReq days (default 3), see agedHoldAmount above. One
-   claim stamps every tier (holdTaskAt) and claims renew every
-   cfg.holdRenewDays days (default 7), shared across tiers. The hold
-   is read FRESH from the chain at claim time — never the
-   stored/synced `hold`, which may be stale: a player who sold after
-   the last sync must not be paid for coins he no longer holds. A
-   chain read failure fails CLOSED (503, nothing granted); the tier
-   timer is re-checked inside the credit transaction so two racing
-   claims cannot both win. On success the fresh hold is also written
-   back to the record, like a wallet sync would. */
+function highestHoldTier(defs, hold) { let h = 0; for (let i = 0; i < defs.length; i++) { if (hold >= Number(defs[i].hold)) h = i + 1; } return h; }
+/* Hold tasks (owner order 2026-11-17; top-tier-only + weekly
+   renewal owner order 2026-11-19; current-hold judgment owner
+   order 2026-11-20): five tiers in cfg.holdTaskDefs. A claim pays
+   ONLY the highest tier the player's CURRENT hold qualifies for
+   (owner: «اللي محتفظ بـ20,000 ياخد مكافأة المستوى الخامس بس
+   (2,500) بدل مجموع الخمسة (5,800)»). One claim stamps every tier
+   (holdTaskAt) and claims renew every cfg.holdRenewDays days
+   (default 7), shared across tiers. The hold is read FRESH from
+   the chain at claim time — never the stored/synced `hold`, which
+   may be stale: a player who sold after the last sync must not be
+   paid for coins he no longer holds. A chain read failure fails
+   CLOSED (503, nothing granted); the tier timer is re-checked
+   inside the credit transaction so two racing claims cannot both
+   win. On success the fresh hold is also written back to the
+   record, like a wallet sync would. */
 
 /* ---------- Adsgram ads (owner order 2026-11-19) ----------
    Two flows, both built on server-issued single-use tickets (the
@@ -2382,28 +2177,22 @@ async function holdTask(c) {
      below against the exact address the chain read used. */
   const raw = p.walletAddr;
   if (p.walletVerified !== true || (p.verifiedWallet || '') !== raw) fail(403, 'Verify your wallet first');
-  /* Aged-hold gate (owner order 2026-11-18, final form): only coins
-     that demonstrably sat in the wallet for cfg.holdDaysReq days
-     count — agedHoldAmount() over the player's holdLog, with this
-     claim's fresh chain read as the endpoint. A same-day buy, or a
-     top-up over a small old balance, never satisfies a tier. After a
-     claim the tier renews after the same window (holdTaskAt), so one
-     aged balance cannot pay the same tier twice inside a window.
-     Both gates are re-checked inside the credit transaction. */
-  const days = Math.round(holdNeedMs(c.cfg) / 86400000);
+  /* Current-hold gate: this claim's fresh on-chain read is the
+     amount judged against the tiers. The verified-wallet check and
+     the shared renewal are re-checked inside the credit
+     transaction below. */
   const renewMs = holdRenewMs(c.cfg);
   const renewDays = Math.round(renewMs / 86400000);
   /* Shared renewal (owner order 2026-11-19): a claim pays ONCE for
-     all tiers — the highest tier the aged hold qualifies for — so
+     all tiers — the highest tier the current hold qualifies for — so
      the renewal is judged on the LAST claim of ANY tier. */
   const lastAt = lastHoldClaimAt(p);
   if (lastAt && Date.now() - lastAt < renewMs) fail(400, 'Task renews every ' + renewDays + ' days');
   let hold;
   try { hold = await jettonHold(raw); } catch (e) { fail(503, 'Hold check failed, please try again'); }
   if (hold < Number(defs[0].hold)) fail(403, 'Hold at least ' + Number(defs[0].hold).toLocaleString('en-US') + ' $ZM in your wallet');
-  const aged0 = agedHoldAmount(p, c.cfg, Date.now(), hold);
-  const top0 = highestHoldTier(defs, aged0);
-  if (top0 < 1) fail(403, 'Hold at least ' + Number(defs[0].hold).toLocaleString('en-US') + ' $ZM for ' + days + ' full days (your ' + days + '-day hold: ' + Math.floor(aged0).toLocaleString('en-US') + ')');
+  const top0 = highestHoldTier(defs, hold);
+  if (top0 < 1) fail(403, 'Hold at least ' + Number(defs[0].hold).toLocaleString('en-US') + ' $ZM in your wallet');
   return txUpdate(ref, (d) => {
     if (d === null) return { error: new Fail(404, 'User not found') };
     if (d.banned === true) return { error: new Fail(403, 'Account banned') };
@@ -2411,9 +2200,8 @@ async function holdTask(c) {
     const now = Date.now();
     const at = lastHoldClaimAt(d);
     if (at && now - at < renewMs) return { error: new Fail(400, 'Task renews every ' + renewDays + ' days') };
-    const aged = agedHoldAmount(d, c.cfg, now, hold);
-    const top = highestHoldTier(defs, aged);
-    if (top < 1) return { error: new Fail(403, 'Hold at least ' + Number(defs[0].hold).toLocaleString('en-US') + ' $ZM for ' + days + ' full days (your ' + days + '-day hold: ' + Math.floor(aged).toLocaleString('en-US') + ')') };
+    const top = highestHoldTier(defs, hold);
+    if (top < 1) return { error: new Fail(403, 'Hold at least ' + Number(defs[0].hold).toLocaleString('en-US') + ' $ZM in your wallet') };
     const reward = Number(defs[top - 1].reward);
     const stamps = { ...(d.holdTaskAt || {}) };
     for (let i = 1; i <= defs.length; i++) stamps[i] = now;
@@ -2905,15 +2693,6 @@ async function wallet(c) {
   let hold = 0, holdFresh = false;
   try { hold = await jettonHold(raw); holdFresh = true; } catch (e) { /* chain read failed — bind anyway */ }
   if (!holdFresh) hold = (raw === (p.walletAddr || '')) ? (Number(p.hold) || 0) : 0;
-  // One-time aged-hold backfill for pre-system holders (see
-  // backfillHoldLog): only on a same-wallet sync of the verified
-  // wallet; page-capped tighter here than in the watcher so a sync
-  // never waits long — an incomplete seed simply stays unseeded and
-  // the watcher finishes it in the background.
-  let seeded = null;
-  if (raw === (p.walletAddr || '') && !p.holdLogSeededAt) {
-    try { seeded = await seedHoldLogIfNeeded(p, c.cfg, Date.now(), 3); } catch (e) { seeded = null; }
-  }
   const uid = String(c.user.id);
   // claim the wallet node first (the Firestore original checked ownership
   // inside its transaction before writing anything — same net effect here).
@@ -2946,19 +2725,8 @@ async function wallet(c) {
     // different address clears it (verifyInfo re-marks it for the new
     // wallet); re-syncing the same wallet keeps it.
     const addrChanged = (d.walletAddr || '') !== raw;
-    // Hold history (owner order 2026-11-18): a fresh read appends a
-    // change-point to holdLog, the basis of the aged hold. The
-    // history belongs to ONE wallet: binding a different address
-    // (or voiding the verification) resets it.
-    const seedHere = !!seeded && !voidsVerify && !addrChanged && (d.walletAddr || '') === raw;
-    const baseLog = seedHere ? seeded.holdLog : (Array.isArray(d.holdLog) ? d.holdLog : []);
-    const appended = holdFresh ? nextHoldLog({ ...d, holdLog: baseLog }, hold, c.cfg, Date.now()) : null;
-    // When seeding, the seeded history itself is the write whenever
-    // the fresh read appends nothing (value unchanged) — dropping it
-    // here would stamp the record while losing the history it proved.
-    const hlog = (voidsVerify || (addrChanged && (d.walletAddr || '') !== '')) ? [] : (appended || (seedHere ? baseLog : null));
     return {
-      value: { ...d, walletAddr: raw, hold, lastSyncAt: holdFresh ? Date.now() : (d.lastSyncAt || 0), ...(hlog ? { holdLog: hlog } : {}), ...(seedHere ? { holdLogSeededAt: seeded.holdLogSeededAt } : {}), ...(voidsVerify ? { walletVerified: false, verifiedWallet: '', verifiedAt: 0, verifyTx: '', lastVerifyTx: d.verifyTx || '' } : {}), ...(addrChanged ? { verifyPendingAt: 0 } : {}) },
+      value: { ...d, walletAddr: raw, hold, lastSyncAt: holdFresh ? Date.now() : (d.lastSyncAt || 0), ...(voidsVerify ? { walletVerified: false, verifiedWallet: '', verifiedAt: 0, verifyTx: '', lastVerifyTx: d.verifyTx || '' } : {}), ...(addrChanged ? { verifyPendingAt: 0 } : {}) },
       out: { oldAddr: d.walletAddr || '', voided: voidsVerify }
     };
   });
@@ -2985,7 +2753,7 @@ async function unlink(c) {
     // one — must be verified again.
     const wasVerified = d.walletVerified === true;
     return {
-      value: { ...d, walletAddr: '', hold: 0, holdLog: [], verifyPendingAt: 0, ...(wasVerified ? { walletVerified: false, verifiedWallet: '', verifiedAt: 0, verifyTx: '', lastVerifyTx: d.verifyTx || '' } : {}) },
+      value: { ...d, walletAddr: '', hold: 0, verifyPendingAt: 0, ...(wasVerified ? { walletVerified: false, verifiedWallet: '', verifiedAt: 0, verifyTx: '', lastVerifyTx: d.verifyTx || '' } : {}) },
       out: { oldAddr: d.walletAddr || '', voided: wasVerified }
     };
   });
@@ -3684,24 +3452,11 @@ async function refHoldWatchTick() {
     const notes = [];
     for (const [uid, p] of batch) {
       try {
-        // One-time aged-hold backfill (owner order 2026-11-18):
-        // pre-system holders get their holdLog seeded from on-chain
-        // history here in the background, so nobody's genuine aged
-        // hold restarts from zero at the deploy.
-        if (!p.holdLogSeededAt) {
-          const seed = await seedHoldLogIfNeeded(p, cfg, Date.now(), 5).catch(() => null);
-          if (seed) { await P(uid).update(seed); Object.assign(p, seed); }
-        }
         const hold = await jettonHold(p.walletAddr);
         if (!Number.isFinite(hold)) continue;
-        // The hold history rides the same read (owner order
-        // 2026-11-18): a change-point is appended to holdLog — the
-        // basis of the aged hold — even when the hold value itself
-        // did not change since the last read.
-        const hlog = nextHoldLog(p, hold, cfg, Date.now());
         const holdChanged = Math.abs(hold - (Number(p.hold) || 0)) >= 1e-9;
-        if (!holdChanged && !hlog) continue; // unchanged: no write, no re-eval
-        await P(uid).update({ ...(holdChanged ? { hold } : {}), ...(hlog ? { holdLog: hlog } : {}), lastSyncAt: Date.now() });
+        if (!holdChanged) continue; // unchanged: no write, no re-eval
+        await P(uid).update({ hold, lastSyncAt: Date.now() });
         if (p.invitedBy) await syncReferralActive(uid, cfg);
         if (holdChanged) notes.push(uid + ': hold ' + (Number(p.hold) || 0) + '->' + hold);
       } catch (e) { /* failed read: skip this player this tick */ }
@@ -3862,11 +3617,9 @@ async function withdraw(c) {
   if (!Number.isFinite(amt) || amt < Number(cfg.minWithdraw)) fail(400, 'Minimum is ' + cfg.minWithdraw);
   const hold = await jettonHold(addr); // re-checked on-chain at withdrawal time
   const needHold = Math.ceil(amt * Number(cfg.holdPercentReq) / 100);
-  // The requirement is judged on the AGED hold (owner order
-  // 2026-11-18): coins that sat in the wallet for cfg.holdDaysReq
-  // days — the fresh total alone does not satisfy it.
-  const aged = agedHoldAmount(pre, cfg, Date.now(), hold);
-  if (aged < needHold) fail(400, 'Need ' + needHold + ' in ' + Math.round(holdNeedMs(cfg) / 86400000) + '-day wallet hold (yours: ' + Math.floor(aged) + ')');
+  // The requirement is judged on the CURRENT hold: the fresh
+  // on-chain total read immediately above.
+  if (hold < needHold) fail(400, 'Need ' + needHold + ' in wallet hold (yours: ' + Math.floor(hold) + ')');
   const fee = Math.ceil(amt * Number(cfg.withdrawFeePercent) / 100), net = amt - fee;
   // Firestore original: balance deduction + counter increment + withdrawal
   // doc were ONE transaction. RTDB: player transaction (all guards live
@@ -4158,17 +3911,14 @@ async function attemptPayout(wdNum) {
       return { value: { ...x, payoutState: 'paying', payoutAttemptAt: Date.now() }, out: x };
     });
     if (!wd) return; // claimed by someone else, or not in a payable state
-    // 1b) Hold figures are still READ and stamped at approval time
-    //     (holdCheckAt/holdCheckNeed/holdCheckHave/holdCheckAged —
-    //     audit only), but they no longer BLOCK the payout. Owner
+    // 1b) Current-hold figures are still READ and stamped at
+    //     approval time (holdCheckAt/holdCheckNeed/holdCheckHave —
+    //     audit only), but they do not BLOCK the payout. Owner
     //     order 2026-11-19: payouts are manual-review only, so the
-    //     owner's approval IS the decision — the approval-time
-    //     aged-hold re-check (added 2026-11-18) paused two payouts
-    //     he had approved (#22, #23) and he ordered it removed.
-    //     The request-time aged-hold check in withdraw() is
-    //     unchanged: a player still cannot REQUEST a withdrawal
-    //     without the required aged hold. A failed chain read or a
-    //     failed stamp never blocks an approved payout either.
+    //     owner's approval IS the decision. The request-time
+    //     current-hold check in withdraw() remains the gate. A
+    //     failed chain read or a failed stamp never blocks an
+    //     approved payout either.
     try {
       const cfgH = await getConfig().catch(() => null);
       const pct = Number(cfgH && cfgH.holdPercentReq) || 0;
@@ -4176,12 +3926,7 @@ async function attemptPayout(wdNum) {
         const need = Math.ceil((Number(wd.amt) || 0) * pct / 100);
         let have = null;
         try { have = await jettonHold(wd.walletAddr); } catch (e) { have = null; }
-        let aged = have === null ? -1 : have;
-        if (have !== null) {
-          const pH = await getVal(P(wd.userId)).catch(() => null);
-          aged = agedHoldAmount(pH, cfgH, Date.now(), have);
-        }
-        await ref.update({ holdCheckAt: Date.now(), holdCheckNeed: need, holdCheckHave: have === null ? -1 : have, holdCheckAged: aged, payoutError: '' });
+        await ref.update({ holdCheckAt: Date.now(), holdCheckNeed: need, holdCheckHave: have === null ? -1 : have, payoutError: '' });
       }
     } catch (e) { console.error('attemptPayout hold stamp failed (non-blocking)', num, e && e.message); }
     const decimals = await jettonDecimals();
@@ -5431,7 +5176,7 @@ async function panelAuditList(c) {
 
 const PANEL_ACTIONS = { panelStats, panelPlayers, panelPlayer, panelBan, panelAdjust, panelSetAvatar, panelVerifyPlayer, panelWithdrawals, panelWdApprove, panelWdReject, panelWdBan, panelVerifyQueue, panelVerifyResolve, panelConfigGet, panelConfigSet, panelRequestAdd, panelRequestList, panelRequestReply, panelAuditList };
 
-const ACTIONS = { state, collect, daily, task, holdTask, bioTask, refAch, adTicket, adClaim, adNoFill, wallet, unlink, verifyInfo, verifyCheck, refCollect, withdraw, setAvatar, holdHistory, adminState, adminBan, adminAdjust, adminWd, adminSettings };
+const ACTIONS = { state, collect, daily, task, holdTask, bioTask, refAch, adTicket, adClaim, adNoFill, wallet, unlink, verifyInfo, verifyCheck, refCollect, withdraw, setAvatar, adminState, adminBan, adminAdjust, adminWd, adminSettings };
 
 ensureWebhook(); // self-register the Telegram webhook once per process (never blocks boot)
 startVerifyWatcher(); // background deposit watcher (see verifyWatchTick; no-op when VERIFY_WATCH_MS=0)
