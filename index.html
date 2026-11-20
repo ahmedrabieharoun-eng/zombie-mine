@@ -2674,6 +2674,23 @@
     #page-tasks .q-rew,#page-tasks .tk-tab.active,#page-friends .fr-profits-num,#page-friends .fr-tab-num,#page-profile .pf-net,#page-profile .pf-hist-amt{color:#1fa34a}
     .bottom-nav-3d .nav-item.active span{color:#1fa34a}
     .nav-item.active{filter:drop-shadow(0 0 8px rgba(31,163,74,.45)) drop-shadow(0 -3px 16px rgba(31,163,74,.35))}
+
+    /* PASS 112 (owner): EVERY action button = black fill, white text,
+       glowing green rim. Tasks buttons all ONE size. */
+    .btn-3d-gold,.mn-collect-btn,.mn-price-buy,.q-claim,.btn-3d-gold.q-btn,#btn-collect-ref,.bst-status-plaque{background:#060806!important;color:#ffffff!important;border:1.5px solid rgba(57,255,20,.65)!important;box-shadow:0 0 14px rgba(57,255,20,.35),inset 0 0 12px rgba(57,255,20,.12)!important;text-shadow:none!important}
+    #page-tasks .q-btn,#page-tasks .q-claim{width:118px;min-width:118px;height:40px;padding:0 8px;font-size:13px;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
+
+    /* PASS 113 (owner): bottom-nav icons join the style — undo the PASS 110
+       dim, active icon gets a glowing green ring. */
+    .nav-ic{filter:none}
+    .nav-item.active .nav-ic{box-shadow:0 0 18px rgba(57,255,20,.55),0 0 4px rgba(57,255,20,.6);border-radius:50%}
+
+    /* PASS 114: the daily Claim joins the uniform size, locked by ID. */
+    #page-tasks #btn-claim-daily{width:118px!important;min-width:118px;flex:0 0 auto}
+
+    /* PASS 115 (owner): locked + included buttons — white text too. */
+    #page-tasks .q-btn.tk-off,.q-btn.tk-off{color:#ffffff}
+    .q-included{color:#ffffff!important}
 </style>
 </head>
 <body oncontextmenu="return false;">
@@ -2914,7 +2931,7 @@
               <div class="q-title" data-i18n="daily_login_title">🎁 Daily Login (40 Days)</div>
               <div class="q-sub"><span id="daily-streak-txt"></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt=""><span id="daily-rew-amt">+25</span></span></div>
             </div>
-            <button class="btn-3d-gold q-btn" id="btn-claim-daily" data-i18n="claim_daily_btn">Claim Daily Reward</button>
+            <button class="btn-3d-gold q-btn" id="btn-claim-daily" data-i18n="claim_daily_btn">Claim</button>
             <button id="btn-daily-info" aria-label="Daily rewards">!</button>
           </div>
         </div>
@@ -3696,7 +3713,7 @@
         open_ch:"1. Open Channel", open_grp:"1. Open Group", verify_btn:"2. Verify ✅",
         bio_task_desc:"Add <strong id=\"bio-bot-username\" style=\"color:#fff;\">@BOT</strong> to your Telegram bio, then tap the button below and press Start in the bot — your reward is added automatically. Come back here and it will show as done.",
         bio_verify_btn:"🤖 Verify in bot",
-        join_channel_btn:"Join Channel", verify_join_btn:"Verify",
+        join_channel_btn:"Join", verify_join_btn:"Verify",
         wallet_hold:"Wallet Hold (Speed Source)", mined_app:"Mined in App",
         buy_upgrade_btn:"Buy Official Token on STON.fi to Upgrade Speed",
         ref_rule_title:"⚠️ Referral System (5% Mining)",
@@ -3732,7 +3749,7 @@
         months:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
         nav_mine:"Mine", nav_tasks:"Tasks", nav_boost:"Boost", nav_friends:"Friends", nav_profile:"Profile",
         tank_full:"🛑 24h Tank Full (100%) - Collect Now!", tank_fill:"⏳ 24h Mining Tank:",
-        quests_tagline:"Complete quests to earn extra rewards", tab_ref:"REFERRALS", tab_hold:"HOLD", tab_daily:"DAILY", daily_streak_fmt:"Day {n} streak", daily_login_title:"🎁 Daily Login (40 Days)", claim_daily_btn:"Claim Daily Reward", ads_title:"📺 Watch Ads", ads_watch_btn:"Watch Ad", ads_left:"{n} ads left today", ads_all_done:"✅ All ads watched today — come back tomorrow", ads_none:"No ads available right now — try again later", ad_watch_full:"Watch the full ad to continue", ad_loading:"Ad loading, try again", wd_bal_lbl:"YOUR BALANCE",
+        quests_tagline:"Complete quests to earn extra rewards", tab_ref:"REFERRALS", tab_hold:"HOLD", tab_daily:"DAILY", daily_streak_fmt:"Day {n} streak", daily_login_title:"🎁 Daily Login (40 Days)", claim_daily_btn:"Claim", ads_title:"📺 Watch Ads", ads_watch_btn:"Watch Ad", ads_left:"{n} ads left today", ads_all_done:"✅ All ads watched today — come back tomorrow", ads_none:"No ads available right now — try again later", ad_watch_full:"Watch the full ad to continue", ad_loading:"Ad loading, try again", wd_bal_lbl:"YOUR BALANCE",
         day:"Day", claimed:"Claimed", no_refs_yet:"No invited friends yet."
       },
       ar: {
@@ -3746,7 +3763,7 @@
         open_ch:"1. افتح القناة", open_grp:"1. افتح القناة", verify_btn:"2. تحقق ✅",
         bio_task_desc:"أضف <strong id=\"bio-bot-username\" style=\"color:#fff;\">@BOT</strong> إلى البايو بتاعك في تيليجرام، وبعدين دوس الزرار اللي تحت ودوس Start في البوت — المكافأة هتتضاف تلقائيًا. ارجع هنا هتلاقيها اتعملت.",
         bio_verify_btn:"🤖 تحقق من البوت",
-        join_channel_btn:"انضم للقناة", verify_join_btn:"تحقق",
+        join_channel_btn:"انضم", verify_join_btn:"تحقق",
         wallet_hold:"رصيد المحفظة (مصدر السرعة)", mined_app:"رصيد البوت (للسحب)",
         buy_upgrade_btn:"اشترِ العملة الرسمية من STON.fi لرفع سرعتك",
         ref_rule_title:"⚠️ نظام الإحالات (5% تعدين)",
@@ -3782,7 +3799,7 @@
         months:["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"],
         nav_mine:"التعدين", nav_tasks:"المهام", nav_boost:"السرعة", nav_friends:"الأصدقاء", nav_profile:"حسابي",
         tank_full:"🛑 خزان 24 ساعة ممتلئ (100%) - اجمع الآن!", tank_fill:"⏳ خزان 24 ساعة:",
-        quests_tagline:"أكمل المهام لتربح مكافآت إضافية", tab_ref:"الإحالات", tab_hold:"الاحتفاظ", tab_daily:"يومي", daily_streak_fmt:"سلسلة اليوم {n}", daily_login_title:"🎁 تسجيل الدخول اليومي (40 يوم)", daily_modal_sub:"ارجع كل يوم علشان تكبّر سلسلتك — لو فوّت يوم، السلسلة بتبدأ من اليوم الأول.", daily_day_fmt:"اليوم {n}", daily_today:"اليوم", claim_daily_btn:"استلام المكافأة اليومية", ads_title:"📺 شاهد الإعلانات", ads_watch_btn:"شاهد إعلان", ads_left:"تبقّى {n} إعلان اليوم", ads_all_done:"✅ شاهدت كل إعلانات اليوم — ارجع بكرة", ads_none:"لا توجد إعلانات متاحة حاليًا — حاول لاحقًا", ad_watch_full:"شاهد الإعلان كاملًا للمتابعة", ad_loading:"الإعلان بيحمّل، حاول تاني", wd_bal_lbl:"رصيدك",
+        quests_tagline:"أكمل المهام لتربح مكافآت إضافية", tab_ref:"الإحالات", tab_hold:"الاحتفاظ", tab_daily:"يومي", daily_streak_fmt:"سلسلة اليوم {n}", daily_login_title:"🎁 تسجيل الدخول اليومي (40 يوم)", daily_modal_sub:"ارجع كل يوم علشان تكبّر سلسلتك — لو فوّت يوم، السلسلة بتبدأ من اليوم الأول.", daily_day_fmt:"اليوم {n}", daily_today:"اليوم", claim_daily_btn:"استلام", ads_title:"📺 شاهد الإعلانات", ads_watch_btn:"شاهد إعلان", ads_left:"تبقّى {n} إعلان اليوم", ads_all_done:"✅ شاهدت كل إعلانات اليوم — ارجع بكرة", ads_none:"لا توجد إعلانات متاحة حاليًا — حاول لاحقًا", ad_watch_full:"شاهد الإعلان كاملًا للمتابعة", ad_loading:"الإعلان بيحمّل، حاول تاني", wd_bal_lbl:"رصيدك",
         day:"يوم", claimed:"تم الاستلام", no_refs_yet:"لا يوجد أصدقاء مدعوون حتى الآن."
       },
       ru: {
@@ -3796,7 +3813,7 @@
         open_ch:"1. Открыть", open_grp:"1. Открыть", verify_btn:"2. Проверить ✅",
         bio_task_desc:"Добавьте <strong id=\"bio-bot-username\" style=\"color:#fff;\">@BOT</strong> в био вашего Telegram, затем нажмите кнопку ниже и нажмите Start в боте — награда добавится автоматически. Вернитесь сюда, и задание будет отмечено выполненным.",
         bio_verify_btn:"🤖 Проверить в боте",
-        join_channel_btn:"Вступить в канал", verify_join_btn:"Проверить",
+        join_channel_btn:"Вступить", verify_join_btn:"Проверить",
         wallet_hold:"В кошельке (Скорость)", mined_app:"В боте",
         buy_upgrade_btn:"Купить на STON.fi для увеличения скорости",
         ref_rule_title:"⚠️ Реферальная система (5% Майнинг)",
@@ -3832,7 +3849,7 @@
         months:["янв.","февр.","мар.","апр.","мая","июн.","июл.","авг.","сент.","окт.","нояб.","дек."],
         nav_mine:"Майнинг", nav_tasks:"Задания", nav_boost:"Буст", nav_friends:"Друзья", nav_profile:"Профиль",
         tank_full:"🛑 Бак 24ч полон (100%) - Соберите!", tank_fill:"⏳ Бак майнинга 24ч:",
-        quests_tagline:"Выполняйте задания и получайте дополнительные награды", tab_ref:"РЕФЕРАЛЫ", tab_hold:"УДЕРЖАНИЕ", tab_daily:"ЕЖЕДНЕВНО", daily_streak_fmt:"Серия: день {n}", daily_login_title:"🎁 Ежедневный вход (7 Дней)", claim_daily_btn:"Получить награду", ads_title:"📺 Смотреть рекламу", ads_watch_btn:"Смотреть", ads_left:"Осталось {n} объявлений сегодня", ads_all_done:"✅ Вся реклама на сегодня просмотрена", ads_none:"Сейчас нет доступной рекламы — попробуйте позже", ad_watch_full:"Досмотрите рекламу до конца", ad_loading:"Реклама загружается, попробуйте снова", wd_bal_lbl:"ВАШ БАЛАНС",
+        quests_tagline:"Выполняйте задания и получайте дополнительные награды", tab_ref:"РЕФЕРАЛЫ", tab_hold:"УДЕРЖАНИЕ", tab_daily:"ЕЖЕДНЕВНО", daily_streak_fmt:"Серия: день {n}", daily_login_title:"🎁 Ежедневный вход (7 Дней)", claim_daily_btn:"Забрать", ads_title:"📺 Смотреть рекламу", ads_watch_btn:"Смотреть", ads_left:"Осталось {n} объявлений сегодня", ads_all_done:"✅ Вся реклама на сегодня просмотрена", ads_none:"Сейчас нет доступной рекламы — попробуйте позже", ad_watch_full:"Досмотрите рекламу до конца", ad_loading:"Реклама загружается, попробуйте снова", wd_bal_lbl:"ВАШ БАЛАНС",
         day:"День", claimed:"Получено", no_refs_yet:"Пока нет приглашенных друзей."
       }
     };
@@ -4164,7 +4181,7 @@
       const btn = document.getElementById('btn-claim-daily');
       if (btn) {
         if (hasClaimedToday) { btn.disabled = true; btn.style.opacity = 0.5; btn.innerText = dict.claimed; }
-        else { btn.disabled = false; btn.style.opacity = 1; btn.innerHTML = `💰 ${dict.claim_daily_btn}`; }
+        else { btn.disabled = false; btn.style.opacity = 1; btn.innerHTML = dict.claim_daily_btn; }
       }
     }
 
@@ -5362,7 +5379,7 @@
       // PASS 57: «Join Channel» wears the dark GO pill; «Verify»
       // wears the gold CLAIM pill (the reference's two buttons).
       btn.classList.toggle('tk-go-state', !(chDone(n) || chV[n]));
-      btn.innerText = (chDone(n) || chV[n]) ? (d.verify_join_btn || "Verify") : (d.join_channel_btn || "Join Channel");
+      btn.innerText = (chDone(n) || chV[n]) ? (d.verify_join_btn || "Verify") : (d.join_channel_btn || "Join");
     }
 
     function tickTaskTimers() {
