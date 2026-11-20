@@ -1753,6 +1753,14 @@
       background:linear-gradient(180deg,#f2d488 0%,#dcb45e 38%,#b3893a 72%,#8a5f24 100%)!important;
       box-shadow:inset 0 1px 0 rgba(255,246,214,.9),inset 0 -3px 5px rgba(90,58,10,.5);border-radius:999px}
     #boot-status-text{color:#d8c096!important;text-shadow:0 1px 3px rgba(0,0,0,.8)}
+    /* PASS 74: the DOM caption never coincides with the baked one
+       (the baked glyphs sit ~25 image px lower than PASS 54 aimed),
+       so the normal boot shows the PAINTING's caption alone — the
+       DOM caption stays hidden unless showBootRetry turns it into
+       a real message (.boot-msg: a solid pill that covers the
+       baked print and reads cleanly). */
+    #boot-status-text{visibility:hidden}
+    #boot-status-text.boot-msg{visibility:visible;background:rgba(6,5,4,.94);border:1px solid rgba(216,192,150,.4);border-radius:9px;padding:7px 12px;text-shadow:none}
     /* (2) nav: plain bar, tight octagons, visible labels */
     .bottom-nav-3d{height:98px;background:#070605;background-image:none;border-top:1px solid rgba(199,136,58,.45);
       box-shadow:0 -6px 16px rgba(0,0,0,.55);display:flex;align-items:stretch;padding:9px 6px 8px;gap:2px}
@@ -4140,7 +4148,18 @@
       const bar = document.getElementById('boot-bar');
       const cap = document.getElementById('boot-status-text');
       if (!loader || !bar) return;
-      const g = coverGeom(window.innerWidth, window.innerHeight, 665, 1405);
+      // PASS 74: geometry comes from the boot IMG's own rendered box,
+      // not window.innerWidth/innerHeight — in Telegram's Android
+      // WebView the two disagree (the loader can extend under the
+      // Telegram header), which put the live bar/caption off the
+      // baked ones on the owner's phone (bar printed over the
+      // caption). The img box IS the cover canvas, so math against
+      // its rect is exact at any viewport.
+      const img = loader.querySelector('img');
+      const r = img ? img.getBoundingClientRect() : null;
+      const g = (r && r.width > 0 && r.height > 0)
+        ? (() => { const gg = coverGeom(r.width, r.height, 665, 1405); gg.ox += r.left; gg.oy += r.top; return gg; })()
+        : coverGeom(window.innerWidth, window.innerHeight, 665, 1405);
       // PASS 54: the baked bar rect is (52,1170,561,53). The baked
       // caption glyphs were measured ON THE PAINTING (boot_scene3.webp)
       // at y 1224..1236 — the AI-edited painting moved them up from the
@@ -4158,7 +4177,7 @@
       if (cap) {
         cap.style.left = g.ox + 'px';
         cap.style.width = (665 * g.s) + 'px';
-        cap.style.top = (g.oy + 1218 * g.s) + 'px';
+        cap.style.top = (g.oy + 1236 * g.s) + 'px';
         cap.style.setProperty('font-size', (19 * g.s) + 'px', 'important');
         cap.style.letterSpacing = (6.5 * g.s) + 'px';
       }
@@ -4224,7 +4243,7 @@
     function showBootRetry() {
       const btn = document.getElementById('boot-retry-btn');
       const msg = document.getElementById('boot-status-text');
-      if (msg) msg.innerText = "Couldn't reach the server — it may still be waking up.";
+      if (msg) { msg.classList.add('boot-msg'); msg.innerText = "Couldn't reach the server — it may still be waking up."; }
       if (btn) {
         btn.style.display = 'block';
         btn.onclick = () => {
