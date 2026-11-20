@@ -1169,6 +1169,260 @@
        slim the section frames and gaps on this page only to win it back. */
     #page-friends .fr-sec{border-width:13px 11px;border-image-width:13px 11px;margin-bottom:4px;padding-top:9px;padding-bottom:9px}
     #page-friends .fr-tablets{border-width:13px 11px;border-image-width:13px 11px}
+
+    /* ================= PASS 39: identity + wallet cards MOVE to Mine
+       (owner: انقل الكارتين دول من صفحه البروفايل حطهم في صفحه التعدين في
+       الاعلي وشيلهم من صفحه البروفايل + الغي عرض صوره افاتار المستخدم —
+       ابعتلي صوره قبل مترفع) =================
+       The ACTUAL .pf-sec subtrees were cut out of #page-profile and pasted
+       into #page-mine directly under the hero stage — same nodes, same
+       ids, so Connect / copy-ID / hold-history / every stat paint keeps
+       working from the new home. The big oval portrait is REMOVED from
+       the identity card (the card is text-only, full width) and the
+       avatar img is REMOVED from the Mine header chip (name + verified
+       badge stay). Mine scrolls now: stage trimmed to 180px, the two
+       cards sit on top, the old stack follows. Skin/flow only below. */
+    #page-mine.page.active{overflow-y:auto!important;justify-content:flex-start}
+    #page-mine .mn-stage{height:180px;min-height:180px}
+    #page-mine .pf-id-info{flex:1;min-width:0}
+    #page-mine #prof-name{font-size:clamp(15px,5.6vw,24px);letter-spacing:.8px;text-transform:uppercase;line-height:1.1;margin-bottom:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    /* the wallet stat bars keep their Profile look: stacked framed bars */
+    #page-mine .pf-stats{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+    #page-mine .pf-stat{display:flex;align-items:center;gap:11px;text-align:left;padding:13px 14px;
+      background:none!important;background-color:transparent!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+      border-style:solid;border-color:transparent;border-width:11px 9px;
+      border-image-source:url('assets/card_frame.webp');border-image-slice:21% 5.2% 21% 5.2% fill;
+      border-image-width:11px 9px;border-image-repeat:stretch;border-radius:0;box-shadow:0 10px 22px rgba(0,0,0,.55)}
+    #page-mine .pf-stat-ic{position:static;flex:none}
+    #page-mine .pf-stat-lbl{flex:1;margin:0}
+    #page-mine .pf-stat-num{margin-left:auto;font-size:21px;text-shadow:0 0 10px rgba(99,217,122,.35)}
+    #page-mine #btn-hold-info{position:static;flex:none}
+    /* the moved sections must keep their natural height inside Mine's
+       column flex — .pf-id's overflow:hidden would otherwise let the
+       flex shrink crush it to a sliver (seen in zm_exact38 run 1/2) */
+    #page-mine .pf-sec{flex:none}
+
+    /* ================= PASS 40: the two Mine cards SIDE BY SIDE + compact
+       (owner: صغر النصوص والكروت وخليهم جنب بعض مش تحت بعض) =================
+       Identity + wallet leave the full-width stack and share ONE row under
+       the hero stage: two half-width stone-framed columns, EQUAL height —
+       the row stretches both to the wallet's height and the identity card
+       spreads its content (name + LV pill on top, username/ID pinned to
+       the bottom via an auto margin) like a physical ID card, so the
+       stretch never reads as dead space. Everything shrinks: tighter
+       paddings and frames, name 15px, meta/labels 8.5–10.5px, stat values
+       15.5px, mini LV pill, compact connect/disconnect. The wallet's 3
+       stat bars become tight two-line mini-bars (icon+label row, then the
+       value row) so they stay readable at half width. Layout/type only —
+       no id, handler or paint moved. */
+    #page-mine .mn-top-row{display:flex;gap:8px;align-items:stretch;flex:none;margin:6px 0 10px}
+    #page-mine .mn-top-row>.pf-sec{flex:1 1 0;min-width:0;margin:0;padding:11px 9px 10px;
+      border-width:12px 9px;border-image-width:12px 9px}
+    /* identity: spread the content over the stretched height */
+    #page-mine .pf-id{display:flex}
+    #page-mine .pf-id-info{display:flex;flex-direction:column;width:100%}
+    #page-mine #prof-name{font-size:15px;letter-spacing:.6px;margin-bottom:7px}
+    #page-mine .pf-lvl{gap:6px;padding:3px 8px 3px 4px;margin-bottom:8px;border-radius:9px}
+    #page-mine .pf-lvl img{width:26px;height:26px;border-radius:6px}
+    #page-mine .pf-lvl-num{font-size:12px;letter-spacing:.6px}
+    #page-mine .pf-lvl-group{font-size:8.5px;letter-spacing:1.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    #page-mine .pf-meta{font-size:9.5px;letter-spacing:.4px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    /* username meta is the 2nd div inside .pf-id-info (after .pf-lvl):
+       the auto top margin pins username+ID to the card's bottom edge */
+    #page-mine .pf-id-info>div:nth-of-type(2){margin-top:auto}
+    /* wallet: compact header row + button */
+    #page-mine .pf-ribbon{font-size:9px;letter-spacing:2px;padding:3px 14px;top:-9px}
+    #page-mine .pf-wallet-row{gap:6px;margin:2px 0 8px;flex-wrap:wrap}
+    #page-mine #pf-verified-ic{width:17px;height:17px}
+    #page-mine #prof-wallet-addr-display{font-size:10.5px;letter-spacing:.3px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    #page-mine .badge-tag{font-size:8.5px;padding:2px 6px;border-radius:6px}
+    #page-mine .pf-disconnect{font-size:8.5px;letter-spacing:.8px;padding:5px 8px;border-radius:8px}
+    #page-mine #btn-connect-wallet{font-size:11.5px;padding:8px 6px;border-radius:11px;letter-spacing:0}
+    /* wallet stats: tight two-line mini-bars (icon+label, then value) */
+    #page-mine .pf-stats{gap:6px;margin-top:9px}
+    #page-mine .pf-stat{flex-wrap:wrap;row-gap:1px;column-gap:7px;padding:6px 8px;
+      border-width:9px 7px;border-image-width:9px 7px}
+    #page-mine .pf-stat-ic{width:22px;height:22px;border-radius:6px}
+    #page-mine .pf-stat-ic svg{width:13px;height:13px}
+    #page-mine .pf-stat-lbl{font-size:8.5px;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    #page-mine .pf-stat-num{flex:1 1 100%;margin-left:0;justify-content:flex-start;font-size:15.5px;gap:5px}
+    #page-mine .pf-stat-num img{width:15px;height:15px}
+    #page-mine #btn-hold-info{width:17px;height:17px;font-size:11px}
+
+    /* ================= PASS 41: Mine cards go BLACK + GREEN EDGES, and UP
+       (owner: خلي كروت صفحه التعدين بدل الصور اسود وحواف خضره زي ده —
+       the header chip — + ارفعهم فوق) =================
+       Every Mine card drops the painted card_frame border-image and takes
+       the header chip's language instead: solid near-black fill, a thin
+       1.5px emerald edge, 14px rounded corners, a soft green outer glow.
+       Targets: the identity + wallet sections and their stat bars, the
+       MINED vault, the 3 stat tiles, the countdown bar, the verify card.
+       box-sizing is border-box throughout, so the thinner border cannot
+       change any outer size; paddings only gain a few px so the text
+       keeps breathing room where the stone frame used to sit. COLLECT's
+       painted frame, the BUY pill, the header chip and every other page
+       stay untouched. The stage spacer also trims 180px -> 96px so the
+       two top cards ride UP under the header, overlapping more of the
+       hero scene. Skin only — zero id/handler changes. */
+    #page-mine .mn-stage{height:96px;min-height:96px}
+    #page-mine .mn-top-row>.pf-sec,
+    #page-mine .pf-stat,
+    #page-mine>.mn-card.mn-vault,
+    #page-mine .mn-stage-stats>.mn-stat,
+    #page-mine .mn-stage-stats>.mn-card.mn-tile-rate,
+    #page-mine .mn-row .mn-card.mn-count-card,
+    #page-mine .mn-verify-wide{
+      border-image:none!important;
+      background-color:#04070a!important;
+      background-image:linear-gradient(180deg,#060b08 0%,#04070a 48%,#020403 100%)!important;
+      border-style:solid;border-width:1.5px;border-color:rgba(64,255,150,.55);
+      border-radius:14px;
+      box-shadow:0 0 12px rgba(46,255,143,.12),0 10px 22px rgba(0,0,0,.55);
+      backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+    #page-mine .mn-top-row>.pf-sec{padding:12px 13px 11px}
+    #page-mine .pf-stat{padding:7px 11px}
+    #page-mine>.mn-card.mn-vault{padding:6px 17px 7px}
+    #page-mine .mn-stage-stats>.mn-stat,
+    #page-mine .mn-stage-stats>.mn-card.mn-tile-rate{padding:0 7px}
+    #page-mine .mn-row .mn-card.mn-count-card{padding:5px 13px}
+    #page-mine .mn-verify-wide{padding:15px 16px}
+    /* the countdown fill hugs the new thin edge (was tuned to the frame) */
+    #mine-prog-bar{left:10px;right:10px;bottom:5px}
+    /* ================= PASS 42: identity + wallet + VERIFICATION merge
+       into ONE Mine card; user data on ONE line
+       (owner: خليهم كارت واحد وخلي بيانات المستخدم في سطر واحد الاسم
+       وعلامه التوثيق وصوره المستخدم واليوزر و id) =================
+       The side-by-side .mn-top-row is GONE. One full-width black/green
+       card (PASS 41 language) now holds, in order: the one-line user
+       strip (round avatar — #prof-avatar is BACK by the owner's word,
+       painted by applyUI exactly like before — + name with its verified
+       badge + @username + ID + copy), the wallet block (address /
+       connect / disconnect + the 3 stat mini-bars) and, moved out of
+       Profile, the whole #verify-card (status badge, connected/age
+       rows, pay button) restyled as a black/green sub-panel. The
+       #mine-verify-card notice now scrolls here instead of switching
+       to Profile. Markup surgery only in the body; every id survives
+       exactly once. */
+    #page-mine .pf-sec.pf-merged{flex:none;margin:6px 0 10px;padding:13px 13px 12px;
+      border-image:none!important;
+      background-color:#04070a!important;
+      background-image:linear-gradient(180deg,#060b08 0%,#04070a 48%,#020403 100%)!important;
+      border:1.5px solid rgba(64,255,150,.55);border-radius:14px;
+      box-shadow:0 0 12px rgba(46,255,143,.12),0 10px 22px rgba(0,0,0,.55);
+      backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+    /* LINE 1: avatar + name(+badge) + @username + ID + copy — one row */
+    #page-mine .pf-id-line{display:flex;align-items:center;gap:7px;flex-wrap:nowrap;min-width:0}
+    #page-mine #prof-avatar{width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(64,255,150,.75);object-fit:cover;flex:none;background:#0b120d;box-shadow:0 0 8px rgba(46,255,143,.35)}
+    #page-mine .pf-merged #prof-name{font-size:15px;margin:0;flex:0 1 auto;min-width:0}
+    #page-mine .pf-id-user{font-size:11px;color:#9fd8b4;flex:0 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    #page-mine .pf-id-num{display:inline-flex;align-items:center;gap:2px;font-size:11px;color:#cfe9d8;flex:none;white-space:nowrap}
+    #page-mine .pf-merged .pf-wallet-row .pf-lvl{margin:0 0 0 auto;flex:none}
+    /* wallet block inside the merged card */
+    #page-mine .pf-merged .pf-wallet-row{margin:11px 0 8px}
+    #page-mine .pf-merged .pf-stats{margin-top:10px}
+    /* verification block: black/green sub-panel inside the merged card */
+    #page-mine #verify-card{border-image:none!important;background-color:#04070a!important;
+      background-image:linear-gradient(180deg,#060b08 0%,#020403 100%)!important;
+      border:1.5px solid rgba(64,255,150,.45);border-radius:12px;box-shadow:none;
+      backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+      padding:12px;margin:12px 0 0}
+    #page-mine #verify-card h4{margin:0;font-size:14px;color:#fff}
+
+    /* ================= PASS 43: merged card raised a bit more
+       (owner: ارفع الكارت فوق شويه) =================
+       The stage spacer trims 96px -> 52px so the merged card rides
+       higher under the header; the header chip and the gear/speaker
+       buttons stay clear above it. Skin only. */
+    #page-mine .mn-stage{height:52px;min-height:52px}
+
+    /* ================= PASS 44: verification + wallet linking RETURN to
+       Profile; aged bar + header chip DELETED; Telegram photo in the
+       user line (owner reversals 2026-11-20) =================
+       #verify-card and the wallet linking row (address / connect /
+       disconnect) live on Profile again: the card leaves the reach of
+       the #page-mine black/green sub-panel rule and wears the PASS 38
+       stone-frame .card-3d family like the rest of Profile, and the
+       linking row sits in a .pf-sec WALLET section directly above it,
+       after the settings row and before Withdraw — its original
+       neighbourhood. The merged Mine card keeps the user line (now the
+       player's Telegram photo, evolution portrait as fallback), the LV
+       pill on its own right-aligned row under the line, and TWO stat
+       bars: the aged (3+ days) bar is DELETED by the owner's word —
+       its paints were already null-guarded, its info-button listener
+       is guarded too, and the hold-history modal markup stays in the
+       page, unreachable. The header chip (.mn-userbar) is deleted as
+       redundant next to the user line; gear + speaker stay. Both
+       unverified routes (COLLECT tap, #mine-verify-card) point back
+       to Profile. */
+    #page-mine .pf-lvl-row{display:flex;justify-content:flex-end;margin-top:8px}
+    #page-mine .pf-lvl-row .pf-lvl{margin:0}
+    #page-profile #verify-card{margin-bottom:24px}
+    #page-profile #verify-card h4{margin:0;font-size:14px}
+
+    /* ================= PASS 45: the owner-approved Mine rebuild
+       (mockups + his crop annotations, 2026-11-20) =================
+       Header gear/speaker buttons DELETED (sound + language live on
+       Profile's settings row). New stack on Mine: TOP BAR (Telegram
+       photo + name + badge | in-app balance with the coin picture) →
+       stage strip → ONE wallet+verify card (linking row, divider,
+       verification block) → MINING card (pickaxe, gate status, live
+       amount + coin picture, shift bar with % + countdown, COLLECT
+       inside) → 3 tiles → BUY. The MINED vault, the separate SHIFT
+       COUNTDOWN bar, the merged PASS 42-44 card and the
+       #mine-verify-card notice are all GONE. Skin/layout only — the
+       moved subtrees keep every id, handler and paint. */
+    #page-mine .mn-topbar{order:0}
+    #page-mine .mn-stage{order:1}
+    #page-mine .mn-wv-card{order:2}
+    #page-mine .mn-mining-card{order:3}
+    #page-mine .mn-stage-stats{order:4}
+    #page-mine .mn-actions{order:5}
+    /* --- top bar: one black/green pill --- */
+    #page-mine .mn-topbar{flex:none;position:relative;z-index:2;display:flex;align-items:center;gap:9px;
+      margin:2px 0 4px;padding:7px 12px 7px 8px;
+      background-color:#04070a;background-image:linear-gradient(180deg,#060b08 0%,#04070a 48%,#020403 100%);
+      border:1.5px solid rgba(64,255,150,.55);border-radius:999px;
+      box-shadow:0 0 12px rgba(46,255,143,.12),0 10px 22px rgba(0,0,0,.55)}
+    #page-mine .mn-tb-id{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;justify-content:center}
+    #page-mine .mn-topbar #prof-name{font-size:16px;letter-spacing:.4px;margin:0;line-height:1.15}
+    #page-mine .mn-tb-sub{display:flex;align-items:center;gap:6px;font-size:10.5px;color:#9fd8b4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    #page-mine .mn-tb-idnum{display:inline-flex;align-items:center;gap:2px;color:#cfe9d8}
+    #page-mine .mn-tb-bal{flex:none;margin-left:auto;display:flex;align-items:center;gap:6px;font-size:16px;font-weight:900;color:var(--num);text-shadow:0 0 10px rgba(99,217,122,.35)}
+    #page-mine .mn-tb-bal img{width:21px;height:21px}
+    /* --- wallet+verify: ONE card, one border --- */
+    #page-mine .mn-wv-card{flex:none;position:relative;z-index:2;margin:4px 0 6px;padding:12px 13px 11px;
+      background-color:#04070a;background-image:linear-gradient(180deg,#060b08 0%,#04070a 48%,#020403 100%);
+      border:1.5px solid rgba(64,255,150,.55);border-radius:14px;
+      box-shadow:0 0 12px rgba(46,255,143,.12),0 10px 22px rgba(0,0,0,.55)}
+    #page-mine .mn-wv-div{height:1px;margin:11px 0 10px;background:linear-gradient(90deg,transparent,rgba(64,255,150,.38),transparent)}
+    /* the verification block sits flush inside the one card (the
+       PASS 42 sub-panel border is gone — the divider does the split) */
+    #page-mine #verify-card{margin:0!important;padding:2px 0 0!important;border:none!important;border-radius:0;
+      background:none!important;background-color:transparent!important;box-shadow:none;
+      backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+    /* --- mining card --- */
+    #page-mine .mn-mining-card{flex:none;position:relative;z-index:2;margin:2px 0 6px;padding:13px 15px 14px;text-align:left;
+      border-image:none!important;background-color:#04070a!important;
+      background-image:linear-gradient(180deg,#060b08 0%,#04070a 48%,#020403 100%)!important;
+      border:1.5px solid rgba(64,255,150,.55);border-radius:14px;
+      box-shadow:0 0 12px rgba(46,255,143,.12),0 10px 22px rgba(0,0,0,.55);
+      backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+    #page-mine .mn-mc-head{display:flex;align-items:center;gap:11px}
+    #page-mine .mn-mc-ic{flex:none;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+      background:rgba(77,255,157,.07);border:1px solid rgba(64,255,150,.45);box-shadow:inset 0 2px 7px rgba(0,0,0,.55)}
+    #page-mine .mn-mc-ic svg{width:27px;height:27px;filter:drop-shadow(0 0 5px rgba(77,255,157,.55))}
+    #page-mine .mn-mc-title{font-size:17px;font-weight:900;letter-spacing:1.6px;color:#fff}
+    #page-mine .mn-mc-status{display:flex;align-items:center;gap:7px;margin-top:8px;font-size:12.5px;font-weight:700;color:#7dffb0}
+    #page-mine .mn-mc-dot{flex:none;width:8px;height:8px;border-radius:50%;background:#4dff9d;box-shadow:0 0 8px rgba(77,255,157,.9)}
+    #page-mine .mn-mc-amt{display:flex;align-items:center;gap:11px;margin-top:7px;font-size:40px;font-weight:900;line-height:1.05;color:#fff}
+    #page-mine .mn-mc-amt .mn-coin{width:34px;height:34px}
+    #page-mine .mn-mc-msg{margin-top:6px;font-size:13px;color:#cfe9d8}
+    #page-mine .mn-mc-prog{margin-top:11px}
+    #page-mine .mn-mc-track{position:relative;height:8px;border-radius:99px;background:rgba(186,255,214,.14);overflow:hidden}
+    #page-mine .mn-mining-card #mine-prog-bar{position:absolute;left:0;top:0;bottom:auto;height:100%;max-width:100%;
+      border-radius:99px;clip-path:none;background:linear-gradient(90deg,#22c55e,#5cff9d);filter:drop-shadow(0 0 3px rgba(99,217,122,.45))}
+    #page-mine .mn-mc-meta{display:flex;justify-content:flex-end;gap:4px;margin-top:5px;font-size:12.5px;font-weight:800;color:var(--acc);direction:ltr}
+    #page-mine .mn-mining-card .mn-collect{margin-top:12px}
 </style>
 </head>
 <body oncontextmenu="return false;">
@@ -1255,16 +1509,18 @@
 
     <!-- 1. MINE PAGE -->
     <div id="page-mine" class="page active">
-      <div class="mn-head">
-        <div class="mn-userbar">
-          <img id="mine-user-ava" src="assets/avatar_1.webp" alt="">
-          <div class="mn-user-name"><span id="mine-user-name">Warrior</span><span id="mine-user-badge"></span></div>
+      <!-- PASS 45 TOP BAR (owner-approved mockup): Telegram photo +
+           name + verified badge on the left, the in-app balance with
+           the coin picture on the right. The gear/speaker header
+           buttons are DELETED — sound + language live on Profile's
+           settings row (sound-toggle-btn / lang-menu-btn). -->
+      <div class="mn-topbar">
+        <img id="prof-avatar" src="assets/avatar_1.webp" alt="">
+        <div class="mn-tb-id">
+          <h3 id="prof-name">MANSAWY</h3>
+          <div class="mn-tb-sub"><span id="prof-username">@mansawy1</span><span class="mn-tb-idnum"><span id="prof-id">7216746593</span> <button id="btn-copy-id" class="pf-copy-btn" aria-label="Copy ID"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4dff9d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></span></div>
         </div>
-        <div class="mn-head-meta">Sector 7 &bull; Depth 120m &#9760;</div>
-        <div class="mn-head-btns">
-          <button class="mn-head-btn" id="hdr-settings-btn" type="button" aria-label="Settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
-          <button class="mn-head-btn" id="hdr-sound-btn" type="button" aria-label="Sound"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></button>
-        </div>
+        <div class="mn-tb-bal"><span id="prof-mine-bal">0</span> <img src="assets/coin_icon.webp" alt=""></div>
       </div>
       <div class="mn-stage" id="coin-3d-trigger">
         <img id="hero-img" src="assets/mock_hero.webp" alt="Zombie">
@@ -1274,6 +1530,33 @@
       </div>
 
   
+
+      <!-- PASS 45: wallet LINKING + VERIFICATION in ONE card on Mine
+           (owner: ادمج كارت ربط المحفظه وكارت التوثيق في كارت واحد) —
+           the real subtrees moved back from Profile, ids intact:
+           row 1 linking (address / connect / disconnect), divider,
+           row 2 the whole #verify-card (badge, age row, pay actions). -->
+      <section class="mn-wv-card" id="mn-wv-card">
+        <div class="pf-wallet-row">
+          <img id="pf-verified-ic" src="assets/icon_verified.webp" alt="" style="display:none;">
+          <span id="prof-wallet-addr-display">Not connected yet</span>
+          <span class="badge-tag" id="wallet-badge-status" style="background:#ef4444;display:none;">Disconnected</span>
+          <div id="connected-wallet-actions" style="display:none;">
+            <button class="pf-disconnect" id="btn-disconnect-wallet"><span data-i18n="disconnect_wallet_btn">DISCONNECT</span></button>
+          </div>
+        </div>
+        <button class="btn-3d-gold" id="btn-connect-wallet">👛 <span data-i18n="connect_wallet_btn">Connect TON Wallet</span></button>
+        <div id="ton-connect-container" style="display:none;"></div>
+        <div class="mn-wv-div"></div>
+      <div class="card-3d" id="verify-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <h4>🛡️ <span data-i18n="verify_title">Wallet Verification</span></h4>
+          <span class="badge-tag" id="verify-status-badge" style="background:#64748b;">—</span>
+        </div>
+        <div id="verify-rows" style="font-size:12px;line-height:1.5;"></div>
+        <div id="verify-actions"></div>
+      </div>
+      </section>
 
       <div class="mn-stage-stats">
           <div class="mn-stat" id="mine-stat-hold">
@@ -1286,13 +1569,6 @@
             <div class="mn-stat-lbl" data-i18n="mine_wallet_lbl">Mined Balance</div>
             <div class="mn-stat-num"><span id="mine-app-bal">0</span> <img src="assets/coin_icon.webp" alt=""></div>
           </div>
-          <!-- Unverified only (owner order 2026-11-15): replaces the two
-               balance cards with ONE wide card — tap opens Profile. -->
-          <div class="mn-verify-wide" id="mine-verify-card" style="display:none;">
-            <span class="mv-ic">🔒</span>
-            <span class="mv-txt" data-i18n="mine_verify_card">Verify your wallet to claim earnings</span>
-            <span class="mv-arrow">›</span>
-          </div>
           <!-- DAY RATE tile (moved here from .mn-row, de-VIKING layout
                2026-11-19): the stats panel is now a 3-tile row —
                WALLET HOLD / IN-APP BALANCE / DAY RATE. Id untouched. -->
@@ -1302,30 +1578,35 @@
           </div>
         </div>
 
-      <div class="mn-card mn-vault">
-        <div class="mn-mined-head"><span class="mn-pick">&#9874;</span><div class="mn-lbl" data-i18n="mined_lbl">MINED</div></div>
-        <div class="mn-val"><span id="live-mined-num">0</span> <img class="mn-coin" src="assets/coin_icon.webp" alt=""></div>
-      </div>
-
-      <div class="mn-row">
-        <div class="mn-card mn-count-card">
-          <img class="mn-hourglass" src="assets/emblem_hourglass.webp" alt="">
-          <div class="mn-lbl" data-i18n="shift_cd_lbl">SHIFT COUNTDOWN</div>
-          <div class="mn-val-sm" style="direction:ltr;"><span id="shift-timer">24:00:00</span></div>
-          <!-- 24h fill (moved out of the hidden block, de-VIKING layout
-               2026-11-19): updateLiveMining() sets this element's width %
-               every tick — it is now the visible countdown bar fill. -->
-          <div id="mine-prog-bar"></div>
+      <!-- PASS 45 MINING CARD (owner-approved mockup, replaces the
+           MINED vault): green pickaxe + ACTIVE MINING, the gate status
+           line, the live accrued amount with the COIN PICTURE (never
+           the currency name), the verify message for the unverified,
+           the DAILY SHIFT bar (percent = elapsed share of the mining
+           day; countdown time + % at its right end) and the COLLECT
+           button INSIDE the card. Unverified: Paused, amount frozen
+           at 0.0000, COLLECT routes to the wallet+verify card above. -->
+      <div class="mn-card mn-mining-card" id="mn-mining-card">
+        <div class="mn-mc-head">
+          <div class="mn-mc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#4dff9d" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 18.5L14.5 9.5"/><path d="M7.5 5C11 3.6 16.5 4.2 20.5 8.2 17 6.8 13 6.6 9.5 7.6"/></svg></div>
+          <div class="mn-mc-title" data-i18n="mining_card_title">ACTIVE MINING</div>
         </div>
+        <div class="mn-mc-status"><span class="mn-mc-dot" id="mining-status-dot"></span><span id="mining-status-txt">Active</span></div>
+        <div class="mn-mc-amt"><span id="live-mined-num">0</span> <img class="mn-coin" src="assets/coin_icon.webp" alt=""></div>
+        <div class="mn-mc-msg" id="mining-verify-msg" data-i18n="mining_verify_msg" style="display:none;">Verify your wallet to start mining</div>
+        <div class="mn-mc-prog">
+          <div class="mn-mc-track"><div id="mine-prog-bar"></div></div>
+          <div class="mn-mc-meta"><span id="shift-pct">0%</span> &bull; <span id="shift-timer">24:00:00</span></div>
+        </div>
+        <button class="mn-collect" id="btn-collect-main"><img class="collect-hand" src="assets/mock_hand.webp" alt=""><img class="collect-coin" src="assets/coin_icon.webp" alt=""><span data-i18n="collect_lbl">COLLECT</span><span class="lk-wrap" id="collect-lock-wrap"><span class="lk-ic">🔒</span><span class="lk-txt" data-i18n="collect_verify_first">VERIFY FIRST</span></span></button>
       </div>
 
       <div class="mn-actions">
         <button class="btn-3d-dark btn-stonfi-buy mn-side"><span data-i18n="buy_btn">Buy</span></button>
-        <button class="mn-collect" id="btn-collect-main"><img class="collect-hand" src="assets/mock_hand.webp" alt=""><img class="collect-coin" src="assets/coin_icon.webp" alt=""><span data-i18n="collect_lbl">COLLECT</span><span class="lk-wrap" id="collect-lock-wrap"><span class="lk-ic">🔒</span><span class="lk-txt" data-i18n="collect_verify_first">VERIFY FIRST</span></span></button>
       </div>
 
       <div style="display:none;">
-        <span id="mine-ths"></span><span id="mine-status-dot"></span><span id="mine-lvl-txt"></span>
+        <span id="mine-ths"></span><span id="prof-hold-bal"></span><span id="mine-status-dot"></span><span id="mine-lvl-txt"></span>
         <span id="mine-rank-title"></span><span id="mine-claimed-total"></span><span id="mine-cycle-label"></span>
         <strong id="mine-to-go"></strong>
       </div>
@@ -1548,65 +1829,9 @@
         </div>
       </div>
 
-      <section class="pf-sec pf-id">
-        <img id="prof-avatar" src="assets/avatar_1.webp" alt="">
-        <div class="pf-id-info">
-          <h3 id="prof-name">MANSAWY</h3>
-          <div class="pf-lvl">
-            <img src="assets/icon_shield.webp" alt="">
-            <div>
-              <div class="pf-lvl-num">LV. <span id="prof-lvl-num">1</span></div>
-              <div class="pf-lvl-group" id="prof-lvl-group">GRAVEDIGGER</div>
-            </div>
-          </div>
-          <div class="pf-meta"><span data-i18n="prof_username_lbl">USERNAME</span> — <span id="prof-username">@mansawy1</span></div>
-          <div class="pf-meta"><span>ID</span> — <span id="prof-id">7216746593</span> <button id="btn-copy-id" class="pf-copy-btn" aria-label="Copy ID"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4dff9d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
-        </div>
-      </section>
 
-      <section class="pf-sec">
-        <div class="pf-ribbon" data-i18n="prof_wallet_lbl">WALLET</div>
-        <div class="pf-wallet-row">
-          <img id="pf-verified-ic" src="assets/icon_verified.webp" alt="" style="display:none;">
-          <span id="prof-wallet-addr-display">Not connected yet</span>
-          <span class="badge-tag" id="wallet-badge-status" style="background:#ef4444;display:none;">Disconnected</span>
-          <div id="connected-wallet-actions" style="display:none;">
-            <button class="pf-disconnect" id="btn-disconnect-wallet"><span data-i18n="disconnect_wallet_btn">DISCONNECT</span></button>
-          </div>
-        </div>
-        <button class="btn-3d-gold" id="btn-connect-wallet">👛 <span data-i18n="connect_wallet_btn">Connect TON Wallet</span></button>
-        <div id="ton-connect-container" style="display:none;"></div>
-        <div class="pf-stats">
-          <div class="pf-stat">
-            <div class="pf-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#4dff9d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v1"/><path d="M3 7v10a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1H5a2 2 0 0 1-2-2z"/><circle cx="16.6" cy="14" r="1.2" fill="#4dff9d" stroke="none"/></svg></div>
-            <div class="pf-stat-lbl" data-i18n="hold_wallet_lbl">Wallet Hold (On-Chain)</div>
-            <div class="pf-stat-num"><span id="prof-hold-bal">0</span> <img src="assets/coin_icon.webp" alt=""></div>
-          </div>
-          <div class="pf-stat">
-            <div class="pf-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#4dff9d" stroke-width="1.9" stroke-linecap="round"><path d="M5.5 18.5L14.5 9.5"/><path d="M7.5 5C11 3.6 16.5 4.2 20.5 8.2 17 6.8 13 6.6 9.5 7.6"/></svg></div>
-            <div class="pf-stat-lbl" data-i18n="mine_wallet_lbl">Mined Balance</div>
-            <div class="pf-stat-num"><span id="prof-mine-bal">0</span> <img src="assets/coin_icon.webp" alt=""></div>
-          </div>
-          <div class="pf-stat" style="grid-column:1 / -1;">
-            <div class="pf-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#4dff9d" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10"/><path d="M7 21h10"/><path d="M8.5 3v3.2L12 9.7l3.5-3.5V3"/><path d="M8.5 21v-3.2L12 14.3l3.5 3.5V21"/></svg></div>
-            <div class="pf-stat-lbl" id="pf-aged-lbl">3-DAY HOLD</div>
-            <button id="btn-hold-info" class="pf-info-btn" aria-label="Hold history">i</button>
-            <div class="pf-stat-num"><span id="prof-aged-bal">0</span> <img src="assets/coin_icon.webp" alt=""></div>
-          </div>
-        </div>
-      </section>
 
-      <!-- Wallet verification (owner order 2026-11-14): the bound
-           wallet's on-chain age + the 0.05 TON comment-payment flow.
-           All rows and actions are rendered by renderVerifyCard(). -->
-      <div class="card-3d" id="verify-card">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <h4>🛡️ <span data-i18n="verify_title">Wallet Verification</span></h4>
-          <span class="badge-tag" id="verify-status-badge" style="background:#64748b;">—</span>
-        </div>
-        <div id="verify-rows" style="font-size:12px;line-height:1.5;"></div>
-        <div id="verify-actions"></div>
-      </div>
+
 
       <section class="pf-sec">
         <div class="pf-ribbon"><span data-i18n="withdraw_title">Withdraw</span> ⬇</div>
@@ -2191,7 +2416,7 @@
         verify_sent_toast:"Confirm the payment in your wallet…",
         verify_notfound_toast:"Payment not found yet — don't worry, the app keeps checking automatically.",
         verify_success_toast:"Wallet verified!", verify_too_new:"Wallet too new: %D% days, needs %N%",
-        gate_title:"🔐 Verify Your Wallet", gate_desc:"To unlock ZOMBIE MINE, connect your TON wallet and verify it with a one-time 0.05 TON payment. Verification protects your account and unlocks mining, withdrawals and referrals.", gate_note:"⛏️ Mining unlocks the moment your verification completes.", collect_verify_first:"VERIFY FIRST", mine_verify_card:"Verify your wallet to claim earnings",
+        gate_title:"🔐 Verify Your Wallet", gate_desc:"To unlock ZOMBIE MINE, connect your TON wallet and verify it with a one-time 0.05 TON payment. Verification protects your account and unlocks mining, withdrawals and referrals.", gate_note:"⛏️ Mining unlocks the moment your verification completes.", collect_verify_first:"VERIFY FIRST", mine_verify_card:"Verify your wallet to claim earnings", mining_card_title:"ACTIVE MINING", mining_status_active:"Active", mining_status_paused:"Paused — verification required", mining_verify_msg:"Verify your wallet to start mining",
         verify_confirming:"Payment sent — confirming on-chain, this can take a minute…", verify_not_completed:"Payment not completed — nothing was sent from your wallet. Tap Verify and approve the payment in your wallet app.",
         verify_manual_hint:"Send the exact amount with the exact comment using the details below.",
         verify_rate_toast:"Too many checks — wait a few seconds and try again.",
@@ -2241,7 +2466,7 @@
         verify_sent_toast:"أكّد الدفع في محفظتك…",
         verify_notfound_toast:"الدفع لسه موصلش — متقلقش، التطبيق بيراجع تلقائيًا.",
         verify_success_toast:"المحفظة اتوثّقت!", verify_too_new:"المحفظة جديدة: %D% يوم، محتاجة %N% يوم",
-        gate_title:"🔐 وثّق محفظتك", gate_desc:"علشان يفتح ZOMBIE MINE، اربط محفظة TON ووثّقها بدفع 0.05 TON مرة واحدة بس. التوثيق بيحمي حسابك وبيفتح التعدين والسحب والإحالات.", gate_note:"⛏️ التعدين هيفتح فور ما التوثيق يكتمل.", collect_verify_first:"وثّق أولاً", mine_verify_card:"وثّق محفظتك لاستلام أرباحك",
+        gate_title:"🔐 وثّق محفظتك", gate_desc:"علشان يفتح ZOMBIE MINE، اربط محفظة TON ووثّقها بدفع 0.05 TON مرة واحدة بس. التوثيق بيحمي حسابك وبيفتح التعدين والسحب والإحالات.", gate_note:"⛏️ التعدين هيفتح فور ما التوثيق يكتمل.", collect_verify_first:"وثّق أولاً", mine_verify_card:"وثّق محفظتك لاستلام أرباحك", mining_card_title:"التعدين النشط", mining_status_active:"نشط", mining_status_paused:"متوقف — التوثيق مطلوب", mining_verify_msg:"وثّق محفظتك علشان التعدين يشتغل",
         verify_confirming:"الدفع اتبعت — بنأكّد على الشبكة، ممكن ياخد دقيقة…", verify_not_completed:"الدفع مكملش — مفيش حاجة اتبعتت من محفظتك. دوس توثيق ووافق على الدفع جوه تطبيق المحفظة.",
         verify_manual_hint:"ابعت المبلغ بالظبط بالتعليق بالظبط باستخدام البيانات اللي تحت.",
         verify_rate_toast:"محاولات تحقق كتير — استنى ثواني وجرّب تاني.",
@@ -2291,7 +2516,7 @@
         verify_sent_toast:"Подтвердите платёж в кошельке…",
         verify_notfound_toast:"Платёж пока не найден — не волнуйтесь, приложение продолжит проверку автоматически.",
         verify_success_toast:"Кошелёк подтверждён!", verify_too_new:"Кошелёк слишком новый: %D% дн., нужно %N%",
-        gate_title:"🔐 Подтвердите кошелёк", gate_desc:"Чтобы открыть ZOMBIE MINE, подключите кошелёк TON и подтвердите его разовым платежом 0.05 TON. Подтверждение защищает аккаунт и открывает майнинг, вывод и рефералов.", gate_note:"⛏️ Майнинг откроется сразу после подтверждения.", collect_verify_first:"СНАЧАЛА ПОДТВЕРДИТЕ", mine_verify_card:"Подтвердите кошелёк, чтобы получить заработок",
+        gate_title:"🔐 Подтвердите кошелёк", gate_desc:"Чтобы открыть ZOMBIE MINE, подключите кошелёк TON и подтвердите его разовым платежом 0.05 TON. Подтверждение защищает аккаунт и открывает майнинг, вывод и рефералов.", gate_note:"⛏️ Майнинг откроется сразу после подтверждения.", collect_verify_first:"СНАЧАЛА ПОДТВЕРДИТЕ", mine_verify_card:"Подтвердите кошелёк, чтобы получить заработок", mining_card_title:"АКТИВНЫЙ МАЙНИНГ", mining_status_active:"Активен", mining_status_paused:"Пауза — нужно подтверждение", mining_verify_msg:"Подтвердите кошелёк, чтобы начать майнинг",
         verify_confirming:"Платёж отправлен — подтверждаем в сети, это может занять минуту…", verify_not_completed:"Платёж не завершён — из кошелька ничего не отправлено. Нажмите «Подтвердить» и одобрите платёж в приложении кошелька.",
         verify_manual_hint:"Отправьте точную сумму с точным комментарием по реквизитам ниже.",
         verify_rate_toast:"Слишком много проверок — подождите несколько секунд и попробуйте снова.",
@@ -2911,12 +3136,14 @@
     function maybeShowAvatarPicker() {}
     /* Unverified Mine state (owner order 2026-11-15, REPLACES the
        full-screen wallet gate): the app opens for everyone — no gate
-       page at all. While the wallet is unverified, the Mine page
-       swaps its two balance cards for ONE wide verify card (tap →
-       Profile) and the collect coin turns into a locked grey
-       "Verify First" button. Re-evaluated on every applyUI, so a
-       verification landing (or being voided) flips the Mine page
-       by itself. Mining itself stays server-gated (collect 403). */
+       page at all. PASS 45 form: the MINING card itself carries the
+       gate — status "Paused — verification required", the verify
+       message line, the amount frozen at 0.0000 (updateLiveMining)
+       and the collect coin turned into a locked grey "Verify First"
+       button whose tap scrolls to the wallet+verify card on this
+       same page. Re-evaluated on every applyUI, so a verification
+       landing (or being voided) flips the Mine page by itself.
+       Mining itself stays server-gated (collect 403). */
     function applyMineVerifyUI() {
       // No initialLoadDone condition: myUserNo + walletVerified come
       // from the same state payload, and the boot loader covers the
@@ -2924,9 +3151,11 @@
       // applyUI a no-op and the flip lagged to the next refresh (the
       // same timing hole the old gate had, fixed at finishBoot too).
       const unv = !!myUserNo && !myWalletVerified;
-      const vc = document.getElementById('mine-verify-card'); if (vc) vc.style.display = unv ? 'flex' : 'none';
-      const sh = document.getElementById('mine-stat-hold'); if (sh) sh.style.display = unv ? 'none' : '';
-      const sa = document.getElementById('mine-stat-app'); if (sa) sa.style.display = unv ? 'none' : '';
+      const dict = I18N[currentLang] || I18N.en;
+      const st = document.getElementById('mining-status-txt');
+      if (st) st.innerText = unv ? (dict.mining_status_paused || 'Paused — verification required') : (dict.mining_status_active || 'Active');
+      const msg = document.getElementById('mining-verify-msg');
+      if (msg) msg.style.display = unv ? '' : 'none';
       const btn = document.getElementById('btn-collect-main');
       if (btn) {
         btn.classList.toggle('locked', !!unv);
@@ -3148,7 +3377,7 @@
       return `<svg width="14" height="14" viewBox="0 0 24 24" style="vertical-align:-2px;margin:0 3px;flex:none;" role="img" aria-label="Verified"><path fill="#2AABEE" d="M12.00,1.00L14.41,3.02L17.50,2.47L18.58,5.42L21.53,6.50L20.98,9.59L23.00,12.00L20.98,14.41L21.53,17.50L18.58,18.58L17.50,21.53L14.41,20.98L12.00,23.00L9.59,20.98L6.50,21.53L5.42,18.58L2.47,17.50L3.02,14.41L1.00,12.00L3.02,9.59L2.47,6.50L5.42,5.42L6.50,2.47L9.59,3.02Z"/><path d="M8.1 12.4l2.5 2.5 5.1-5.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
     }
 
-    /* ---------- Wallet verification card (Profile) ----------
+    /* ---------- Wallet verification card (Mine wallet+verify card) ----------
        The server is the source of truth: verifyInfo returns the
        payment instructions (deposit wallet / fee / exact comment
        ZM-<userNo>) and the bound wallet's on-chain age;
@@ -3752,16 +3981,27 @@
       const mub = document.getElementById('mine-user-badge'); if (mub) mub.innerHTML = myWalletVerified ? verifiedBadgeSVG() : '';
       document.getElementById('prof-username').innerText = tgUser.username ? "@" + tgUser.username : "@user";
       document.getElementById('prof-id').innerText = CURRENT_UID;
-      // Profile replica (owner order 2026-11-14): the big square
-      // portrait is the player's CURRENT EVOLUTION image (his avatar
-      // at his level's tier); the plaque shows his level + group, and
-      // the wallet row carries the verified shield when verified.
+      // User-line picture (owner orders 2026-11-14 + 2026-11-20): the
+      // merged card's round picture is the player's real TELEGRAM photo
+      // (initDataUnsafe user.photo_url) when Telegram provides one; the
+      // evolution portrait (his avatar at his level's tier) is the
+      // fallback — a missing URL or a failed load lands on it, never a
+      // broken image. Evolution portraits elsewhere are untouched.
       const pavEl = document.getElementById('prof-avatar');
       if (pavEl) {
+        let evoSrc = 'assets/avatar_1.webp';
         if (myAvatar >= 1 && myAvatar <= 8) {
           const tNow = Math.min(10, Math.max(1, Math.ceil(cur.level / 10)));
-          pavEl.src = `assets/evo_a${myAvatar}_t${tNow}.webp`;
-        } else pavEl.src = 'assets/avatar_1.webp';
+          evoSrc = `assets/evo_a${myAvatar}_t${tNow}.webp`;
+        }
+        const tgPhoto = (tgUser && typeof tgUser.photo_url === 'string') ? tgUser.photo_url.trim() : '';
+        if (tgPhoto && !window.__zmTgPhotoFailed) {
+          pavEl.onerror = () => { window.__zmTgPhotoFailed = true; pavEl.onerror = null; pavEl.src = evoSrc; };
+          if (pavEl.getAttribute('src') !== tgPhoto) pavEl.src = tgPhoto;
+        } else {
+          pavEl.onerror = null;
+          if (pavEl.getAttribute('src') !== evoSrc) pavEl.src = evoSrc;
+        }
         const mua = document.getElementById('mine-user-ava'); if (mua) mua.src = pavEl.src;
       }
       const pln = document.getElementById('prof-lvl-num'); if (pln) pln.innerText = cur.level;
@@ -3879,11 +4119,17 @@
       const cappedElapsed = Math.min(86400, rawElapsed);
       const pct24h = Math.min(100, (cappedElapsed / 86400) * 100);
 
-      document.getElementById('live-mined-num').innerText = Number((cappedElapsed * perSec).toFixed(4)).toLocaleString('en-US', {maximumFractionDigits: 4});
-      document.getElementById('mine-prog-bar').style.width = pct24h.toFixed(1) + "%";
+      // PASS 45 gate: while unverified the mining card freezes —
+      // amount pinned at 0.0000, shift bar at 0%, countdown at
+      // 24:00:00. Mining only runs for verified wallets (the server
+      // also rejects collect with 403).
+      const frozen = !!myUserNo && !myWalletVerified;
+      document.getElementById('live-mined-num').innerText = frozen ? '0.0000' : Number((cappedElapsed * perSec).toFixed(4)).toLocaleString('en-US', {maximumFractionDigits: 4});
+      document.getElementById('mine-prog-bar').style.width = (frozen ? 0 : pct24h).toFixed(1) + "%";
+      const spEl = document.getElementById('shift-pct'); if (spEl) spEl.innerText = (frozen ? 0 : pct24h).toFixed(0) + "%";
 
       const rem = Math.max(0, 86400 - Math.floor(cappedElapsed));
-      document.getElementById('shift-timer').innerText = `${String(Math.floor(rem/3600)).padStart(2,'0')}:${String(Math.floor((rem%3600)/60)).padStart(2,'0')}:${String(rem%60).padStart(2,'0')}`;
+      document.getElementById('shift-timer').innerText = frozen ? '24:00:00' : `${String(Math.floor(rem/3600)).padStart(2,'0')}:${String(Math.floor((rem%3600)/60)).padStart(2,'0')}:${String(rem%60).padStart(2,'0')}`;
 
       const statusDot = document.getElementById('mine-status-dot');
       if (rawElapsed >= 86400) {
@@ -3915,8 +4161,9 @@
 
     async function collectMining(e) {
       // Unverified (owner order 2026-11-15): mining never starts —
-      // the locked button / stage tap routes to Profile to verify.
-      if (myUserNo && !myWalletVerified) { SoundFX.click(); switchTab('profile'); return; }
+      // the locked button / stage tap scrolls to the wallet+verify
+      // card on this same page (PASS 45: verification lives on Mine).
+      if (myUserNo && !myWalletVerified) { SoundFX.click(); const wv = document.getElementById('mn-wv-card'); if (wv) wv.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
       if (isCollecting || !isHumanClick(e)) return;
       isCollecting = true;
       try {
@@ -4028,7 +4275,6 @@
     document.querySelectorAll('.btn-stonfi-buy').forEach(b => b.addEventListener('click', openStonfiSwap));
     document.querySelectorAll('.btn-tonkeeper-buy').forEach(b => b.addEventListener('click', openTonkeeperSwap));
     document.getElementById('btn-connect-wallet').addEventListener('click', connectTonWallet);
-    const mineVerifyCard = document.getElementById('mine-verify-card'); if (mineVerifyCard) mineVerifyCard.addEventListener('click', () => { SoundFX.click(); switchTab('profile'); });
     // Official-contract copy: copies the address exactly as rendered
     // (the card shows it in monospace so I / l / 1 stay distinct).
     document.getElementById('btn-copy-contract').addEventListener('click', () => {
@@ -4062,7 +4308,10 @@
     document.getElementById('ref-tasks-modal').addEventListener('click', (e) => {
       if (e.target && e.target.id === 'ref-tasks-modal') e.currentTarget.style.display = 'none';
     });
-    document.getElementById('btn-hold-info').addEventListener('click', (e) => {
+    // PASS 44: the aged stat bar (and its info button) is deleted; the
+    // hold-history modal stays in the markup — guard the registration
+    // so the missing button can never throw at init.
+    const btnHoldInfoEl = document.getElementById('btn-hold-info'); if (btnHoldInfoEl) btnHoldInfoEl.addEventListener('click', (e) => {
       if (!isHumanClick(e)) return;
       SoundFX.click();
       openHoldHistory();
@@ -4148,13 +4397,6 @@
     // finishBoot only fires once state is applied AND all critical
     // images have loaded — see the readiness gates above.
   })();
-  </script>
-  <script>
-    // Header shortcut buttons (redesign3 final pass): the gear jumps to the
-    // Profile tab (where the real settings live); the speaker reuses the
-    // real Profile sound toggle so both buttons genuinely work.
-    document.getElementById('hdr-settings-btn').addEventListener('click', function(){ document.querySelector('.nav-item[data-tab="profile"]').click(); });
-    document.getElementById('hdr-sound-btn').addEventListener('click', function(){ document.getElementById('sound-toggle-btn').click(); });
   </script>
 </body>
 </html>
