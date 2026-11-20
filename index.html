@@ -2466,7 +2466,7 @@
        card (texture visible like the friend rows), the green frame
        edges removed, orange rim instead; modal close is a word. */
     #page-tasks,#page-boost,#page-friends,#page-profile,#page-mine{background-image:none!important}
-    #settings-modal .pf-modal-card{background-color:#17140f!important;background-image:url('assets/card_plate_earth.webp')!important;background-size:cover!important;border-image:none!important;border:1px solid rgba(240,138,36,.55);box-shadow:0 0 18px rgba(240,138,36,.22),0 18px 50px rgba(0,0,0,.7)}
+    #settings-modal .pf-modal-card,#wdhist-modal .pf-modal-card{background-color:#17140f!important;background-image:url('assets/card_plate_earth.webp')!important;background-size:cover!important;border-image:none!important;border:1px solid rgba(240,138,36,.55);box-shadow:0 0 18px rgba(240,138,36,.22),0 18px 50px rgba(0,0,0,.7)}
     .pf-modal-cancel span{font-size:14px;letter-spacing:1px}
 
     /* ================= PASS 86 (owner 2026-11-20): the Boost
@@ -2513,6 +2513,134 @@
     .bst-jump-btn:disabled{opacity:.28;pointer-events:none}
     .bst-jump-pos{font-family:'ZMPirata',serif;font-size:19px;color:#f5a83d;letter-spacing:2px}
     .bst-jump-sep{color:#8a7a5c;margin:0 5px}
+
+    /* ================= PASS 92 (owner 2026-11-20): withdrawal
+       history leaves the page flow — a button under Withdraw
+       opens it as a modal (same #wd-history-box inside). */
+    #page-profile .pf-hist-btn{width:100%;margin-top:2px}
+
+    /* ================= PASS 94 (owner 2026-11-20): task cards wear
+       the withdraw card's own plate — the cracked graveyard-earth
+       texture — instead of the bronze quest plate. */
+    #page-tasks .q-wrap{background-image:url('assets/card_plate_earth.webp')!important;border-image:none!important;border-width:0!important}
+
+    /* ================= PASS 95 — GREEN ZOMBIE THEME (owner
+       2026-11-20): the whole palette turns black / white / GREEN.
+       Root vars, plaque titles, buttons, arrows, progress, claims,
+       nav glow and modal rims all go green. */
+    :root{--num:#e8f5e9;--acc:#3ddc74;--acc2:#1f9d4d;--accsoft:#d9ffe4;--line:rgba(61,220,116,.30);--line2:rgba(61,220,116,.48);--mut:#b9c4bb;--gold:#3ddc74;--gold2:#d9ffe4;--gb:#3ddc74}
+    #page-boost .bst-plaque span,#page-friends .bst-plaque span,#page-profile .bst-plaque span{background:linear-gradient(180deg,#ffffff 0%,#a7f3c7 45%,#34d399 80%,#15803d 100%);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 2px 3px rgba(0,0,0,.75)) drop-shadow(0 0 14px rgba(46,204,113,.40))}
+    #page-profile #btn-connect-wallet,#page-profile #verify-actions .btn-3d-gold,#page-profile .pf-wd-btn:not(.btn-wd-locked){background:linear-gradient(180deg,#7bf0a8 0%,#2ecc71 42%,#1db954 74%,#0b6e2f 100%);color:#03170a;border-color:rgba(160,255,196,.65);box-shadow:inset 0 1px 0 rgba(230,255,240,.85),inset 0 -7px 12px rgba(2,60,25,.38),0 0 26px rgba(46,204,113,.55),0 6px 14px rgba(0,0,0,.45)}
+    .btn-3d-gold{background:linear-gradient(180deg,#7bf0a8 0%,#2ecc71 42%,#1db954 74%,#0b6e2f 100%);color:#03170a;border-color:rgba(160,255,196,.65)}
+    #page-tasks .q-claim{background:linear-gradient(180deg,#7bf0a8 0%,#2ecc71 42%,#1db954 74%,#0b6e2f 100%)!important;color:#03170a!important;border-color:rgba(160,255,196,.65)!important}
+    .q-prog-fill{background:linear-gradient(90deg,#0b6e2f,#2ecc71)}
+    #page-boost .bst-arrow{color:#7bf0a8;border-color:rgba(105,240,174,.55)}
+    .bst-jump-btn{color:#7bf0a8;border-color:rgba(105,240,174,.55)}
+    .bst-jump-pos{color:#3ddc74}
+    .nav-item.active{color:#a7f3c7;filter:drop-shadow(0 0 8px rgba(46,204,113,.45)) drop-shadow(0 -3px 16px rgba(46,204,113,.35))}
+    .nav-item.active .nav-ic{filter:brightness(1.25) saturate(1.1) drop-shadow(0 0 11px rgba(46,204,113,.9))}
+    #settings-modal .pf-modal-card,#wdhist-modal .pf-modal-card{border-color:rgba(46,204,113,.55);box-shadow:0 0 18px rgba(46,204,113,.22),0 18px 50px rgba(0,0,0,.7)}
+    #daily-modal .q-row.claimed{border-color:rgba(46,204,113,.65)!important}
+
+    /* PASS 96: Mine's own gold holdouts — collect pill, buy pill,
+       and the big mined number — join the green theme. */
+    #page-mine .mn-collect-btn{background:linear-gradient(180deg,#7bf0a8 0%,#2ecc71 42%,#1db954 74%,#0b6e2f 100%);color:#03170a}
+    #page-mine .mn-price-buy{background:linear-gradient(180deg,#7bf0a8 0%,#2ecc71 42%,#1db954 74%,#0b6e2f 100%);color:#03170a}
+    #live-mined-num{background:linear-gradient(180deg,#ffffff 0%,#a7f3c7 45%,#34d399 80%,#15803d 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+    /* PASS 97: the Boost flame frame and nav ember icons are
+       IMAGES — a hue turn takes their orange fire green without
+       losing the alpha. Card name, profit and status go green. */
+    .bst-frame{filter:hue-rotate(82deg) saturate(1.25)}
+    #page-boost .bst-name{background:linear-gradient(180deg,#ffffff 0%,#a7f3c7 45%,#34d399 80%,#15803d 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    #page-boost .bst-profit-val{color:#3ddc74}
+    #page-boost .bst-status-plaque{background:linear-gradient(180deg,#7bf0a8 0%,#2ecc71 55%,#0b6e2f 100%)!important;color:#03170a!important}
+    .nav-item .nav-ic{filter:hue-rotate(82deg) saturate(1.15)}
+    .nav-item.active .nav-ic{filter:hue-rotate(82deg) saturate(1.15) brightness(1.25) drop-shadow(0 0 11px rgba(46,204,113,.9))}
+
+    /* PASS 98: the boot bar joins the green theme too. */
+    #boot-loader #boot-progress{background:linear-gradient(180deg,#eafff1 0%,#7bf0a8 38%,#2ecc71 74%,#0b6e2f 100%)!important;box-shadow:0 0 16px 3px rgba(46,204,113,.55),inset 0 0 6px rgba(255,255,255,.4)}
+    #boot-bar{border-color:rgba(46,204,113,.55);box-shadow:inset 0 2px 6px rgba(0,0,0,.9),0 0 14px rgba(46,204,113,.25)}
+
+    /* PASS 99: the active nav label was pinned orange by its own
+       span rule — green now, matching the shifted nav art. */
+    .nav-item.active span{color:#7bf0a8}
+
+    /* ================= PASS 100: the orange holdouts at page scope
+       — top bars, task tabs / rewards / progress / action buttons,
+       daily boxes, friends and profile accent texts. */
+    .mn-topbar,.tk-topbar{border-color:rgba(46,204,113,.55)!important;box-shadow:inset 0 1px 0 rgba(220,255,235,.28),inset 0 0 24px rgba(46,204,113,.06),0 0 16px rgba(46,204,113,.16),0 10px 22px rgba(0,0,0,.55)!important}
+    #page-tasks .tk-tab.active{color:#3ddc74;border-color:#3ddc74}
+    #page-tasks .q-rew{color:#3ddc74}
+    #page-tasks .q-prog-fill{background:linear-gradient(90deg,#0b6e2f,#2ecc71)}
+    #page-tasks .btn-3d-gold.q-btn{background:linear-gradient(180deg,#7bf0a8 0%,#2ecc71 42%,#1db954 74%,#0b6e2f 100%);color:#03170a;border-color:rgba(160,255,196,.65)}
+    #page-tasks .daily-box.active{border-color:#2ecc71;color:#3ddc74;background:rgba(46,204,113,.10)}
+    #page-tasks .daily-box.claimed{background:rgba(46,204,113,.15);color:#3ddc74;border-color:rgba(46,204,113,.5)}
+    #page-tasks .q-claimed{color:#2ecc71;border-color:rgba(46,204,113,.35)}
+    #page-tasks .tk-tabs{border-bottom-color:rgba(46,204,113,.18)}
+    #page-friends #btn-collect-ref{background:linear-gradient(180deg,#7bf0a8 0%,#2ecc71 42%,#1db954 74%,#0b6e2f 100%);color:#03170a;border-color:rgba(160,255,196,.65);box-shadow:inset 0 1px 0 rgba(230,255,240,.85),inset 0 -7px 12px rgba(2,60,25,.38),0 0 26px rgba(46,204,113,.55),0 6px 14px rgba(0,0,0,.45)}
+    #page-friends .fr-sec-lbl,#page-friends .fr-friends-head{color:#3ddc74}
+    #page-friends .fr-tab-num{color:#3ddc74;text-shadow:0 0 12px rgba(46,204,113,.45)}
+    #page-friends .fr-profits-num{color:#3ddc74;text-shadow:0 0 14px rgba(46,204,113,.5)}
+    #page-profile .pf-net{color:#3ddc74;text-shadow:0 0 10px rgba(46,204,113,.35)}
+    #page-profile .pf-hist-amt{color:#3ddc74}
+
+    /* ================= PASS 101 — ZOMBIE APOCALYPSE PALETTE
+       (owner 2026-11-20): neon green #39FF14 is the signature,
+       black #080B08, white text, grey #777777, olive #B5A642
+       breaks the green on frames and finished states, blood red
+       #8B0000 takes warnings and rejections. */
+    :root{--num:#ffffff;--acc:#39FF14;--acc2:#17a300;--accsoft:#eaffea;--line:rgba(57,255,20,.28);--line2:rgba(57,255,20,.45);--mut:#a3a8a3;--gold:#39FF14;--gold2:#eaffea;--gb:#39FF14}
+    body{background-color:#080B08}
+    .btn-3d-gold{background:linear-gradient(180deg,#a4ff6e 0%,#39FF14 42%,#17a300 74%,#0a5c00 100%);color:#04150a;border-color:rgba(163,255,110,.65)}
+    #page-mine .mn-collect-btn{background:linear-gradient(180deg,#a4ff6e 0%,#39FF14 42%,#17a300 74%,#0a5c00 100%);color:#04150a}
+    #page-mine .mn-price-buy{background:linear-gradient(180deg,#a4ff6e 0%,#39FF14 42%,#17a300 74%,#0a5c00 100%);color:#04150a}
+    #page-profile #btn-connect-wallet,#page-profile #verify-actions .btn-3d-gold,#page-profile .pf-wd-btn:not(.btn-wd-locked){background:linear-gradient(180deg,#a4ff6e 0%,#39FF14 42%,#17a300 74%,#0a5c00 100%);color:#04150a;border-color:rgba(163,255,110,.65);box-shadow:inset 0 1px 0 rgba(240,255,240,.85),inset 0 -7px 12px rgba(3,60,0,.38),0 0 26px rgba(57,255,20,.45),0 6px 14px rgba(0,0,0,.45)}
+    #page-tasks .q-claim{background:linear-gradient(180deg,#a4ff6e 0%,#39FF14 42%,#17a300 74%,#0a5c00 100%)!important;color:#04150a!important;border-color:rgba(163,255,110,.65)!important}
+    #page-tasks .btn-3d-gold.q-btn{background:linear-gradient(180deg,#a4ff6e 0%,#39FF14 42%,#17a300 74%,#0a5c00 100%);color:#04150a;border-color:rgba(163,255,110,.65)}
+    #page-friends #btn-collect-ref{background:linear-gradient(180deg,#a4ff6e 0%,#39FF14 42%,#17a300 74%,#0a5c00 100%);color:#04150a;border-color:rgba(163,255,110,.65);box-shadow:inset 0 1px 0 rgba(240,255,240,.85),inset 0 -7px 12px rgba(3,60,0,.38),0 0 26px rgba(57,255,20,.45),0 6px 14px rgba(0,0,0,.45)}
+    #page-boost .bst-status-plaque{background:linear-gradient(180deg,#a4ff6e 0%,#39FF14 42%,#17a300 74%,#0a5c00 100%)!important;color:#04150a!important}
+    #boot-loader #boot-progress{background:linear-gradient(180deg,#eaffea 0%,#a4ff6e 38%,#39FF14 74%,#0a5c00 100%)!important;box-shadow:0 0 16px 3px rgba(57,255,20,.5),inset 0 0 6px rgba(255,255,255,.4)}
+    #boot-bar{border-color:rgba(57,255,20,.5)}
+    #page-boost .bst-plaque span,#page-friends .bst-plaque span,#page-profile .bst-plaque span{background:linear-gradient(180deg,#ffffff 0%,#c8ffb0 45%,#39FF14 80%,#17a300 100%);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 2px 3px rgba(0,0,0,.75)) drop-shadow(0 0 14px rgba(57,255,20,.40))}
+    #page-boost .bst-name{background:linear-gradient(180deg,#ffffff 0%,#c8ffb0 45%,#39FF14 80%,#17a300 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    #page-boost .bst-profit-val{color:#39FF14}
+    #live-mined-num{background:linear-gradient(180deg,#ffffff 0%,#c8ffb0 45%,#39FF14 80%,#17a300 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    #page-tasks .tk-tab.active{color:#39FF14;border-color:#39FF14}
+    #page-tasks .q-rew{color:#39FF14}
+    #page-tasks .q-prog-fill{background:linear-gradient(90deg,#0a5c00,#39FF14)}
+    .bst-jump-pos{color:#39FF14}
+    #page-friends .fr-sec-lbl,#page-friends .fr-friends-head{color:#39FF14}
+    #page-friends .fr-tab-num{color:#39FF14;text-shadow:0 0 12px rgba(57,255,20,.45)}
+    #page-friends .fr-profits-num{color:#39FF14;text-shadow:0 0 14px rgba(57,255,20,.5)}
+    #page-profile .pf-net{color:#39FF14;text-shadow:0 0 10px rgba(57,255,20,.35)}
+    #page-profile .pf-hist-amt{color:#39FF14}
+    .nav-item.active span{color:#a4ff6e}
+    .nav-item.active{color:#c8ffb0;filter:drop-shadow(0 0 8px rgba(57,255,20,.45)) drop-shadow(0 -3px 16px rgba(57,255,20,.35))}
+    /* olive #B5A642 — frames and finished states */
+    .mn-topbar,.tk-topbar{border-color:rgba(181,166,66,.55)!important;box-shadow:inset 0 1px 0 rgba(255,255,240,.22),inset 0 0 24px rgba(181,166,66,.05),0 0 16px rgba(181,166,66,.14),0 10px 22px rgba(0,0,0,.55)!important}
+    #page-tasks .q-claimed{color:#B5A642;border-color:rgba(181,166,66,.4)}
+    #page-tasks .daily-box.claimed{background:rgba(181,166,66,.14);color:#B5A642;border-color:rgba(181,166,66,.5)}
+    .pf-pill.ok{background:#33301d;color:#e3d894;border:1px solid #B5A642}
+    /* blood red #8B0000 — warnings and rejections */
+    #mn-verify-pill{background:linear-gradient(180deg,#6e0d0d 0%,#8B0000 60%,#4d0000 100%);color:#ffe9e9;border:1px solid rgba(255,120,120,.4)}
+    .pf-pill.bad{background:#8B0000;color:#ffd9d9;border:1px solid rgba(255,120,120,.45)}
+
+    /* PASS 102 (owner 2026-11-20): verification reads BLUE —
+       the friends VERIFIED pill joins the blue badge. */
+    .fr-pill.ok{background:#0b3d66;color:#8fd0ff;border:1px solid #1d9bf0}
+
+    /* PASS 103: an old pass warmed the task icons with a sepia
+       filter — that is the orange that would not die. Off. */
+    #page-tasks .q-ic{filter:drop-shadow(0 3px 5px rgba(0,0,0,.35))}
+
+    /* PASS 104: last orange specks — the daily info button and
+       the active tab underline join the palette. */
+    #btn-daily-info{border-color:rgba(57,255,20,.7);background:radial-gradient(circle at 50% 34%,#0d2b12,#060a06);color:#39FF14;box-shadow:0 3px 9px rgba(0,0,0,.55),0 0 10px rgba(57,255,20,.28)}
+    #page-tasks .tk-tab.active::after{background:linear-gradient(90deg,#0a5c00,#39FF14,#0a5c00);box-shadow:0 0 12px rgba(57,255,20,.6)}
+
+    /* PASS 104b: the plus before the mined number goes neon too. */
+    #page-mine .mn-acc-line > span{color:#39FF14}
 </style>
 </head>
 <body oncontextmenu="return false;">
@@ -2954,6 +3082,7 @@
           <div class="pf-line-sub"><span data-i18n="min_wd_lbl">Minimum:</span> <strong id="wd-min-ui">5,000</strong> · <span data-i18n="hold_cond_lbl">30% Hold Required:</span> <strong id="wd-req-hold-num">1,500</strong> (<span id="wd-your-hold-lbl" data-i18n="your_hold_lbl">Your Hold:</span> <strong id="wd-cur-hold-num">0</strong>) <strong id="wd-hold-status"></strong></div>
         </div>
         <button class="pf-wd-btn" id="btn-request-wd"><img src="assets/icon_chest.webp" alt=""><span id="wd-btn-arrow">↗</span> <span id="wd-btn-label" data-i18n="req_wd_btn">Request Withdrawal</span></button>
+        <button class="btn-3d-dark pf-hist-btn" id="btn-wdhist-open"><span data-i18n="wd_hist_title">Withdrawal History</span></button>
         <button class="btn-3d-bronze btn-stonfi-buy" id="btn-wd-buy" style="display:none;justify-content:center;">🪙 <span data-i18n="buy_stonfi_btn">Buy on STON.fi</span></button>
       </section>
 
@@ -2961,10 +3090,17 @@
         <strong>OFFICIAL CONTRACT:</strong> <span id="official-contract-addr">EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c</span> <button class="btn-3d-dark" id="btn-copy-contract" data-i18n="verify_copy_btn">Copy</button>
       </div>
 
-      <section class="pf-sec">
-        <div class="pf-ribbon" data-i18n="wd_hist_title">Withdrawal History</div>
+
+
+  <div id="wdhist-modal" class="pf-modal" style="display:none">
+    <div class="pf-modal-card">
+      <div class="pf-modal-title"><span data-i18n="wd_hist_title">Withdrawal History</span></div>
+      <div class="pf-modal-body">
         <div id="wd-history-box">No withdrawals yet.</div>
-      </section>
+      </div>
+      <button class="btn-3d-dark" id="btn-wdhist-close" data-i18n="modal_close">Close</button>
+    </div>
+  </div>
 
   <div id="settings-modal" class="pf-modal" style="display:none">
     <div class="pf-modal-card">
@@ -4711,7 +4847,7 @@
     }
     function verifyRow(ok, labelHtml, subHtml) {
       const mark = ok === true
-        ? '<span class="zm-bigcheck" style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#917f55;color:#fff;font-size:11px;font-weight:900;flex:none;">✓</span>'
+        ? '<span class="zm-bigcheck" style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:linear-gradient(180deg,#3ddc62,#12973f);color:#fff;font-size:11px;font-weight:900;flex:none;">✓</span>'
         : ok === false
           ? '<span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#ef4444;color:#fff;font-size:11px;font-weight:900;flex:none;">✕</span>'
           : '<span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#475569;color:#fff;font-size:11px;font-weight:900;flex:none;">…</span>';
@@ -4733,7 +4869,7 @@
       const isConn = !!(linkedWalletAddr && linkedWalletAddr.length > 8);
       const isVerified = myWalletVerified && isConn && myVerifiedWallet === linkedWalletAddr;
       badge.innerText = isVerified ? ("✓ " + dict.verify_verified_badge) : dict.verify_not_verified_badge;
-      badge.style.background = isVerified ? "#1faa55" : "#64748b";
+      badge.style.background = isVerified ? "#1d9bf0" : "#64748b";
       badge.style.animation = "none";
       if (!isConn) {
         rows.innerHTML = verifyRow(false, `<strong style="color:#fff;">${dict.verify_connected_row}</strong>`, dict.verify_not_connected);
@@ -5642,6 +5778,9 @@
     const _bdc = document.getElementById('btn-daily-close'); if (_bdc) _bdc.addEventListener('click', () => { const m = document.getElementById('daily-modal'); if (m) m.style.display = 'none'; });
     const _bs = document.getElementById('btn-settings'); if (_bs) _bs.addEventListener('click', () => { SoundFX.click(); const m = document.getElementById('settings-modal'); if (m) m.style.display = 'flex'; });
     const _bsc = document.getElementById('btn-settings-close'); if (_bsc) _bsc.addEventListener('click', () => { const m = document.getElementById('settings-modal'); if (m) m.style.display = 'none'; });
+    const _who = document.getElementById('btn-wdhist-open'); if (_who) _who.addEventListener('click', () => { SoundFX.click(); const m = document.getElementById('wdhist-modal'); if (m) m.style.display = 'flex'; });
+    const _whc = document.getElementById('btn-wdhist-close'); if (_whc) _whc.addEventListener('click', () => { SoundFX.click(); const m = document.getElementById('wdhist-modal'); if (m) m.style.display = 'none'; });
+    const _whm = document.getElementById('wdhist-modal'); if (_whm) _whm.addEventListener('click', (e) => { if (e.target === _whm) _whm.style.display = 'none'; });
     const _smd = document.getElementById('settings-modal'); if (_smd) _smd.addEventListener('click', e => { if (e.target === _smd) _smd.style.display = 'none'; });
     const _sup = document.getElementById('btn-support'); if (_sup) _sup.addEventListener('click', () => { const u = 'https://t.me/telegram'; try { if (window.Telegram && Telegram.WebApp && Telegram.WebApp.openTelegramLink) { Telegram.WebApp.openTelegramLink(u); return; } } catch (e) {} window.open(u, '_blank'); });
     const _dm = document.getElementById('daily-modal'); if (_dm) _dm.addEventListener('click', (e) => { if (e.target === _dm) _dm.style.display = 'none'; });
