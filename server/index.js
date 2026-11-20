@@ -96,7 +96,7 @@ const PAYOUT_MNEMONIC = String(process.env.PAYOUT_MNEMONIC || '').trim();
 const PAYOUT_WALLET_VERSION = String(process.env.PAYOUT_WALLET_VERSION || 'v5').trim().toLowerCase();
 const MAX_AUTH_AGE_SEC = 24 * 60 * 60;
 const MIN_COLLECT_SEC = 10;
-const DAILY = [10, 20, 30, 50, 70, 100, 200];
+const DAILY = [10, 20, 30, 50, 70, 100, 200, 220, 240, 260, 280, 300, 350, 400, 420, 440, 460, 480, 500, 550, 600, 620, 640, 660, 680, 700, 750, 800, 820, 840, 860, 880, 900, 950, 1000, 1050, 1100, 1150, 1200, 1500];
 const DEFAULTS = {
   brandTitle: '$ZOMBIE MINE', coinSym: '$ZM', taskReward: 50,
   bioReward: 50, refAchReward1: 125, refAchReward10: 250, refAchReward25: 625, refAchReward50: 1250, refAchReward100: 2500,
@@ -1966,7 +1966,7 @@ async function daily(c) {
     if (d.banned === true) return { error: new Fail(403, 'Account banned') };
     const now = Date.now(), today = dayOf(now), last = dayOf(d.lastDailyCheckIn || 0);
     if (today === last) return { error: new Fail(400, 'Already claimed today') };
-    const streak = last === today - 1 ? ((d.dailyStreak || 0) % 7) + 1 : 1;
+    const streak = last === today - 1 ? ((d.dailyStreak || 0) % 40) + 1 : 1;
     const reward = DAILY[streak - 1];
     return {
       value: { ...d, dailyStreak: streak, lastDailyCheckIn: now, mined: (Number(d.mined) || 0) + reward, earnDaily: (Number(d.earnDaily) || 0) + reward },

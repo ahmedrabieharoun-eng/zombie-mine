@@ -15,7 +15,7 @@
 
   
   
-  <link rel="preload" as="image" href="assets/boot_scene3.webp">
+  <link rel="preload" as="image" href="assets/boot_scene4.webp">
   <link rel="preload" as="image" href="assets/hero_miner2.webp">
   <link rel="preload" as="image" href="assets/tombstone_center.webp">
   <style>
@@ -884,7 +884,7 @@
     #btn-goto-boost{padding-top:4px;padding-bottom:4px}
 
     /* ---------- PASS 26: boot = owner's artwork; name is the painted image ---------- */
-    #boot-loader{background:linear-gradient(rgba(7,6,3,0),rgba(7,6,3,.38) 78%,rgba(7,6,3,.72)),url('assets/boot_scene3.webp') center/cover #04070a;justify-content:flex-end;padding-bottom:40px}
+    #boot-loader{background:linear-gradient(rgba(7,6,3,0),rgba(7,6,3,.38) 78%,rgba(7,6,3,.72)),url('assets/boot_scene4.webp') center/cover #04070a;justify-content:flex-end;padding-bottom:40px}
     .boot-plaque-zm,.boot-plaque-zm-name{display:none}
 
     /* ================= PASS 27: PAINTED COMPONENTS (owner: اعمل صور علشان تطلع نفس النتيجه) =================
@@ -2323,19 +2323,7 @@
     #btn-collect-mine{font-family:'ZMPirata',serif;letter-spacing:1.2px}
     .pf-titlebar{letter-spacing:1.4px}
 
-    /* PASS 70 — page transition for the BOOST page only (owner spec 2026-11-20, modelled on
-       his reference video): gold streaks rain on near-black for ~1.55s, then the Boost page
-       lands with a jump-and-stand bounce. Other pages switch instantly as before. */
-    #zm-trans{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0;background:transparent}
-    #zm-trans.play{opacity:1}
-    #zm-trans .wash{position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 0%,#171106 0%,#0a0806 62%);opacity:0}
-    #zm-trans.play .wash{animation:zmwash 1.7s ease forwards}
-    @keyframes zmwash{0%{opacity:0}18%{opacity:.97}52%{opacity:.97}100%{opacity:0}}
-    #zm-trans .bar{position:absolute;top:-48%;border-radius:99px;background:linear-gradient(180deg,rgba(245,168,61,0) 0%,#f5a83d 32%,#c07f2e 72%,rgba(192,127,46,0) 100%);box-shadow:0 0 14px rgba(245,168,61,.5)}
-    #zm-trans.play .bar{animation:zmfall linear forwards}
-    @keyframes zmfall{0%{transform:translateY(0)}100%{transform:translateY(300%)}}
-    #page-boost.zm-land{animation:zmland .95s cubic-bezier(.3,.7,.4,1) both;will-change:transform}
-    @keyframes zmland{0%{transform:translateY(-170px) scale(.97);opacity:0}10%{opacity:1}52%{transform:translateY(0) scale(1,.992)}68%{transform:translateY(-30px) scale(1)}82%{transform:translateY(0)}91%{transform:translateY(-9px)}100%{transform:translateY(0) scale(1);opacity:1}}
+10%{opacity:1}52%{transform:translateY(0) scale(1,.992)}68%{transform:translateY(-30px) scale(1)}82%{transform:translateY(0)}91%{transform:translateY(-9px)}100%{transform:translateY(0) scale(1);opacity:1}}
 
     /* PASS 72 — daily-login card fixes (owner screenshot 2026-11-20): the title wrapped to
        two lines and the +reward slid under the CLAIM pill. Title is one line now, the
@@ -2345,12 +2333,101 @@
     #page-tasks #daily-card #daily-streak-txt{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     #page-tasks #daily-card .q-rew{flex:none}
     #page-tasks #daily-card .q-btn{flex:none}
+
+    /* ================= PASS 75: Tasks — owner's bronze plate
+       (option 3, frame-assembled) + bigger texts and buttons
+       (owner 2026-11-20: texts/buttons too small; title must not
+       truncate). Local preview only until he approves. */
+    /* PASS 75b (owner: a bit smaller + fit the plate properly):
+       sizes settle halfway back, and the bronze plate is applied
+       as a border-image so its frame and rivets follow the card
+       without squashing. */
+    #page-tasks .q-wrap{background-image:none!important;border:13px solid transparent;
+      border-image:url('assets/quest_card_plate_bronze.webp') 150 fill;border-image-width:13px;
+      border-radius:0;padding:13px}
+    #page-tasks .q-title{white-space:normal;overflow:visible;text-overflow:clip;font-size:15.5px;line-height:1.25}
+    #page-tasks #daily-card .q-title{white-space:normal;overflow:visible;text-overflow:clip;font-size:15.5px;line-height:1.25}
+    #page-tasks #daily-card #daily-streak-txt{white-space:normal;overflow:visible;text-overflow:clip}
+    #page-tasks .q-sub{font-size:12.5px!important}
+    #page-tasks .q-rew{font-size:14px!important}
+    #page-tasks .q-btn{min-width:106px;min-height:44px;font-size:13.5px!important;padding:10px 14px!important}
+    #page-tasks .tk-tab{font-size:16.5px}
+    #page-tasks .daily-box .day-num{font-size:14px}
+    #page-tasks #daily-card .q-rew::before{content:'• ';color:#9d968a}
+    #page-tasks .q-wrap{overflow:hidden}
+    #page-tasks .q-btn{max-width:47%}
+    #page-tasks .q-btn.tk-off{min-width:0;padding-left:12px!important;padding-right:12px!important}
+    #page-tasks .daily-box span{font-size:11.5px}
+
+    /* ================= PASS 77 (owner 2026-11-20): ONE continuous
+       full-screen scene — the body paints bg_castle edge to edge
+       and the pages drop their own copy so there is no seam at the
+       column edge; the top inset follows Telegram's real safe-area
+       (no fixed 56px of empty space); Tasks cards, texts and
+       buttons smaller again; the Watch Ads card is deleted. */
+    body{background-color:#0a0906;background-image:linear-gradient(180deg,rgba(7,6,3,.45),rgba(7,6,3,0) 240px),linear-gradient(0deg,rgba(6,5,3,.5),rgba(6,5,3,0) 220px),url('assets/bg_castle.webp');background-size:100% 260px,100% 240px,cover;background-position:0 0,0 100%,50% 50%;background-repeat:no-repeat}
+    #page-tasks,#page-boost,#page-friends,#page-profile{background-image:linear-gradient(180deg,rgba(7,6,4,.55),rgba(7,6,4,.16) 120px,rgba(7,6,4,0) 230px),linear-gradient(0deg,rgba(6,5,3,.78),rgba(6,5,3,.30) 110px,rgba(6,5,3,0) 210px),linear-gradient(180deg,rgba(0,0,0,0) 42%,rgba(158,141,107,.12) 62%,rgba(158,141,107,.19) 76%,rgba(0,0,0,0) 94%),radial-gradient(118% 82% at 50% 40%,rgba(0,0,0,0) 56%,rgba(0,0,0,.42) 100%)}
+    .app-shell{padding-top:calc(10px + var(--sat))}
+    #toast{top:calc(var(--sat) + 10px)}
+    #page-tasks .q-wrap{padding:10px;border-image-width:10px}
+    #page-tasks .q-ic{width:62px;height:62px}
+    #page-tasks .q-title{font-size:14px}
+    #page-tasks #daily-card .q-title{font-size:14px}
+    #page-tasks .q-sub{font-size:11.5px!important}
+    #page-tasks .q-rew{font-size:13px!important}
+    #page-tasks .q-btn{min-width:94px;min-height:38px;font-size:12.5px!important;padding:8px 12px!important}
+    #page-tasks .tk-tab{font-size:15px}
+
+    /* ================= PASS 78 (owner 2026-11-20): the black band
+       behind the Tasks tagline is gone — the scene is top-aligned
+       (moon + castle crown the page) and the pages' top shade is
+       lightened so the header melts into the background. */
+    body{background-position:0 0,0 100%,50% 0%}
+    #page-tasks,#page-boost,#page-friends,#page-profile{background-color:transparent}
+    #page-tasks,#page-boost,#page-friends,#page-profile{background-image:linear-gradient(180deg,rgba(7,6,4,.14),rgba(7,6,4,.04) 120px,rgba(7,6,4,0) 230px),linear-gradient(0deg,rgba(6,5,3,.78),rgba(6,5,3,.30) 110px,rgba(6,5,3,0) 210px),linear-gradient(180deg,rgba(0,0,0,0) 42%,rgba(158,141,107,.12) 62%,rgba(158,141,107,.19) 76%,rgba(0,0,0,0) 94%),radial-gradient(118% 82% at 50% 40%,rgba(0,0,0,0) 56%,rgba(0,0,0,.42) 100%)}
+
+    /* ================= PASS 79 (owner 2026-11-20): the daily card's
+       day chips are replaced by a "!" button opening a 40-day
+       rewards window (server table extended to 40 days too). */
+    #daily-card{position:relative}
+    #page-tasks #daily-card{padding-top:31px}
+    #daily-card .q-row{padding-top:0}
+    #btn-daily-info{position:absolute;top:5px;right:8px;width:24px;height:24px;font-size:14px;border-radius:50%;border:1.5px solid rgba(240,177,62,.85);background:radial-gradient(circle at 50% 34%,#3a2c14,#171208);color:#f0b13e;font-size:18px;font-weight:900;line-height:1;cursor:pointer;box-shadow:0 3px 9px rgba(0,0,0,.55),0 0 10px rgba(240,177,62,.28);z-index:3;padding:0}
+    #daily-modal .pf-modal-body{max-height:56dvh;overflow-y:auto}
+    .dm-sub{font-size:12.5px;color:var(--mut);line-height:1.55;margin-bottom:11px;text-align:center}
+    .dm-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+    #daily-modal .pf-modal-card{width:calc(100vw - 36px);max-width:400px}
+    .dm-rew{white-space:nowrap}
+    .dm-cell{position:relative;background:rgba(0,0,0,.34);border:1px solid rgba(206,196,174,.16);border-radius:10px;padding:7px 3px 6px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:52px;justify-content:center}
+    .dm-day{font-size:9.5px;color:var(--mut);letter-spacing:.4px;text-transform:uppercase}
+    .dm-rew{font-size:12.5px;font-weight:800;color:#f5a83d;display:flex;align-items:center;gap:3px}
+    .dm-rew img{width:13px;height:13px}
+    .dm-cell.mile{border-color:rgba(240,177,62,.45)}
+    .dm-cell.claimed{border-color:rgba(240,138,36,.8);background:rgba(240,138,36,.13)}
+    .dm-check{color:#2fd06f;font-weight:900;font-size:12px;line-height:1}
+    .dm-cell.today{border-color:#f0b13e;box-shadow:0 0 11px rgba(240,177,62,.5)}
+    .dm-today{font-size:8px;color:#f0b13e;font-weight:900;letter-spacing:.8px}
+    #daily-modal .pf-modal-card{background:#000;background-image:none;border:1px solid rgba(240,138,36,.55);box-shadow:0 0 18px rgba(240,138,36,.22),0 18px 50px rgba(0,0,0,.7)}
+
+    /* ================= PASS 80 (owner 2026-11-20): bottom nav =
+       his picked design 3 (chains + ember coins), sliced from the
+       concept image itself; the daily "!" anchors to the CARD
+       corner (its row is no longer the offset parent); the daily
+       modal background is solid black. */
+    .bottom-nav-3d::before{background-image:url('assets/nav3_chain.webp'),linear-gradient(180deg,#1b1510,#0a0806 70%);background-size:auto 20px,cover;background-position:top center,center;background-repeat:repeat-x,no-repeat;border:1px solid rgba(240,138,36,.28);height:96px}
+    .nav-item{clip-path:none;background:transparent;padding-top:8px;gap:2px}
+    .nav-ic{width:60px;height:60px;filter:brightness(.75) saturate(.9)}
+    .nav-item:nth-child(3) .nav-ic{width:68px;height:68px}
+    .nav-item.active .nav-ic{filter:drop-shadow(0 0 13px rgba(240,120,30,.9)) brightness(1.12)}
+    .nav-item.active span{color:#f5a83d}
+    #daily-card .q-row{position:static}
+    #daily-modal .pf-modal-card{background-color:#000!important;background-image:none!important}
 </style>
 </head>
 <body oncontextmenu="return false;">
 
   <div id="boot-loader">
-    <img src="assets/boot_scene3.webp" alt="Zombie" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+    <img src="assets/boot_scene4.webp" alt="Zombie" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
     <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(5,7,11,0.30) 0%, rgba(5,7,11,0) 30%, rgba(5,7,11,0) 52%, rgba(5,7,11,0.60) 100%);"></div>
     <div style="position:relative;z-index:2;width:88%;max-width:340px;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:36px 0 34px;">
       <!-- PASS 52: the boot painting itself carries the medallion +
@@ -2389,6 +2466,20 @@
       <div class="pf-modal-row">
         <button class="pf-modal-cancel" id="btn-unlink-cancel"><span data-i18n="unlink_cancel">Cancel</span></button>
         <button class="pf-modal-confirm" id="btn-unlink-confirm"><span data-i18n="unlink_confirm">Disconnect</span></button>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="daily-modal" class="pf-modal" style="display:none">
+    <div class="pf-modal-card">
+      <div class="pf-modal-title" data-i18n="daily_login_title">🎁 Daily Login (40 Days)</div>
+      <div class="pf-modal-body">
+        <div class="dm-sub" data-i18n="daily_modal_sub">Come back every day to grow your streak — miss a day and it restarts from Day 1.</div>
+        <div class="dm-grid" id="daily-modal-grid"></div>
+      </div>
+      <div class="pf-modal-row">
+        <button class="pf-modal-cancel" id="btn-daily-close"><span style="font-size:16px">✕</span></button>
       </div>
     </div>
   </div>
@@ -2568,27 +2659,16 @@
           <div class="q-row-in">
             <img class="q-ic" src="assets/icon_q_sun.webp" alt="">
             <div class="q-mid">
-              <div class="q-title" data-i18n="daily_login_title">🎁 Daily Login (7 Days)</div>
+              <div class="q-title" data-i18n="daily_login_title">🎁 Daily Login (40 Days)</div>
               <div class="q-sub"><span id="daily-streak-txt"></span><span class="q-rew"><img src="assets/balance_coin.webp" alt=""><span id="daily-rew-amt">+25</span></span></div>
             </div>
             <button class="btn-3d-gold q-btn" id="btn-claim-daily" data-i18n="claim_daily_btn">Claim Daily Reward</button>
+            <button id="btn-daily-info" aria-label="Daily rewards">!</button>
           </div>
         </div>
-        <div class="daily-grid" id="daily-streak-container"></div>
       </div>
 
-      <div class="q-wrap" id="ads-wrap" style="display:none;">
-        <div class="q-row">
-          <div class="q-row-in">
-            <img class="q-ic" src="assets/icon_q_chest.webp" alt="">
-            <div class="q-mid">
-              <div class="q-title" data-i18n="ads_title">📺 Watch Ads</div>
-              <div class="q-sub"><span class="q-renew"><span id="ads-left-txt"></span></span><span class="q-rew"><img src="assets/balance_coin.webp" alt="">+<span id="ads-rew-amt">5</span> <span class="coin-sym">$ZM</span></span></div>
-            </div>
-            <button class="btn-3d-gold q-btn" id="btn-watch-ad" data-i18n="ads_watch_btn">Watch Ad</button>
-          </div>
-        </div>
-      </div>
+      
 
       <div class="q-wrap">
         <div class="q-row" id="ch1-row">
@@ -2818,24 +2898,24 @@
 
   <div class="bottom-nav-3d">
     <div class="nav-item active" data-tab="mine">
-      <img class="nav-ic" src="assets/nav_cut_1.webp" alt="">
+      <img class="nav-ic" src="assets/nav3_1.webp" alt="">
       <span data-i18n="nav_mine">Mine</span>
     </div>
     <div class="nav-item" data-tab="tasks">
-      <img class="nav-ic" src="assets/nav_cut_2.webp" alt="">
+      <img class="nav-ic" src="assets/nav3_2.webp" alt="">
       <span data-i18n="nav_tasks">Tasks</span>
     </div>
     <div class="nav-item" data-tab="boost">
       <img class="nav-tomb-img" src="assets/tombstone_center.webp" alt="">
-      <img class="nav-ic" src="assets/nav_cut_3.webp" alt="">
+      <img class="nav-ic" src="assets/nav3_3.webp" alt="">
       <span data-i18n="nav_boost">Boost</span>
     </div>
     <div class="nav-item" data-tab="friends">
-      <img class="nav-ic" src="assets/nav_cut_4.webp" alt="">
+      <img class="nav-ic" src="assets/nav3_4.webp" alt="">
       <span data-i18n="nav_friends">Friends</span>
     </div>
     <div class="nav-item" data-tab="profile">
-      <img class="nav-ic" src="assets/nav_cut_5.webp" alt="">
+      <img class="nav-ic" src="assets/nav3_5.webp" alt="">
       <span data-i18n="nav_profile">Profile</span>
     </div>
   </div>
@@ -3168,6 +3248,11 @@
     const safeOpen = u => { try { const x = new URL(String(u)); if (x.protocol === "https:") window.open(x.href, "_blank"); } catch (e) {} };
     const tg = window.Telegram?.WebApp;
     if (tg) { tg.expand(); tg.ready(); }
+    try {
+      const syncSat = () => { const t = (window.Telegram && Telegram.WebApp && Telegram.WebApp.contentSafeAreaInset) ? Telegram.WebApp.contentSafeAreaInset.top || 0 : 0; document.documentElement.style.setProperty('--sat', t + 'px'); };
+      syncSat();
+      if (window.Telegram && Telegram.WebApp && Telegram.WebApp.onEvent) { Telegram.WebApp.onEvent('contentSafeAreaChanged', syncSat); Telegram.WebApp.onEvent('safeAreaChanged', syncSat); }
+    } catch (e) {}
     // Fullscreen + Telegram overlay safe area (owner order
     // 2026-11-14): the app fills the whole screen; Telegram then
     // shows only its floating ✕ / ⋮ icons over it, and the shell
@@ -3375,7 +3460,7 @@
         months:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
         nav_mine:"Mine", nav_tasks:"Tasks", nav_boost:"Boost", nav_friends:"Friends", nav_profile:"Profile",
         tank_full:"🛑 24h Tank Full (100%) - Collect Now!", tank_fill:"⏳ 24h Mining Tank:",
-        quests_tagline:"Complete quests to earn extra rewards", tab_ref:"REFERRALS", tab_hold:"HOLD", tab_daily:"DAILY", daily_streak_fmt:"Day {n} streak", daily_login_title:"🎁 Daily Login (7 Days)", claim_daily_btn:"Claim Daily Reward", ads_title:"📺 Watch Ads", ads_watch_btn:"Watch Ad", ads_left:"{n} ads left today", ads_all_done:"✅ All ads watched today — come back tomorrow", ads_none:"No ads available right now — try again later", ad_watch_full:"Watch the full ad to continue", ad_loading:"Ad loading, try again", wd_bal_lbl:"YOUR BALANCE",
+        quests_tagline:"Complete quests to earn extra rewards", tab_ref:"REFERRALS", tab_hold:"HOLD", tab_daily:"DAILY", daily_streak_fmt:"Day {n} streak", daily_login_title:"🎁 Daily Login (40 Days)", claim_daily_btn:"Claim Daily Reward", ads_title:"📺 Watch Ads", ads_watch_btn:"Watch Ad", ads_left:"{n} ads left today", ads_all_done:"✅ All ads watched today — come back tomorrow", ads_none:"No ads available right now — try again later", ad_watch_full:"Watch the full ad to continue", ad_loading:"Ad loading, try again", wd_bal_lbl:"YOUR BALANCE",
         day:"Day", claimed:"Claimed", no_refs_yet:"No invited friends yet."
       },
       ar: {
@@ -3425,7 +3510,7 @@
         months:["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"],
         nav_mine:"التعدين", nav_tasks:"المهام", nav_boost:"السرعة", nav_friends:"الأصدقاء", nav_profile:"حسابي",
         tank_full:"🛑 خزان 24 ساعة ممتلئ (100%) - اجمع الآن!", tank_fill:"⏳ خزان 24 ساعة:",
-        quests_tagline:"أكمل المهام لتربح مكافآت إضافية", tab_ref:"الإحالات", tab_hold:"الاحتفاظ", tab_daily:"يومي", daily_streak_fmt:"سلسلة اليوم {n}", daily_login_title:"🎁 تسجيل الدخول اليومي (7 أيام)", claim_daily_btn:"استلام المكافأة اليومية", ads_title:"📺 شاهد الإعلانات", ads_watch_btn:"شاهد إعلان", ads_left:"تبقّى {n} إعلان اليوم", ads_all_done:"✅ شاهدت كل إعلانات اليوم — ارجع بكرة", ads_none:"لا توجد إعلانات متاحة حاليًا — حاول لاحقًا", ad_watch_full:"شاهد الإعلان كاملًا للمتابعة", ad_loading:"الإعلان بيحمّل، حاول تاني", wd_bal_lbl:"رصيدك",
+        quests_tagline:"أكمل المهام لتربح مكافآت إضافية", tab_ref:"الإحالات", tab_hold:"الاحتفاظ", tab_daily:"يومي", daily_streak_fmt:"سلسلة اليوم {n}", daily_login_title:"🎁 تسجيل الدخول اليومي (40 يوم)", daily_modal_sub:"ارجع كل يوم علشان تكبّر سلسلتك — لو فوّت يوم، السلسلة بتبدأ من اليوم الأول.", daily_day_fmt:"اليوم {n}", daily_today:"اليوم", claim_daily_btn:"استلام المكافأة اليومية", ads_title:"📺 شاهد الإعلانات", ads_watch_btn:"شاهد إعلان", ads_left:"تبقّى {n} إعلان اليوم", ads_all_done:"✅ شاهدت كل إعلانات اليوم — ارجع بكرة", ads_none:"لا توجد إعلانات متاحة حاليًا — حاول لاحقًا", ad_watch_full:"شاهد الإعلان كاملًا للمتابعة", ad_loading:"الإعلان بيحمّل، حاول تاني", wd_bal_lbl:"رصيدك",
         day:"يوم", claimed:"تم الاستلام", no_refs_yet:"لا يوجد أصدقاء مدعوون حتى الآن."
       },
       ru: {
@@ -3556,7 +3641,7 @@
     let isCollecting = false;
     let initialLoadDone = false;
     
-    const DAILY_REWARDS = [10, 20, 30, 50, 70, 100, 200];
+    const DAILY_REWARDS = [10, 20, 30, 50, 70, 100, 200, 220, 240, 260, 280, 300, 350, 400, 420, 440, 460, 480, 500, 550, 600, 620, 640, 660, 680, 700, 750, 800, 820, 840, 860, 880, 900, 950, 1000, 1050, 1100, 1150, 1200, 1500];
     let currentLevelPage = 1;
 
     const BOOT_STARTED_AT = Date.now();
@@ -3653,7 +3738,7 @@
     }
     const BOOT_IMAGES = [
       'assets/load_skull_off.webp', 'assets/load_skull_on.webp',
-      'assets/boot_scene3.webp',
+      'assets/boot_scene4.webp',
       'assets/bg_fjord.webp', 'assets/bg_wood.webp', 'assets/ref_stone_plain.webp', 'assets/ref_stone_card.webp', 'assets/coin_icon.webp',
       'assets/hero_miner2.webp',
       'assets/mock_hero.webp', 'assets/mock_sign.webp', 'assets/tex_stone_dark.webp', 'assets/mock_hand.webp', 'assets/mock_skull_deco.webp',
@@ -3782,27 +3867,33 @@
     function getUtcDay(ts) { return Math.floor(ts / (1000 * 60 * 60 * 24)); }
 
     function renderDailyLogin() {
-      const container = document.getElementById('daily-streak-container');
-      if (!container) return;
       const todayUtc = getUtcDay(Date.now());
       const lastUtc = getUtcDay(lastDailyCheckIn);
       const hasClaimedToday = (lastUtc === todayUtc);
-
-      container.innerHTML = DAILY_REWARDS.map((rew, idx) => {
-        const dayNum = idx + 1;
-        let boxClass = "daily-box", statusText = `+${rew}`;
-        if (dayNum <= dailyStreak) { boxClass += " claimed"; statusText = "✅"; }
-        else if (dayNum === dailyStreak + 1 && !hasClaimedToday) { boxClass += " active"; }
-        return `<div class="${boxClass}"><span class="day-num">${dayNum}</span>${statusText}</div>`;
-      }).join('');
-
+      const dict = I18N[currentLang] || I18N.en;
+      const grid = document.getElementById('daily-modal-grid');
+      if (grid) {
+        const pos = hasClaimedToday ? dailyStreak : (dailyStreak >= 40 ? 0 : dailyStreak);
+        grid.innerHTML = DAILY_REWARDS.map((rew, idx) => {
+          const dayNum = idx + 1;
+          let cls = 'dm-cell';
+          if (dayNum % 7 === 0 || dayNum === 40) cls += ' mile';
+          if (dayNum <= pos) cls += ' claimed';
+          if (dayNum === pos + 1 && !hasClaimedToday) cls += ' today';
+          if (hasClaimedToday && dayNum === pos) cls += ' today';
+          const badge = dayNum <= pos ? '<span class="dm-check">✓</span>' : (cls.indexOf('today') > -1 ? '<span class="dm-today">' + (dict.daily_today || 'TODAY') + '</span>' : '');
+          return '<div class="' + cls + '"><span class="dm-day">' + (dict.daily_day_fmt || 'Day {n}').replace('{n}', dayNum) + '</span><span class="dm-rew"><img src="assets/balance_coin.webp" alt="">+' + rew + '</span>' + badge + '</div>';
+        }).join('');
+      }
       const drAmt = document.getElementById('daily-rew-amt');
-      if (drAmt) drAmt.innerText = hasClaimedToday ? '✅' : '+' + DAILY_REWARDS[Math.min(dailyStreak, DAILY_REWARDS.length - 1)];
+      if (drAmt) drAmt.innerText = hasClaimedToday ? '✅' : '+' + DAILY_REWARDS[dailyStreak >= 40 ? 0 : Math.min(dailyStreak, 39)];
       const dsTxt = document.getElementById('daily-streak-txt');
-      if (dsTxt) dsTxt.innerText = (I18N[currentLang].daily_streak_fmt || 'Day {n} streak').replace('{n}', dailyStreak) + ' • ';
+      if (dsTxt) dsTxt.innerText = (dict.daily_streak_fmt || 'Day {n} streak').replace('{n}', dailyStreak);
       const btn = document.getElementById('btn-claim-daily');
-      if (hasClaimedToday) { btn.disabled = true; btn.style.opacity = 0.5; btn.innerText = I18N[currentLang].claimed; }
-      else { btn.disabled = false; btn.style.opacity = 1; btn.innerHTML = `💰 ${I18N[currentLang].claim_daily_btn}`; }
+      if (btn) {
+        if (hasClaimedToday) { btn.disabled = true; btn.style.opacity = 0.5; btn.innerText = dict.claimed; }
+        else { btn.disabled = false; btn.style.opacity = 1; btn.innerHTML = `💰 ${dict.claim_daily_btn}`; }
+      }
     }
 
     async function claimDailyLogin(e) {
@@ -4158,10 +4249,10 @@
       const img = loader.querySelector('img');
       const r = img ? img.getBoundingClientRect() : null;
       const g = (r && r.width > 0 && r.height > 0)
-        ? (() => { const gg = coverGeom(r.width, r.height, 665, 1405); gg.ox += r.left; gg.oy += r.top; return gg; })()
-        : coverGeom(window.innerWidth, window.innerHeight, 665, 1405);
+        ? (() => { const gg = coverGeom(r.width, r.height, 665, 1630); gg.ox += r.left; gg.oy += r.top; return gg; })()
+        : coverGeom(window.innerWidth, window.innerHeight, 665, 1630);
       // PASS 54: the baked bar rect is (52,1170,561,53). The baked
-      // caption glyphs were measured ON THE PAINTING (boot_scene3.webp)
+      // caption glyphs were measured ON THE PAINTING (boot_scene4.webp)
       // at y 1224..1236 — the AI-edited painting moved them up from the
       // reference screenshot's 1252, and aiming the live caption at
       // 1252 printed a second line below the baked one. The live
@@ -4171,13 +4262,13 @@
       // (line-box half-leading), so only ONE bar and ONE print show
       // at any viewport.
       bar.style.left = (g.ox + 52 * g.s) + 'px';
-      bar.style.top = (g.oy + 1170 * g.s) + 'px';
+      bar.style.top = (g.oy + 1395 * g.s) + 'px';
       bar.style.width = (561 * g.s) + 'px';
       bar.style.height = (53 * g.s) + 'px';
       if (cap) {
         cap.style.left = g.ox + 'px';
         cap.style.width = (665 * g.s) + 'px';
-        cap.style.top = (g.oy + 1236 * g.s) + 'px';
+        cap.style.top = (g.oy + 1461 * g.s) + 'px';
         cap.style.setProperty('font-size', (19 * g.s) + 'px', 'important');
         cap.style.letterSpacing = (6.5 * g.s) + 'px';
       }
@@ -5439,7 +5530,10 @@
     if (mvmEl) mvmEl.addEventListener('click', () => { if (myUserNo && !myWalletVerified) { SoundFX.click(); switchTab('profile'); } });
     document.getElementById('btn-collect-ref').addEventListener('click', collectReferralProfits);
     document.getElementById('btn-claim-daily').addEventListener('click', claimDailyLogin);
-    document.getElementById('btn-watch-ad').addEventListener('click', watchRewardAd);
+    const _bwa = document.getElementById('btn-watch-ad'); if (_bwa) _bwa.addEventListener('click', watchRewardAd);
+    const _bdi = document.getElementById('btn-daily-info'); if (_bdi) _bdi.addEventListener('click', () => { renderDailyLogin(); const m = document.getElementById('daily-modal'); if (m) m.style.display = 'flex'; });
+    const _bdc = document.getElementById('btn-daily-close'); if (_bdc) _bdc.addEventListener('click', () => { const m = document.getElementById('daily-modal'); if (m) m.style.display = 'none'; });
+    const _dm = document.getElementById('daily-modal'); if (_dm) _dm.addEventListener('click', (e) => { if (e.target === _dm) _dm.style.display = 'none'; });
 
     document.querySelectorAll('.btn-stonfi-buy').forEach(b => b.addEventListener('click', openStonfiSwap));
     document.querySelectorAll('.btn-tonkeeper-buy').forEach(b => b.addEventListener('click', openTonkeeperSwap));
@@ -5579,39 +5673,6 @@
   })();
   </script>
 
-<script>
-/* PASS 70 — Boost-page streak transition (see CSS note). Boost nav only;
-   re-tapping Boost while already on it does nothing. */
-(function () {
-  var ov = document.createElement('div');
-  ov.id = 'zm-trans';
-  var html = '<div class="wash"></div>';
-  var seed = 7;
-  function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
-  for (var i = 0; i < 26; i++) {
-    html += '<div class="bar" style="left:' + (rnd() * 99).toFixed(1) + '%;width:' + (3 + rnd() * 10).toFixed(0) + 'px;height:' + (32 + rnd() * 34).toFixed(0) + '%;opacity:' + (0.35 + rnd() * 0.65).toFixed(2) + ';animation-duration:' + (1.05 + rnd() * 0.6).toFixed(2) + 's;animation-delay:' + (rnd() * 0.2).toFixed(2) + 's"></div>';
-  }
-  ov.innerHTML = html;
-  document.body.appendChild(ov);
-  var current = 'mine', busy = false;
-  document.querySelectorAll('.nav-item').forEach(function (el) {
-    el.addEventListener('click', function () {
-      var tab = el.getAttribute('data-tab');
-      if (tab === 'boost' && current !== 'boost' && !busy) {
-        busy = true;
-        ov.classList.remove('play');
-        void ov.offsetWidth;
-        ov.classList.add('play');
-        setTimeout(function () {
-          var pg = document.getElementById('page-boost');
-          if (pg) { pg.classList.remove('zm-land'); void pg.offsetWidth; pg.classList.add('zm-land'); }
-        }, 1500);
-        setTimeout(function () { ov.classList.remove('play'); busy = false; }, 2600);
-      }
-      current = tab;
-    }, true);
-  });
-})();
-</script>
+
 </body>
 </html>
