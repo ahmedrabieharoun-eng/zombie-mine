@@ -2318,16 +2318,16 @@
     /* PASS 70 — page transition for the BOOST page only (owner spec 2026-11-20, modelled on
        his reference video): gold streaks rain on near-black for ~1.55s, then the Boost page
        lands with a jump-and-stand bounce. Other pages switch instantly as before. */
-    #zm-trans{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0;background:radial-gradient(120% 100% at 50% 0%,#171106 0%,#0a0806 62%)}
+    #zm-trans{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0;background:transparent}
     #zm-trans.play{opacity:1}
-    #zm-trans .wash{position:absolute;inset:0;background:#0a0806;opacity:0}
-    #zm-trans.play .wash{animation:zmwash 2.1s ease forwards}
-    @keyframes zmwash{0%{opacity:0}28%,58%{opacity:.97}100%{opacity:0}}
+    #zm-trans .wash{position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 0%,#171106 0%,#0a0806 62%);opacity:0}
+    #zm-trans.play .wash{animation:zmwash 1.7s ease forwards}
+    @keyframes zmwash{0%{opacity:0}18%{opacity:.97}52%{opacity:.97}100%{opacity:0}}
     #zm-trans .bar{position:absolute;top:-48%;border-radius:99px;background:linear-gradient(180deg,rgba(245,168,61,0) 0%,#f5a83d 32%,#c07f2e 72%,rgba(192,127,46,0) 100%);box-shadow:0 0 14px rgba(245,168,61,.5)}
     #zm-trans.play .bar{animation:zmfall linear forwards}
     @keyframes zmfall{0%{transform:translateY(0)}100%{transform:translateY(300%)}}
-    #page-boost.zm-land{animation:zmland .85s cubic-bezier(.28,.84,.42,1) both}
-    @keyframes zmland{0%{transform:translateY(-54px) scale(.952);opacity:0}45%{transform:translateY(7px) scale(1.007);opacity:1}64%{transform:translateY(-3.5px) scale(.998);opacity:1}82%{transform:translateY(1.5px) scale(1)}100%{transform:translateY(0) scale(1);opacity:1}}
+    #page-boost.zm-land{animation:zmland .95s cubic-bezier(.3,.7,.4,1) both;will-change:transform}
+    @keyframes zmland{0%{transform:translateY(-170px) scale(.97);opacity:0}10%{opacity:1}52%{transform:translateY(0) scale(1,.992)}68%{transform:translateY(-30px) scale(1)}82%{transform:translateY(0)}91%{transform:translateY(-9px)}100%{transform:translateY(0) scale(1);opacity:1}}
 
     /* PASS 72 — daily-login card fixes (owner screenshot 2026-11-20): the title wrapped to
        two lines and the +reward slid under the CLAIM pill. Title is one line now, the
@@ -5570,7 +5570,7 @@
   var seed = 7;
   function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
   for (var i = 0; i < 26; i++) {
-    html += '<div class="bar" style="left:' + (rnd() * 99).toFixed(1) + '%;width:' + (3 + rnd() * 10).toFixed(0) + 'px;height:' + (32 + rnd() * 34).toFixed(0) + '%;opacity:' + (0.35 + rnd() * 0.65).toFixed(2) + ';animation-duration:' + (1.25 + rnd() * 0.7).toFixed(2) + 's;animation-delay:' + (rnd() * 0.25).toFixed(2) + 's"></div>';
+    html += '<div class="bar" style="left:' + (rnd() * 99).toFixed(1) + '%;width:' + (3 + rnd() * 10).toFixed(0) + 'px;height:' + (32 + rnd() * 34).toFixed(0) + '%;opacity:' + (0.35 + rnd() * 0.65).toFixed(2) + ';animation-duration:' + (1.05 + rnd() * 0.6).toFixed(2) + 's;animation-delay:' + (rnd() * 0.2).toFixed(2) + 's"></div>';
   }
   ov.innerHTML = html;
   document.body.appendChild(ov);
@@ -5586,8 +5586,8 @@
         setTimeout(function () {
           var pg = document.getElementById('page-boost');
           if (pg) { pg.classList.remove('zm-land'); void pg.offsetWidth; pg.classList.add('zm-land'); }
-        }, 1750);
-        setTimeout(function () { ov.classList.remove('play'); busy = false; }, 2650);
+        }, 1500);
+        setTimeout(function () { ov.classList.remove('play'); busy = false; }, 2600);
       }
       current = tab;
     }, true);
