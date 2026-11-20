@@ -2422,6 +2422,97 @@
     .nav-item.active span{color:#f5a83d}
     #daily-card .q-row{position:static}
     #daily-modal .pf-modal-card{background-color:#000!important;background-image:none!important}
+
+    /* ================= PASS 82 (owner 2026-11-20): Mine cards lose
+       their black/stone fills and melt into the scene — the page
+       itself goes transparent like the other four, and the rate /
+       price / contract cards become translucent glass over the
+       castle backdrop (gold rims kept). */
+    #page-mine{background-color:transparent;background-image:none}
+    #page-mine .mn-rate-card,#page-mine .mn-price-card,#page-mine .mn-contract{background-color:rgba(16,12,9,.42);background-image:none;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+
+    /* ================= PASS 83 (owner 2026-11-20): the Profile and
+       Friends headings become centered top plaques like the Boost
+       page's LEVEL PROGRESSION plaque (same painted banner, same
+       gold-gradient Pirata lettering); the hairline titlebar style
+       is suppressed on them. */
+    #page-friends .bst-plaque,#page-profile .bst-plaque{aspect-ratio:662/92;display:flex;align-items:center;justify-content:center;background:url('assets/plaque_prog.webp') center/100% 100% no-repeat;margin:0 0 2px;border:none;box-shadow:none;padding:0}
+    #page-friends .bst-plaque::before,#page-friends .bst-plaque::after,#page-profile .bst-plaque::before,#page-profile .bst-plaque::after{display:none}
+    #page-friends .bst-plaque span,#page-profile .bst-plaque span{font-family:'ZMPirata',serif;font-size:clamp(16px,5.4vw,24px);font-weight:700;letter-spacing:.8px;background:linear-gradient(180deg,#ffe9a8 0%,#f2c169 45%,#c07f2e 80%,#9a621c 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 3px rgba(0,0,0,.75)) drop-shadow(0 0 14px rgba(240,150,50,.35));white-space:nowrap}
+
+    /* ================= PASS 84 (owner 2026-11-20): (a) the Friends /
+       Profile plaques restored with !important (a calmer-redesign
+       rule had killed them); (b) the cracked-earth plate at COVER
+       size on the small cards (stat tiles + friend rows) so the
+       texture actually reads instead of crushing to black;
+       (c) settings: a gear button in the identity card opens a
+       settings window holding the sound + language cells (moved,
+       ids preserved) and a Support button. */
+    #page-friends .pf-titlebar.bst-plaque,#page-profile .pf-titlebar.bst-plaque{background-image:url('assets/plaque_prog.webp')!important;background-size:100% 100%!important;background-repeat:no-repeat!important;background-color:transparent!important;aspect-ratio:662/92!important;display:flex!important;align-items:center;justify-content:center;text-align:center!important;padding:0!important;margin:0 0 10px!important}
+    #page-friends .fr-tablet,#page-friends .fr-row,#page-profile .pf64-tile{background-size:cover!important}
+    #page-profile .pf64-id{position:relative}
+    .pf-gear{position:absolute;top:10px;inset-inline-end:10px;width:38px;height:38px;border-radius:50%;background:rgba(10,8,6,.55);border:1px solid rgba(240,168,61,.45);color:#f5a83d;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:3;padding:0}
+    .pf-gear svg{width:20px;height:20px}
+    #settings-modal .pf-settings{display:flex;gap:10px;margin:0 0 12px}
+    #settings-modal .pf-set-cell{flex:1}
+    #settings-modal #btn-support{width:100%;padding:13px;font-size:15px}
+
+    /* ================= PASS 85 (owner 2026-11-20): ONE background
+       layer only — the four pages still painted their own castle
+       copy + four shade layers over the body's scene, and the two
+       misaligned copies made the visible seams/steps at the edges.
+       Pages now paint NO background image at all; the body's single
+       scene runs under everything. Settings window: earth-plate
+       card (texture visible like the friend rows), the green frame
+       edges removed, orange rim instead; modal close is a word. */
+    #page-tasks,#page-boost,#page-friends,#page-profile,#page-mine{background-image:none!important}
+    #settings-modal .pf-modal-card{background-color:#17140f!important;background-image:url('assets/card_plate_earth.webp')!important;background-size:cover!important;border-image:none!important;border:1px solid rgba(240,138,36,.55);box-shadow:0 0 18px rgba(240,138,36,.22),0 18px 50px rgba(0,0,0,.7)}
+    .pf-modal-cancel span{font-size:14px;letter-spacing:1px}
+
+    /* ================= PASS 86 (owner 2026-11-20): the Boost
+       carousel goes full-bleed — the stage pulls out over the
+       shell's 12px side padding so the side cards are cut by the
+       SCREEN edges themselves, no scene strips beside them.
+       bstLayout reads the stage width live, so centring adapts. */
+    #page-boost .bst-stage{margin-left:-12px;margin-right:-12px}
+
+    /* ================= PASS 87 (owner 2026-11-20): withdraw card
+       text diet (owner: too many words) — the HOLD RE-CHECK block
+       is gone; its only unique bit, the pass/fail mark, now sits
+       at the end of the Minimum line. And the Boost side cards lose
+       their side padding so their pictures run to the card edges. */
+    .bst-card.is-side,.bst-card.is-far{padding-left:0;padding-right:0}
+
+    /* ================= PASS 88 (owner 2026-11-20): the carousel
+       becomes a continuous wall — no scene gaps between the cards:
+       step equals card width, the flow margin is gone, and side
+       cards no longer shrink back. The centre card rides above. */
+    .bst-card{margin-right:0}
+    .bst-card.is-side,.bst-card.is-far{transform:none}
+    .bst-card.is-center{z-index:2}
+
+    /* ================= PASS 89: PASS 87/88's carousel rules lost
+       to the #page-boost-scoped base rule (1,1,0) — re-declared at
+       matching scope so the wall actually closes and the centre
+       card re-centres (flow step == transform step == card width). */
+    #page-boost .bst-card{margin-right:0}
+    #page-boost .bst-card.is-side,#page-boost .bst-card.is-far{transform:none;padding-left:0;padding-right:0}
+    #page-boost .bst-card.is-center{z-index:2}
+
+    /* ================= PASS 90 (owner 2026-11-20): the carousel
+       arrows become edge tabs — flush with the page edges, square
+       on the edge side, no outer border. */
+    #page-boost .bst-arrow-l{left:0;border-left:none;border-radius:0 12px 12px 0}
+    #page-boost .bst-arrow-r{right:0;border-right:none;border-radius:12px 0 0 12px}
+
+    /* ================= PASS 91 (owner 2026-11-20): fast pager above
+       the carousel — jump 10 levels either way with a live
+       position counter (current / total). */
+    .bst-jump{display:flex;align-items:center;justify-content:center;gap:14px;margin:4px 0 0;direction:ltr}
+    .bst-jump-btn{display:flex;align-items:center;gap:3px;background:linear-gradient(180deg,#26221b,#100e0c);border:1.5px solid rgba(216,178,106,.6);color:#f0c169;border-radius:12px;padding:7px 15px;font-family:'ZMPirata',serif;font-size:16px;letter-spacing:1px;cursor:pointer;box-shadow:0 6px 14px rgba(0,0,0,.55),inset 0 1px 0 rgba(246,226,160,.25)}
+    .bst-jump-btn:disabled{opacity:.28;pointer-events:none}
+    .bst-jump-pos{font-family:'ZMPirata',serif;font-size:19px;color:#f5a83d;letter-spacing:2px}
+    .bst-jump-sep{color:#8a7a5c;margin:0 5px}
 </style>
 </head>
 <body oncontextmenu="return false;">
@@ -2479,7 +2570,7 @@
         <div class="dm-grid" id="daily-modal-grid"></div>
       </div>
       <div class="pf-modal-row">
-        <button class="pf-modal-cancel" id="btn-daily-close"><span style="font-size:16px">✕</span></button>
+        <button class="pf-modal-cancel" id="btn-daily-close"><span data-i18n="modal_close">Close</span></button>
       </div>
     </div>
   </div>
@@ -2742,6 +2833,11 @@
            old hero card ids live on in the hidden compat block at
            the bottom: applyUI still paints them on every state. -->
       <div class="bst-plaque"><span data-i18n="boost_prog_title">LEVEL PROGRESSION</span></div>
+      <div class="bst-jump">
+        <button class="bst-jump-btn" id="btn-lvl-back10" aria-label="Back 10 levels">«<span>10</span></button>
+        <div class="bst-jump-pos"><span id="bst-pos-cur">1</span><span class="bst-jump-sep">/</span><span id="bst-pos-total">100</span></div>
+        <button class="bst-jump-btn" id="btn-lvl-fwd10" aria-label="Forward 10 levels"><span>10</span>»</button>
+      </div>
       <div class="bst-stage" id="bst-stage">
         <div class="bst-track" id="bst-track"></div>
         <button class="bst-arrow bst-arrow-l" id="btn-lvl-prev" aria-label="Previous level"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4 L7 12 L15 20"/></svg></button>
@@ -2760,7 +2856,7 @@
            explainer, three slim iron stat tiles, pending
            profits, then the crew list. Calm black + orange.
            Every pre-existing element id is kept. -->
-      <div class="pf-titlebar" data-i18n="ref_banner_title">YOUR CREW</div>
+      <div class="pf-titlebar bst-plaque"><span data-i18n="ref_banner_title">YOUR CREW</span></div>
       <section class="fr-sec">
         <div class="fr-sec-lbl"><span data-i18n="ref_link_lbl">INVITE LINK</span></div>
         <div class="fr-link-row">
@@ -2791,12 +2887,13 @@
            reference picture — title bar, big square evolution portrait,
            level plaque, ribbon sections for wallet / verification /
            withdraw / history. Every pre-existing element id is kept. -->
-      <div class="pf-titlebar" data-i18n="prof_page_title">PROFILE</div>
+      <div class="pf-titlebar bst-plaque"><span data-i18n="prof_page_title">PROFILE</span></div>
 
       <!-- PASS 64: dossier identity header + balance tiles,
            painted by applyUI from the same values as the
            Mine top bar (pf64-* mirrors). -->
       <section class="pf64-id">
+        <button id="btn-settings" class="pf-gear" aria-label="Settings"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></button>
         <img id="pf64-ava" src="assets/avatar_1.webp" alt="">
         <div class="pf64-id-main">
           <div id="pf64-name">PLAYER</div>
@@ -2854,12 +2951,7 @@
         <div class="pf-lines">
           <div><span data-i18n="wd_fee_lbl">Fee (5%):</span> <strong class="pf-neg">-<span id="wd-fee-calc">250</span></strong></div>
           <div><span data-i18n="net_lbl">Net:</span> <strong class="pf-net" id="wd-net-calc">4,750</strong></div>
-          <div class="pf-line-sub"><span data-i18n="min_wd_lbl">Minimum:</span> <strong id="wd-min-ui">5,000</strong> · <span data-i18n="hold_cond_lbl">30% Hold Required:</span> <strong id="wd-req-hold-num">1,500</strong> (<span id="wd-your-hold-lbl" data-i18n="your_hold_lbl">Your Hold:</span> <strong id="wd-cur-hold-num">0</strong>)</div>
-        </div>
-        <div style="margin-top:10px;">
-          <div style="display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.05em;color:#aea07f;">🛡️ <span data-i18n="wd_recheck_title">HOLD RE-CHECK</span> <span style="background:#917f55;color:#131006;border-radius:6px;padding:1px 7px;font-size:10px;" data-i18n="wd_recheck_new">NEW</span></div>
-          <div id="wd-recheck-req" style="margin-top:4px;font-size:11.5px;color:#e8e2d0;"></div>
-          <div id="wd-recheck-days" style="margin-top:2px;font-size:11px;line-height:1.45;color:#cbbd93;"></div>
+          <div class="pf-line-sub"><span data-i18n="min_wd_lbl">Minimum:</span> <strong id="wd-min-ui">5,000</strong> · <span data-i18n="hold_cond_lbl">30% Hold Required:</span> <strong id="wd-req-hold-num">1,500</strong> (<span id="wd-your-hold-lbl" data-i18n="your_hold_lbl">Your Hold:</span> <strong id="wd-cur-hold-num">0</strong>) <strong id="wd-hold-status"></strong></div>
         </div>
         <button class="pf-wd-btn" id="btn-request-wd"><img src="assets/icon_chest.webp" alt=""><span id="wd-btn-arrow">↗</span> <span id="wd-btn-label" data-i18n="req_wd_btn">Request Withdrawal</span></button>
         <button class="btn-3d-bronze btn-stonfi-buy" id="btn-wd-buy" style="display:none;justify-content:center;">🪙 <span data-i18n="buy_stonfi_btn">Buy on STON.fi</span></button>
@@ -2874,6 +2966,10 @@
         <div id="wd-history-box">No withdrawals yet.</div>
       </section>
 
+  <div id="settings-modal" class="pf-modal" style="display:none">
+    <div class="pf-modal-card">
+      <div class="pf-modal-title"><span data-i18n="set_title">⚙️ Settings</span></div>
+      <div class="pf-modal-body">
       <div class="pf-settings">
         <div class="pf-set-cell" id="sound-toggle-btn">
           <svg id="svg-vol-on" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
@@ -2892,6 +2988,13 @@
           </div>
         </div>
       </div>
+        <button class="btn-3d-bronze" id="btn-support"><span data-i18n="set_support">💬 Support</span></button>
+      </div>
+      <div class="pf-modal-row">
+        <button class="pf-modal-cancel" id="btn-settings-close"><span data-i18n="modal_close">Close</span></button>
+      </div>
+    </div>
+  </div>
     </div>
 
     <!-- 6. OWNER ADMIN PANEL -->
@@ -3433,7 +3536,7 @@
         my_referrals_title:"👥 My Invited Friends", pending_ref_title:"Pending Referral Profits", collect_ref_btn:"COLLECT",
         ton_wallet_title:"TON Blockchain Wallet", connect_wallet_btn:"Connect TON Wallet",
         sync_hold_btn:"Verify Wallet Hold", disconnect_wallet_btn:"Disconnect", unlink_title:"Disconnect Wallet?", unlink_warn:"⚠️ Disconnecting will cancel your wallet verification. To verify again, you will have to pay the verification fee again.", unlink_confirm:"Disconnect", unlink_cancel:"Cancel",
-        prof_page_title:"PROFILE", prof_username_lbl:"USERNAME", prof_wallet_lbl:"WALLET", prof_amount_lbl:"AMOUNT", buy_stonfi_btn:"Buy on STON.fi", set_sound_lbl:"SOUND", set_lang_lbl:"LANGUAGE", lock_verify:"Verify Your Wallet First", lock_age:"Wallet Must Be {n}+ Days Old", renews_24h:"Renews every 24 hours", renews_48h:"Renews every 48 hours", hold_tasks_title:"💰 HOLD TASKS", hold_task_title:"Hold {n}", claim_btn:"Claim", hold_rule_banner:"A claim pays your HIGHEST tier only — judged on the coins you currently hold in your wallet. Claims renew every {r} days.", hold_included:"✓ Included", hold_aged_note:"Counts the coins currently in your wallet", wd_hold_total:"WALLET HOLD", wd_hold_aged:"ZM IN WALLET NOW", wd_recheck_title:"HOLD RE-CHECK", wd_recheck_new:"NEW", wd_recheck_days:"Hold counts the coins currently in your wallet", wd_recheck_txt:"The {p}% hold requirement ({n}) is checked when you place your withdrawal request, against the coins you currently hold in your wallet.", wd_holdcheck_paused:"Hold check: paused — top up your wallet hold", task_available_in:"Available in {t}", ref_tasks_title:"Referral Tasks", ref_tasks_open:"Open", ref_tasks_sum:"{a} active · Next reward at {n}: +{r}", ref_tasks_done:"All milestones claimed 🎉", ref_banner_title:"YOUR CREW", boost_banner_title:"LEVELS BOOST", boost_prog_title:"LEVEL PROGRESSION", lvl_current:"CURRENT", lvl_completed:"COMPLETED", lvl_locked_fmt:"Hold {n} {s} to unlock", daily_profit_lbl:"DAILY PROFIT", pf64_step1:"Step 1 — Connect your wallet", pf64_step2:"Step 2 — Verify it’s yours", pf64_hold_lbl:"WALLET HOLD", pf64_bal_lbl:"BALANCE", pf64_rate_lbl:"DAY RATE", quests_title:"QUESTS", tap_open_hint:"Tap the card to open", ref_head_earn:"Friends who activate earn you {c}% of everything they mine — it lands here on its own.", ref_head_sub:"A friend activates at Level 2", ref_link_lbl:"INVITE LINK", ref_how_title:"HOW IT WORKS", ref_rule_100:"+100 coins for every ACTIVE referral", ref_rule_cond:"A friend activates at Level 2, holding {h}+ $ZM in their wallet.", ref_rule_5:"You earn {c}% of everything your active referrals earn — automatically", ref_friends_title:"YOUR FRIENDS", ref_verified_pill:"VERIFIED", ref_pending_pill:"PENDING", ref_dup_pill:"DUPLICATE",
+        prof_page_title:"PROFILE", prof_username_lbl:"USERNAME", prof_wallet_lbl:"WALLET", prof_amount_lbl:"AMOUNT", buy_stonfi_btn:"Buy on STON.fi", set_sound_lbl:"SOUND", set_lang_lbl:"LANGUAGE", set_title:"⚙️ Settings", modal_close:"Close", set_support:"💬 Support", lock_verify:"Verify Your Wallet First", lock_age:"Wallet Must Be {n}+ Days Old", renews_24h:"Renews every 24 hours", renews_48h:"Renews every 48 hours", hold_tasks_title:"💰 HOLD TASKS", hold_task_title:"Hold {n}", claim_btn:"Claim", hold_rule_banner:"A claim pays your HIGHEST tier only — judged on the coins you currently hold in your wallet. Claims renew every {r} days.", hold_included:"✓ Included", hold_aged_note:"Counts the coins currently in your wallet", wd_hold_total:"WALLET HOLD", wd_hold_aged:"ZM IN WALLET NOW", wd_recheck_title:"HOLD RE-CHECK", wd_recheck_new:"NEW", wd_recheck_days:"Hold counts the coins currently in your wallet", wd_recheck_txt:"The {p}% hold requirement ({n}) is checked when you place your withdrawal request, against the coins you currently hold in your wallet.", wd_holdcheck_paused:"Hold check: paused — top up your wallet hold", task_available_in:"Available in {t}", ref_tasks_title:"Referral Tasks", ref_tasks_open:"Open", ref_tasks_sum:"{a} active · Next reward at {n}: +{r}", ref_tasks_done:"All milestones claimed 🎉", ref_banner_title:"YOUR CREW", boost_banner_title:"LEVELS BOOST", boost_prog_title:"LEVEL PROGRESSION", lvl_current:"CURRENT", lvl_completed:"COMPLETED", lvl_locked_fmt:"Hold {n} {s} to unlock", daily_profit_lbl:"DAILY PROFIT", pf64_step1:"Step 1 — Connect your wallet", pf64_step2:"Step 2 — Verify it’s yours", pf64_hold_lbl:"WALLET HOLD", pf64_bal_lbl:"BALANCE", pf64_rate_lbl:"DAY RATE", quests_title:"QUESTS", tap_open_hint:"Tap the card to open", ref_head_earn:"Friends who activate earn you {c}% of everything they mine — it lands here on its own.", ref_head_sub:"A friend activates at Level 2", ref_link_lbl:"INVITE LINK", ref_how_title:"HOW IT WORKS", ref_rule_100:"+100 coins for every ACTIVE referral", ref_rule_cond:"A friend activates at Level 2, holding {h}+ $ZM in their wallet.", ref_rule_5:"You earn {c}% of everything your active referrals earn — automatically", ref_friends_title:"YOUR FRIENDS", ref_verified_pill:"VERIFIED", ref_pending_pill:"PENDING", ref_dup_pill:"DUPLICATE",
         hold_wallet_lbl:"Wallet Hold", mine_wallet_lbl:"In-App Balance",
         withdraw_title:"Withdraw", min_wd_lbl:"Minimum:", wd_fee_lbl:"Fee (5%):", net_lbl:"Net:",
         hold_cond_lbl:"{p}% Hold Required:", your_hold_lbl:"Your Hold:", req_wd_btn:"Request Withdrawal",
@@ -3483,7 +3586,7 @@
         my_referrals_title:"👥 أصدقائي المدعوون", pending_ref_title:"أرباح الإحالات المعلقة", collect_ref_btn:"جمع أرباح الإحالات",
         ton_wallet_title:"محفظة شبكة TON", connect_wallet_btn:"ربط محفظة TON الآن",
         sync_hold_btn:"تحديث رصيد المحفظة", disconnect_wallet_btn:"إلغاء الربط", unlink_title:"فك ربط المحفظة؟", unlink_warn:"⚠️ فك ربط المحفظة سيلغي توثيق محفظتك، وستضطر لدفع رسوم التوثيق مرة أخرى لإعادة التوثيق.", unlink_confirm:"فك الربط", unlink_cancel:"إلغاء",
-        prof_page_title:"الملف الشخصي", prof_username_lbl:"اسم المستخدم", prof_wallet_lbl:"المحفظة", prof_amount_lbl:"المبلغ", buy_stonfi_btn:"اشترِ من STON.fi", set_sound_lbl:"الصوت", set_lang_lbl:"اللغة", lock_verify:"قم بتوثيق محفظتك أولاً", lock_age:"عمر المحفظة لازم يكون {n} يوم أو أكتر", renews_24h:"تتجدد كل 24 ساعة", renews_48h:"تتجدد كل 48 ساعة", hold_tasks_title:"💰 مهام الاحتفاظ", hold_task_title:"احتفظ بـ {n}", claim_btn:"استلام", hold_rule_banner:"الاستلام بيدفع أعلى مستوى انت مؤهل له بس — بيتحسب على العملات الموجودة في محفظتك دلوقتي. الاستلام بيتجدد كل {r} أيام.", hold_included:"✓ مشمول في الأعلى", hold_aged_note:"بيتحسب على العملات الموجودة في محفظتك دلوقتي", wd_hold_total:"الهولد في المحفظة", wd_hold_aged:"ZM الموجودة في محفظتك دلوقتي", wd_recheck_title:"إعادة فحص الاحتفاظ", wd_recheck_new:"جديد", wd_recheck_days:"الهولد بيتحسب على العملات الموجودة في محفظتك دلوقتي", wd_recheck_txt:"شرط الهولد {p}% ({n}) بيتحقق وقت ما تقدّم طلب السحب، وبيتحسب على العملات الموجودة في محفظتك دلوقتي.", wd_holdcheck_paused:"فحص الاحتفاظ: متوقف — زوّد احتفاظ محفظتك", task_available_in:"متاحة بعد {t}", ref_tasks_title:"مهام الإحالات", ref_tasks_open:"افتح", ref_tasks_sum:"{a} نشط · المكافأة الجاية عند {n}: +{r}", ref_tasks_done:"كل المراحل اتستلمت 🎉", ref_banner_title:"طاقمك", boost_banner_title:"تعزيز المستوى", boost_prog_title:"تقدم المستويات", lvl_current:"الحالي", lvl_completed:"مكتمل", lvl_locked_fmt:"احتفظ بـ {n} {s} لفتح المستوى", daily_profit_lbl:"الربح اليومي", pf64_step1:"الخطوة 1 — اربط محفظتك", pf64_step2:"الخطوة 2 — أكّد إنها محفظتك", pf64_hold_lbl:"الاحتفاظ بالمحفظة", pf64_bal_lbl:"الرصيد", pf64_rate_lbl:"المعدل اليومي", quests_title:"المهام", tap_open_hint:"اضغط على الكارت للفتح", ref_head_earn:"أصحابك اللي بيتنشّطوا بيكسبوك {c}% من كل اللي بيعدّنوه — وبيوصلك هنا لوحده.", ref_head_sub:"الصديق بيتنشط عند المستوى 2", ref_link_lbl:"رابط الدعوة", ref_how_title:"إزاي بيشتغل", ref_rule_100:"+100 عملة عن كل إحالة نشطة", ref_rule_cond:"الصديق بيتنشّط عند المستوى 2، وهو محتفظ بـ {h}+ $ZM في محفظته.", ref_rule_5:"بتكسب {c}% من كل أرباح إحالاتك النشطة — تلقائيًا", ref_friends_title:"أصدقاؤك", ref_verified_pill:"موثّق", ref_pending_pill:"قيد الانتظار", ref_dup_pill:"مكرر",
+        prof_page_title:"الملف الشخصي", prof_username_lbl:"اسم المستخدم", prof_wallet_lbl:"المحفظة", prof_amount_lbl:"المبلغ", buy_stonfi_btn:"اشترِ من STON.fi", set_sound_lbl:"الصوت", set_lang_lbl:"اللغة", set_title:"⚙️ الإعدادات", modal_close:"إغلاق", set_support:"💬 الدعم", lock_verify:"قم بتوثيق محفظتك أولاً", lock_age:"عمر المحفظة لازم يكون {n} يوم أو أكتر", renews_24h:"تتجدد كل 24 ساعة", renews_48h:"تتجدد كل 48 ساعة", hold_tasks_title:"💰 مهام الاحتفاظ", hold_task_title:"احتفظ بـ {n}", claim_btn:"استلام", hold_rule_banner:"الاستلام بيدفع أعلى مستوى انت مؤهل له بس — بيتحسب على العملات الموجودة في محفظتك دلوقتي. الاستلام بيتجدد كل {r} أيام.", hold_included:"✓ مشمول في الأعلى", hold_aged_note:"بيتحسب على العملات الموجودة في محفظتك دلوقتي", wd_hold_total:"الهولد في المحفظة", wd_hold_aged:"ZM الموجودة في محفظتك دلوقتي", wd_recheck_title:"إعادة فحص الاحتفاظ", wd_recheck_new:"جديد", wd_recheck_days:"الهولد بيتحسب على العملات الموجودة في محفظتك دلوقتي", wd_recheck_txt:"شرط الهولد {p}% ({n}) بيتحقق وقت ما تقدّم طلب السحب، وبيتحسب على العملات الموجودة في محفظتك دلوقتي.", wd_holdcheck_paused:"فحص الاحتفاظ: متوقف — زوّد احتفاظ محفظتك", task_available_in:"متاحة بعد {t}", ref_tasks_title:"مهام الإحالات", ref_tasks_open:"افتح", ref_tasks_sum:"{a} نشط · المكافأة الجاية عند {n}: +{r}", ref_tasks_done:"كل المراحل اتستلمت 🎉", ref_banner_title:"طاقمك", boost_banner_title:"تعزيز المستوى", boost_prog_title:"تقدم المستويات", lvl_current:"الحالي", lvl_completed:"مكتمل", lvl_locked_fmt:"احتفظ بـ {n} {s} لفتح المستوى", daily_profit_lbl:"الربح اليومي", pf64_step1:"الخطوة 1 — اربط محفظتك", pf64_step2:"الخطوة 2 — أكّد إنها محفظتك", pf64_hold_lbl:"الاحتفاظ بالمحفظة", pf64_bal_lbl:"الرصيد", pf64_rate_lbl:"المعدل اليومي", quests_title:"المهام", tap_open_hint:"اضغط على الكارت للفتح", ref_head_earn:"أصحابك اللي بيتنشّطوا بيكسبوك {c}% من كل اللي بيعدّنوه — وبيوصلك هنا لوحده.", ref_head_sub:"الصديق بيتنشط عند المستوى 2", ref_link_lbl:"رابط الدعوة", ref_how_title:"إزاي بيشتغل", ref_rule_100:"+100 عملة عن كل إحالة نشطة", ref_rule_cond:"الصديق بيتنشّط عند المستوى 2، وهو محتفظ بـ {h}+ $ZM في محفظته.", ref_rule_5:"بتكسب {c}% من كل أرباح إحالاتك النشطة — تلقائيًا", ref_friends_title:"أصدقاؤك", ref_verified_pill:"موثّق", ref_pending_pill:"قيد الانتظار", ref_dup_pill:"مكرر",
         hold_wallet_lbl:"عملات المحفظة (Hold)", mine_wallet_lbl:"رصيد داخل التطبيق",
         withdraw_title:"سحب", min_wd_lbl:"الحد الأدنى:", wd_fee_lbl:"رسوم (5%):", net_lbl:"الصافي:",
         hold_cond_lbl:"شرط {p}% بالمحفظة:", your_hold_lbl:"الهولد بتاعك:", req_wd_btn:"طلب سحب الرصيد",
@@ -3533,7 +3636,7 @@
         my_referrals_title:"👥 Мои рефералы", pending_ref_title:"Ожидаемый доход", collect_ref_btn:"Собрать доход",
         ton_wallet_title:"Кошелек TON", connect_wallet_btn:"Подключить TON Кошелек",
         sync_hold_btn:"Обновить Холд", disconnect_wallet_btn:"Отключить", unlink_title:"Отключить кошелёк?", unlink_warn:"⚠️ Отключение отменит верификацию кошелька. Для повторной верификации придётся снова оплатить комиссию.", unlink_confirm:"Отключить", unlink_cancel:"Отмена",
-        prof_page_title:"ПРОФИЛЬ", prof_username_lbl:"ИМЯ ПОЛЬЗОВАТЕЛЯ", prof_wallet_lbl:"КОШЕЛЁК", prof_amount_lbl:"СУММА", buy_stonfi_btn:"Купить на STON.fi", set_sound_lbl:"ЗВУК", set_lang_lbl:"ЯЗЫК", lock_verify:"Сначала подтвердите кошелёк", lock_age:"Возраст кошелька должен быть от {n} дн.", renews_24h:"Обновляется каждые 24 часа", renews_48h:"Обновляется каждые 48 часов", hold_tasks_title:"💰 ЗАДАНИЯ НА УДЕРЖАНИЕ", hold_task_title:"Удерживайте {n}", claim_btn:"Забрать", hold_rule_banner:"Выплата — только за ваш ВЫСШИЙ уровень, по монетам, которые сейчас лежат в вашем кошельке. Повторная выплата — каждые {r} дн.", hold_included:"✓ Включено", hold_aged_note:"Считаются монеты, которые сейчас лежат в вашем кошельке", wd_hold_total:"УДЕРЖАНИЕ В КОШЕЛЬКЕ", wd_hold_aged:"ZM сейчас в кошельке", wd_recheck_title:"ПОВТОРНАЯ ПРОВЕРКА УДЕРЖАНИЯ", wd_recheck_new:"НОВОЕ", wd_recheck_days:"Холд считается по монетам, которые сейчас лежат в вашем кошельке", wd_recheck_txt:"Требование холда {p}% ({n}) проверяется в момент запроса вывода — по монетам, которые сейчас находятся в вашем кошельке.", wd_holdcheck_paused:"Проверка удержания: пауза — пополните удержание кошелька", task_available_in:"Доступно через {t}", ref_tasks_title:"Задания за рефералов", ref_tasks_open:"Открыть", ref_tasks_sum:"{a} активных · Следующая награда при {n}: +{r}", ref_tasks_done:"Все этапы получены 🎉", ref_banner_title:"ВАША КОМАНДА", boost_banner_title:"УСИЛЕНИЕ УРОВНЕЙ", boost_prog_title:"ПРОГРЕСС УРОВНЕЙ", lvl_current:"ТЕКУЩИЙ", lvl_completed:"ПРОЙДЕНО", lvl_locked_fmt:"Держите {n} {s}, чтобы открыть уровень", daily_profit_lbl:"ПРИБЫЛЬ В ДЕНЬ", pf64_step1:"Шаг 1 — Подключите кошелёк", pf64_step2:"Шаг 2 — Подтвердите, что он ваш", pf64_hold_lbl:"ХОЛД КОШЕЛЬКА", pf64_bal_lbl:"БАЛАНС", pf64_rate_lbl:"СТАВКА В ДЕНЬ", quests_title:"ЗАДАНИЯ", tap_open_hint:"Нажмите на карточку, чтобы открыть", ref_head_earn:"Активные друзья приносят вам {c}% всего, что добывают, — всё собирается здесь само.", ref_head_sub:"Друг активируется на уровне 2", ref_link_lbl:"ССЫЛКА-ПРИГЛАШЕНИЕ", ref_how_title:"КАК ЭТО РАБОТАЕТ", ref_rule_100:"+100 монет за каждого АКТИВНОГО реферала", ref_rule_cond:"Друг активируется на уровне 2, когда держит {h}+ $ZM в кошельке.", ref_rule_5:"Вы получаете {c}% от всего заработка активных рефералов — автоматически", ref_friends_title:"ВАШИ ДРУЗЬЯ", ref_verified_pill:"ПОДТВЕРЖДЁН", ref_pending_pill:"ОЖИДАЕТ", ref_dup_pill:"ДУБЛИКАТ",
+        prof_page_title:"ПРОФИЛЬ", prof_username_lbl:"ИМЯ ПОЛЬЗОВАТЕЛЯ", prof_wallet_lbl:"КОШЕЛЁК", prof_amount_lbl:"СУММА", buy_stonfi_btn:"Купить на STON.fi", set_sound_lbl:"ЗВУК", set_lang_lbl:"ЯЗЫК", set_title:"⚙️ Настройки", modal_close:"Закрыть", set_support:"💬 Поддержка", lock_verify:"Сначала подтвердите кошелёк", lock_age:"Возраст кошелька должен быть от {n} дн.", renews_24h:"Обновляется каждые 24 часа", renews_48h:"Обновляется каждые 48 часов", hold_tasks_title:"💰 ЗАДАНИЯ НА УДЕРЖАНИЕ", hold_task_title:"Удерживайте {n}", claim_btn:"Забрать", hold_rule_banner:"Выплата — только за ваш ВЫСШИЙ уровень, по монетам, которые сейчас лежат в вашем кошельке. Повторная выплата — каждые {r} дн.", hold_included:"✓ Включено", hold_aged_note:"Считаются монеты, которые сейчас лежат в вашем кошельке", wd_hold_total:"УДЕРЖАНИЕ В КОШЕЛЬКЕ", wd_hold_aged:"ZM сейчас в кошельке", wd_recheck_title:"ПОВТОРНАЯ ПРОВЕРКА УДЕРЖАНИЯ", wd_recheck_new:"НОВОЕ", wd_recheck_days:"Холд считается по монетам, которые сейчас лежат в вашем кошельке", wd_recheck_txt:"Требование холда {p}% ({n}) проверяется в момент запроса вывода — по монетам, которые сейчас находятся в вашем кошельке.", wd_holdcheck_paused:"Проверка удержания: пауза — пополните удержание кошелька", task_available_in:"Доступно через {t}", ref_tasks_title:"Задания за рефералов", ref_tasks_open:"Открыть", ref_tasks_sum:"{a} активных · Следующая награда при {n}: +{r}", ref_tasks_done:"Все этапы получены 🎉", ref_banner_title:"ВАША КОМАНДА", boost_banner_title:"УСИЛЕНИЕ УРОВНЕЙ", boost_prog_title:"ПРОГРЕСС УРОВНЕЙ", lvl_current:"ТЕКУЩИЙ", lvl_completed:"ПРОЙДЕНО", lvl_locked_fmt:"Держите {n} {s}, чтобы открыть уровень", daily_profit_lbl:"ПРИБЫЛЬ В ДЕНЬ", pf64_step1:"Шаг 1 — Подключите кошелёк", pf64_step2:"Шаг 2 — Подтвердите, что он ваш", pf64_hold_lbl:"ХОЛД КОШЕЛЬКА", pf64_bal_lbl:"БАЛАНС", pf64_rate_lbl:"СТАВКА В ДЕНЬ", quests_title:"ЗАДАНИЯ", tap_open_hint:"Нажмите на карточку, чтобы открыть", ref_head_earn:"Активные друзья приносят вам {c}% всего, что добывают, — всё собирается здесь само.", ref_head_sub:"Друг активируется на уровне 2", ref_link_lbl:"ССЫЛКА-ПРИГЛАШЕНИЕ", ref_how_title:"КАК ЭТО РАБОТАЕТ", ref_rule_100:"+100 монет за каждого АКТИВНОГО реферала", ref_rule_cond:"Друг активируется на уровне 2, когда держит {h}+ $ZM в кошельке.", ref_rule_5:"Вы получаете {c}% от всего заработка активных рефералов — автоматически", ref_friends_title:"ВАШИ ДРУЗЬЯ", ref_verified_pill:"ПОДТВЕРЖДЁН", ref_pending_pill:"ОЖИДАЕТ", ref_dup_pill:"ДУБЛИКАТ",
         hold_wallet_lbl:"В кошельке", mine_wallet_lbl:"Баланс в приложении",
         withdraw_title:"Вывод", min_wd_lbl:"Минимум:", wd_fee_lbl:"Комиссия (5%):", net_lbl:"Чистыми:",
         hold_cond_lbl:"Нужно {p}% Холда:", your_hold_lbl:"Ваш холд:", req_wd_btn:"Запросить вывод",
@@ -5265,8 +5368,8 @@
       if (agedLbl && dict.wd_hold_aged) agedLbl.textContent = dict.wd_hold_aged;
       const rcAged = document.getElementById('wd-recheck-aged');
       if (rcAged) { rcAged.textContent = Math.floor(walletHold).toLocaleString(); rcAged.style.color = walletHold >= reqHold ? '#e3d5a5' : '#f87171'; }
-      const rcReq = document.getElementById('wd-recheck-req');
-      if (rcReq) rcReq.textContent = `${(dict.hold_cond_lbl || '{p}% Hold Required:').replace('{p}', holdPct)} ${reqHold.toLocaleString()} ${walletHold >= reqHold ? '✓' : '✗'}`;
+      const rcReq = document.getElementById('wd-hold-status');
+      if (rcReq) { const _ok = walletHold >= reqHold; rcReq.textContent = _ok ? '✓' : '✗'; rcReq.style.color = _ok ? '#7dd069' : '#e5534b'; }
       let lockReason = '';
       let lockKind = '';
       const cdRemain = (lastWithdrawTime + 86400000) - Date.now();
@@ -5423,7 +5526,7 @@
       const track = document.getElementById('bst-track');
       if (!stage || !track || bstIdx < 0) return;
       const W = stage.clientWidth; if (!W) return;
-      const cardW = W * 0.50, step = W * 0.525;
+      const cardW = W * 0.50, step = W * 0.50;
       const dx = bstDrag ? bstDrag.dx : 0;
       const x = (W - cardW) / 2 - bstIdx * step + dx;
       track.style.transition = anim ? '' : 'none';
@@ -5436,6 +5539,10 @@
       });
       const pv = document.getElementById('btn-lvl-prev'); if (pv) pv.disabled = bstIdx <= 0;
       const nx = document.getElementById('btn-lvl-next'); if (nx) nx.disabled = bstIdx >= LEVELS_DATA.length - 1;
+      const _pc = document.getElementById('bst-pos-cur'); if (_pc) _pc.textContent = bstIdx + 1;
+      const _pt = document.getElementById('bst-pos-total'); if (_pt) _pt.textContent = LEVELS_DATA.length;
+      const _b10 = document.getElementById('btn-lvl-back10'); if (_b10) _b10.disabled = bstIdx <= 0;
+      const _f10 = document.getElementById('btn-lvl-fwd10'); if (_f10) _f10.disabled = bstIdx >= LEVELS_DATA.length - 1;
       bstPaintStatus();
     }
     function bstGo(n) {
@@ -5533,6 +5640,10 @@
     const _bwa = document.getElementById('btn-watch-ad'); if (_bwa) _bwa.addEventListener('click', watchRewardAd);
     const _bdi = document.getElementById('btn-daily-info'); if (_bdi) _bdi.addEventListener('click', () => { renderDailyLogin(); const m = document.getElementById('daily-modal'); if (m) m.style.display = 'flex'; });
     const _bdc = document.getElementById('btn-daily-close'); if (_bdc) _bdc.addEventListener('click', () => { const m = document.getElementById('daily-modal'); if (m) m.style.display = 'none'; });
+    const _bs = document.getElementById('btn-settings'); if (_bs) _bs.addEventListener('click', () => { SoundFX.click(); const m = document.getElementById('settings-modal'); if (m) m.style.display = 'flex'; });
+    const _bsc = document.getElementById('btn-settings-close'); if (_bsc) _bsc.addEventListener('click', () => { const m = document.getElementById('settings-modal'); if (m) m.style.display = 'none'; });
+    const _smd = document.getElementById('settings-modal'); if (_smd) _smd.addEventListener('click', e => { if (e.target === _smd) _smd.style.display = 'none'; });
+    const _sup = document.getElementById('btn-support'); if (_sup) _sup.addEventListener('click', () => { const u = 'https://t.me/telegram'; try { if (window.Telegram && Telegram.WebApp && Telegram.WebApp.openTelegramLink) { Telegram.WebApp.openTelegramLink(u); return; } } catch (e) {} window.open(u, '_blank'); });
     const _dm = document.getElementById('daily-modal'); if (_dm) _dm.addEventListener('click', (e) => { if (e.target === _dm) _dm.style.display = 'none'; });
 
     document.querySelectorAll('.btn-stonfi-buy').forEach(b => b.addEventListener('click', openStonfiSwap));
@@ -5633,6 +5744,8 @@
     // side card to centre it, locked-plaque tap opens the swap.
     document.getElementById('btn-lvl-prev').addEventListener('click', () => { SoundFX.click(); bstGo(bstIdx - 1); });
     document.getElementById('btn-lvl-next').addEventListener('click', () => { SoundFX.click(); bstGo(bstIdx + 1); });
+    document.getElementById('btn-lvl-back10').addEventListener('click', () => { SoundFX.click(); bstGo(bstIdx - 10); });
+    document.getElementById('btn-lvl-fwd10').addEventListener('click', () => { SoundFX.click(); bstGo(bstIdx + 10); });
     document.getElementById('bst-status').addEventListener('click', e => { if (e.target.closest('.bst-status-plaque.lock')) openStonfiSwap(e); });
     document.querySelectorAll('.nav-item').forEach(n => n.addEventListener('click', () => { if (n.getAttribute('data-tab') === 'boost') setTimeout(() => bstLayout(false), 60); }));
     window.addEventListener('resize', () => bstLayout(false));
