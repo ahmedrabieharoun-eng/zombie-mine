@@ -3556,7 +3556,10 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     #toast-ic img{width:32px;height:32px}
     #toast-ic .toast-x{width:28px;height:28px;border-radius:50%;border:2px solid #ff5a5c;color:#ff5a5c;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;line-height:1}
 
-</style>
+
+    #page-mine .mn-rate-timer{display:inline-flex;align-items:center;gap:5px;font-variant-numeric:tabular-nums}
+    #page-mine .mn-rate-timer .mn-shift-clock{width:13px;height:13px;flex:none}
+  </style>
 </head>
 <body data-tab="mine" oncontextmenu="return false;">
 
@@ -3654,7 +3657,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
         <div class="mn-rate-cell">
           <div class="mn-rate-lbl" data-i18n="rate_lbl">MINING RATE</div>
           <div class="mn-rate-val"><span id="mine-rate-val">0</span><span class="mn-rate-suffix" data-i18n="rate_day_suffix">/day</span></div>
-          <div class="mn-rate-status" id="rate-status-wrap"><span class="mn-rate-dot"></span><span id="rate-status-txt">Mining</span></div>
+          <div class="mn-rate-status" id="rate-status-wrap"><span class="mn-rate-dot"></span><span class="mn-rate-timer"><span id="shift-timer">24:00:00</span></span></div>
         </div>
         <div class="mn-rate-cell rk">
           <div class="mn-rate-lbl" data-i18n="rank_lbl">CURRENT RANK</div>
@@ -3702,7 +3705,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       </div>
 
       <div class="mn-shift-zone">
-        <div class="mn-shift-meta"><svg class="mn-shift-clock" viewBox="0 0 24 24" fill="none" stroke="#a87c33" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span id="shift-pct">0%</span><span class="mn-shift-dash">-</span><span id="shift-timer">24:00:00</span></div>
+        
         <div class="mn-shift-track"><div id="mine-prog-bar"></div></div>
       </div>
 
