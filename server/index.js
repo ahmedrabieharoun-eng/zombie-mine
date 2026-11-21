@@ -4010,7 +4010,7 @@ async function attemptPayout(wdNum) {
    state (the bot is not yet an admin in that channel; the post will
    simply start landing once the owner promotes it). */
 const PAYOUT_DM_BANNER = 'https://ahmedrabieharoun-eng.github.io/zombie-mine/payout-banner2.webp?v=2';       // warrior with the glowing coin
-const PAYOUT_CHANNEL_BANNER = 'https://ahmedrabieharoun-eng.github.io/zombie-mine/payout-banner.webp?v=2';   // treasure chest
+const PAYOUT_CHANNEL_BANNER = 'https://ahmedrabieharoun-eng.github.io/zombie-mine/payout-banner.webp?v=3';   // treasure chest
 /* The on-chain link for a paid withdrawal, in precedence order:
    the chain-resolved payoutTx hash (auto path) → payoutTxLink (the
    payout wallet's tonviewer page, stored when hash resolution
