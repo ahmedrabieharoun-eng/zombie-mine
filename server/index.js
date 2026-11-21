@@ -98,7 +98,7 @@ const MAX_AUTH_AGE_SEC = 24 * 60 * 60;
 const MIN_COLLECT_SEC = 10;
 const DAILY = [20, 40, 60, 100, 140, 200, 400, 440, 480, 520, 560, 600, 700, 800, 840, 880, 920, 960, 1000, 1100, 1200, 1240, 1280, 1320, 1360, 1400, 1500, 1600, 1640, 1680, 1720, 1760, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 3000];
 const DEFAULTS = {
-  brandTitle: '$ZOMBIE MINE', coinSym: '$ZM', taskReward: 100,
+  brandTitle: '$ZOMBIE MINI', coinSym: '$ZM', taskReward: 100,
   bioReward: 100, refAchReward1: 250, refAchReward10: 500, refAchReward25: 1250, refAchReward50: 2500, refAchReward100: 5000,
   refClaimPercent: 5, refMinHold: 400, minWithdraw: 10000, holdPercentReq: 25, withdrawFeePercent: 5,
   lvl1PerDay: 500, payoutWallet: '', payoutChannel: '@ZOMBI_PAYMENTS', adminChatId: '',
@@ -2277,7 +2277,7 @@ const BIO_TEXTS = {
     // AdVOLT-mirrored copy (owner order 2026-11-14): NO name line —
     // header / intro / 3 bullets / closing, one sentence per line.
     // (The name argument is kept for signature parity with ar/ru.)
-    welcome: (name) => `🧟 Welcome to ZOMBIE MINE! 🧟\n\nThe dead don't sleep — and the gold buried under their graves is waiting for YOU:\n🪦 Dig up ZM every day and rise from level 1 to 100.\n🦴 Smash the tasks, crack open the loot, fill your crypt!\n🧟‍♂️ Raise your horde — invite friends, earn 5% of their mining!\n\nTap the button below… and START DIGGING! ⚰️🦇`,
+    welcome: (name) => `🧟 Welcome to ZOMBIE MINI! 🧟\n\nThe dead don't sleep — and the gold buried under their graves is waiting for YOU:\n🪦 Dig up ZM every day and rise from level 1 to 100.\n🦴 Smash the tasks, crack open the loot, fill your crypt!\n🧟‍♂️ Raise your horde — invite friends, earn 5% of their mining!\n\nTap the button below… and START DIGGING! ⚰️🦇`,
     warrior: 'Zombie',
     openApp: '🧟 Open ZM',
     payoutsChannel: '💀 Payouts',
@@ -2290,10 +2290,10 @@ const BIO_TEXTS = {
     // once, by whichever path completes the verification (the in-app
     // Check button or the background deposit watcher) — the verified
     // badge announcement with the wallet facts.
-    verifiedMsg: (o) => `⚰️✅ <b>WALLET VERIFIED!</b> ✅⚰️\n\n🧟 Congratulations, <b>${o.name}</b> — you have RISEN, and your wallet is now <b>VERIFIED</b>! The blue badge glows next to your name everywhere in ZOMBIE MINE! 💀\n\n👛 <b>Wallet:</b> <code>${o.walletShort}</code>\n🗓️ <b>Wallet age:</b> ${o.ageDays} days\n🔢 <b>Your mark:</b> ZOM-${o.userNo}\n📅 <b>Verified on:</b> ${o.date}\n\n🪦 Now DIG, zombie — the whole mine is yours! 🧟‍♂️⚰️`
+    verifiedMsg: (o) => `⚰️✅ <b>WALLET VERIFIED!</b> ✅⚰️\n\n🧟 Congratulations, <b>${o.name}</b> — you have RISEN, and your wallet is now <b>VERIFIED</b>! The blue badge glows next to your name everywhere in ZOMBIE MINI! 💀\n\n👛 <b>Wallet:</b> <code>${o.walletShort}</code>\n🗓️ <b>Wallet age:</b> ${o.ageDays} days\n🔢 <b>Your mark:</b> ZOM-${o.userNo}\n📅 <b>Verified on:</b> ${o.date}\n\n🪦 Now DIG, zombie — the whole mine is yours! 🧟‍♂️⚰️`
   },
   ar: {
-    welcome: (name) => `🧟🔥 قف أيها الزومبي! 🔥🧟\n\nأهلًا بك يا ${name} في ZOMBIE MINE — هنا الموتى لا ينامون… والذهب المدفون تحت قبورهم لا ينتظر إلا من يجرؤ على الحفر! ⚰️\n\n🪦 في مقبرة الكنوز تبدأ حكايتك: احفر وعدّن ZM كل ٢٤ ساعة، واصعد من زومبي مبتدئ (المستوى 1) إلى ملك الموتى (المستوى 100)! 💀 كل مستوى يضاعف قوة تعدينك — وقبرك يفيض بالغنائم 💰\n\nطريقك إلى الكنز:\n• 🪦 احفر كل يوم واخطف حصتك قبل غيرك\n• 🪙 اسحق المهام واجمع غنائمها\n• 🧟‍♂️ كوّن قطيعك: ادعُ أصدقاءك واكسب ٥٪ من تعدينهم، للأبد!\n\n💎 اسحب أرباحك إلى محفظة TON — كنز حقيقي في يدك.\n\n🩸 الأحياء يتراجعون. أيها الزومبي… اضغط الزر واحفر! 👇`,
+    welcome: (name) => `🧟🔥 قف أيها الزومبي! 🔥🧟\n\nأهلًا بك يا ${name} في ZOMBIE MINI — هنا الموتى لا ينامون… والذهب المدفون تحت قبورهم لا ينتظر إلا من يجرؤ على الحفر! ⚰️\n\n🪦 في مقبرة الكنوز تبدأ حكايتك: احفر وعدّن ZM كل ٢٤ ساعة، واصعد من زومبي مبتدئ (المستوى 1) إلى ملك الموتى (المستوى 100)! 💀 كل مستوى يضاعف قوة تعدينك — وقبرك يفيض بالغنائم 💰\n\nطريقك إلى الكنز:\n• 🪦 احفر كل يوم واخطف حصتك قبل غيرك\n• 🪙 اسحق المهام واجمع غنائمها\n• 🧟‍♂️ كوّن قطيعك: ادعُ أصدقاءك واكسب ٥٪ من تعدينهم، للأبد!\n\n💎 اسحب أرباحك إلى محفظة TON — كنز حقيقي في يدك.\n\n🩸 الأحياء يتراجعون. أيها الزومبي… اضغط الزر واحفر! 👇`,
     warrior: 'زومبي',
     openApp: '🧟 افتح التطبيق',
     payoutsChannel: '💀 قناة السحوبات',
@@ -2304,7 +2304,7 @@ const BIO_TEXTS = {
     retry: '⚠️ مش قادر أتحقق من البايو دلوقتي — جرب تاني بعد دقيقة.'
   },
   ru: {
-    welcome: (name) => `🧟🔥 СТОЙ, ЗОМБИ! 🔥🧟\n\nДобро пожаловать, ${name}, в ZOMBIE MINE — мёртвые здесь не спят, а золото под их могилами ждёт лишь тех, кто осмелится копать! ⚰️\n\n🪦 На кладбище сокровищ начинается твоя история: копай и добывай ZM каждые 24 часа и пройди путь от новичка (уровень 1) до Короля Мёртвых (уровень 100)! 💀 Каждый уровень умножает твою силу добычи — а склеп переполняется добычей 💰\n\nТвой путь к сокровищам:\n• 🪦 Копай каждый день и забирай свою долю первым\n• 🪙 Сокрушай задания и собирай добычу\n• 🧟‍♂️ Собирай свою орду: зови друзей и получай 5% от их добычи, навсегда!\n\n💎 Выводи заработок на свой TON-кошелёк — настоящее сокровище в твоих руках.\n\n🩸 Живые отступают. Зомби… жми кнопку и копай! 👇`,
+    welcome: (name) => `🧟🔥 СТОЙ, ЗОМБИ! 🔥🧟\n\nДобро пожаловать, ${name}, в ZOMBIE MINI — мёртвые здесь не спят, а золото под их могилами ждёт лишь тех, кто осмелится копать! ⚰️\n\n🪦 На кладбище сокровищ начинается твоя история: копай и добывай ZM каждые 24 часа и пройди путь от новичка (уровень 1) до Короля Мёртвых (уровень 100)! 💀 Каждый уровень умножает твою силу добычи — а склеп переполняется добычей 💰\n\nТвой путь к сокровищам:\n• 🪦 Копай каждый день и забирай свою долю первым\n• 🪙 Сокрушай задания и собирай добычу\n• 🧟‍♂️ Собирай свою орду: зови друзей и получай 5% от их добычи, навсегда!\n\n💎 Выводи заработок на свой TON-кошелёк — настоящее сокровище в твоих руках.\n\n🩸 Живые отступают. Зомби… жми кнопку и копай! 👇`,
     warrior: 'зомби',
     openApp: '🧟 Открыть приложение',
     payoutsChannel: '💀 Канал выплат',
@@ -2519,7 +2519,7 @@ async function handleBotMessage(msg) {
     const cfgM = await getConfig();
     const ownerOnlyLiveM = await getVal(rtdb().ref('settings/global/ownerOnly')); // fresh, like the API gate — the emergency brake never waits for the config cache
     if (ownerOnlyLiveM === true && !isTesterUid(String(from.id), cfgM)) {
-      try { await tg('sendMessage', { chat_id: chatId, text: '🧟🔧 The mine is being re-dug — ZOMBIE MINE is updating right now. Rise again in a few minutes!' }); } catch (e) { /* the notice is best-effort */ }
+      try { await tg('sendMessage', { chat_id: chatId, text: '🧟🔧 The mine is being re-dug — ZOMBIE MINI is updating right now. Rise again in a few minutes!' }); } catch (e) { /* the notice is best-effort */ }
       return;
     }
   }
@@ -5165,7 +5165,7 @@ async function panelEmojiPack(c) {
 // in a real chat before/after any mapping change.
 async function panelEmojiTest(c) {
   panelKey(c);
-  const text = '🧟 <b>ZOMBIE MINE</b> — premium emoji test\n'
+  const text = '🧟 <b>ZOMBIE MINI</b> — premium emoji test\n'
     + '🪦 Digging: ✅ active ❌ paused\n'
     + '💀 King of the Dead 👑\n'
     + '⚰️ Verified 🛡️ 🦴 buried coins 💰\n'
