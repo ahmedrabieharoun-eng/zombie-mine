@@ -3276,6 +3276,31 @@ body[data-tab] .bottom-nav-3d .nav-item.active,body .bottom-nav-3d .nav-item.act
 #page-mine .mn-rate-status .mn-rate-dot{width:20px;height:20px;flex:none;border-radius:50%;background:#2bd45f;box-shadow:0 0 8px rgba(43,212,95,.55);position:relative}
 #page-mine .mn-rate-status.paused .mn-rate-dot{background:#e5484d;box-shadow:0 0 8px rgba(229,72,77,.55)}
 #page-mine .mn-rate-status .mn-rate-dot::before,#page-mine .mn-rate-status .mn-rate-dot::after,#page-mine .mn-rate-status.paused .mn-rate-dot::before,#page-mine .mn-rate-status.paused .mn-rate-dot::after{content:none!important;display:none!important}
+
+/* ============ TASKS REF MATCH 2026-11-21 (owner: the Tasks page
+   exactly like his reference image-3336e968): cards become softly
+   rounded rectangles with a thin pale border (the angled clip is
+   gone), the loud bottom glow is dimmed so the top line leads,
+   the left art sits contained inside the card (the scale(1.3) +
+   circle(38%) clip that made it bleed out is removed), buttons
+   grow to the reference's neon pills, and the header scales up. */
+#page-tasks .tk-logo{width:248px}
+#page-tasks .tk-title{font-size:52px}
+#page-tasks .q-row{clip-path:none!important;border-radius:16px!important;border:1px solid rgba(190,220,190,.30)!important;min-height:86px}
+#page-tasks .q-row::after{opacity:.22}
+#page-tasks .q-row-in{padding:11px 14px;gap:13px}
+#page-tasks .q-ic{width:68px!important;height:68px!important;transform:none!important;clip-path:none!important}
+#page-tasks .q-title{font-size:16.5px!important}
+#page-tasks .q-sub{font-size:12.5px}
+#page-tasks .q-row .q-btn{min-width:140px!important;height:46px!important;font-size:16px!important}
+#page-tasks #daily-card .q-ic{width:64px!important;height:64px!important}
+#page-tasks #daily-card .q-title{font-size:13px!important;letter-spacing:-.2px}
+#page-tasks #daily-card .q-btn{min-width:130px!important}
+#page-tasks #btn-daily-info{width:20px;height:20px;font-size:13px;opacity:.8}
+.q-title-line{display:flex;align-items:center;gap:7px}
+.q-line-ic{flex:none;width:19px;height:19px;display:inline-flex;align-items:center;justify-content:center}
+.q-renew .q-line-ic{vertical-align:-4px;margin-right:2px}
+body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),rgba(7,6,3,0)),linear-gradient(rgba(7,6,4,.10),rgba(7,6,4,.22)),url('assets/bg_tasks.webp?v=135')}
 </style>
 </head>
 <body data-tab="mine" oncontextmenu="return false;">
@@ -3504,7 +3529,7 @@ body[data-tab] .bottom-nav-3d .nav-item.active,body .bottom-nav-3d .nav-item.act
       <div class="q-wrap" id="daily-card">
         <div class="q-row">
           <div class="q-row-in">
-            <img class="q-ic" src="assets/icon_t_moon.webp?v=130" alt="">
+            <img class="q-ic" src="assets/icon_t_moon.webp?v=136" alt="">
             <div class="q-mid">
               <div class="q-title" data-i18n="daily_login_title">🎁 Daily Login (40 Days)</div>
               <div class="q-sub"><span id="daily-streak-txt"></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt=""><span id="daily-rew-amt">+25</span></span></div>
@@ -3520,10 +3545,10 @@ body[data-tab] .bottom-nav-3d .nav-item.active,body .bottom-nav-3d .nav-item.act
       <div class="q-wrap">
         <div class="q-row" id="ch1-row">
           <div class="q-row-in">
-            <img class="q-ic" src="assets/icon_t_flag.webp?v=130" alt="">
+            <img class="q-ic" src="assets/icon_t_flag.webp?v=136" alt="">
             <div class="q-mid">
-              <div class="q-title" id="ch-1-title" data-i18n="ch1_title">📢 Official Telegram Channel</div>
-              <div class="q-sub"><span class="q-renew">🔄 <span data-i18n="renews_24h">Renews every 24 hours</span></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+<span class="ui-task-rew">50</span> <span class="coin-sym">$ZM</span></span></div>
+              <div class="q-title-line"><span class="q-line-ic"><svg viewBox="0 0 24 24" width="19" height="19"><circle cx="12" cy="12" r="11" fill="#2AABEE"/><polygon points="21.5,3.5 14.8,20.8 11,13.4 3.6,9.8" fill="#fff"/><line x1="21.5" y1="3.5" x2="11" y2="13.4" stroke="#2AABEE" stroke-width="1.5"/></svg></span><div class="q-title" id="ch-1-title" data-i18n="ch1_title">Official Telegram Channel</div></div>
+              <div class="q-sub"><span class="q-renew"><span class="q-line-ic"><svg viewBox="0 0 24 24" width="17" height="17"><rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="#5b6b72"/><g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21.5,4.5 21.5,9.5 16.5,9.5"/><path d="M20.2,15.2a8,8 0 1,1-1.8-8.2l3.1,2.5"/></g></svg></span> <span data-i18n="renews_24h">Renews every 24 hours</span></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+<span class="ui-task-rew">50</span> <span class="coin-sym">$ZM</span></span></div>
             </div>
             <button class="btn-3d-gold q-btn" id="ch-task-1-btn">Join Channel</button>
           </div>
@@ -3534,10 +3559,10 @@ body[data-tab] .bottom-nav-3d .nav-item.active,body .bottom-nav-3d .nav-item.act
       <div class="q-wrap">
         <div class="q-row" id="ch2-row">
           <div class="q-row-in">
-            <img class="q-ic" src="assets/icon_t_chest.webp?v=130" alt="">
+            <img class="q-ic" src="assets/icon_t_chest.webp?v=136" alt="">
             <div class="q-mid">
-              <div class="q-title" id="ch-2-title" data-i18n="ch2_title">💬 Payouts & Community Channel</div>
-              <div class="q-sub"><span class="q-renew">🔄 <span data-i18n="renews_24h">Renews every 24 hours</span></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+<span class="ui-task-rew">50</span> <span class="coin-sym">$ZM</span></span></div>
+              <div class="q-title-line"><span class="q-line-ic"><svg viewBox="0 0 24 24" width="19" height="19"><circle cx="12" cy="12" r="11" fill="#2AABEE"/><polygon points="21.5,3.5 14.8,20.8 11,13.4 3.6,9.8" fill="#fff"/><line x1="21.5" y1="3.5" x2="11" y2="13.4" stroke="#2AABEE" stroke-width="1.5"/></svg></span><div class="q-title" id="ch-2-title" data-i18n="ch2_title">Payouts & Community Channel</div></div>
+              <div class="q-sub"><span class="q-renew"><span class="q-line-ic"><svg viewBox="0 0 24 24" width="17" height="17"><rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="#5b6b72"/><g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21.5,4.5 21.5,9.5 16.5,9.5"/><path d="M20.2,15.2a8,8 0 1,1-1.8-8.2l3.1,2.5"/></g></svg></span> <span data-i18n="renews_24h">Renews every 24 hours</span></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+<span class="ui-task-rew">50</span> <span class="coin-sym">$ZM</span></span></div>
             </div>
             <button class="btn-3d-gold q-btn" id="ch-task-2-btn">Join Channel</button>
           </div>
@@ -3548,10 +3573,10 @@ body[data-tab] .bottom-nav-3d .nav-item.active,body .bottom-nav-3d .nav-item.act
       <div class="q-wrap">
         <div class="q-row" id="ch3-row">
           <div class="q-row-in">
-            <img class="q-ic" src="assets/icon_t_king.webp?v=130" alt="">
+            <img class="q-ic" src="assets/icon_t_king.webp?v=136" alt="">
             <div class="q-mid">
-              <div class="q-title" id="ch-3-title" data-i18n="ch3_title">👥 Community Channel</div>
-              <div class="q-sub"><span class="q-renew">🔄 <span data-i18n="renews_24h">Renews every 24 hours</span></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+<span class="ui-task-rew">50</span> <span class="coin-sym">$ZM</span></span></div>
+              <div class="q-title-line"><span class="q-line-ic"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#53b6f5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><div class="q-title" id="ch-3-title" data-i18n="ch3_title">Community Channel</div></div>
+              <div class="q-sub"><span class="q-renew"><span class="q-line-ic"><svg viewBox="0 0 24 24" width="17" height="17"><rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="#5b6b72"/><g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21.5,4.5 21.5,9.5 16.5,9.5"/><path d="M20.2,15.2a8,8 0 1,1-1.8-8.2l3.1,2.5"/></g></svg></span> <span data-i18n="renews_24h">Renews every 24 hours</span></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+<span class="ui-task-rew">50</span> <span class="coin-sym">$ZM</span></span></div>
             </div>
             <button class="btn-3d-gold q-btn" id="ch-task-3-btn">Join Channel</button>
           </div>
@@ -3564,7 +3589,7 @@ body[data-tab] .bottom-nav-3d .nav-item.active,body .bottom-nav-3d .nav-item.act
           <div class="q-row-in">
             <img class="q-ic" src="assets/icon_q_feather.webp" alt="">
             <div class="q-mid">
-              <div class="q-title">📝 Bio Task</div>
+              <div class="q-title">Bio Task</div>
               <div class="q-sub"><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+<span id="ui-bio-rew">50</span> <span class="coin-sym">$ZM</span></span></div>
             </div>
             <button class="btn-3d-gold q-btn tk-go" id="btn-bio-task">Verify in bot</button>
@@ -3752,7 +3777,7 @@ body[data-tab] .bottom-nav-3d .nav-item.active,body .bottom-nav-3d .nav-item.act
           </div>
         </div>
       </div>
-        <button class="btn-3d-bronze" id="btn-support"><span data-i18n="set_support">💬 Support</span></button>
+        <button class="btn-3d-bronze" id="btn-support"><span data-i18n="set_support">Support</span></button>
       </div>
       <div class="pf-modal-row">
         <button class="pf-modal-cancel" id="btn-settings-close"><span data-i18n="modal_close">Close</span></button>
@@ -4296,10 +4321,10 @@ body[data-tab] .bottom-nav-3d .nav-item.active,body .bottom-nav-3d .nav-item.act
         mined_lbl:"MINED", day_rate_lbl:"DAY RATE", shift_cd_lbl:"SHIFT COUNTDOWN", collect_lbl:"COLLECT",
         maint_title:"Update in progress", maint_sub:"We are updating ZOMBIE MINE right now. Please check back soon!",
         avatar_title:"Choose your warrior", avatar_sub:"Pick your avatar — it becomes your identity everywhere in the game.", avatar_perm:"This choice is permanent — your warrior becomes your identity forever. Choose wisely.", avatar_confirm:"CONFIRM SELECTION", avatar_confirm2:"LOCK IN PERMANENTLY", avatar_warn:"⚠ Once confirmed, your warrior cannot be changed",
-        ch1_title:"📢 Official Telegram Channel", ch2_title:"💬 Payouts & Community Channel", ch3_title:"👥 Community Channel",
+        ch1_title:"Official Telegram Channel", ch2_title:"Payouts & Community Channel", ch3_title:"Community Channel",
         open_ch:"1. Open Channel", open_grp:"1. Open Group", verify_btn:"2. Verify ✅",
         bio_task_desc:"Add <strong id=\"bio-bot-username\" style=\"color:#fff;\">@BOT</strong> to your Telegram bio, then tap the button below and press Start in the bot — your reward is added automatically. Come back here and it will show as done.",
-        bio_verify_btn:"🤖 Verify in bot",
+        bio_verify_btn:"Verify in bot",
         join_channel_btn:"Join", verify_join_btn:"Verify",
         wallet_hold:"Wallet Hold (Speed Source)", mined_app:"Mined in App",
         buy_upgrade_btn:"Buy Official Token on STON.fi to Upgrade Speed",
@@ -4346,10 +4371,10 @@ body[data-tab] .bottom-nav-3d .nav-item.active,body .bottom-nav-3d .nav-item.act
         mined_lbl:"المُعدّن", day_rate_lbl:"معدل اليوم", shift_cd_lbl:"عدّاد الوردية", collect_lbl:"اجمع",
         maint_title:"جارٍ التحديث", maint_sub:"بنحدّث ZOMBIE MINE دلوقتي. ارجع تاني قريب!",
         avatar_title:"اختر المحارب بتاعك", avatar_sub:"اختار الأفاتار — دي هتبقى هويتك في اللعبة كلها.", avatar_perm:"الاختيار ده نهائي — المحارب ده هيبقى هويتك للأبد. اختار بحكمة.", avatar_confirm:"تأكيد الاختيار", avatar_confirm2:"قفل نهائي للأبد", avatar_warn:"⚠ بعد التأكيد مش هتقدر تغيّر المحارب",
-        ch1_title:"📢 قناة التليجرام الرسمية", ch2_title:"💬 قناة إثباتات السحب والمجتمع", ch3_title:"👥 قناة المجتمع",
+        ch1_title:"قناة التليجرام الرسمية", ch2_title:"قناة إثباتات السحب والمجتمع", ch3_title:"قناة المجتمع",
         open_ch:"1. افتح القناة", open_grp:"1. افتح القناة", verify_btn:"2. تحقق ✅",
         bio_task_desc:"أضف <strong id=\"bio-bot-username\" style=\"color:#fff;\">@BOT</strong> إلى البايو بتاعك في تيليجرام، وبعدين دوس الزرار اللي تحت ودوس Start في البوت — المكافأة هتتضاف تلقائيًا. ارجع هنا هتلاقيها اتعملت.",
-        bio_verify_btn:"🤖 تحقق من البوت",
+        bio_verify_btn:"تحقق من البوت",
         join_channel_btn:"انضم", verify_join_btn:"تحقق",
         wallet_hold:"رصيد المحفظة (مصدر السرعة)", mined_app:"رصيد البوت (للسحب)",
         buy_upgrade_btn:"اشترِ العملة الرسمية من STON.fi لرفع سرعتك",
@@ -4396,10 +4421,10 @@ body[data-tab] .bottom-nav-3d .nav-item.active,body .bottom-nav-3d .nav-item.act
         mined_lbl:"ДОБЫТО", day_rate_lbl:"СТАВКА В ДЕНЬ", shift_cd_lbl:"ОБРАТНЫЙ ОТСЧЁТ", collect_lbl:"СОБРАТЬ",
         maint_title:"Идёт обновление", maint_sub:"Мы обновляем ZOMBIE MINE прямо сейчас. Загляните чуть позже!",
         avatar_title:"Выберите воина", avatar_sub:"Выберите аватар — он станет вашим образом во всей игре.", avatar_perm:"Этот выбор навсегда — воин станет вашим образом навсегда. Выбирайте мудро.", avatar_confirm:"ПОДТВЕРДИТЬ ВЫБОР", avatar_confirm2:"ЗАФИКСИРОВАТЬ НАВСЕГДА", avatar_warn:"⚠ После подтверждения воина изменить нельзя",
-        ch1_title:"📢 Официальный канал", ch2_title:"💬 Канал выплат", ch3_title:"👥 Канал сообщества",
+        ch1_title:"Официальный канал", ch2_title:"Канал выплат", ch3_title:"Канал сообщества",
         open_ch:"1. Открыть", open_grp:"1. Открыть", verify_btn:"2. Проверить ✅",
         bio_task_desc:"Добавьте <strong id=\"bio-bot-username\" style=\"color:#fff;\">@BOT</strong> в био вашего Telegram, затем нажмите кнопку ниже и нажмите Start в боте — награда добавится автоматически. Вернитесь сюда, и задание будет отмечено выполненным.",
-        bio_verify_btn:"🤖 Проверить в боте",
+        bio_verify_btn:"Проверить в боте",
         join_channel_btn:"Вступить", verify_join_btn:"Проверить",
         wallet_hold:"В кошельке (Скорость)", mined_app:"В боте",
         buy_upgrade_btn:"Купить на STON.fi для увеличения скорости",
@@ -4624,8 +4649,8 @@ body[data-tab] .bottom-nav-3d .nav-item.active,body .bottom-nav-3d .nav-item.act
       'assets/hero_king_clean.webp', 'assets/bg_castle.webp', 'assets/stone_tex56.webp', 'assets/pickaxe_bare.webp', 'assets/balance_coin.webp?v=109',
       'assets/nav_glyph_mine.webp', 'assets/nav_glyph_tasks.webp', 'assets/nav_glyph_boost.webp', 'assets/nav_glyph_friends.webp', 'assets/nav_glyph_profile.webp',
       'assets/icon_shield.webp', 'assets/icon_verified.webp', 'assets/icon_chest.webp',
-      'assets/quest_scroll.webp', 'assets/icon_t_moon.webp?v=130', 'assets/icon_t_flag.webp?v=130', 'assets/icon_q_feather.webp', 'assets/icon_t_chest.webp?v=130',
-      'assets/icon_t_king.webp?v=130', 'assets/icon_q_skull.webp', 'assets/icon_q_banner.webp', 'assets/icon_q_crown.webp', 'assets/icon_q_coins.webp',
+      'assets/quest_scroll.webp', 'assets/icon_t_moon.webp?v=136', 'assets/icon_t_flag.webp?v=136', 'assets/icon_q_feather.webp', 'assets/icon_t_chest.webp?v=136',
+      'assets/icon_t_king.webp?v=136', 'assets/icon_q_skull.webp', 'assets/icon_q_banner.webp', 'assets/icon_q_crown.webp', 'assets/icon_q_coins.webp',
       'assets/icon_q_hold1.webp', 'assets/icon_q_hold2.webp', 'assets/icon_q_hold3.webp', 'assets/icon_q_hold4.webp', 'assets/icon_q_hold5.webp',
       'assets/hero_tier1.webp', 'assets/hero_tier2.webp', 'assets/hero_tier3.webp',
       'assets/frame.webp', 'assets/cardframe.webp',
@@ -5812,9 +5837,9 @@ body[data-tab] .bottom-nav-3d .nav-item.active,body .bottom-nav-3d .nav-item.act
       const t1 = document.getElementById('ch-1-title');
       const t2 = document.getElementById('ch-2-title');
       const t3 = document.getElementById('ch-3-title');
-      if (t1) t1.innerText = cn1 ? `📢 ${cn1}` : dict.ch1_title;
-      if (t2) t2.innerText = cn2 ? `💬 ${cn2}` : dict.ch2_title;
-      if (t3) t3.innerText = cn3 ? `👥 ${cn3}` : dict.ch3_title;
+      if (t1) t1.innerText = cn1 ? `${cn1}` : dict.ch1_title;
+      if (t2) t2.innerText = cn2 ? `${cn2}` : dict.ch2_title;
+      if (t3) t3.innerText = cn3 ? `${cn3}` : dict.ch3_title;
 
       // bio task card (hidden gracefully until the bot username is known)
       const bioCard = document.getElementById('bio-task-card');
@@ -5825,7 +5850,7 @@ body[data-tab] .bottom-nav-3d .nav-item.active,body .bottom-nav-3d .nav-item.act
           document.getElementById('bio-bot-username').innerText = '@' + uname;
           document.getElementById('ui-bio-rew').innerText = config.bioReward;
           const bioBtn = document.getElementById('btn-bio-task');
-          bioBtn.innerText = bioTaskDone ? "✓ Done" : (dict.bio_verify_btn || "🤖 Verify in bot");
+          bioBtn.innerText = bioTaskDone ? "✓ Done" : (dict.bio_verify_btn || "Verify in bot");
           bioBtn.classList.toggle('btn-done-green', bioTaskDone);
         }
       }
