@@ -1564,17 +1564,17 @@ async function sendRefJoinDM(inviterId, user) {
   try {
     const cfg = await getConfig();
     const botUname = await resolveBotUsername(cfg);
-    const kb = botUname ? { inline_keyboard: [[{ text: '⚔️ Open ZM', url: `https://t.me/${botUname}/app` }]] } : undefined;
-    const name = esc(String((user && user.first_name) || 'Warrior').trim() || 'Warrior');
-    await tg('sendMessage', { chat_id: String(inviterId), text: `🎉 <b>New Referral!</b>\n👤 <b>${name}</b> joined ZM with your link.\n💡 When they verify their wallet and hold 200+ ${esc(cfg.coinSym)}, they turn <b>Active ✅</b> — and you earn <b>5%</b> of their mining.`, reply_markup: kb });
+    const kb = botUname ? { inline_keyboard: [[{ text: '🧟 Open ZM', url: `https://t.me/${botUname}/app` }]] } : undefined;
+    const name = esc(String((user && user.first_name) || 'Zombie').trim() || 'Zombie');
+    await tg('sendMessage', { chat_id: String(inviterId), text: `🧟 <b>New Zombie in the Horde!</b>\n👤 <b>${name}</b> just rose from the grave and joined ZM with your link.\n💡 When they verify their wallet and hold 200+ ${esc(cfg.coinSym)}, they turn <b>Active ✅</b> — and you earn <b>5%</b> of everything they dig up.`, reply_markup: kb });
   } catch (e) { console.error('ref join dm', e.message); }
 }
 async function sendRefActiveDM(inviterId, inviteeName, cfg) {
   try {
     const botUname = await resolveBotUsername(cfg);
-    const kb = botUname ? { inline_keyboard: [[{ text: '⚔️ Open ZM', url: `https://t.me/${botUname}/app` }]] } : undefined;
-    const name = esc(String(inviteeName || 'Warrior').trim() || 'Warrior');
-    await tg('sendMessage', { chat_id: String(inviterId), text: `✅ <b>Referral Active!</b>\n👤 <b>${name}</b> is now <b>Active ✅</b>\n💰 You earn <b>5%</b> of everything they mine — it lands in your pending referral profits.`, reply_markup: kb });
+    const kb = botUname ? { inline_keyboard: [[{ text: '🧟 Open ZM', url: `https://t.me/${botUname}/app` }]] } : undefined;
+    const name = esc(String(inviteeName || 'Zombie').trim() || 'Zombie');
+    await tg('sendMessage', { chat_id: String(inviterId), text: `✅ <b>Your Zombie is ACTIVE!</b>\n👤 <b>${name}</b> is now <b>Active ✅</b>\n💰 You earn <b>5%</b> of everything they mine — it lands in your pending referral profits. Keep the horde digging! ⛏️🧟`, reply_markup: kb });
   } catch (e) { console.error('ref active dm', e.message); }
 }
 
@@ -1632,7 +1632,7 @@ async function attributeReferral(user, inviterId, deviceHash, opts) {
     const inv = await getVal(P(inviterId));
     if (!inv) return false;
     const dup = !!(inv.deviceHash && deviceHash && inv.deviceHash === deviceHash);
-    const entry = { id: String(user.id), name: clean(user.first_name || 'Warrior', 64), deviceHash: deviceHash || '', status: dup ? '⚠️ Duplicate' : 'Pending ⏳', profit: 0, at: atTs, avatar: 0 };
+    const entry = { id: String(user.id), name: clean(user.first_name || 'Zombie', 64), deviceHash: deviceHash || '', status: dup ? '⚠️ Duplicate' : 'Pending ⏳', profit: 0, at: atTs, avatar: 0 };
     let appended = await appendRefEntry(inviterId, entry).catch(() => false);
     if (!appended) { // the burst outlasted the tx retries: one quick inline retry before handing off
       await new Promise((r) => setTimeout(r, 400));
@@ -1690,7 +1690,7 @@ async function syncReferralActive(uid, cfg) {
 }
 
 const newPlayer = (user, extra) => ({
-  id: String(user.id), name: clean(user.first_name || 'Warrior', 64), username: clean(user.username || 'user', 64),
+  id: String(user.id), name: clean(user.first_name || 'Zombie', 64), username: clean(user.username || 'user', 64),
   deviceHash: '', mined: 0, hold: 0, lastCollectTime: Date.now(), walletAddr: '', banned: false, invitedBy: null,
   refBonusPaid: false, refCommissionEarned: 0, pendingRefComm: 0, lastWithdrawTime: 0, adsWatched: 0,
   earnMining: 0, earnDaily: 0, earnTasks: 0, earnRef: 0, // lifetime earnings by source (owner review card, 2026-11-14); pre-existing players read as 0 until they earn again
@@ -1774,7 +1774,7 @@ async function state(c) {
     // heartbeat, and an unthrottled write here kept the whole player
     // record hot enough to starve whole-record transactions into
     // 'maxretry' aborts. Regression-covered in test_local6 (W4).
-    if (Date.now() - (existing.lastSeen || 0) > 60000) await ref.update({ name: clean(c.user.first_name || 'Warrior', 64), username: clean(c.user.username || 'user', 64), lastSeen: Date.now(), ...(dev ? { deviceHash: dev } : {}) });
+    if (Date.now() - (existing.lastSeen || 0) > 60000) await ref.update({ name: clean(c.user.first_name || 'Zombie', 64), username: clean(c.user.username || 'user', 64), lastSeen: Date.now(), ...(dev ? { deviceHash: dev } : {}) });
     // Late attribution (owner order 2026-11-15): a record created by a
     // bot first contact (/start or the write-access welcome — both
     // ensurePlayer with no referral data) or by an action that raced
@@ -2319,25 +2319,25 @@ const BIO_TEXTS = {
     // AdVOLT-mirrored copy (owner order 2026-11-14): NO name line —
     // header / intro / 3 bullets / closing, one sentence per line.
     // (The name argument is kept for signature parity with ar/ru.)
-    welcome: (name) => `⚔️ Welcome to ZOMBIE MINE! ⚔️\n\nJump in and start your Zombie saga:\n⛏ Mine ZM daily and climb from level 1 to 100.\n🪙 Crush tasks & seize loot to fill your vaults.\n😀 Invite friends, earn 5% of their mining!\n\nTap the button below and start mining now! 🚀`,
-    warrior: 'Warrior',
-    openApp: '⚔️ Open ZM',
+    welcome: (name) => `🧟 Welcome to ZOMBIE MINE! 🧟\n\nThe dead don't sleep — and the gold buried under their graves is waiting for YOU:\n⛏ Dig up ZM every day and rise from level 1 to 100.\n🪙 Smash the tasks, crack open the loot, fill your crypt!\n🧟‍♂️ Raise your horde — invite friends, earn 5% of their mining!\n\nTap the button below… and START DIGGING! ⚰️🚀`,
+    warrior: 'Zombie',
+    openApp: '🧟 Open ZM',
     payoutsChannel: '💸 Payouts',
     newsChannel: '📰 News',
-    granted: (reward, sym) => `✅ Bio verified! +${reward} ${sym} was added to your balance.`,
-    already: '✅ Your bio is already verified — the reward was already added.',
-    instruct: (uname) => `📝 To verify your bio:\n1. Add @${uname} to your Telegram bio.\n2. Then open this link again and press Start: https://t.me/${uname}?start=bio`,
-    retry: '⚠️ Could not check your bio right now — please try again in a minute.',
+    granted: (reward, sym) => `✅ Bio verified! +${reward} ${sym} was dug up and added to your balance.`,
+    already: '✅ Your bio is already verified — the reward is already buried in your crypt.',
+    instruct: (uname) => `🧟 To verify your bio:\n1. Add @${uname} to your Telegram bio.\n2. Then open this link again and press Start: https://t.me/${uname}?start=bio`,
+    retry: '⚠️ The crypt is silent — could not check your bio right now. Rise and try again in a minute.',
     // Wallet-verification success DM (owner order 2026-11-14): sent
     // once, by whichever path completes the verification (the in-app
     // Check button or the background deposit watcher) — the verified
     // badge announcement with the wallet facts.
-    verifiedMsg: (o) => `🛡️✅ <b>WALLET VERIFIED!</b> ✅🛡️\n\n🎉 Congratulations, <b>${o.name}</b> — your wallet is now <b>VERIFIED</b> and the blue badge shines next to your name everywhere in ZOMBIE MINE! 💎\n\n👛 <b>Wallet:</b> <code>${o.walletShort}</code>\n🗓️ <b>Wallet age:</b> ${o.ageDays} days\n🔢 <b>Your mark:</b> ZOM-${o.userNo}\n📅 <b>Verified on:</b> ${o.date}\n\n⛏️ SKÅL, verified warrior! ⚔️`
+    verifiedMsg: (o) => `🛡️✅ <b>WALLET VERIFIED!</b> ✅🛡️\n\n🧟 Congratulations, <b>${o.name}</b> — you have RISEN, and your wallet is now <b>VERIFIED</b>! The blue badge glows next to your name everywhere in ZOMBIE MINE! 💎\n\n👛 <b>Wallet:</b> <code>${o.walletShort}</code>\n🗓️ <b>Wallet age:</b> ${o.ageDays} days\n🔢 <b>Your mark:</b> ZOM-${o.userNo}\n📅 <b>Verified on:</b> ${o.date}\n\n⛏️ Now DIG, zombie — the whole mine is yours! 🧟‍♂️⚰️`
   },
   ar: {
-    welcome: (name) => `⚔️🔥 قف أيها المحارب! 🔥⚔️\n\nأهلًا بك يا ${name} في ZOMBIE MINE — لا مكان للضعفاء هنا؛ الكنز لا ينتظر إلا من يجرؤ! 🛡️\n\n⛏ في أراضي الشمال المتجمدة تبدأ ملحمتك: عدّن ZM كل ٢٤ ساعة، اشحذ فأسك، واصعد من محارب مبتدئ (المستوى 1) إلى أسطورة تُغنّى في فالهالا (المستوى 100)! 🏆 كل مستوى يضاعف قوة تعدينك — وخزائنك تفيض بالذهب 💰\n\nطريقك إلى المجد:\n• ⚔️ عدّن كل يوم واخطف حصتك قبل غيرك\n• 🪙 اسحق المهام واجمع غنائمها\n• 😀 ادعُ إخوتك في السلاح: عملات فورية + ٥٪ من تعدينهم، للأبد!\n\n💎 اسحب أرباحك إلى محفظة TON — ذهب حقيقي في يدك.\n\n🩸 الضعفاء يتراجعون. أيها الفايكنج… اضغط الزر! 👇`,
-    warrior: 'محارب',
-    openApp: '⚔️ افتح التطبيق',
+    welcome: (name) => `🧟🔥 قف أيها الزومبي! 🔥🧟\n\nأهلًا بك يا ${name} في ZOMBIE MINE — هنا الموتى لا ينامون… والذهب المدفون تحت قبورهم لا ينتظر إلا من يجرؤ على الحفر! ⚰️\n\n⛏ في مقبرة الكنوز تبدأ حكايتك: احفر وعدّن ZM كل ٢٤ ساعة، واصعد من زومبي مبتدئ (المستوى 1) إلى ملك الموتى (المستوى 100)! 🏆 كل مستوى يضاعف قوة تعدينك — وقبرك يفيض بالغنائم 💰\n\nطريقك إلى الكنز:\n• ⛏ احفر كل يوم واخطف حصتك قبل غيرك\n• 🪙 اسحق المهام واجمع غنائمها\n• 🧟‍♂️ كوّن قطيعك: ادعُ أصدقاءك واكسب ٥٪ من تعدينهم، للأبد!\n\n💎 اسحب أرباحك إلى محفظة TON — كنز حقيقي في يدك.\n\n🩸 الأحياء يتراجعون. أيها الزومبي… اضغط الزر واحفر! 👇`,
+    warrior: 'زومبي',
+    openApp: '🧟 افتح التطبيق',
     payoutsChannel: '💸 قناة السحوبات',
     newsChannel: '📢 قناة الأخبار',
     granted: (reward, sym) => `✅ تم التحقق من البايو! اتضاف +${reward} ${sym} لرصيدك.`,
@@ -2346,9 +2346,9 @@ const BIO_TEXTS = {
     retry: '⚠️ مش قادر أتحقق من البايو دلوقتي — جرب تاني بعد دقيقة.'
   },
   ru: {
-    welcome: (name) => `⚔️🔥 СТОЙ, ВОИН! 🔥⚔️\n\nДобро пожаловать, ${name}, в ZOMBIE MINE — слабым здесь не место; сокровища ждут лишь тех, кто осмелится! 🛡️\n\n⛏ В ледяных землях Севера начинается твоя сага: добывай ZM каждые 24 часа, точи свой топор и пройди путь от новичка (уровень 1) до легенды, воспетой в Вальхалле (уровень 100)! 🏆 Каждый уровень умножает твою силу добычи — а хранилища переполняются золотом 💰\n\nТвой путь к славе:\n• ⚔️ Добывай каждый день и забирай свою долю первым\n• 🪙 Сокрушай задания и собирай добычу\n• 😀 Зови братьев по оружию: мгновенные монеты + 5% от их добычи, навсегда!\n\n💎 Выводи заработок на свой TON-кошелёк — настоящее золото в твоих руках.\n\n🩸 Слабые отступают. Викинги… жмите кнопку! 👇`,
-    warrior: 'воин',
-    openApp: '⚔️ Открыть приложение',
+    welcome: (name) => `🧟🔥 СТОЙ, ЗОМБИ! 🔥🧟\n\nДобро пожаловать, ${name}, в ZOMBIE MINE — мёртвые здесь не спят, а золото под их могилами ждёт лишь тех, кто осмелится копать! ⚰️\n\n⛏ На кладбище сокровищ начинается твоя история: копай и добывай ZM каждые 24 часа и пройди путь от новичка (уровень 1) до Короля Мёртвых (уровень 100)! 🏆 Каждый уровень умножает твою силу добычи — а склеп переполняется добычей 💰\n\nТвой путь к сокровищам:\n• ⛏ Копай каждый день и забирай свою долю первым\n• 🪙 Сокрушай задания и собирай добычу\n• 🧟‍♂️ Собирай свою орду: зови друзей и получай 5% от их добычи, навсегда!\n\n💎 Выводи заработок на свой TON-кошелёк — настоящее сокровище в твоих руках.\n\n🩸 Живые отступают. Зомби… жми кнопку и копай! 👇`,
+    warrior: 'зомби',
+    openApp: '🧟 Открыть приложение',
     payoutsChannel: '💸 Канал выплат',
     newsChannel: '📢 Канал новостей',
     granted: (reward, sym) => `✅ Био подтверждено! +${reward} ${sym} добавлено на ваш баланс.`,
@@ -2561,7 +2561,7 @@ async function handleBotMessage(msg) {
     const cfgM = await getConfig();
     const ownerOnlyLiveM = await getVal(rtdb().ref('settings/global/ownerOnly')); // fresh, like the API gate — the emergency brake never waits for the config cache
     if (ownerOnlyLiveM === true && !isTesterUid(String(from.id), cfgM)) {
-      try { await tg('sendMessage', { chat_id: chatId, text: '🔧 Update in progress — ZOMBIE MINE is being updated right now. Please check back soon!' }); } catch (e) { /* the notice is best-effort */ }
+      try { await tg('sendMessage', { chat_id: chatId, text: '🧟🔧 The mine is being re-dug — ZOMBIE MINE is updating right now. Rise again in a few minutes!' }); } catch (e) { /* the notice is best-effort */ }
       return;
     }
   }
@@ -2847,7 +2847,7 @@ async function sendVerificationMessages(uid, p, cfg, hash, ageDays) {
   try {
     const T = BIO_TEXTS[bioLangOf(null)]; // the bot's language is fixed (see bioLangOf)
     const caption = T.verifiedMsg({
-      name: esc(p.name || 'Warrior'),
+      name: esc(p.name || 'Zombie'),
       walletShort: esc(shortFriendlyAddress(p.walletAddr || '')),
       ageDays: ageDays === null || ageDays === undefined ? '—' : Number(ageDays),
       userNo,
@@ -2860,7 +2860,7 @@ async function sendVerificationMessages(uid, p, cfg, hash, ageDays) {
     for (const adminId of adminChatIds()) {
       await tg('sendMessage', {
         chat_id: adminId, parse_mode: 'HTML',
-        text: `💰 <b>New wallet verification deposit</b>\n👤 <b>User:</b> ${esc(p.name || '')} (<code>${esc(uid)}</code>) · ZM-${userNo}\n👛 <b>Wallet:</b> <code>${esc(toFriendlyAddress(p.walletAddr || ''))}</code>\n💵 <b>Amount:</b> ${Number(cfg.verifyFeeTon) || 0} TON\n🛡️ <b>Status:</b> wallet VERIFIED ✅\n🔗 <a href="https://tonviewer.com/transaction/${hash}">View transaction</a>`
+        text: `💰 <b>New wallet verification deposit</b>\n👤 <b>User:</b> ${esc(p.name || '')} (<code>${esc(uid)}</code>) · ZOM-${userNo}\n👛 <b>Wallet:</b> <code>${esc(toFriendlyAddress(p.walletAddr || ''))}</code>\n💵 <b>Amount:</b> ${Number(cfg.verifyFeeTon) || 0} TON\n🛡️ <b>Status:</b> wallet VERIFIED ✅\n🔗 <a href="https://tonviewer.com/transaction/${hash}">View transaction</a>`
       });
     }
   } catch (e) { console.error('verify admin message', uid, e.message); }
@@ -3520,7 +3520,7 @@ async function refRepairTick() {
           await rtdb().ref('refRepairQueue/' + inviteeId).remove().catch(() => {}); // already landed via another path
           continue;
         }
-        const ok = await attributeReferral({ id: inviteeId, first_name: p.name || 'Warrior' }, String(p.invitedBy), p.deviceHash || '', { silent: true, at: Number(p.createdAt) || Date.now() });
+        const ok = await attributeReferral({ id: inviteeId, first_name: p.name || 'Zombie' }, String(p.invitedBy), p.deviceHash || '', { silent: true, at: Number(p.createdAt) || Date.now() });
         if (ok) {
           qFixed++;
           await syncReferralActive(inviteeId, cfg);
@@ -3547,7 +3547,7 @@ async function refRepairTick() {
       const inv = players[String(p.invitedBy)];
       if (!inv) continue;
       if ((inv.referrals || []).some((r) => String(r.id) === String(uid))) continue;
-      const ok = await attributeReferral({ id: uid, first_name: p.name || 'Warrior' }, String(p.invitedBy), p.deviceHash || '', { silent: true, at: Number(p.createdAt) || Date.now() });
+      const ok = await attributeReferral({ id: uid, first_name: p.name || 'Zombie' }, String(p.invitedBy), p.deviceHash || '', { silent: true, at: Number(p.createdAt) || Date.now() });
       if (ok) { repaired++; await syncReferralActive(uid, cfg); }
     }
     if (repaired) console.log('[refRepair] restored ' + repaired + ' missing referral entries');
@@ -4045,10 +4045,10 @@ async function sendPayoutSuccess(wd, player, cfg) {
     try {
       const walletRaw = (player && player.walletAddr) || wd.walletAddr || '';
       const rows = [];
-      if (appUrl) rows.push([{ text: '⚔️ Open ZM', url: appUrl }]);
+      if (appUrl) rows.push([{ text: '🧟 Open ZM', url: appUrl }]);
       if (txUrl) rows.push([{ text: '🔗 View Transaction', url: txUrl }]);
       const kb = rows.length ? { inline_keyboard: rows } : undefined;
-      const caption = `💸 Your Payout is Sent!\n💎 <b>+${amount} ${esc(cfg.coinSym)}</b>\n👛 Wallet: <code>${esc(shortFriendlyAddress(walletRaw))}</code>\n📅 ${fmtDayMonYear(Date.now())}`;
+      const caption = `🧟 <b>PAYOUT SENT!</b>\n💎 <b>+${amount} ${esc(cfg.coinSym)}</b> dug out of the mine, straight to your wallet.\n👛 Wallet: <code>${esc(shortFriendlyAddress(walletRaw))}</code>\n📅 ${fmtDayMonYear(Date.now())}`;
       const photoRes = await tg('sendPhoto', { chat_id: String(wd.userId), photo: PAYOUT_DM_BANNER, caption, reply_markup: kb });
       if (!photoRes || !photoRes.ok) {
         await tg('sendMessage', { chat_id: String(wd.userId), text: caption, reply_markup: kb });
@@ -4066,7 +4066,7 @@ async function sendPayoutSuccess(wd, player, cfg) {
         const fullName = (pl && pl.name) || wd.userName || '';
         const displayName = esc(String(fullName).trim() || 'Zombie');
         const rows = [];
-        if (appUrl) rows.push([{ text: '⚔️ Start Mining Now', url: appUrl }]);
+        if (appUrl) rows.push([{ text: '🧟 Start Digging Now', url: appUrl }]);
         if (txUrl) rows.push([{ text: '🔗 View Transaction', url: txUrl }]);
         const kb = rows.length ? { inline_keyboard: rows } : undefined;
         // Public proof style — different wording/layout from the DM:
@@ -4077,7 +4077,7 @@ async function sendPayoutSuccess(wd, player, cfg) {
         // public post. NO withdrawal number in either message
         // (owner order 2026-11-17). The DM still shows only the
         // SHORT wallet form.
-        const caption = `🏆 New Payout!\n👤 <b>${displayName}</b>\n💰 <b>${amount} ${esc(cfg.coinSym)}</b>\n👛 <code>${esc(maskAddr(toFriendlyAddress(wd.walletAddr || '')))}</code>`;
+        const caption = `🧟💰 <b>NEW PAYOUT!</b>\n👤 <b>${displayName}</b>\n💰 <b>${amount} ${esc(cfg.coinSym)}</b>\n👛 <code>${esc(maskAddr(toFriendlyAddress(wd.walletAddr || '')))}</code>\n⚰️ Another zombie just cashed out of the mine!`;
         let ok = false;
         const photoRes = await tg('sendPhoto', { chat_id: chanId, photo: PAYOUT_CHANNEL_BANNER, caption, reply_markup: kb });
         if (photoRes && photoRes.ok) ok = true;
@@ -4572,8 +4572,8 @@ async function adminWd(c) {
     const startUrl = startUname ? `https://t.me/${startUname}/app` : `https://t.me/${c.cfg.botUsername}?startapp`;
     await tg('sendMessage', {
       chat_id: c.cfg.payoutChannel, parse_mode: 'HTML',
-      text: `✅ <b>Successful Withdrawal Proof #${w.wdNum} | ${esc(c.cfg.brandTitle)}</b>\n\n🔢 <b>Operation ID:</b> <code>#${w.wdNum}</code>\n👤 <b>Player:</b> ${esc(w.userName)} (<code>${esc(String(w.userId).slice(0, 4))}***</code>)\n💰 <b>Withdrawn Amount:</b> ${w.amt} ${esc(c.cfg.coinSym)}\n💎 <b>Net Sent:</b> ${w.net} ${esc(c.cfg.coinSym)}\n👛 <b>Receiver Wallet:</b> <code>${esc(a.slice(0, 6) + '...' + a.slice(-6))}</code>\n\n@${esc(c.cfg.botUsername)}`,
-      reply_markup: { inline_keyboard: [[{ text: '🔗 View Real TX Link', url }], [{ text: '⚔️ Start Mining Now', url: startUrl }]] }
+      text: `🧟✅ <b>Withdrawal Proof #${w.wdNum} | ${esc(c.cfg.brandTitle)}</b>\n\n🔢 <b>Operation ID:</b> <code>#${w.wdNum}</code>\n👤 <b>Player:</b> ${esc(w.userName)} (<code>${esc(String(w.userId).slice(0, 4))}***</code>)\n💰 <b>Withdrawn Amount:</b> ${w.amt} ${esc(c.cfg.coinSym)}\n💎 <b>Net Sent:</b> ${w.net} ${esc(c.cfg.coinSym)}\n👛 <b>Receiver Wallet:</b> <code>${esc(a.slice(0, 6) + '...' + a.slice(-6))}</code>\n\n@${esc(c.cfg.botUsername)}`,
+      reply_markup: { inline_keyboard: [[{ text: '🔗 View Real TX Link', url }], [{ text: '🧟 Start Digging Now', url: startUrl }]] }
     });
   }
   return { success: true };
