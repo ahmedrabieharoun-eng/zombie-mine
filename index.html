@@ -6452,7 +6452,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     let walletStatusPromise = Promise.resolve();
     try {
       tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-        manifestUrl: 'https://ahmedrabieharoun-eng.github.io/zombie-mine/tonconnect-manifest.json',
+        manifestUrl: 'https://zombie-mine.vercel.app/tonconnect-manifest.json',
         buttonRootId: 'ton-connect-container'
       });
       tonConnectUI.onStatusChange(wallet => { walletStatusPromise = handleWalletStatus(wallet); });
