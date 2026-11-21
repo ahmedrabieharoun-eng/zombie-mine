@@ -3389,6 +3389,55 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
 #page-tasks .q-row .q-btn{width:92px!important;min-width:92px!important;height:34px!important;font-size:12.5px!important;padding:0!important}
 #page-tasks #daily-card .q-btn{width:92px!important;min-width:92px!important}
 }
+
+/* BOOST = OWNER PICTURE (2026-11-21): his painting as the page bg, a bigger
+   centred card that fills the stage like his picture, green active dot,
+   no hold progress bar, disabled arrows/pills stay bright like his shot */
+body[data-tab="boost"]{background-image:linear-gradient(rgba(2,8,5,.22),rgba(2,8,5,.22)),url('assets/bg_paint.webp?v=140')!important;background-size:cover!important;background-position:center top!important;background-repeat:no-repeat!important;background-attachment:fixed!important}
+
+/* ==== OWNER: Friends page = his picture (2026-11-21) ==== */
+body[data-tab="friends"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2,6,3,.62)),url("assets/bg_paint.webp?v=140")!important;background-size:cover!important;background-position:center top!important;background-repeat:no-repeat!important;background-attachment:fixed!important}
+#page-friends .pf-titlebar span{background:linear-gradient(90deg,#3dff5e 0%,#2fe05a 43%,#e9efe9 47%,#a9b8a9 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
+#page-friends .fr-sec,#page-friends .fr-tablet,#page-friends .fr-empty,#page-friends .fr-row{position:relative!important;background:transparent!important;border:none!important;border-radius:0!important;box-shadow:none!important;clip-path:none!important;z-index:0}
+#page-friends .fr-sec::before,#page-friends .fr-tablet::before,#page-friends .fr-empty::before,#page-friends .fr-row::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#b7d2ba,#617c66 32%,#8cab90 58%,#48604c);clip-path:polygon(13px 0,calc(100% - 13px) 0,100% 13px,100% calc(100% - 13px),calc(100% - 13px) 100%,13px 100%,0 calc(100% - 13px),0 13px);z-index:-2}
+#page-friends .fr-sec::after,#page-friends .fr-tablet::after,#page-friends .fr-empty::after,#page-friends .fr-row::after{content:"";position:absolute;inset:1px;background:linear-gradient(180deg,rgba(22,38,25,.97),rgba(7,12,8,.98));clip-path:polygon(12px 0,calc(100% - 12px) 0,100% 12px,100% calc(100% - 12px),calc(100% - 12px) 100%,12px 100%,0 calc(100% - 12px),0 12px);z-index:-1}
+#page-friends .fr-sec-lbl,#page-friends .fr-friends-head{display:flex!important;align-items:center;gap:9px;color:#dce8da!important;font-family:Georgia,'Times New Roman',serif!important;letter-spacing:2px!important}
+#page-friends .fr-sec-lbl::before,#page-friends .fr-friends-head::before{content:"";flex:none;width:31px;height:31px;border-radius:50%;background-color:rgba(8,18,10,.9);border:1px solid rgba(120,240,150,.35);background-repeat:no-repeat;background-position:center;background-size:22px;background-image:url("assets/icon_fr_link.webp?v=144")}
+#page-friends .fr-sec-profits .fr-sec-lbl::before{background-image:url("assets/icon_fr_coins.webp?v=144")}
+#page-friends .fr-friends-head::before{background-image:url("assets/icon_fr_people.webp?v=144")}
+#page-friends .fr-sec-lbl::after,#page-friends .fr-friends-head::after{content:"";flex:1;height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(57,255,20,.8),rgba(57,255,20,.05));box-shadow:0 0 9px rgba(57,255,20,.55)}
+#page-friends .fr-invite-line{position:relative;padding-inline-start:33px!important;color:#e8f1e6!important}
+#page-friends .fr-invite-line::before{content:"";position:absolute;inset-inline-start:0;top:0;width:25px;height:25px;background:url("assets/icon_fr_people.webp?v=144") center/contain no-repeat}
+#page-friends .fr-invite-line.dim{color:#bcccb8!important}
+#page-friends .fr-invite-line.dim::before{background-image:url("assets/icon_fr_info.webp?v=144")}
+#page-friends #ref-link-box{background-color:rgba(0,0,0,.45)!important;background-image:url("assets/icon_fr_copy.webp?v=144")!important;background-repeat:no-repeat!important;background-position:right 10px center!important;background-size:16px!important;border:1px solid rgba(168,205,175,.38)!important;border-radius:12px!important;color:#d5e6d6!important;padding:12px 34px 12px 14px!important}
+#page-friends #btn-copy-ref{display:inline-flex!important;align-items:center;justify-content:center;gap:7px;background:linear-gradient(180deg,rgba(23,52,30,.95),rgba(9,24,13,.97))!important;border:1.5px solid #39ff14!important;border-radius:12px!important;color:#eaffea!important;box-shadow:0 0 16px rgba(57,255,20,.35),inset 0 0 12px rgba(57,255,20,.12)!important;padding:0 16px!important}
+#page-friends #btn-copy-ref::before{content:"";width:15px;height:15px;background:url("assets/icon_fr_copy.webp?v=144") center/contain no-repeat}
+#page-friends .fr-tab-notch{display:none!important}
+#page-friends .fr-tablet{padding:13px 6px 12px!important;text-align:center}
+#page-friends .fr-tablet small{display:block;color:#d3e2cf!important;letter-spacing:1.6px!important}
+#page-friends .fr-tablet small::before{content:"";display:block;width:31px;height:31px;margin:0 auto 6px;background:url("assets/icon_fr_pplus.webp?v=144") center/contain no-repeat}
+#page-friends .fr-tablet:nth-child(2) small::before{background-image:url("assets/icon_fr_people.webp?v=144")}
+#page-friends .fr-tablet:nth-child(3) small::before{background-image:url("assets/icon_fr_coins.webp?v=144")}
+#page-friends .fr-tab-num{color:#39ff14!important;font-size:27px!important;text-shadow:0 0 14px rgba(57,255,20,.4)}
+#page-friends #pending-ref-comm-display{color:#39ff14!important;font-size:37px!important;text-shadow:0 0 20px rgba(57,255,20,.5)}
+#page-friends .fr-collect{display:flex!important;align-items:center;justify-content:center;gap:9px;height:54px;background:radial-gradient(ellipse at center,rgba(57,255,20,.30),rgba(8,26,12,.96) 74%)!important;border:2px solid #39ff14!important;border-radius:99px!important;color:#fff!important;box-shadow:0 0 24px rgba(57,255,20,.45),inset 0 0 18px rgba(57,255,20,.25)!important}
+#page-friends .fr-collect::before{content:"";width:21px;height:21px;background:url("assets/icon_fr_wallet.webp?v=144") center/contain no-repeat}
+#page-friends .fr-empty{text-align:center;padding:28px 12px 24px!important;color:#aebfa9}
+#page-friends .fr-empty-ic{width:78px;height:auto;margin-bottom:9px;opacity:.9}
+#page-friends .fr-sec-lbl span{color:#dce8da!important}
+#page-friends .pf-titlebar span{font-family:Georgia,'Times New Roman',serif!important;font-weight:700;letter-spacing:3px}
+
+#page-boost .bst-card{flex-basis:62%!important;height:415px!important;padding:64px 10px 10px!important}
+#page-boost .bst-frame{inset:-13px -11px!important}
+#page-boost .bst-badge{top:-30px!important}
+#page-boost .bst-holdbar{display:none!important}
+#page-boost .bst-dot{border-color:rgba(120,240,150,.5)!important}
+#page-boost .bst-dot.on{background:radial-gradient(circle at 40% 35%,#c8ffd2,#39ff14 65%,#0a7a24)!important;border-color:#39ff14!important;box-shadow:0 0 9px rgba(57,255,20,.8)!important}
+#page-boost .bst-arrow:disabled{opacity:.92!important}
+#page-boost .bst-jump-btn:disabled{opacity:.92!important}
+#page-boost .bst-jump-pos{color:#eef7ee!important}
+#page-boost .bst-jump-sep{color:#9db89d!important}
 </style>
 </head>
 <body data-tab="mine" oncontextmenu="return false;">
@@ -3717,7 +3766,6 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
         <div class="fr-link-row">
           <input type="text" id="ref-link-box" readonly>
           <button class="fr-gold-btn" id="btn-copy-ref"><span data-i18n="copy_btn">Copy Link</span></button>
-          <button class="fr-gold-btn" id="btn-share-ref"><span data-i18n="share_btn">Share</span></button>
         </div>
         <div class="fr-invite-line" data-i18n="ref_head_earn">Friends who activate earn you 5% of everything they mine — it lands here on its own.</div>
         <div class="fr-invite-line dim" data-i18n="ref_rule_cond">A friend activates at Level 2, holding 200+ $ZM in their wallet.</div>
@@ -4620,7 +4668,7 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
     let currentLevelPage = 1;
 
     const BOOT_STARTED_AT = Date.now();
-    const BOOT_MIN_MS = 3000; // owner order 2026-11-14: the loading page stays at least 3 seconds
+    const BOOT_MIN_MS = 1200; // owner order 2026-11-14: the loading page stays at least 3 seconds
     let bootProg = 0;
     // Skull-row boot progress: every 10% lights one more skull's eyes.
     function bootSkulls(pct) {
@@ -4742,12 +4790,24 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
       'assets/avatar_1.webp', 'assets/avatar_2.webp', 'assets/avatar_3.webp', 'assets/avatar_4.webp',
       'assets/avatar_5.webp', 'assets/avatar_6.webp', 'assets/avatar_7.webp', 'assets/avatar_8.webp'
     ];
+    const BOOT_CRITICAL = [
+      'assets/boot_king.webp', 'assets/bg_fog.webp?v=135', 'assets/bg_tasks.webp?v=135',
+      'assets/logo_zm.webp?v=121', 'assets/hero_king_reach.webp', 'assets/avatar_king.webp',
+      'assets/coin_icon.webp?v=108', 'assets/balance_coin.webp?v=109', 'assets/coin_king.webp',
+      'assets/nav_mine2.webp?v=139', 'assets/nav_clip_gold.webp?v=135', 'assets/nav_ref_3.webp?v=135', 'assets/nav_ref_4.webp?v=135', 'assets/nav_ref_5.webp?v=135',
+      'assets/plaque_prog.webp', 'assets/bg_paint.webp?v=140', 'assets/card_plate2.webp?v=137', 'assets/icon_verified.webp',
+      'assets/icon_m2_moon.webp?v=138', 'assets/icon_m2_flag.webp?v=138', 'assets/icon_m2_chest.webp?v=138', 'assets/icon_m2_king.webp?v=138',
+      'assets/icon_m2_hold1.webp?v=139', 'assets/icon_m2_hold2.webp?v=139', 'assets/icon_m2_hold3.webp?v=139', 'assets/icon_m2_hold4.webp?v=139', 'assets/icon_m2_hold5.webp?v=139', 'assets/icon_m2_ref.webp?v=138',
+      'assets/icon_tab2_cal.webp?v=137', 'assets/icon_tab2_coins.webp?v=137', 'assets/icon_tab2_people.webp?v=137'
+    ];
     (function preloadBootImages() {
       let settled = 0;
-      const total = BOOT_IMAGES.length + 2; // + the hero video + the webfonts
+      const total = BOOT_CRITICAL.length + 2; // + the hero video + the webfonts
       bootTotalUnits = total + 1; // + the state fetch itself
-      const one = () => { settled++; bootSettled++; if (settled >= total) { bootAssetsReady = true; finishBoot(); } };
-      BOOT_IMAGES.forEach((u) => { const im = new Image(); im.onload = one; im.onerror = one; im.src = u; });
+      let warmed = false;
+      const warm = () => { if (warmed) return; warmed = true; BOOT_IMAGES.forEach((u, i) => { setTimeout(() => { const im = new Image(); im.src = u; }, 500 + i * 60); }); };
+      const one = () => { settled++; bootSettled++; if (settled >= total) { bootAssetsReady = true; finishBoot(); warm(); } };
+      BOOT_CRITICAL.forEach((u) => { const im = new Image(); im.onload = one; im.onerror = one; im.src = u; });
       // The Mine stage is a video now (owner order 2026-11-15): the
       // loader also waits until it can actually play — capped at
       // 12 s so a slow network cannot hold the app hostage (the
@@ -5744,7 +5804,7 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
       if (!box) return;
       const dict = I18N[currentLang] || I18N.en;
       if (!myReferrals || myReferrals.length === 0) {
-        box.innerHTML = `<div style="text-align:center;color:var(--m);padding:10px 0;">${dict.no_refs_yet}</div>`;
+        box.innerHTML = `<div class="fr-empty"><img class="fr-empty-ic" src="assets/icon_fr_grey.webp?v=144" alt=""><div>${dict.no_refs_yet}</div></div>`;
         return;
       }
       box.innerHTML = myReferrals.map(r => {
@@ -6401,7 +6461,9 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
       const track = document.getElementById('bst-track');
       if (!stage || !track || bstIdx < 0) return;
       const W = stage.clientWidth; if (!W) return;
-      const cardW = W * 0.50, step = W * 0.50;
+      const _cel = track.children[0];
+      const cardW = _cel ? _cel.offsetWidth : W * 0.62;
+      const step = _cel ? _cel.offsetWidth + parseFloat(getComputedStyle(_cel).marginRight || 0) : W * 0.62;
       const dx = bstDrag ? bstDrag.dx : 0;
       const x = (W - cardW) / 2 - bstIdx * step + dx;
       track.style.transition = anim ? '' : 'none';
@@ -6647,7 +6709,7 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
     }
 
     document.getElementById('btn-copy-ref').addEventListener('click', () => { navigator.clipboard.writeText(document.getElementById('ref-link-box').value); showToast("📋 Link Copied!"); });
-    document.getElementById('btn-share-ref').addEventListener('click', () => window.open(`https://t.me/share/url?url=${encodeURIComponent(document.getElementById('ref-link-box').value)}`, '_blank'));
+    const shareBtnEl = document.getElementById('btn-share-ref'); if (shareBtnEl) shareBtnEl.addEventListener('click', () => window.open(`https://t.me/share/url?url=${encodeURIComponent(document.getElementById('ref-link-box').value)}`, '_blank'));
     // PASS 57: Tasks page tabs (REFERRALS / HOLD / DAILY) —
     // pure UI show/hide, nothing persisted.
     document.querySelectorAll('.tk-tab').forEach(b => b.addEventListener('click', e => {
