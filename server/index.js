@@ -98,7 +98,7 @@ const MAX_AUTH_AGE_SEC = 24 * 60 * 60;
 const MIN_COLLECT_SEC = 10;
 const DAILY = [20, 40, 60, 100, 140, 200, 400, 440, 480, 520, 560, 600, 700, 800, 840, 880, 920, 960, 1000, 1100, 1200, 1240, 1280, 1320, 1360, 1400, 1500, 1600, 1640, 1680, 1720, 1760, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 3000];
 const DEFAULTS = {
-  brandTitle: '$ZOMBIE MINER', coinSym: '$ZOM', taskReward: 100,
+  brandTitle: '$ZOMBIE MINER', coinSym: '$ZOM', taskReward: 20,
   bioReward: 100, refAchReward1: 250, refAchReward10: 500, refAchReward25: 1250, refAchReward50: 2500, refAchReward100: 5000,
   refClaimPercent: 5, refMinHold: 400, minWithdraw: 10000, holdPercentReq: 25, withdrawFeePercent: 5,
   lvl1PerDay: 500, payoutWallet: '', payoutChannel: '@ZOMBI_PAYMENTS', adminChatId: '',
