@@ -358,7 +358,7 @@
     .user-row-card.banned{border-color:#ef4444;opacity:.8}
 
   
-    /* ---------- PASS 15: compact nav + clear icons (owner: smaller, VIKING-like clarity) ---------- */
+    /* ---------- PASS 15: compact nav + clear icons (owner: smaller, sharper clarity) ---------- */
     .bottom-nav-3d{height:106px;padding:0 10px 20px}
     .app-shell{padding-bottom:112px}
     #page-mine.active{padding-bottom:100px}
@@ -552,9 +552,9 @@
       background-image:url('assets/tex_mist.webp'),linear-gradient(125deg,rgba(255,255,255,.16),rgba(255,255,255,0) 42%),repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 1px,transparent 1px 7px),repeating-linear-gradient(63deg,rgba(0,0,0,.09) 0 1px,transparent 1px 11px)!important;
       background-size:cover,cover,cover,cover;background-position:center,center,center,center;
     }
-    /* ===== DE-VIKING CARD LAYOUTS (2026-11-19) =====
+    /* ===== ZOMBIE CARD LAYOUTS (2026-11-19) =====
        New arrangement / sizes / order / style for the cards on every
-       page, so the pages no longer mirror the VIKING layout. The
+       page, so the pages no longer mirror the old layout. The
        frosted-glass material, the painting background, the header
        strip and the painting nav are NOT touched. Mine DOM moves
        (same page only): the DAY RATE card now lives in .mn-stage-stats
@@ -2152,7 +2152,7 @@
        Tasks quest_card_plate (100% 100%), the profits COLLECT
        becomes the exact PASS 58 orange pill, and the page gets
        its own black+orange refresh so it stops reading as a
-       Viking clone — orange section headers with glowing
+       Old clone — orange section headers with glowing
        divider lines, orange stats numerals + tablet dividers,
        dark GO-style copy/share pills, orange pending pills.
        Skin only: every paint, handler and flow is untouched. ===== */
@@ -2224,7 +2224,7 @@
 
     /* ===== PASS 64 — FRIENDS + PROFILE full redesign
        (owner creative latitude 2026-11-20: «تصميم هادي
-       وشيك وبسيط» — calm, chic, simple; kill every Viking
+       وشيك وبسيط» — calm, chic, simple; kill every old-clone
        signature). FRIENDS = «your crew»: invite panel,
        three slim iron stat tiles, profits, crew rows.
        PROFILE = a calm dossier: identity header, three
@@ -2293,7 +2293,7 @@
     #page-profile .pf-set-cell .pf-set-top{display:flex;align-items:center;gap:7px}
     #page-profile .pf-set-cell .lang-menu-popup{left:10px;right:10px}
 
-    /* PASS 66 — green animated verified check (replaces VIKING blue) */
+    /* PASS 66 — green animated verified check (replaces the old blue) */
     .zm-vcheck{position:relative;display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;margin:0 3px;flex:none;vertical-align:-3px}
     .zm-vcheck svg{display:block;animation:zm-vpop 2.4s ease-in-out infinite;filter:drop-shadow(0 0 3px rgba(46,204,113,.55))}
     .zm-vcheck::after{content:'';position:absolute;inset:0;border-radius:50%;border:2px solid rgba(64,220,130,.75);animation:zm-vring 2.4s ease-out infinite;pointer-events:none}
@@ -4071,8 +4071,8 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
    *      IndexedDB + Cookie) عند أول زيارة ويعيش مع الجهاز. هو الهوية
    *      الأساسية في سجل deviceIds على السيرفر.
    *
-   *  الاختلاف الوحيد عن نسخة VOLT: مفاتيح التخزين مسبوقة بـ viking_
-   *  (volt_device_id_v1 → zm_device_id_v1) لأن التطبيقين مستضافين على
+   *  الاختلاف الوحيد عن النسخة الأصلية: مفاتيح التخزين مسبوقة بـ zm_
+   *  (device_id_v1 → zm_device_id_v1) لأن التطبيقين مستضافين على
    *  نفس نطاق GitHub Pages ويتشاركان localStorage/الكوكيز — توحيد المفتاح
    *  كان هيخلّي التطبيقين يتشاركوا نفس قيمة deviceId بالخطأ.
    *  وكالعادة: لا اعتماد إطلاقًا على عنوان الـIP في أي قرار.
@@ -5599,7 +5599,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
 
     function openStonfiSwap(e) { SoundFX.click(); safeOpen(config.buySwapUrl); if (e && e.currentTarget) flashBtnBusy(e.currentTarget); }
 
-    const TONKEEPER_BUY_URL = "https://app.tonkeeper.com/dapp/https%3A%2F%2Fapp.ston.fi%2Fswap%3Fft%3DGRAM%26tt%3DEQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c%26utm_source%3Dtonkeeper%26utm_medium%3Dorganic%26utm_campaign%3Ddefi%26utm_content%3DEQDCJL0iQHofcBBvFBHdVG233Ri2V4kCNFgfRT-gqAd3Oc86%26chartVisible%3Dfalse";
+    const TONKEEPER_BUY_URL = "https://app.tonkeeper.com/dapp/https%3A%2F%2Fapp.ston.fi%2Fswap%3Fft%3DTON%26tt%3DEQCY8LnAfr0NMgw0SGBRkSykRuYy5fCkrvu4TUxt_O-FR8mg%26utm_source%3Dtonkeeper%26utm_medium%3Dorganic%26utm_campaign%3Ddefi%26chartVisible%3Dfalse";
     function openTonkeeperSwap(e) { SoundFX.click(); safeOpen(TONKEEPER_BUY_URL); if (e && e.currentTarget) flashBtnBusy(e.currentTarget); }
 
     async function syncOnChainJettonHold(showNotification = true) {
@@ -5714,7 +5714,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     }
 
     // ZOMBIE green verified check (PASS 66, owner order 2026-11-20:
-    // move away from VIKING's blue badge) — a green disc with a white
+    // move away from the old blue badge) — a green disc with a white
     // tick that draws itself in, breathes, and sheds a soft pulse ring
     // (CSS: .zm-vcheck near the end of the last style block). Rendered
     // next to a verified player's name everywhere names show in the
@@ -5996,7 +5996,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     }
 
 
-    /* Adsgram (owner order 2026-11-19, VOLT model): the money buttons
+    /* Adsgram (owner order 2026-11-19): the money buttons
        run through apiGated — the server issues a single-use gate
        ticket, the ad must actually be shown, and only then does the
        real action fire, carrying the ticket. The Tasks-page reward
