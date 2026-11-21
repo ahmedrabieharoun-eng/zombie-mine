@@ -4967,10 +4967,26 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       'assets/icon_pf_wallet.webp?v=141',
       'assets/icon_pf_chart.webp?v=141',
       'assets/icon_pf_shield.webp?v=141',
-      'assets/level_1.webp?v=141',
-      'assets/level_2.webp?v=141',
-      'assets/level_3.webp?v=141',
-      'assets/level_4.webp?v=141',
+      'assets/level_1.webp?v=142',
+      'assets/level_2.webp?v=142',
+      'assets/level_3.webp?v=142',
+      'assets/level_4.webp?v=142',
+      'assets/level_5.webp?v=142',
+      'assets/level_6.webp?v=142',
+      'assets/level_7.webp?v=142',
+      'assets/level_8.webp?v=142',
+      'assets/level_9.webp?v=142',
+      'assets/level_10.webp?v=142',
+      'assets/level_11.webp?v=142',
+      'assets/level_12.webp?v=142',
+      'assets/level_13.webp?v=142',
+      'assets/level_14.webp?v=142',
+      'assets/level_15.webp?v=142',
+      'assets/level_16.webp?v=142',
+      'assets/level_17.webp?v=142',
+      'assets/level_18.webp?v=142',
+      'assets/level_19.webp?v=142',
+      'assets/level_20.webp?v=142',
       'assets/tex_coffin.webp?v=141',
       'assets/hero_tier1.webp',
       'assets/avatar_1.webp',
@@ -6543,7 +6559,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     function bstSceneHTML(it) {
       const t = it.level <= 30 ? 1 : (it.level <= 70 ? 2 : 3);
       const fb = (myAvatar >= 1 && myAvatar <= 8) ? `assets/evo_a${myAvatar}_t${Math.min(10, Math.max(1, Math.ceil(it.level / 10)))}.webp` : `assets/hero_tier${t}.webp`;
-      return `<img draggable="false" src="assets/level_${it.level}.webp?v=141" onerror="this.onerror=null;this.src='${fb}'" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;border-radius:11px;">`;
+      return `<img draggable="false" src="assets/level_${((it.level - 1) % 20) + 1}.webp?v=142" onerror="this.onerror=null;this.src='${fb}'" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;border-radius:11px;">`;
     }
     function bstCardHTML(it, cur, dict) {
       const state = it.level < cur.level ? 'done' : (it.level > cur.level ? 'lock' : 'cur');
