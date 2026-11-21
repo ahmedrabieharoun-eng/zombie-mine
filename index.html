@@ -3544,6 +3544,18 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
 #page-boost .bst-jump-btn:disabled{opacity:.92!important}
 #page-boost .bst-jump-pos{color:#eef7ee!important}
 #page-boost .bst-jump-sep{color:#9db89d!important}
+
+    /* ===== TOAST REDESIGN (owner order 2026-11-21): a bigger iron
+       plate with a glowing rim, coin / cross icon, slide-down pop —
+       nothing like the old small pill. ===== */
+    #toast{top:calc(var(--sat) + 14px);align-items:center;justify-content:center;gap:11px;min-width:320px;max-width:92vw;padding:15px 20px;border-radius:14px;clip-path:polygon(14px 0,calc(100% - 14px) 0,100% 14px,100% calc(100% - 14px),calc(100% - 14px) 100%,14px 100%,0 calc(100% - 14px),0 14px);background:linear-gradient(rgba(9,13,9,.90),rgba(9,13,9,.90)),url('assets/card_plate2.webp?v=137') center/cover;border:1.5px solid rgba(57,255,20,.8);color:#eef4ea;font-size:15.5px;font-weight:800;line-height:1.35;box-shadow:0 0 20px rgba(57,255,20,.35),0 16px 34px rgba(0,0,0,.7)}
+    #toast.err{border-color:rgba(255,77,79,.9);box-shadow:0 0 20px rgba(255,60,60,.4),0 16px 34px rgba(0,0,0,.7)}
+    #toast.pop{animation:toastIn .3s cubic-bezier(.2,1.35,.4,1)}
+    @keyframes toastIn{from{transform:translate(-50%,-18px) scale(.95);opacity:0}to{transform:translate(-50%,0) scale(1);opacity:1}}
+    #toast-ic{display:flex;align-items:center;flex:none}
+    #toast-ic img{width:32px;height:32px}
+    #toast-ic .toast-x{width:28px;height:28px;border-radius:50%;border:2px solid #ff5a5c;color:#ff5a5c;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;line-height:1}
+
 </style>
 </head>
 <body data-tab="mine" oncontextmenu="return false;">
@@ -3581,7 +3593,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     <p style="color:#94a3b8;font-size:13px;max-width:300px;line-height:1.5;" data-i18n="maint_sub">We are updating ZOMBIE MINE right now. Please check back soon!</p>
   </div>
 
-  <div id="toast">Notification</div>
+  <div id="toast"><span id="toast-ic"></span><span id="toast-msg">Notification</span></div>
 
   <div id="daily-modal" class="pf-modal" style="display:none">
     <div class="pf-modal-card">
@@ -4864,44 +4876,90 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
         }
       } catch (e) { /* the loader must never hang on the wallet settle */ }
     }
-    const BOOT_IMAGES = [
-      'assets/load_skull_off.webp', 'assets/load_skull_on.webp', 'assets/coin_icon.webp?v=108', 'assets/hero_miner2.webp',
-      'assets/tex_stone_dark.webp', 'assets/nav_cell_1.webp', 'assets/nav_cell_2.webp', 'assets/nav_cell_3.webp',
-      'assets/nav_cell_4.webp', 'assets/nav_cell_5.webp', 'assets/bg_backdrop.webp', 'assets/card_frame.webp',
-      'assets/collect_frame.webp', 'assets/bg_tasks.webp', 'assets/bg_boost.webp', 'assets/bg_friends.webp',
-      'assets/bg_profile.webp', 'assets/bg_cave.webp', 'assets/hero_king_clean.webp', 'assets/bg_castle.webp',
-      'assets/stone_tex56.webp', 'assets/pickaxe_bare.webp', 'assets/balance_coin.webp?v=109', 'assets/icon_verified.webp',
-      'assets/icon_chest.webp', 'assets/icon_m2_moon.webp?v=138', 'assets/icon_m2_flag.webp?v=138', 'assets/icon_m2_chest.webp?v=138',
-      'assets/icon_m2_king.webp?v=138', 'assets/icon_m2_hold1.webp?v=139', 'assets/icon_m2_hold2.webp?v=139', 'assets/icon_m2_hold3.webp?v=139',
-      'assets/icon_m2_hold4.webp?v=139', 'assets/icon_m2_hold5.webp?v=139', 'assets/icon_m2_ref.webp?v=138', 'assets/card_plate2.webp?v=137',
-      'assets/icon_tab2_cal.webp?v=137', 'assets/icon_tab2_coins.webp?v=137', 'assets/icon_tab2_people.webp?v=137', 'assets/hero_tier1.webp',
-      'assets/avatar_1.webp'
-    ];
-    const BOOT_CRITICAL = [
-      'assets/boot_king.webp', 'assets/bg_fog.webp?v=135', 'assets/bg_tasks.webp?v=135',
-      'assets/logo_zm.webp?v=121', 'assets/hero_king_reach.webp', 'assets/avatar_king.webp',
-      'assets/coin_icon.webp?v=108', 'assets/balance_coin.webp?v=109', 'assets/coin_king.webp',
-      'assets/nav_mine2.webp?v=139', 'assets/nav_clip_gold.webp?v=135', 'assets/nav_ref_3.webp?v=135', 'assets/nav_ref_4.webp?v=135', 'assets/nav_ref_5.webp?v=135',
-      'assets/plaque_prog.webp', 'assets/bg_paint.webp?v=140', 'assets/card_plate2.webp?v=137', 'assets/icon_verified.webp',
-      'assets/icon_m2_moon.webp?v=138', 'assets/icon_m2_flag.webp?v=138', 'assets/icon_m2_chest.webp?v=138', 'assets/icon_m2_king.webp?v=138',
-      'assets/icon_m2_hold1.webp?v=139', 'assets/icon_m2_hold2.webp?v=139', 'assets/icon_m2_hold3.webp?v=139', 'assets/icon_m2_hold4.webp?v=139', 'assets/icon_m2_hold5.webp?v=139', 'assets/icon_m2_ref.webp?v=138',
-      'assets/icon_tab2_cal.webp?v=137', 'assets/icon_tab2_coins.webp?v=137', 'assets/icon_tab2_people.webp?v=137'
+    /* Owner order 2026-11-21: EVERYTHING loads on the loading page —
+       the app does not open until every picture the pages use, the
+       fonts and the player state are all in. No warm-up trickle
+       after entry, nothing pops in while navigating. */
+    const BOOT_ALL = [
+      'assets/boot_king.webp',
+      'assets/bg_fog.webp?v=135',
+      'assets/bg_tasks.webp?v=135',
+      'assets/logo_zm.webp?v=121',
+      'assets/hero_king_reach.webp',
+      'assets/avatar_king.webp',
+      'assets/coin_icon.webp?v=108',
+      'assets/balance_coin.webp?v=109',
+      'assets/coin_king.webp',
+      'assets/nav_mine2.webp?v=139',
+      'assets/nav_clip_gold.webp?v=135',
+      'assets/nav_ref_3.webp?v=135',
+      'assets/nav_ref_4.webp?v=135',
+      'assets/nav_ref_5.webp?v=135',
+      'assets/plaque_prog.webp',
+      'assets/bg_paint.webp?v=140',
+      'assets/card_plate2.webp?v=137',
+      'assets/icon_verified.webp',
+      'assets/icon_m2_moon.webp?v=138',
+      'assets/icon_m2_flag.webp?v=138',
+      'assets/icon_m2_chest.webp?v=138',
+      'assets/icon_m2_king.webp?v=138',
+      'assets/icon_m2_hold1.webp?v=139',
+      'assets/icon_m2_hold2.webp?v=139',
+      'assets/icon_m2_hold3.webp?v=139',
+      'assets/icon_m2_hold4.webp?v=139',
+      'assets/icon_m2_hold5.webp?v=139',
+      'assets/icon_m2_ref.webp?v=138',
+      'assets/icon_tab2_cal.webp?v=137',
+      'assets/icon_tab2_coins.webp?v=137',
+      'assets/icon_tab2_people.webp?v=137',
+      'assets/load_skull_off.webp',
+      'assets/load_skull_on.webp',
+      'assets/pickaxe_bare.webp',
+      'assets/icon_chest.webp',
+      'assets/icon_fr_link.webp?v=144',
+      'assets/icon_fr_coins.webp?v=144',
+      'assets/icon_fr_people.webp?v=144',
+      'assets/icon_fr_pplus.webp?v=144',
+      'assets/icon_fr_info.webp?v=144',
+      'assets/icon_fr_copy.webp?v=144',
+      'assets/icon_fr_wallet.webp?v=144',
+      'assets/icon_fr_grey.webp?v=144',
+      'assets/icon_pf_wallet.webp?v=141',
+      'assets/icon_pf_chart.webp?v=141',
+      'assets/icon_pf_shield.webp?v=141',
+      'assets/level_1.webp?v=141',
+      'assets/level_2.webp?v=141',
+      'assets/level_3.webp?v=141',
+      'assets/level_4.webp?v=141',
+      'assets/tex_coffin.webp?v=141',
+      'assets/hero_tier1.webp',
+      'assets/avatar_1.webp',
+      'assets/avatar_2.webp',
+      'assets/avatar_3.webp',
+      'assets/avatar_4.webp',
+      'assets/avatar_5.webp',
+      'assets/avatar_6.webp',
+      'assets/avatar_7.webp',
+      'assets/avatar_8.webp'
     ];
     (function preloadBootImages() {
-      let settled = 0;
-      const total = BOOT_CRITICAL.length + 2; // + the hero video + the webfonts
+      const total = BOOT_ALL.length + 1; // + the webfonts
       bootTotalUnits = total + 1; // + the state fetch itself
-      let warmed = false;
-      const warm = () => { if (warmed) return; warmed = true; BOOT_IMAGES.forEach((u, i) => { setTimeout(() => { const im = new Image(); im.src = u; }, 2500 + i * 150); }); };
-      const one = () => { settled++; bootSettled++; if (settled >= total) { bootAssetsReady = true; finishBoot(); warm(); } };
-      BOOT_CRITICAL.forEach((u) => { const im = new Image(); im.onload = one; im.onerror = one; im.src = u; });
-      // The Mine stage is a video now (owner order 2026-11-15): the
-      // loader also waits until it can actually play — capped at
-      // 12 s so a slow network cannot hold the app hostage (the
-      // poster still above is already counted in BOOT_IMAGES).
-      one(); // LITE (owner order 2026-11-21): the hero video is gone — the loader no longer waits on it
-      // Section titles render in the Norse webfont — pages are only
-      // «ready» once the fonts have landed too.
+      let settled = 0;
+      const one = () => { settled++; bootSettled++; if (settled >= total) { bootAssetsReady = true; finishBoot(); } };
+      // Pool of 8: the pipe stays full without flooding the phone,
+      // and every picture is DECODED too, so first paint on every
+      // page is instant (this is what makes page switches light).
+      let idx = 0;
+      const next = () => {
+        if (idx >= BOOT_ALL.length) return;
+        const u = BOOT_ALL[idx++];
+        const im = new Image();
+        im.onload = () => { if (im.decode) im.decode().catch(() => {}); one(); next(); };
+        im.onerror = () => { one(); next(); };
+        im.src = u;
+      };
+      for (let k = 0; k < 8; k++) next();
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(one, one); else one();
       // Safety: one broken asset must never brick the app — after
       // 45 s the gate opens anyway (state is still required).
@@ -4976,10 +5034,21 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       return { cur, next: LEVELS_DATA[Math.min(99, cur.level)] || cur };
     }
 
+    let toastTimer = null;
     function showToast(msg, bg = "#d97706") {
       const t = document.getElementById('toast');
-      t.innerText = msg; t.style.background = bg; t.style.display = 'block';
-      setTimeout(() => t.style.display = 'none', 2600);
+      if (!t) return;
+      const m = document.getElementById('toast-msg');
+      const ic = document.getElementById('toast-ic');
+      const isErr = bg === '#ef4444' || String(msg).indexOf('❌') === 0;
+      if (m) m.innerText = msg; else t.innerText = msg;
+      if (ic) ic.innerHTML = isErr ? '<span class="toast-x">✕</span>' : '<img src="assets/balance_coin.webp?v=109" alt="">';
+      t.classList.toggle('err', isErr);
+      t.style.background = '';
+      t.style.display = 'flex';
+      t.classList.remove('pop'); void t.offsetWidth; t.classList.add('pop');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => { t.style.display = 'none'; }, 2800);
     }
 
     function timeAgo(ts) {
