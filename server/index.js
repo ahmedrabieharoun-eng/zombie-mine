@@ -927,7 +927,9 @@ const PREMIUM_SUBS = {
 };
 const PREMIUM_SUB_KEYS = Object.keys(PREMIUM_SUBS).sort((a, b) => b.length - a.length);
 function pz(text) {
-  if (!text || typeof text !== 'string' || text.indexOf('tg-emoji') !== -1) return text;
+  // ZOMBIE (owner order 2026-11-21): the TON/News premium-emoji packs were VIKING's —
+  // disabled entirely; bot messages use standard emoji only.
+  return text;
   let out = text;
   for (const ch of PREMIUM_KEYS) {
     if (out.indexOf(ch) === -1) continue;
@@ -1016,6 +1018,7 @@ function premiumIconFor(text) {
 }
 function premiumizeKeyboard(rm) {
   if (!rm || !Array.isArray(rm.inline_keyboard)) return rm;
+  return rm; // ZOMBIE: no premium button icons (owner order 2026-11-21)
   for (const row of rm.inline_keyboard) {
     if (!Array.isArray(row)) continue;
     for (const b of row) {
@@ -2319,11 +2322,11 @@ const BIO_TEXTS = {
     // AdVOLT-mirrored copy (owner order 2026-11-14): NO name line —
     // header / intro / 3 bullets / closing, one sentence per line.
     // (The name argument is kept for signature parity with ar/ru.)
-    welcome: (name) => `🧟 Welcome to ZOMBIE MINE! 🧟\n\nThe dead don't sleep — and the gold buried under their graves is waiting for YOU:\n🪦 Dig up ZM every day and rise from level 1 to 100.\n🪙 Smash the tasks, crack open the loot, fill your crypt!\n🧟‍♂️ Raise your horde — invite friends, earn 5% of their mining!\n\nTap the button below… and START DIGGING! ⚰️🚀`,
+    welcome: (name) => `🧟 Welcome to ZOMBIE MINE! 🧟\n\nThe dead don't sleep — and the gold buried under their graves is waiting for YOU:\n🪦 Dig up ZM every day and rise from level 1 to 100.\n🦴 Smash the tasks, crack open the loot, fill your crypt!\n🧟‍♂️ Raise your horde — invite friends, earn 5% of their mining!\n\nTap the button below… and START DIGGING! ⚰️🦇`,
     warrior: 'Zombie',
     openApp: '🧟 Open ZM',
-    payoutsChannel: '💸 Payouts',
-    newsChannel: '📰 News',
+    payoutsChannel: '💀 Payouts',
+    newsChannel: '🦇 News',
     granted: (reward, sym) => `✅ Bio verified! +${reward} ${sym} was dug up and added to your balance.`,
     already: '✅ Your bio is already verified — the reward is already buried in your crypt.',
     instruct: (uname) => `🧟 To verify your bio:\n1. Add @${uname} to your Telegram bio.\n2. Then open this link again and press Start: https://t.me/${uname}?start=bio`,
@@ -2332,14 +2335,14 @@ const BIO_TEXTS = {
     // once, by whichever path completes the verification (the in-app
     // Check button or the background deposit watcher) — the verified
     // badge announcement with the wallet facts.
-    verifiedMsg: (o) => `⚰️✅ <b>WALLET VERIFIED!</b> ✅⚰️\n\n🧟 Congratulations, <b>${o.name}</b> — you have RISEN, and your wallet is now <b>VERIFIED</b>! The blue badge glows next to your name everywhere in ZOMBIE MINE! 💎\n\n👛 <b>Wallet:</b> <code>${o.walletShort}</code>\n🗓️ <b>Wallet age:</b> ${o.ageDays} days\n🔢 <b>Your mark:</b> ZOM-${o.userNo}\n📅 <b>Verified on:</b> ${o.date}\n\n🪦 Now DIG, zombie — the whole mine is yours! 🧟‍♂️⚰️`
+    verifiedMsg: (o) => `⚰️✅ <b>WALLET VERIFIED!</b> ✅⚰️\n\n🧟 Congratulations, <b>${o.name}</b> — you have RISEN, and your wallet is now <b>VERIFIED</b>! The blue badge glows next to your name everywhere in ZOMBIE MINE! 💀\n\n👛 <b>Wallet:</b> <code>${o.walletShort}</code>\n🗓️ <b>Wallet age:</b> ${o.ageDays} days\n🔢 <b>Your mark:</b> ZOM-${o.userNo}\n📅 <b>Verified on:</b> ${o.date}\n\n🪦 Now DIG, zombie — the whole mine is yours! 🧟‍♂️⚰️`
   },
   ar: {
     welcome: (name) => `🧟🔥 قف أيها الزومبي! 🔥🧟\n\nأهلًا بك يا ${name} في ZOMBIE MINE — هنا الموتى لا ينامون… والذهب المدفون تحت قبورهم لا ينتظر إلا من يجرؤ على الحفر! ⚰️\n\n🪦 في مقبرة الكنوز تبدأ حكايتك: احفر وعدّن ZM كل ٢٤ ساعة، واصعد من زومبي مبتدئ (المستوى 1) إلى ملك الموتى (المستوى 100)! 💀 كل مستوى يضاعف قوة تعدينك — وقبرك يفيض بالغنائم 💰\n\nطريقك إلى الكنز:\n• 🪦 احفر كل يوم واخطف حصتك قبل غيرك\n• 🪙 اسحق المهام واجمع غنائمها\n• 🧟‍♂️ كوّن قطيعك: ادعُ أصدقاءك واكسب ٥٪ من تعدينهم، للأبد!\n\n💎 اسحب أرباحك إلى محفظة TON — كنز حقيقي في يدك.\n\n🩸 الأحياء يتراجعون. أيها الزومبي… اضغط الزر واحفر! 👇`,
     warrior: 'زومبي',
     openApp: '🧟 افتح التطبيق',
-    payoutsChannel: '💸 قناة السحوبات',
-    newsChannel: '📢 قناة الأخبار',
+    payoutsChannel: '💀 قناة السحوبات',
+    newsChannel: '🦇 قناة الأخبار',
     granted: (reward, sym) => `✅ تم التحقق من البايو! اتضاف +${reward} ${sym} لرصيدك.`,
     already: '✅ البايو بتاعك متحقق منه قبل كده — المكافأة اتضافت خلاص.',
     instruct: (uname) => `📝 عشان يتحقق البايو:\n١. ضيف @${uname} في البايو بتاعك في تيليجرام.\n٢. وبعدين افتح اللينك ده تاني ودوس Start: https://t.me/${uname}?start=bio`,
@@ -2349,8 +2352,8 @@ const BIO_TEXTS = {
     welcome: (name) => `🧟🔥 СТОЙ, ЗОМБИ! 🔥🧟\n\nДобро пожаловать, ${name}, в ZOMBIE MINE — мёртвые здесь не спят, а золото под их могилами ждёт лишь тех, кто осмелится копать! ⚰️\n\n🪦 На кладбище сокровищ начинается твоя история: копай и добывай ZM каждые 24 часа и пройди путь от новичка (уровень 1) до Короля Мёртвых (уровень 100)! 💀 Каждый уровень умножает твою силу добычи — а склеп переполняется добычей 💰\n\nТвой путь к сокровищам:\n• 🪦 Копай каждый день и забирай свою долю первым\n• 🪙 Сокрушай задания и собирай добычу\n• 🧟‍♂️ Собирай свою орду: зови друзей и получай 5% от их добычи, навсегда!\n\n💎 Выводи заработок на свой TON-кошелёк — настоящее сокровище в твоих руках.\n\n🩸 Живые отступают. Зомби… жми кнопку и копай! 👇`,
     warrior: 'зомби',
     openApp: '🧟 Открыть приложение',
-    payoutsChannel: '💸 Канал выплат',
-    newsChannel: '📢 Канал новостей',
+    payoutsChannel: '💀 Канал выплат',
+    newsChannel: '🦇 Канал новостей',
     granted: (reward, sym) => `✅ Био подтверждено! +${reward} ${sym} добавлено на ваш баланс.`,
     already: '✅ Ваше био уже подтверждено — награда уже была добавлена.',
     instruct: (uname) => `📝 Чтобы подтвердить био:\n1. Добавьте @${uname} в био вашего Telegram.\n2. Затем снова откройте эту ссылку и нажмите Start: https://t.me/${uname}?start=bio`,
