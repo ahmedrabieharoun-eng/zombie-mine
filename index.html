@@ -320,7 +320,8 @@
     .pf-wd-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:9px;background:linear-gradient(180deg,#aea07f,#917f55);border:none;border-radius:14px;color:var(--accink);font-weight:900;font-size:15.5px;letter-spacing:1px;padding:13px 10px;cursor:pointer;box-shadow:0 8px 20px rgba(145,127,85,.3);margin-bottom:9px;text-transform:uppercase}
     .pf-wd-btn img{width:25px;height:25px;border-radius:6px}
     .pf-wd-btn:active{transform:scale(.98)}
-    .pf-wd-btn.btn-wd-locked{filter:grayscale(.85);opacity:.55}
+    .pf-wd-btn.btn-wd-locked{filter:none;opacity:.8}
+    #page-profile .pf-wd-btn.btn-wd-locked{background:#0a0a0a;color:#e8e8e8;border:1px solid rgba(57,255,20,.28);box-shadow:none;text-shadow:none;cursor:not-allowed}
     .pf-contract{font-size:9.5px;color:var(--mut);direction:ltr;word-break:break-all;border:1px solid var(--line);border-radius:12px;padding:9px 11px;margin-bottom:24px;background:rgba(9,8,5,.5)}
     .pf-contract span{font-family:ui-monospace,Menlo,Consolas,monospace}
     .pf-contract .btn-3d-dark{width:auto;padding:2px 8px;font-size:10px}
@@ -3495,6 +3496,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
 #page-profile .pf-lines{color:#a9bfa4!important;font-size:12px!important;margin-top:11px!important;line-height:1.65}
 #page-profile .pf-wd-btn{display:flex!important;align-items:center;justify-content:center;gap:8px;width:100%;height:50px;margin-top:13px;background:radial-gradient(ellipse at center,rgba(57,255,20,.30),rgba(8,26,12,.96) 74%)!important;border:2px solid #39ff14!important;border-radius:99px!important;color:#fff!important;font-size:14.5px!important;font-weight:700;box-shadow:0 0 22px rgba(57,255,20,.4),inset 0 0 16px rgba(57,255,20,.22)!important;text-shadow:none!important}
 #page-profile .pf-wd-btn img{width:20px;height:20px}
+#page-profile .pf-wd-btn.btn-wd-locked{background:#0a0a0a!important;border:1px solid rgba(57,255,20,.28)!important;box-shadow:none!important;color:#e8e8e8!important;cursor:not-allowed}
 #page-profile .pf-hist-btn{width:100%;height:44px;margin-top:9px;background:rgba(10,14,10,.85)!important;border:1.5px solid rgba(160,175,160,.35)!important;border-radius:99px!important;color:#d5e2d0!important;font-size:13px!important;font-weight:700;box-shadow:none!important}
 #page-profile .pf-contract{background:transparent!important;border:none!important;box-shadow:none!important;color:#8fa58c!important;font-size:10.5px!important}
 #page-profile .pf-titlebar span{font-size:15px!important}
@@ -7290,12 +7292,13 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       else if (walletHold < reqHold) { lockReason = dict.lock_hold.replace('{n}', reqHold.toLocaleString()).replace('{p}', holdPct); lockKind = 'hold'; }
       // ONE state button (owner order 2026-11-21): the separate STON.fi
       // buy button is deleted — this single button morphs with the state:
-      // not connected -> "Connect Wallet First" (tap connects), connected
-      // but unverified -> "Verify Your Wallet First" (tap jumps to the
-      // verify card), hold too low -> "Go Buy Coins" (tap opens the
-      // swap). Pure waits (wallet age / cooldown / minimum / balance)
-      // stay greyed + disabled carrying their reason; ready -> withdraw.
-      if (lockKind === 'connect' || lockKind === 'verify' || lockKind === 'hold') {
+      // connected but unverified -> "Verify Your Wallet First" (tap
+      // jumps to the verify card), hold too low -> "Go Buy Coins" (tap
+      // opens the swap). Not connected + pure waits (wallet age /
+      // cooldown / minimum / balance) stay BLACK + disabled carrying
+      // their reason (owner order 2026-11-21: connect state black, not
+      // green); ready -> withdraw.
+      if (lockKind === 'verify' || lockKind === 'hold') {
         wdBtn.disabled = false;
         wdBtn.classList.remove('btn-wd-locked');
         wdArrow.style.display = 'none';
