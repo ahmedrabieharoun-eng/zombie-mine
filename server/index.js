@@ -82,9 +82,9 @@ function nextToncKey() {
 }
 
 const JETTON = 'EQCY8LnAfr0NMgw0SGBRkSykRuYy5fCkrvu4TUxt_O-FR8mg';
-/* Automatic $ZM payouts (owner order 2026-11-14): when the
+/* Automatic $ZOM payouts (owner order 2026-11-14): when the
    PAYOUT_MNEMONIC env var holds the payout wallet's 24 words, an
-   owner-approved withdrawal is paid the net amount in the $ZM
+   owner-approved withdrawal is paid the net amount in the $ZOM
    jetton by attemptPayout (manual review first — owner order
    2026-11-14 ~07:29). The mnemonic lives ONLY in this env var — it
    is never stored in settings, never logged, never sent anywhere.
@@ -98,7 +98,7 @@ const MAX_AUTH_AGE_SEC = 24 * 60 * 60;
 const MIN_COLLECT_SEC = 10;
 const DAILY = [20, 40, 60, 100, 140, 200, 400, 440, 480, 520, 560, 600, 700, 800, 840, 880, 920, 960, 1000, 1100, 1200, 1240, 1280, 1320, 1360, 1400, 1500, 1600, 1640, 1680, 1720, 1760, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 3000];
 const DEFAULTS = {
-  brandTitle: '$ZOMBIE MINI', coinSym: '$ZM', taskReward: 100,
+  brandTitle: '$ZOMBIE MINER', coinSym: '$ZOM', taskReward: 100,
   bioReward: 100, refAchReward1: 250, refAchReward10: 500, refAchReward25: 1250, refAchReward50: 2500, refAchReward100: 5000,
   refClaimPercent: 5, refMinHold: 400, minWithdraw: 10000, holdPercentReq: 25, withdrawFeePercent: 5,
   lvl1PerDay: 500, payoutWallet: '', payoutChannel: '@ZOMBI_PAYMENTS', adminChatId: '',
@@ -136,7 +136,7 @@ const DEFAULTS = {
   // the bound wallet to be at least withdrawMinAgeDays old.
   verifyDepositWallet: 'UQBCoy7KjhL9VnKA_YOp4_hxmYKAQ8P8mIfx5FdIdSA6qvxE', verifyFeeTon: 0.05, verifyMinAgeDays: 7, withdrawMinAgeDays: 7,
   // Hold tasks (owner order 2026-11-17): five tiers — hold at least
-  // `hold` $ZM in the bound wallet, claim `reward`. The hold is read
+  // `hold` $ZOM in the bound wallet, claim `reward`. The hold is read
   // FRESH from the chain at claim time and judged as the player's
   // current hold (see holdTask). settings/global can override the defs.
   // Hold-task renewal (owner order 2026-11-19): ONE claim pays the
@@ -353,7 +353,7 @@ async function noteSignals(uid, keys) {
 /* A referral counts as ACTIVE only while BOTH activation conditions
    hold (owner orders 2026-11-14 + 2026-11-15): the invitee's wallet is
    VERIFIED (the 0.05 TON verification) AND his synced hold meets
-   refMinHold (200 $ZM = Level 2). The state is LIVE, not a latch:
+   refMinHold (200 $ZOM = Level 2). The state is LIVE, not a latch:
    syncReferralActive() re-evaluates it after every wallet sync,
    verification completion and unlink — buying + verifying flips the
    inviter's entry to 'Verified ✅' and starts the 5% commission, and
@@ -1522,15 +1522,15 @@ async function sendRefJoinDM(inviterId, user) {
   try {
     const cfg = await getConfig();
     const botUname = await resolveBotUsername(cfg);
-    const kb = botUname ? { inline_keyboard: [[{ text: '🧟 Open ZM', url: `https://t.me/${botUname}/app` }]] } : undefined;
+    const kb = botUname ? { inline_keyboard: [[{ text: '🧟 Open ZOM', url: `https://t.me/${botUname}/app` }]] } : undefined;
     const name = esc(String((user && user.first_name) || 'Zombie').trim() || 'Zombie');
-    await tg('sendMessage', { chat_id: String(inviterId), text: `🧟 <b>New Zombie in the Horde!</b>\n👤 <b>${name}</b> just rose from the grave and joined ZM with your link.\n💡 When they verify their wallet and hold 200+ ${esc(cfg.coinSym)}, they turn <b>Active ✅</b> — and you earn <b>5%</b> of everything they dig up.`, reply_markup: kb });
+    await tg('sendMessage', { chat_id: String(inviterId), text: `🧟 <b>New Zombie in the Horde!</b>\n👤 <b>${name}</b> just rose from the grave and joined ZOM with your link.\n💡 When they verify their wallet and hold 200+ ${esc(cfg.coinSym)}, they turn <b>Active ✅</b> — and you earn <b>5%</b> of everything they dig up.`, reply_markup: kb });
   } catch (e) { console.error('ref join dm', e.message); }
 }
 async function sendRefActiveDM(inviterId, inviteeName, cfg) {
   try {
     const botUname = await resolveBotUsername(cfg);
-    const kb = botUname ? { inline_keyboard: [[{ text: '🧟 Open ZM', url: `https://t.me/${botUname}/app` }]] } : undefined;
+    const kb = botUname ? { inline_keyboard: [[{ text: '🧟 Open ZOM', url: `https://t.me/${botUname}/app` }]] } : undefined;
     const name = esc(String(inviteeName || 'Zombie').trim() || 'Zombie');
     await tg('sendMessage', { chat_id: String(inviterId), text: `✅ <b>Your Zombie is ACTIVE!</b>\n👤 <b>${name}</b> is now <b>Active ✅</b>\n💰 You earn <b>5%</b> of everything they mine — it lands in your pending referral profits. Keep the horde digging! 🪦🧟`, reply_markup: kb });
   } catch (e) { console.error('ref active dm', e.message); }
@@ -2147,9 +2147,9 @@ async function holdTask(c) {
   if (lastAt && Date.now() - lastAt < renewMs) fail(400, 'Task renews every ' + renewDays + ' days');
   let hold;
   try { hold = await jettonHold(raw); } catch (e) { fail(503, 'Hold check failed, please try again'); }
-  if (hold < Number(defs[0].hold)) fail(403, 'Hold at least ' + Number(defs[0].hold).toLocaleString('en-US') + ' $ZM in your wallet');
+  if (hold < Number(defs[0].hold)) fail(403, 'Hold at least ' + Number(defs[0].hold).toLocaleString('en-US') + ' $ZOM in your wallet');
   const top0 = highestHoldTier(defs, hold);
-  if (top0 < 1) fail(403, 'Hold at least ' + Number(defs[0].hold).toLocaleString('en-US') + ' $ZM in your wallet');
+  if (top0 < 1) fail(403, 'Hold at least ' + Number(defs[0].hold).toLocaleString('en-US') + ' $ZOM in your wallet');
   return txUpdate(ref, (d) => {
     if (d === null) return { error: new Fail(404, 'User not found') };
     if (d.banned === true) return { error: new Fail(403, 'Account banned') };
@@ -2158,7 +2158,7 @@ async function holdTask(c) {
     const at = lastHoldClaimAt(d);
     if (at && now - at < renewMs) return { error: new Fail(400, 'Task renews every ' + renewDays + ' days') };
     const top = highestHoldTier(defs, hold);
-    if (top < 1) return { error: new Fail(403, 'Hold at least ' + Number(defs[0].hold).toLocaleString('en-US') + ' $ZM in your wallet') };
+    if (top < 1) return { error: new Fail(403, 'Hold at least ' + Number(defs[0].hold).toLocaleString('en-US') + ' $ZOM in your wallet') };
     const reward = Number(defs[top - 1].reward);
     const stamps = { ...(d.holdTaskAt || {}) };
     for (let i = 1; i <= defs.length; i++) stamps[i] = now;
@@ -2277,9 +2277,9 @@ const BIO_TEXTS = {
     // AdVOLT-mirrored copy (owner order 2026-11-14): NO name line —
     // header / intro / 3 bullets / closing, one sentence per line.
     // (The name argument is kept for signature parity with ar/ru.)
-    welcome: (name) => `🧟 Welcome to ZOMBIE MINI! 🧟\n\nThe dead don't sleep — and the gold buried under their graves is waiting for YOU:\n🪦 Dig up ZM every day and rise from level 1 to 100.\n🦴 Smash the tasks, crack open the loot, fill your crypt!\n🧟‍♂️ Raise your horde — invite friends, earn 5% of their mining!\n\nTap the button below… and START DIGGING! ⚰️🦇`,
+    welcome: (name) => `🧟 Welcome to ZOMBIE MINER! 🧟\n\nThe dead don't sleep — and the gold buried under their graves is waiting for YOU:\n🪦 Dig up ZOM every day and rise from level 1 to 100.\n🦴 Smash the tasks, crack open the loot, fill your crypt!\n🧟‍♂️ Raise your horde — invite friends, earn 5% of their mining!\n\nTap the button below… and START DIGGING! ⚰️🦇`,
     warrior: 'Zombie',
-    openApp: '🧟 Open ZM',
+    openApp: '🧟 Open ZOM',
     payoutsChannel: '💀 Payouts',
     newsChannel: '🦇 News',
     granted: (reward, sym) => `✅ Bio verified! +${reward} ${sym} was dug up and added to your balance.`,
@@ -2290,10 +2290,10 @@ const BIO_TEXTS = {
     // once, by whichever path completes the verification (the in-app
     // Check button or the background deposit watcher) — the verified
     // badge announcement with the wallet facts.
-    verifiedMsg: (o) => `⚰️✅ <b>WALLET VERIFIED!</b> ✅⚰️\n\n🧟 Congratulations, <b>${o.name}</b> — you have RISEN, and your wallet is now <b>VERIFIED</b>! The blue badge glows next to your name everywhere in ZOMBIE MINI! 💀\n\n👛 <b>Wallet:</b> <code>${o.walletShort}</code>\n🗓️ <b>Wallet age:</b> ${o.ageDays} days\n🔢 <b>Your mark:</b> ZOM-${o.userNo}\n📅 <b>Verified on:</b> ${o.date}\n\n🪦 Now DIG, zombie — the whole mine is yours! 🧟‍♂️⚰️`
+    verifiedMsg: (o) => `⚰️✅ <b>WALLET VERIFIED!</b> ✅⚰️\n\n🧟 Congratulations, <b>${o.name}</b> — you have RISEN, and your wallet is now <b>VERIFIED</b>! The blue badge glows next to your name everywhere in ZOMBIE MINER! 💀\n\n👛 <b>Wallet:</b> <code>${o.walletShort}</code>\n🗓️ <b>Wallet age:</b> ${o.ageDays} days\n🔢 <b>Your mark:</b> ZOM-${o.userNo}\n📅 <b>Verified on:</b> ${o.date}\n\n🪦 Now DIG, zombie — the whole mine is yours! 🧟‍♂️⚰️`
   },
   ar: {
-    welcome: (name) => `🧟🔥 قف أيها الزومبي! 🔥🧟\n\nأهلًا بك يا ${name} في ZOMBIE MINI — هنا الموتى لا ينامون… والذهب المدفون تحت قبورهم لا ينتظر إلا من يجرؤ على الحفر! ⚰️\n\n🪦 في مقبرة الكنوز تبدأ حكايتك: احفر وعدّن ZM كل ٢٤ ساعة، واصعد من زومبي مبتدئ (المستوى 1) إلى ملك الموتى (المستوى 100)! 💀 كل مستوى يضاعف قوة تعدينك — وقبرك يفيض بالغنائم 💰\n\nطريقك إلى الكنز:\n• 🪦 احفر كل يوم واخطف حصتك قبل غيرك\n• 🪙 اسحق المهام واجمع غنائمها\n• 🧟‍♂️ كوّن قطيعك: ادعُ أصدقاءك واكسب ٥٪ من تعدينهم، للأبد!\n\n💎 اسحب أرباحك إلى محفظة TON — كنز حقيقي في يدك.\n\n🩸 الأحياء يتراجعون. أيها الزومبي… اضغط الزر واحفر! 👇`,
+    welcome: (name) => `🧟🔥 قف أيها الزومبي! 🔥🧟\n\nأهلًا بك يا ${name} في ZOMBIE MINER — هنا الموتى لا ينامون… والذهب المدفون تحت قبورهم لا ينتظر إلا من يجرؤ على الحفر! ⚰️\n\n🪦 في مقبرة الكنوز تبدأ حكايتك: احفر وعدّن ZOM كل ٢٤ ساعة، واصعد من زومبي مبتدئ (المستوى 1) إلى ملك الموتى (المستوى 100)! 💀 كل مستوى يضاعف قوة تعدينك — وقبرك يفيض بالغنائم 💰\n\nطريقك إلى الكنز:\n• 🪦 احفر كل يوم واخطف حصتك قبل غيرك\n• 🪙 اسحق المهام واجمع غنائمها\n• 🧟‍♂️ كوّن قطيعك: ادعُ أصدقاءك واكسب ٥٪ من تعدينهم، للأبد!\n\n💎 اسحب أرباحك إلى محفظة TON — كنز حقيقي في يدك.\n\n🩸 الأحياء يتراجعون. أيها الزومبي… اضغط الزر واحفر! 👇`,
     warrior: 'زومبي',
     openApp: '🧟 افتح التطبيق',
     payoutsChannel: '💀 قناة السحوبات',
@@ -2304,7 +2304,7 @@ const BIO_TEXTS = {
     retry: '⚠️ مش قادر أتحقق من البايو دلوقتي — جرب تاني بعد دقيقة.'
   },
   ru: {
-    welcome: (name) => `🧟🔥 СТОЙ, ЗОМБИ! 🔥🧟\n\nДобро пожаловать, ${name}, в ZOMBIE MINI — мёртвые здесь не спят, а золото под их могилами ждёт лишь тех, кто осмелится копать! ⚰️\n\n🪦 На кладбище сокровищ начинается твоя история: копай и добывай ZM каждые 24 часа и пройди путь от новичка (уровень 1) до Короля Мёртвых (уровень 100)! 💀 Каждый уровень умножает твою силу добычи — а склеп переполняется добычей 💰\n\nТвой путь к сокровищам:\n• 🪦 Копай каждый день и забирай свою долю первым\n• 🪙 Сокрушай задания и собирай добычу\n• 🧟‍♂️ Собирай свою орду: зови друзей и получай 5% от их добычи, навсегда!\n\n💎 Выводи заработок на свой TON-кошелёк — настоящее сокровище в твоих руках.\n\n🩸 Живые отступают. Зомби… жми кнопку и копай! 👇`,
+    welcome: (name) => `🧟🔥 СТОЙ, ЗОМБИ! 🔥🧟\n\nДобро пожаловать, ${name}, в ZOMBIE MINER — мёртвые здесь не спят, а золото под их могилами ждёт лишь тех, кто осмелится копать! ⚰️\n\n🪦 На кладбище сокровищ начинается твоя история: копай и добывай ZOM каждые 24 часа и пройди путь от новичка (уровень 1) до Короля Мёртвых (уровень 100)! 💀 Каждый уровень умножает твою силу добычи — а склеп переполняется добычей 💰\n\nТвой путь к сокровищам:\n• 🪦 Копай каждый день и забирай свою долю первым\n• 🪙 Сокрушай задания и собирай добычу\n• 🧟‍♂️ Собирай свою орду: зови друзей и получай 5% от их добычи, навсегда!\n\n💎 Выводи заработок на свой TON-кошелёк — настоящее сокровище в твоих руках.\n\n🩸 Живые отступают. Зомби… жми кнопку и копай! 👇`,
     warrior: 'зомби',
     openApp: '🧟 Открыть приложение',
     payoutsChannel: '💀 Канал выплат',
@@ -2519,7 +2519,7 @@ async function handleBotMessage(msg) {
     const cfgM = await getConfig();
     const ownerOnlyLiveM = await getVal(rtdb().ref('settings/global/ownerOnly')); // fresh, like the API gate — the emergency brake never waits for the config cache
     if (ownerOnlyLiveM === true && !isTesterUid(String(from.id), cfgM)) {
-      try { await tg('sendMessage', { chat_id: chatId, text: '🧟🔧 The mine is being re-dug — ZOMBIE MINI is updating right now. Rise again in a few minutes!' }); } catch (e) { /* the notice is best-effort */ }
+      try { await tg('sendMessage', { chat_id: chatId, text: '🧟🔧 The mine is being re-dug — ZOMBIE MINER is updating right now. Rise again in a few minutes!' }); } catch (e) { /* the notice is best-effort */ }
       return;
     }
   }
@@ -3617,10 +3617,10 @@ async function withdraw(c) {
   return { success: true, wdNum: wd.wdNum };
 }
 
-/* ---------- automatic $ZM jetton payouts (owner order 2026-11-14) ----------
+/* ---------- automatic $ZOM jetton payouts (owner order 2026-11-14) ----------
    When PAYOUT_MNEMONIC is configured, an APPROVED withdrawal is
    paid by attemptPayout(), which pays the NET amount in the
-   $ZM jetton from the payout wallet to the player's bound
+   $ZOM jetton from the payout wallet to the player's bound
    wallet. (Approval moved from withdraw()-time to the owner's bot
    review card — owner order 2026-11-14 ~07:29; see the withdrawal-
    review section.) Safety comes from a tiny state machine on the
@@ -3845,7 +3845,7 @@ function getPayoutClient() {
 async function payoutAlert(wd, reason) {
   if (!wd) return;
   await getConfig();
-  const text = `🚨 <b>فشل الدفع التلقائي لسحب #${wd.wdNum}</b>\n👤 ${esc(wd.userName || '')} (<code>${esc(String(wd.userId || ''))}</code>)\n💎 <b>الصافي:</b> ${wd.net} $ZM\n❌ <b>السبب:</b> ${esc(reason)}\nالسحب لسه «Pending» ورصيد اللاعب اتخصم خلاص — ادفع يدويًا أو ارفضه من لوحة التحكم.`;
+  const text = `🚨 <b>فشل الدفع التلقائي لسحب #${wd.wdNum}</b>\n👤 ${esc(wd.userName || '')} (<code>${esc(String(wd.userId || ''))}</code>)\n💎 <b>الصافي:</b> ${wd.net} $ZOM\n❌ <b>السبب:</b> ${esc(reason)}\nالسحب لسه «Pending» ورصيد اللاعب اتخصم خلاص — ادفع يدويًا أو ارفضه من لوحة التحكم.`;
   for (const adminId of adminChatIds()) {
     try {
       await tg('sendMessage', { chat_id: adminId, parse_mode: 'HTML', text });
@@ -3911,12 +3911,12 @@ async function attemptPayout(wdNum) {
     //      out the record keeps payoutTx '' and gains payoutTxLink
     //      (the payout wallet's tonviewer page) as the link target.
     const broadcastAt = Date.now();
-    const sent = await client.sendJetton({ toRaw: wd.walletAddr, amount: amountBase, comment: 'ZM-' + num });
+    const sent = await client.sendJetton({ toRaw: wd.walletAddr, amount: amountBase, comment: 'ZOM-' + num });
     if (sent && sent.txHash) console.log('payout', num, 'local external hash (not the on-chain tx id):', String(sent.txHash));
     let resolvedTx = '';
     if (typeof client.findTransferTx === 'function') {
       try {
-        resolvedTx = String((await client.findTransferTx({ comment: 'ZM-' + num, toRaw: wd.walletAddr, amountBase, sinceMs: broadcastAt })) || '');
+        resolvedTx = String((await client.findTransferTx({ comment: 'ZOM-' + num, toRaw: wd.walletAddr, amountBase, sinceMs: broadcastAt })) || '');
       } catch (e) { console.error('payout tx resolve', num, e.message); }
     }
     if (!/^[0-9a-fA-F]{64}$/.test(resolvedTx)) resolvedTx = '';
@@ -4003,7 +4003,7 @@ async function sendPayoutSuccess(wd, player, cfg) {
     try {
       const walletRaw = (player && player.walletAddr) || wd.walletAddr || '';
       const rows = [];
-      if (appUrl) rows.push([{ text: '🧟 Open ZM', url: appUrl }]);
+      if (appUrl) rows.push([{ text: '🧟 Open ZOM', url: appUrl }]);
       if (txUrl) rows.push([{ text: '🔗 View Transaction', url: txUrl }]);
       const kb = rows.length ? { inline_keyboard: rows } : undefined;
       const caption = `🧟 <b>PAYOUT SENT!</b>\n💎 <b>+${amount} ${esc(cfg.coinSym)}</b> dug out of the mine, straight to your wallet.\n👛 Wallet: <code>${esc(shortFriendlyAddress(walletRaw))}</code>\n📅 ${fmtDayMonYear(Date.now())}`;
@@ -4398,7 +4398,7 @@ async function initPayout() {
       const d = await jettonDecimals();
       jTxt = (Number(await client.getJettonBalance()) / Math.pow(10, d)).toLocaleString('en-US');
     } catch (e) { /* best-effort */ }
-    console.log(`[payout] wallet ${client.addressFriendly} | TON ${tonTxt} | ZM ${jTxt}`);
+    console.log(`[payout] wallet ${client.addressFriendly} | TON ${tonTxt} | ZOM ${jTxt}`);
   } catch (e) {
     console.error('[payout] init failed:', e.message);
   }
@@ -4615,7 +4615,7 @@ function panelSecFail(ip) {
 function panelSecAlert(ip) {
   try {
     if (!OWNER_ID) return;
-    const text = '⚠️ تنبيه أمني: محاولات دخول فاشلة متكررة على لوحة تحكم ZM من العنوان ' + ip + ' — تم حظر محاولات الدخول الخاطئة من هذا العنوان 15 دقيقة.';
+    const text = '⚠️ تنبيه أمني: محاولات دخول فاشلة متكررة على لوحة تحكم ZOM من العنوان ' + ip + ' — تم حظر محاولات الدخول الخاطئة من هذا العنوان 15 دقيقة.';
     Promise.resolve(tg('sendMessage', { chat_id: OWNER_ID, parse_mode: 'HTML', text })).catch(() => {});
   } catch (e) { /* an alert failure must never affect the request */ }
 }
@@ -4650,7 +4650,7 @@ async function servePanelPage(req, res) {
   }
   if (panelSecBlocked(ip, Date.now())) return res.status(429).send('Too many attempts');
   panelSecFail(ip);
-  return res.status(401).set('WWW-Authenticate', 'Basic realm="ZM Panel"').send('Unauthorized');
+  return res.status(401).set('WWW-Authenticate', 'Basic realm="ZOM Panel"').send('Unauthorized');
 }
 
 function panelKey(c) {
@@ -5165,13 +5165,13 @@ async function panelEmojiPack(c) {
 // in a real chat before/after any mapping change.
 async function panelEmojiTest(c) {
   panelKey(c);
-  const text = '🧟 <b>ZOMBIE MINI</b> — premium emoji test\n'
+  const text = '🧟 <b>ZOMBIE MINER</b> — premium emoji test\n'
     + '🪦 Digging: ✅ active ❌ paused\n'
     + '💀 King of the Dead 👑\n'
     + '⚰️ Verified 🛡️ 🦴 buried coins 💰\n'
     + '👇 Tap below 👍 🌙 🔥 👻 🎉';
   const rm = { inline_keyboard: [[
-    { text: '🧟 Open ZM', url: 'https://t.me/ZOMBIE_MINI_Bot/app' },
+    { text: '🧟 Open ZOM', url: 'https://t.me/ZOMBIE_MINI_Bot/app' },
     { text: '💀 Payouts', url: 'https://t.me/ZOMBI_PAYMENTS' },
     { text: '🦇 News', url: 'https://t.me/ZOMBI_UPDATE' },
   ]] };
