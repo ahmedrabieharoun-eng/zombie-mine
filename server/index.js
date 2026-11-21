@@ -1574,7 +1574,7 @@ async function sendRefActiveDM(inviterId, inviteeName, cfg) {
     const botUname = await resolveBotUsername(cfg);
     const kb = botUname ? { inline_keyboard: [[{ text: '🧟 Open ZM', url: `https://t.me/${botUname}/app` }]] } : undefined;
     const name = esc(String(inviteeName || 'Zombie').trim() || 'Zombie');
-    await tg('sendMessage', { chat_id: String(inviterId), text: `✅ <b>Your Zombie is ACTIVE!</b>\n👤 <b>${name}</b> is now <b>Active ✅</b>\n💰 You earn <b>5%</b> of everything they mine — it lands in your pending referral profits. Keep the horde digging! ⛏️🧟`, reply_markup: kb });
+    await tg('sendMessage', { chat_id: String(inviterId), text: `✅ <b>Your Zombie is ACTIVE!</b>\n👤 <b>${name}</b> is now <b>Active ✅</b>\n💰 You earn <b>5%</b> of everything they mine — it lands in your pending referral profits. Keep the horde digging! 🪦🧟`, reply_markup: kb });
   } catch (e) { console.error('ref active dm', e.message); }
 }
 
@@ -2319,7 +2319,7 @@ const BIO_TEXTS = {
     // AdVOLT-mirrored copy (owner order 2026-11-14): NO name line —
     // header / intro / 3 bullets / closing, one sentence per line.
     // (The name argument is kept for signature parity with ar/ru.)
-    welcome: (name) => `🧟 Welcome to ZOMBIE MINE! 🧟\n\nThe dead don't sleep — and the gold buried under their graves is waiting for YOU:\n⛏ Dig up ZM every day and rise from level 1 to 100.\n🪙 Smash the tasks, crack open the loot, fill your crypt!\n🧟‍♂️ Raise your horde — invite friends, earn 5% of their mining!\n\nTap the button below… and START DIGGING! ⚰️🚀`,
+    welcome: (name) => `🧟 Welcome to ZOMBIE MINE! 🧟\n\nThe dead don't sleep — and the gold buried under their graves is waiting for YOU:\n🪦 Dig up ZM every day and rise from level 1 to 100.\n🪙 Smash the tasks, crack open the loot, fill your crypt!\n🧟‍♂️ Raise your horde — invite friends, earn 5% of their mining!\n\nTap the button below… and START DIGGING! ⚰️🚀`,
     warrior: 'Zombie',
     openApp: '🧟 Open ZM',
     payoutsChannel: '💸 Payouts',
@@ -2332,10 +2332,10 @@ const BIO_TEXTS = {
     // once, by whichever path completes the verification (the in-app
     // Check button or the background deposit watcher) — the verified
     // badge announcement with the wallet facts.
-    verifiedMsg: (o) => `🛡️✅ <b>WALLET VERIFIED!</b> ✅🛡️\n\n🧟 Congratulations, <b>${o.name}</b> — you have RISEN, and your wallet is now <b>VERIFIED</b>! The blue badge glows next to your name everywhere in ZOMBIE MINE! 💎\n\n👛 <b>Wallet:</b> <code>${o.walletShort}</code>\n🗓️ <b>Wallet age:</b> ${o.ageDays} days\n🔢 <b>Your mark:</b> ZOM-${o.userNo}\n📅 <b>Verified on:</b> ${o.date}\n\n⛏️ Now DIG, zombie — the whole mine is yours! 🧟‍♂️⚰️`
+    verifiedMsg: (o) => `⚰️✅ <b>WALLET VERIFIED!</b> ✅⚰️\n\n🧟 Congratulations, <b>${o.name}</b> — you have RISEN, and your wallet is now <b>VERIFIED</b>! The blue badge glows next to your name everywhere in ZOMBIE MINE! 💎\n\n👛 <b>Wallet:</b> <code>${o.walletShort}</code>\n🗓️ <b>Wallet age:</b> ${o.ageDays} days\n🔢 <b>Your mark:</b> ZOM-${o.userNo}\n📅 <b>Verified on:</b> ${o.date}\n\n🪦 Now DIG, zombie — the whole mine is yours! 🧟‍♂️⚰️`
   },
   ar: {
-    welcome: (name) => `🧟🔥 قف أيها الزومبي! 🔥🧟\n\nأهلًا بك يا ${name} في ZOMBIE MINE — هنا الموتى لا ينامون… والذهب المدفون تحت قبورهم لا ينتظر إلا من يجرؤ على الحفر! ⚰️\n\n⛏ في مقبرة الكنوز تبدأ حكايتك: احفر وعدّن ZM كل ٢٤ ساعة، واصعد من زومبي مبتدئ (المستوى 1) إلى ملك الموتى (المستوى 100)! 🏆 كل مستوى يضاعف قوة تعدينك — وقبرك يفيض بالغنائم 💰\n\nطريقك إلى الكنز:\n• ⛏ احفر كل يوم واخطف حصتك قبل غيرك\n• 🪙 اسحق المهام واجمع غنائمها\n• 🧟‍♂️ كوّن قطيعك: ادعُ أصدقاءك واكسب ٥٪ من تعدينهم، للأبد!\n\n💎 اسحب أرباحك إلى محفظة TON — كنز حقيقي في يدك.\n\n🩸 الأحياء يتراجعون. أيها الزومبي… اضغط الزر واحفر! 👇`,
+    welcome: (name) => `🧟🔥 قف أيها الزومبي! 🔥🧟\n\nأهلًا بك يا ${name} في ZOMBIE MINE — هنا الموتى لا ينامون… والذهب المدفون تحت قبورهم لا ينتظر إلا من يجرؤ على الحفر! ⚰️\n\n🪦 في مقبرة الكنوز تبدأ حكايتك: احفر وعدّن ZM كل ٢٤ ساعة، واصعد من زومبي مبتدئ (المستوى 1) إلى ملك الموتى (المستوى 100)! 💀 كل مستوى يضاعف قوة تعدينك — وقبرك يفيض بالغنائم 💰\n\nطريقك إلى الكنز:\n• 🪦 احفر كل يوم واخطف حصتك قبل غيرك\n• 🪙 اسحق المهام واجمع غنائمها\n• 🧟‍♂️ كوّن قطيعك: ادعُ أصدقاءك واكسب ٥٪ من تعدينهم، للأبد!\n\n💎 اسحب أرباحك إلى محفظة TON — كنز حقيقي في يدك.\n\n🩸 الأحياء يتراجعون. أيها الزومبي… اضغط الزر واحفر! 👇`,
     warrior: 'زومبي',
     openApp: '🧟 افتح التطبيق',
     payoutsChannel: '💸 قناة السحوبات',
@@ -2346,7 +2346,7 @@ const BIO_TEXTS = {
     retry: '⚠️ مش قادر أتحقق من البايو دلوقتي — جرب تاني بعد دقيقة.'
   },
   ru: {
-    welcome: (name) => `🧟🔥 СТОЙ, ЗОМБИ! 🔥🧟\n\nДобро пожаловать, ${name}, в ZOMBIE MINE — мёртвые здесь не спят, а золото под их могилами ждёт лишь тех, кто осмелится копать! ⚰️\n\n⛏ На кладбище сокровищ начинается твоя история: копай и добывай ZM каждые 24 часа и пройди путь от новичка (уровень 1) до Короля Мёртвых (уровень 100)! 🏆 Каждый уровень умножает твою силу добычи — а склеп переполняется добычей 💰\n\nТвой путь к сокровищам:\n• ⛏ Копай каждый день и забирай свою долю первым\n• 🪙 Сокрушай задания и собирай добычу\n• 🧟‍♂️ Собирай свою орду: зови друзей и получай 5% от их добычи, навсегда!\n\n💎 Выводи заработок на свой TON-кошелёк — настоящее сокровище в твоих руках.\n\n🩸 Живые отступают. Зомби… жми кнопку и копай! 👇`,
+    welcome: (name) => `🧟🔥 СТОЙ, ЗОМБИ! 🔥🧟\n\nДобро пожаловать, ${name}, в ZOMBIE MINE — мёртвые здесь не спят, а золото под их могилами ждёт лишь тех, кто осмелится копать! ⚰️\n\n🪦 На кладбище сокровищ начинается твоя история: копай и добывай ZM каждые 24 часа и пройди путь от новичка (уровень 1) до Короля Мёртвых (уровень 100)! 💀 Каждый уровень умножает твою силу добычи — а склеп переполняется добычей 💰\n\nТвой путь к сокровищам:\n• 🪦 Копай каждый день и забирай свою долю первым\n• 🪙 Сокрушай задания и собирай добычу\n• 🧟‍♂️ Собирай свою орду: зови друзей и получай 5% от их добычи, навсегда!\n\n💎 Выводи заработок на свой TON-кошелёк — настоящее сокровище в твоих руках.\n\n🩸 Живые отступают. Зомби… жми кнопку и копай! 👇`,
     warrior: 'зомби',
     openApp: '🧟 Открыть приложение',
     payoutsChannel: '💸 Канал выплат',
@@ -2385,7 +2385,7 @@ const bioLangOf = (from) => {
    Whenever a WANTED glyph's ID surfaces through ANY of the three, it
    is auto-saved into the RTDB `premiumEmoji` node, so pz() starts
    rendering that glyph premium (animated) everywhere the bot writes. */
-const EMOJI_WANTED = ['⚔', '🔥', '🛡', '❄', '⛏', '🩸', '👇', '🌩', '🎯'];
+const EMOJI_WANTED = ['🦴', '🔥', '⚰', '🦇', '🪦', '🩸', '👇', '🌩', '🎯'];
 const EMOJI_WANTED_SET = new Set(EMOJI_WANTED);
 const EMOJI_PACK_CANDIDATES = ['RestrictedEmoji']; // Telegram's official animated standard-emoji pack (ex-Telemoji); extend this list to hunt more packs
 const bareEmoji = (ch) => String(ch || '').replace(/\uFE0F/g, '');
@@ -2860,7 +2860,7 @@ async function sendVerificationMessages(uid, p, cfg, hash, ageDays) {
     for (const adminId of adminChatIds()) {
       await tg('sendMessage', {
         chat_id: adminId, parse_mode: 'HTML',
-        text: `💰 <b>New wallet verification deposit</b>\n👤 <b>User:</b> ${esc(p.name || '')} (<code>${esc(uid)}</code>) · ZOM-${userNo}\n👛 <b>Wallet:</b> <code>${esc(toFriendlyAddress(p.walletAddr || ''))}</code>\n💵 <b>Amount:</b> ${Number(cfg.verifyFeeTon) || 0} TON\n🛡️ <b>Status:</b> wallet VERIFIED ✅\n🔗 <a href="https://tonviewer.com/transaction/${hash}">View transaction</a>`
+        text: `💰 <b>New wallet verification deposit</b>\n👤 <b>User:</b> ${esc(p.name || '')} (<code>${esc(uid)}</code>) · ZOM-${userNo}\n👛 <b>Wallet:</b> <code>${esc(toFriendlyAddress(p.walletAddr || ''))}</code>\n💵 <b>Amount:</b> ${Number(cfg.verifyFeeTon) || 0} TON\n⚰️ <b>Status:</b> wallet VERIFIED ✅\n🔗 <a href="https://tonviewer.com/transaction/${hash}">View transaction</a>`
       });
     }
   } catch (e) { console.error('verify admin message', uid, e.message); }
@@ -4214,7 +4214,7 @@ async function buildWdReviewCard(wd, position) {
   const sourcesAllZero = !(Number(p.earnMining) || 0) && !(Number(p.earnDaily) || 0) && !(Number(p.earnTasks) || 0) && !(Number(p.earnRef) || 0) && !(Number(p.refCommissionEarned) || 0);
   const sourcesBlock = sourcesAllZero
     ? '📊 <b>مصادر أرباحه:</b> مفيش أرباح متسجلة بالمصدر لحد دلوقتي'
-    : `📊 <b>مصادر أرباحه:</b>\n⛏ التعدين: ${fmtAmt(p.earnMining)} · 📅 الدخول اليومي: ${fmtAmt(p.earnDaily)}\n✅ المهام: ${fmtAmt(p.earnTasks)} · 👥 الإحالات: ${fmtAmt(p.earnRef)} · 💸 عمولات محصّلة: ${fmtAmt(p.refCommissionEarned)}`;
+    : `📊 <b>مصادر أرباحه:</b>\n🪦 التعدين: ${fmtAmt(p.earnMining)} · 📅 الدخول اليومي: ${fmtAmt(p.earnDaily)}\n✅ المهام: ${fmtAmt(p.earnTasks)} · 👥 الإحالات: ${fmtAmt(p.earnRef)} · 💸 عمولات محصّلة: ${fmtAmt(p.refCommissionEarned)}`;
   /* Layout (owner order 2026-11-14, round 2): one fact per line,
      a blank line between sections. With the multi section reduced
      to a single verdict line the card stays far under Telegram's
@@ -4229,7 +4229,7 @@ async function buildWdReviewCard(wd, position) {
     `🧾 الرسوم: ${fmtCoins(wd.fee)} · الصافي: <b>${fmtCoins(wd.net)} ${sym}</b>`,
     '',
     `👛 <b>المحفظة:</b> <code>${esc(toFriendlyAddress(wd.walletAddr || p.walletAddr || ''))}</code>`,
-    `🛡 التوثيق: ${verifiedLine}${ageLine}`,
+    `⚰️ التوثيق: ${verifiedLine}${ageLine}`,
     '',
     `💎 <b>رصيده في البوت الآن:</b> ${fmtAmt(p.mined)} ${sym} (بعد خصم السحب)`,
     `🪙 الهولد على الشبكة الآن: ${holdTxt} ${sym}`,
