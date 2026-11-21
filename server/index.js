@@ -2249,8 +2249,8 @@ async function bioTask(c) {
    in-process FIFO set of processed update_ids (cap 500) plus the
    bioTaskDone transaction guard make crediting idempotent even if
    Telegram retries a delivery or the set was trimmed. */
-const APP_URL = 'https://ahmedrabieharoun-eng.github.io/zombie-mine/';
-const WELCOME_IMAGE_URL = 'https://ahmedrabieharoun-eng.github.io/zombie-mine/welcome-banner.webp?v=3'; // ?v=2: the titled banner replaced v1 at the same path; Telegram caches photo-by-URL
+const APP_URL = 'https://zombie-mine.vercel.app/';
+const WELCOME_IMAGE_URL = 'https://zombie-mine.vercel.app/welcome-banner.webp?v=3'; // ?v=2: the titled banner replaced v1 at the same path; Telegram caches photo-by-URL
 const webhookSecret = () => crypto.createHash('sha256').update(BOT_TOKEN || '').digest('hex').slice(0, 32);
 let webhookRegistered = false;
 function ensureWebhook() {
@@ -3967,8 +3967,8 @@ async function attemptPayout(wdNum) {
    logged and never re-opens the claim, never touches the payout
    state (the bot is not yet an admin in that channel; the post will
    simply start landing once the owner promotes it). */
-const PAYOUT_DM_BANNER = 'https://ahmedrabieharoun-eng.github.io/zombie-mine/payout-banner2.webp?v=3';       // warrior with the glowing coin
-const PAYOUT_CHANNEL_BANNER = 'https://ahmedrabieharoun-eng.github.io/zombie-mine/payout-banner.webp?v=3';   // treasure chest
+const PAYOUT_DM_BANNER = 'https://zombie-mine.vercel.app/payout-banner2.webp?v=3';       // warrior with the glowing coin
+const PAYOUT_CHANNEL_BANNER = 'https://zombie-mine.vercel.app/payout-banner.webp?v=3';   // treasure chest
 /* The on-chain link for a paid withdrawal, in precedence order:
    the chain-resolved payoutTx hash (auto path) → payoutTxLink (the
    payout wallet's tonviewer page, stored when hash resolution
