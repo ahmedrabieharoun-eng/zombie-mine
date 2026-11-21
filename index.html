@@ -15,7 +15,7 @@
   
   
   <link rel="preload" as="font" type="font/woff2" href="assets/font_pirata.woff2" crossorigin>
-  <link rel="preload" as="image" href="assets/boot_king.webp?v=120">
+  <link rel="preload" as="image" href="assets/boot_king.webp?v=143">
   <link rel="preload" as="image" href="assets/tombstone_center.webp">
   <style>
     /* ===== ZOMBIE MINER — TOXIC GRAVEYARD LAB (owner redesign 2026-11-19) =====
@@ -884,7 +884,7 @@
     #btn-goto-boost{padding-top:4px;padding-bottom:4px}
 
     /* ---------- PASS 26: boot = owner's artwork; name is the painted image ---------- */
-    #boot-loader{background:linear-gradient(rgba(7,6,3,0),rgba(7,6,3,.38) 78%,rgba(7,6,3,.72)),url('assets/boot_king.webp?v=120') center/cover #030503;justify-content:flex-end;padding-bottom:40px}
+    #boot-loader{background:linear-gradient(rgba(7,6,3,0),rgba(7,6,3,.38) 78%,rgba(7,6,3,.72)),url('assets/boot_king.webp?v=143') center/cover #030503;justify-content:flex-end;padding-bottom:40px}
     .boot-plaque-zm,.boot-plaque-zm-name{display:none}
 
     /* ================= PASS 27: PAINTED COMPONENTS (owner: اعمل صور علشان تطلع نفس النتيجه) =================
@@ -3564,7 +3564,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
 <body data-tab="mine" oncontextmenu="return false;">
 
   <div id="boot-loader">
-    <img src="assets/boot_king.webp?v=120" alt="Zombie" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+    <img src="assets/boot_king.webp?v=143" alt="Zombie" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
     <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(5,7,11,0.30) 0%, rgba(5,7,11,0) 30%, rgba(5,7,11,0) 52%, rgba(5,7,11,0.60) 100%);"></div>
     <div id="boot-col" style="position:relative;z-index:2;width:88%;max-width:340px;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:36px 0 34px;">
       <!-- PASS 52: the boot painting itself carries the medallion +
@@ -3625,7 +3625,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
            buttons are DELETED — sound + language live on Profile's
            settings row (sound-toggle-btn / lang-menu-btn). -->
       <div class="mn-head">
-        <img class="mn-logo" src="assets/logo_zm.webp?v=121" alt="ZOMBIE MINER">
+        <img class="mn-logo" src="assets/logo_zm.webp?v=143" alt="ZOMBIE MINER">
       </div>
       <div class="mn-topbar">
         <img id="prof-avatar" src="assets/avatar_1.webp" alt="">
@@ -3749,7 +3749,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
 
       <div class="tk-hero">
         <div class="tk-head">
-          <img class="tk-logo" src="assets/logo_zm.webp?v=121" alt="">
+          <img class="tk-logo" src="assets/logo_zm.webp?v=143" alt="">
           <div class="tk-div"><span class="tk-div-line"></span><img src="assets/icon_div_skull.webp?v=130" alt=""><span class="tk-div-line r"></span></div>
           <h2 class="tk-title" data-i18n="nav_tasks">Tasks</h2>
         </div>
@@ -5294,7 +5294,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       payoutWallet: "", botToken: "", payoutChannel: "@ZOMBI_PAYMENTS",
       adminChatId: "",
       buySwapUrl: "https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=EQCY8LnAfr0NMgw0SGBRkSykRuYy5fCkrvu4TUxt_O-FR8mg",
-      channel1: "https://t.me/ZOMBI_UPDATE", channel2: "https://t.me/ZOMBI_PAYMENTS", channel3: "https://t.me/ZOMBI_COMMUNITY", botUsername: "ZOMBIE_MINI_Bot"
+      channel1: "https://t.me/ZOMBI_UPDATE", channel2: "https://t.me/ZOMBI_PAYMENTS", channel3: "https://t.me/ZOMBI_COMMUNITY", botUsername: "ZOMBIE_MINER_bot"
     };
     let config = Object.assign({}, defaultConfig, JSON.parse(localStorage.getItem('vksec_config') || "{}"));
     delete config.botToken;
@@ -5443,7 +5443,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       'assets/boot_king.webp',
       'assets/bg_fog.webp?v=135',
       'assets/bg_tasks.webp?v=135',
-      'assets/logo_zm.webp?v=121',
+      'assets/logo_zm.webp?v=143',
       'assets/hero_king_reach.webp',
       'assets/avatar_king.webp',
       'assets/coin_icon.webp?v=108',

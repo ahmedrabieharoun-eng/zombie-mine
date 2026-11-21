@@ -127,7 +127,7 @@ const DEFAULTS = {
   // deposits, payout failures). settings/global can override the list.
   adminUsers: [],
   buySwapUrl: 'https://app.ston.fi/swap?chartVisible=false&tt=EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c&ft=GRAM',
-  channel1: 'https://t.me/ZOMBI_UPDATE', channel2: 'https://t.me/ZOMBI_PAYMENTS', channel3: 'https://t.me/ZOMBI_COMMUNITY', botUsername: 'ZOMBIE_MINI_Bot',
+  channel1: 'https://t.me/ZOMBI_UPDATE', channel2: 'https://t.me/ZOMBI_PAYMENTS', channel3: 'https://t.me/ZOMBI_COMMUNITY', botUsername: 'ZOMBIE_MINER_bot',
   // Wallet verification (owner order 2026-11-14): the fee is paid to
   // verifyDepositWallet with the comment ZM-<userNo>.
   // verifyMinAgeDays is LEGACY since 2026-11-17 (owner order):
@@ -3967,7 +3967,7 @@ async function attemptPayout(wdNum) {
    logged and never re-opens the claim, never touches the payout
    state (the bot is not yet an admin in that channel; the post will
    simply start landing once the owner promotes it). */
-const PAYOUT_DM_BANNER = 'https://ahmedrabieharoun-eng.github.io/zombie-mine/payout-banner2.webp?v=2';       // warrior with the glowing coin
+const PAYOUT_DM_BANNER = 'https://ahmedrabieharoun-eng.github.io/zombie-mine/payout-banner2.webp?v=3';       // warrior with the glowing coin
 const PAYOUT_CHANNEL_BANNER = 'https://ahmedrabieharoun-eng.github.io/zombie-mine/payout-banner.webp?v=3';   // treasure chest
 /* The on-chain link for a paid withdrawal, in precedence order:
    the chain-resolved payoutTx hash (auto path) → payoutTxLink (the
@@ -5171,7 +5171,7 @@ async function panelEmojiTest(c) {
     + '⚰️ Verified 🛡️ 🦴 buried coins 💰\n'
     + '👇 Tap below 👍 🌙 🔥 👻 🎉';
   const rm = { inline_keyboard: [[
-    { text: '🧟 Open ZOM', url: 'https://t.me/ZOMBIE_MINI_Bot/app' },
+    { text: '🧟 Open ZOM', url: 'https://t.me/ZOMBIE_MINER_bot/app' },
     { text: '💀 Payouts', url: 'https://t.me/ZOMBI_PAYMENTS' },
     { text: '🦇 News', url: 'https://t.me/ZOMBI_UPDATE' },
   ]] };
