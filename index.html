@@ -3967,9 +3967,6 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
         <button class="btn-3d-bronze btn-stonfi-buy" id="btn-wd-buy" style="display:none;justify-content:center;">🪙 <span data-i18n="buy_stonfi_btn">Buy on STON.fi</span></button>
       </section>
 
-      <div class="pf-contract">
-        <strong>OFFICIAL CONTRACT:</strong> <span id="official-contract-addr">EQCY8LnAfr0NMgw0SGBRkSykRuYy5fCkrvu4TUxt_O-FR8mg</span> <button class="btn-3d-dark" id="btn-copy-contract" data-i18n="verify_copy_btn">Copy</button>
-      </div>
 
 
 
@@ -6715,13 +6712,6 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     document.querySelectorAll('.btn-stonfi-buy').forEach(b => b.addEventListener('click', openStonfiSwap));
     document.querySelectorAll('.btn-tonkeeper-buy').forEach(b => b.addEventListener('click', openTonkeeperSwap));
     document.getElementById('btn-connect-wallet').addEventListener('click', connectTonWallet);
-    // Official-contract copy: copies the address exactly as rendered
-    // (the card shows it in monospace so I / l / 1 stay distinct).
-    document.getElementById('btn-copy-contract').addEventListener('click', () => {
-      SoundFX.click();
-      const a = (document.getElementById('official-contract-addr').textContent || "").trim();
-      try { navigator.clipboard.writeText(a); showToast("📋 Copied!"); } catch (e) {}
-    });
     // PASS 48: Mine contract bar — painted from the same
     // OFFICIAL_JETTON source as Profile's strip, middle-truncated
     // via shortAddr; the copy button copies the FULL address with
