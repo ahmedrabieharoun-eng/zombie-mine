@@ -150,7 +150,7 @@ const DEFAULTS = {
   // that has aged at least adMinWatchSec — see adTicket / adClaim.
   // adsEnabled = 0 disables the whole system (no tickets issued, no
   // gate required, section hidden) as an emergency valve.
-  adsEnabled: 1, adsgramBlockId: '60547', adReward: 10, adDailyLimit: 10, adMinWatchSec: 15, adGateMinSec: 5,
+  adsEnabled: 0, adsgramBlockId: '60547', adReward: 10, adDailyLimit: 10, adMinWatchSec: 15, adGateMinSec: 5,
   holdTaskDefs: [ { hold: 2500, reward: 600 }, { hold: 5000, reward: 1000 }, { hold: 10000, reward: 2000 }, { hold: 20000, reward: 3000 }, { hold: 40000, reward: 5000 } ]
 };
 const NUM_KEYS = ['lvl1PerDay', 'taskReward', 'bioReward', 'refAchReward1', 'refAchReward10', 'refAchReward25', 'refAchReward50', 'refAchReward100', 'refClaimPercent', 'refMinHold', 'minWithdraw', 'holdPercentReq', 'withdrawFeePercent', 'verifyFeeTon', 'verifyMinAgeDays', 'withdrawMinAgeDays', 'holdRenewDays', 'adsEnabled', 'adReward', 'adDailyLimit', 'adMinWatchSec', 'adGateMinSec'];

@@ -10,7 +10,6 @@
   <meta property="og:type" content="website">
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script src="https://sad.adsgram.ai/js/sad.min.js" async></script>
   <script src="https://unpkg.com/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script>
 
   
@@ -5968,81 +5967,11 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     }
 
 
-    /* Adsgram (owner order 2026-11-19): the money buttons
-       run through apiGated — the server issues a single-use gate
-       ticket, the ad must actually be shown, and only then does the
-       real action fire, carrying the ticket. The Tasks-page reward
-       ads use a 'reward' ticket + adClaim (server-aged, single-use,
-       daily-capped — a replayed claim request earns nothing). If
-       ads are disabled in the panel (adsEnabled = 0), apiGated
-       degrades to a plain call and the ads section hides. */
-    let adGateBusy = false; const adsgramCtls = {};
-    function adsgramCtl() {
-      const id = String(config.adsgramBlockId || '60547');
-      if (adsgramCtls[id]) return adsgramCtls[id];
-      if (!window.Adsgram || typeof window.Adsgram.init !== 'function') return null;
-      const ctl = window.Adsgram.init({ blockId: id });
-      adsgramCtls[id] = ctl; return ctl;
-    }
-    async function apiGated(action, body) {
-      if (Number(config.adsEnabled) === 0) return api(action, body || {});
-      const dict = I18N[currentLang] || I18N.en;
-      if (adGateBusy) throw new Error(dict.ad_loading || 'Ad loading, try again');
-      const ctl = adsgramCtl();
-      if (!ctl) throw new Error(dict.ad_loading || 'Ad loading, try again');
-      adGateBusy = true;
-      try {
-        const tk = await api('adTicket', { purpose: 'gate' });
-        let res;
-        try { res = await ctl.show(); }
-        catch (showErr) {
-          // Adsgram itself could not serve an ad (no fill / load
-          // error): exchange the gate ticket for a one-time
-          // no-fill waiver and run the action with it (owner
-          // order 2026-11-19). An ad closed early RESOLVES with
-          // done === false below and stays blocked.
-          const w = await api('adNoFill', { ticket: tk.ticket });
-          return await api(action, { ...(body || {}), adWaiver: w.waiver });
-        }
-        if (res && res.done === false) throw new Error(dict.ad_watch_full || 'Watch the full ad to continue');
-        return await api(action, { ...(body || {}), adGate: tk.ticket });
-      } finally { adGateBusy = false; }
-    }
-    async function watchRewardAd(e) {
-      if (!isHumanClick(e)) return;
-      const dict = I18N[currentLang] || I18N.en;
-      await withBtnBusy(e.currentTarget, async () => {
-        const ctl = adsgramCtl();
-        if (!ctl) { showToast('❌ ' + (dict.ad_loading || 'Ad loading, try again'), '#ef4444'); return; }
-        try {
-          const tk = await api('adTicket', { purpose: 'reward' });
-          let res, showFailed = false;
-          try { res = await ctl.show(); } catch (e) { showFailed = true; }
-          if (showFailed) { showToast('❌ ' + (dict.ads_none || 'No ads available right now'), '#ef4444'); return; }
-          if (res && res.done === false) { showToast('❌ ' + (dict.ad_watch_full || 'Watch the full ad'), '#ef4444'); return; }
-          const r = await api('adClaim', { ticket: tk.ticket });
-          SoundFX.buySuccess();
-          showToast(`📺 +${r.reward} ${config.coinSym}!`);
-          await refreshState();
-        } catch (err) { showToast('❌ ' + err.message, '#ef4444'); }
-      });
-    }
-    function renderAdsSection() {
-      const wrap = document.getElementById('ads-wrap');
-      if (!wrap) return;
-      const dict = I18N[currentLang] || I18N.en;
-      if (Number(config.adsEnabled) === 0) { wrap.style.display = 'none'; return; }
-      wrap.style.display = '';
-      const limit = Number(config.adDailyLimit) > 0 ? Number(config.adDailyLimit) : 10;
-      const used = (adsDay === Math.floor(Date.now() / 86400000)) ? adsDayCount : 0;
-      const left = Math.max(0, limit - used);
-      const rew = document.getElementById('ads-rew-amt');
-      if (rew) rew.textContent = Number(config.adReward) > 0 ? Number(config.adReward) : 5;
-      const lt = document.getElementById('ads-left-txt');
-      if (lt) lt.textContent = left > 0 ? (dict.ads_left || '{n} ads left today').replace('{n}', left) : (dict.ads_all_done || '✅ All ads watched today');
-      const btn = document.getElementById('btn-watch-ad');
-      if (btn) { btn.disabled = left <= 0; btn.style.opacity = left <= 0 ? .55 : 1; }
-    }
+    /* Ads REMOVED completely (owner order 2026-11-21): no Adsgram
+       SDK, no gate tickets, no reward ads — nothing ad-related can
+       ever appear. apiGated is kept as a plain pass-through so the
+       money buttons (collect / refAch / withdraw) fire directly. */
+    async function apiGated(action, body) { return api(action, body || {}); }
 
     /* PASS 57/58: Tasks tab switching — DAILY is the default
        panel; switching only toggles visibility + the active tab. */
@@ -6083,7 +6012,6 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
         }
       }
 
-      renderAdsSection();
       renderHoldTasks();
       renderRefAchList();
       renderRefTasksSummary();
@@ -6661,7 +6589,6 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     if (mvmEl) mvmEl.addEventListener('click', () => { if (myUserNo && !myWalletVerified) { SoundFX.click(); switchTab('profile'); } });
     document.getElementById('btn-collect-ref').addEventListener('click', collectReferralProfits);
     document.getElementById('btn-claim-daily').addEventListener('click', claimDailyLogin);
-    const _bwa = document.getElementById('btn-watch-ad'); if (_bwa) _bwa.addEventListener('click', watchRewardAd);
     const _bdi = document.getElementById('btn-daily-info'); if (_bdi) _bdi.addEventListener('click', () => { renderDailyLogin(); const m = document.getElementById('daily-modal'); if (m) m.style.display = 'flex'; });
     const _bdc = document.getElementById('btn-daily-close'); if (_bdc) _bdc.addEventListener('click', () => { const m = document.getElementById('daily-modal'); if (m) m.style.display = 'none'; });
     const _bs = document.getElementById('btn-settings'); if (_bs) _bs.addEventListener('click', () => { SoundFX.click(); const m = document.getElementById('settings-modal'); if (m) m.style.display = 'flex'; });
