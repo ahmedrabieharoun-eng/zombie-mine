@@ -3320,6 +3320,75 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
 #page-tasks #daily-card .q-title{font-size:12px!important}
 #page-tasks .q-title{font-size:15.5px!important}
 }
+/* SIZE PASS (owner): bigger cards, smaller texts, ONE smaller button size everywhere */
+#page-tasks .q-row{min-height:106px!important}
+#page-tasks .q-row-in{padding:15px 16px!important;gap:15px!important}
+#page-tasks .q-ic{width:78px!important;height:78px!important}
+#page-tasks #daily-card .q-ic{width:74px!important;height:74px!important}
+#page-tasks .q-title{font-size:14.5px!important}
+#page-tasks #daily-card .q-title{font-size:12.5px!important}
+#page-tasks .q-sub{font-size:11.5px!important}
+#page-tasks .q-btn{width:118px!important;min-width:118px!important;height:40px!important;font-size:14px!important}
+#page-tasks #daily-card .q-btn{width:118px!important;min-width:118px!important;height:40px!important;font-size:14px!important}
+@media (max-width:430px){
+#page-tasks .q-row{min-height:98px!important}
+#page-tasks .q-row-in{padding:13px 12px!important;gap:12px!important}
+#page-tasks #daily-card .q-row-in{padding:13px 8px!important;gap:10px!important}
+#page-tasks .q-ic{width:66px!important;height:66px!important}
+#page-tasks #daily-card .q-ic{width:62px!important;height:62px!important}
+#page-tasks .q-title{font-size:13.5px!important}
+#page-tasks #daily-card .q-title{font-size:12px!important}
+#page-tasks .q-sub{font-size:11px!important}
+#page-tasks .q-btn{width:104px!important;min-width:104px!important;height:38px!important;font-size:13px!important}
+#page-tasks #daily-card .q-btn{width:104px!important;min-width:104px!important;height:38px!important;font-size:13px!important}
+}
+/* BROKEN-EDGE cards (owner: same cut as the DAILY/HOLD/REFERRALS tabs) */
+#page-tasks .q-row{clip-path:polygon(14px 0,calc(100% - 14px) 0,100% 14px,100% calc(100% - 14px),calc(100% - 14px) 100%,14px 100%,0 calc(100% - 14px),0 14px)!important}
+#page-tasks #btn-daily-info{top:9px!important;right:13px!important}
+/* DAILY MODAL: light green instead of orange (owner) */
+#daily-modal .pf-modal-card{border:1px solid rgba(57,255,20,.55)!important;box-shadow:0 0 18px rgba(57,255,20,.22),0 18px 50px rgba(0,0,0,.7)!important}
+#daily-modal .dm-rew{color:#39ff14}
+#daily-modal .dm-cell.mile{border-color:rgba(57,255,20,.45)}
+#daily-modal .dm-cell.claimed{border-color:rgba(57,255,20,.8);background:rgba(57,255,20,.12)}
+#daily-modal .dm-cell.today{border-color:#39ff14;box-shadow:0 0 11px rgba(57,255,20,.5)}
+#daily-modal .dm-today{color:#39ff14}
+/* SIZE PASS 2 (owner): wider + shorter cards, tighter gaps, smaller texts/buttons */
+#page-tasks .q-wrap{padding:4px!important;margin-bottom:6px!important}
+#page-tasks .q-row{margin-top:2px!important;min-height:88px!important}
+#page-tasks .q-row-in{padding:11px 14px!important;gap:12px!important}
+#page-tasks .q-ic{width:66px!important;height:66px!important}
+#page-tasks #daily-card .q-ic{width:62px!important;height:62px!important}
+#page-tasks .q-title{font-size:13.5px!important}
+#page-tasks #daily-card .q-title{font-size:12px!important}
+#page-tasks .q-sub{font-size:10.5px!important}
+#page-tasks .q-btn{width:104px!important;min-width:104px!important;height:36px!important;font-size:13px!important}
+#page-tasks #daily-card .q-btn{width:104px!important;min-width:104px!important;height:36px!important;font-size:13px!important}
+@media (max-width:430px){
+#page-tasks .q-row{min-height:82px!important}
+#page-tasks .q-row-in{padding:10px 10px!important;gap:10px!important}
+#page-tasks #daily-card .q-row-in{padding:10px 8px!important;gap:9px!important}
+#page-tasks .q-ic{width:58px!important;height:58px!important}
+#page-tasks #daily-card .q-ic{width:54px!important;height:54px!important}
+#page-tasks .q-title{font-size:12.5px!important}
+#page-tasks #daily-card .q-title{font-size:11.5px!important}
+#page-tasks .q-sub{font-size:10px!important}
+#page-tasks .q-btn{width:96px!important;min-width:96px!important;height:34px!important;font-size:12.5px!important}
+#page-tasks #daily-card .q-btn{width:96px!important;min-width:96px!important;height:34px!important;font-size:12.5px!important}
+}
+/* owner: daily-info (!) button away from the Claim button -> top-left of the card */
+#page-tasks #btn-daily-info{left:13px!important;right:auto!important;top:9px!important}
+/* owner: Claim/Join buttons hug their word (fit-content), smaller */
+#page-tasks .q-btn{width:98px!important;min-width:98px!important;padding:0!important;height:36px!important;font-size:13px!important}
+@media (max-width:430px){
+#page-tasks .q-btn{width:92px!important;min-width:92px!important;height:34px!important;font-size:12.5px!important}
+}
+/* hug fix: beat the older (1,2,0) row-button rule + the (2,1,0) daily rule */
+#page-tasks .q-row .q-btn{width:98px!important;min-width:98px!important;height:36px!important;font-size:13px!important;padding:0!important}
+#page-tasks #daily-card .q-btn{width:98px!important;min-width:98px!important;padding:0!important}
+@media (max-width:430px){
+#page-tasks .q-row .q-btn{width:92px!important;min-width:92px!important;height:34px!important;font-size:12.5px!important;padding:0!important}
+#page-tasks #daily-card .q-btn{width:92px!important;min-width:92px!important}
+}
 </style>
 </head>
 <body data-tab="mine" oncontextmenu="return false;">
@@ -3540,7 +3609,7 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
       </div>
 
       <div class="tk-panel" id="tk-panel-hold" style="display:none">
-        <div id="hold-rule-banner"></div>
+        
         <div id="hold-task-list"></div>
       </div>
 
@@ -3548,7 +3617,7 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
       <div class="q-wrap" id="daily-card">
         <div class="q-row">
           <div class="q-row-in">
-            <img class="q-ic" src="assets/icon_n_moon.webp?v=137" alt="">
+            <img class="q-ic" src="assets/icon_m2_moon.webp?v=138" alt="">
             <div class="q-mid">
               <div class="q-title" data-i18n="daily_login_title">🎁 Daily Login (40 Days)</div>
               <div class="q-sub"><span id="daily-streak-txt"></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt=""><span id="daily-rew-amt">+25</span></span></div>
@@ -3564,10 +3633,10 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
       <div class="q-wrap">
         <div class="q-row" id="ch1-row">
           <div class="q-row-in">
-            <img class="q-ic" src="assets/icon_n_flag.webp?v=137" alt="">
+            <img class="q-ic" src="assets/icon_m2_flag.webp?v=138" alt="">
             <div class="q-mid">
               <div class="q-title-line"><span class="q-line-ic"><svg viewBox="0 0 24 24" width="19" height="19"><circle cx="12" cy="12" r="11" fill="#2AABEE"/><polygon points="21.5,3.5 14.8,20.8 11,13.4 3.6,9.8" fill="#fff"/><line x1="21.5" y1="3.5" x2="11" y2="13.4" stroke="#2AABEE" stroke-width="1.5"/></svg></span><div class="q-title" id="ch-1-title" data-i18n="ch1_title">Official Telegram Channel</div></div>
-              <div class="q-sub"><span class="q-renew"><span class="q-line-ic"><svg viewBox="0 0 24 24" width="17" height="17"><rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="#5b6b72"/><g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21.5,4.5 21.5,9.5 16.5,9.5"/><path d="M20.2,15.2a8,8 0 1,1-1.8-8.2l3.1,2.5"/></g></svg></span> <span data-i18n="renews_24h">Renews every 24 hours</span></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+<span class="ui-task-rew">50</span> <span class="coin-sym">$ZM</span></span></div>
+              <div class="q-sub"><span class="q-renew"><span class="q-line-ic"><svg viewBox="0 0 24 24" width="17" height="17"><rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="#5b6b72"/><g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21.5,4.5 21.5,9.5 16.5,9.5"/><path d="M20.2,15.2a8,8 0 1,1-1.8-8.2l3.1,2.5"/></g></svg></span> <span data-i18n="renews_24h">Renews every 24h</span></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+<span class="ui-task-rew">50</span> <span class="coin-sym">$ZM</span></span></div>
             </div>
             <button class="btn-3d-gold q-btn" id="ch-task-1-btn">Join Channel</button>
           </div>
@@ -3578,10 +3647,10 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
       <div class="q-wrap">
         <div class="q-row" id="ch2-row">
           <div class="q-row-in">
-            <img class="q-ic" src="assets/icon_n_chest.webp?v=137" alt="">
+            <img class="q-ic" src="assets/icon_m2_chest.webp?v=138" alt="">
             <div class="q-mid">
               <div class="q-title-line"><span class="q-line-ic"><svg viewBox="0 0 24 24" width="19" height="19"><circle cx="12" cy="12" r="11" fill="#2AABEE"/><polygon points="21.5,3.5 14.8,20.8 11,13.4 3.6,9.8" fill="#fff"/><line x1="21.5" y1="3.5" x2="11" y2="13.4" stroke="#2AABEE" stroke-width="1.5"/></svg></span><div class="q-title" id="ch-2-title" data-i18n="ch2_title">Payouts & Community Channel</div></div>
-              <div class="q-sub"><span class="q-renew"><span class="q-line-ic"><svg viewBox="0 0 24 24" width="17" height="17"><rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="#5b6b72"/><g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21.5,4.5 21.5,9.5 16.5,9.5"/><path d="M20.2,15.2a8,8 0 1,1-1.8-8.2l3.1,2.5"/></g></svg></span> <span data-i18n="renews_24h">Renews every 24 hours</span></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+<span class="ui-task-rew">50</span> <span class="coin-sym">$ZM</span></span></div>
+              <div class="q-sub"><span class="q-renew"><span class="q-line-ic"><svg viewBox="0 0 24 24" width="17" height="17"><rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="#5b6b72"/><g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21.5,4.5 21.5,9.5 16.5,9.5"/><path d="M20.2,15.2a8,8 0 1,1-1.8-8.2l3.1,2.5"/></g></svg></span> <span data-i18n="renews_24h">Renews every 24h</span></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+<span class="ui-task-rew">50</span> <span class="coin-sym">$ZM</span></span></div>
             </div>
             <button class="btn-3d-gold q-btn" id="ch-task-2-btn">Join Channel</button>
           </div>
@@ -3592,29 +3661,15 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
       <div class="q-wrap">
         <div class="q-row" id="ch3-row">
           <div class="q-row-in">
-            <img class="q-ic" src="assets/icon_n_king.webp?v=137" alt="">
+            <img class="q-ic" src="assets/icon_m2_king.webp?v=138" alt="">
             <div class="q-mid">
               <div class="q-title-line"><span class="q-line-ic"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#53b6f5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><div class="q-title" id="ch-3-title" data-i18n="ch3_title">Community Channel</div></div>
-              <div class="q-sub"><span class="q-renew"><span class="q-line-ic"><svg viewBox="0 0 24 24" width="17" height="17"><rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="#5b6b72"/><g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21.5,4.5 21.5,9.5 16.5,9.5"/><path d="M20.2,15.2a8,8 0 1,1-1.8-8.2l3.1,2.5"/></g></svg></span> <span data-i18n="renews_24h">Renews every 24 hours</span></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+<span class="ui-task-rew">50</span> <span class="coin-sym">$ZM</span></span></div>
+              <div class="q-sub"><span class="q-renew"><span class="q-line-ic"><svg viewBox="0 0 24 24" width="17" height="17"><rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="#5b6b72"/><g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21.5,4.5 21.5,9.5 16.5,9.5"/><path d="M20.2,15.2a8,8 0 1,1-1.8-8.2l3.1,2.5"/></g></svg></span> <span data-i18n="renews_24h">Renews every 24h</span></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+<span class="ui-task-rew">50</span> <span class="coin-sym">$ZM</span></span></div>
             </div>
             <button class="btn-3d-gold q-btn" id="ch-task-3-btn">Join Channel</button>
           </div>
         </div>
         <button class="btn-3d-dark" id="btn-open-ch3" data-i18n="open_ch" style="display:none;">1. Open Channel</button>
-      </div>
-
-      <div class="q-wrap" id="bio-task-card">
-        <div class="q-row">
-          <div class="q-row-in">
-            <img class="q-ic" src="assets/icon_q_feather.webp" alt="">
-            <div class="q-mid">
-              <div class="q-title">Bio Task</div>
-              <div class="q-sub"><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+<span id="ui-bio-rew">50</span> <span class="coin-sym">$ZM</span></span></div>
-            </div>
-            <button class="btn-3d-gold q-btn tk-go" id="btn-bio-task">Verify in bot</button>
-          </div>
-        </div>
-        <span id="bio-bot-username" style="display:none"></span>
       </div>
       </div>
 
@@ -3819,7 +3874,7 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
 
   <div class="bottom-nav-3d">
     <div class="nav-item active" data-tab="mine">
-      <img class="nav-ic" src="assets/nav_axe_gold.webp?v=135" alt="">
+      <img class="nav-ic" src="assets/nav_mine2.webp?v=139" alt="">
       <span data-i18n="nav_mine">Mine</span>
     </div>
     <div class="nav-item" data-tab="tasks">
@@ -4353,7 +4408,7 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
         my_referrals_title:"👥 My Invited Friends", pending_ref_title:"Pending Referral Profits", collect_ref_btn:"COLLECT",
         ton_wallet_title:"TON Blockchain Wallet", connect_wallet_btn:"Connect TON Wallet",
         sync_hold_btn:"Verify Wallet Hold", disconnect_wallet_btn:"Disconnect", unlink_title:"Disconnect Wallet?", unlink_warn:"⚠️ Disconnecting will cancel your wallet verification. To verify again, you will have to pay the verification fee again.", unlink_confirm:"Disconnect", unlink_cancel:"Cancel",
-        prof_page_title:"PROFILE", prof_username_lbl:"USERNAME", prof_wallet_lbl:"WALLET", prof_amount_lbl:"AMOUNT", buy_stonfi_btn:"Buy on STON.fi", set_sound_lbl:"SOUND", set_lang_lbl:"LANGUAGE", set_title:"⚙️ Settings", modal_close:"Close", set_support:"💬 Support", lock_verify:"Verify Your Wallet First", lock_age:"Wallet Must Be {n}+ Days Old", renews_24h:"Renews every 24 hours", renews_48h:"Renews every 48 hours", hold_tasks_title:"💰 HOLD TASKS", hold_task_title:"Hold {n}", claim_btn:"Claim", hold_rule_banner:"A claim pays your HIGHEST tier only — judged on the coins you currently hold in your wallet. Claims renew every {r} days.", hold_included:"✓ Included", hold_aged_note:"Counts the coins currently in your wallet", wd_hold_total:"WALLET HOLD", wd_hold_aged:"ZM IN WALLET NOW", wd_recheck_title:"HOLD RE-CHECK", wd_recheck_new:"NEW", wd_recheck_days:"Hold counts the coins currently in your wallet", wd_recheck_txt:"The {p}% hold requirement ({n}) is checked when you place your withdrawal request, against the coins you currently hold in your wallet.", wd_holdcheck_paused:"Hold check: paused — top up your wallet hold", task_available_in:"Available in {t}", ref_tasks_title:"Referral Tasks", ref_tasks_open:"Open", ref_tasks_sum:"{a} active · Next reward at {n}: +{r}", ref_tasks_done:"All milestones claimed 🎉", ref_banner_title:"YOUR CREW", boost_banner_title:"LEVELS BOOST", boost_prog_title:"LEVEL PROGRESSION", lvl_current:"CURRENT", lvl_completed:"COMPLETED", lvl_locked_fmt:"Hold {n} {s} to unlock", daily_profit_lbl:"DAILY PROFIT", pf64_step1:"Step 1 — Connect your wallet", pf64_step2:"Step 2 — Verify it’s yours", pf64_hold_lbl:"WALLET HOLD", pf64_bal_lbl:"BALANCE", pf64_rate_lbl:"DAY RATE", quests_title:"QUESTS", tap_open_hint:"Tap the card to open", ref_head_earn:"Friends who activate earn you {c}% of everything they mine — it lands here on its own.", ref_head_sub:"A friend activates at Level 2", ref_link_lbl:"INVITE LINK", ref_how_title:"HOW IT WORKS", ref_rule_100:"+100 coins for every ACTIVE referral", ref_rule_cond:"A friend activates at Level 2, holding {h}+ $ZM in their wallet.", ref_rule_5:"You earn {c}% of everything your active referrals earn — automatically", ref_friends_title:"YOUR FRIENDS", ref_verified_pill:"VERIFIED", ref_pending_pill:"PENDING", ref_dup_pill:"DUPLICATE",
+        prof_page_title:"PROFILE", prof_username_lbl:"USERNAME", prof_wallet_lbl:"WALLET", prof_amount_lbl:"AMOUNT", buy_stonfi_btn:"Buy on STON.fi", set_sound_lbl:"SOUND", set_lang_lbl:"LANGUAGE", set_title:"⚙️ Settings", modal_close:"Close", set_support:"💬 Support", lock_verify:"Verify Your Wallet First", lock_age:"Wallet Must Be {n}+ Days Old", renews_24h:"Renews every 24h", renews_48h:"Renews every 48 hours", hold_tasks_title:"💰 HOLD TASKS", hold_task_title:"Hold {n}", claim_btn:"Claim", hold_rule_banner:"Pays your HIGHEST tier only — by the coins in your wallet now. Renews every {r} days.", hold_included:"✓ Included", hold_aged_note:"Coins in your wallet now", wd_hold_total:"WALLET HOLD", wd_hold_aged:"ZM IN WALLET NOW", wd_recheck_title:"HOLD RE-CHECK", wd_recheck_new:"NEW", wd_recheck_days:"Hold counts the coins currently in your wallet", wd_recheck_txt:"The {p}% hold requirement ({n}) is checked when you place your withdrawal request, against the coins you currently hold in your wallet.", wd_holdcheck_paused:"Hold check: paused — top up your wallet hold", task_available_in:"Available in {t}", ref_tasks_title:"Referral Tasks", ref_tasks_open:"Open", ref_tasks_sum:"{a} active · Next reward at {n}: +{r}", ref_tasks_done:"All milestones claimed 🎉", ref_banner_title:"YOUR CREW", boost_banner_title:"LEVELS BOOST", boost_prog_title:"LEVEL PROGRESSION", lvl_current:"CURRENT", lvl_completed:"COMPLETED", lvl_locked_fmt:"Hold {n} {s} to unlock", daily_profit_lbl:"DAILY PROFIT", pf64_step1:"Step 1 — Connect your wallet", pf64_step2:"Step 2 — Verify it’s yours", pf64_hold_lbl:"WALLET HOLD", pf64_bal_lbl:"BALANCE", pf64_rate_lbl:"DAY RATE", quests_title:"QUESTS", tap_open_hint:"Tap the card to open", ref_head_earn:"Friends who activate earn you {c}% of everything they mine — it lands here on its own.", ref_head_sub:"A friend activates at Level 2", ref_link_lbl:"INVITE LINK", ref_how_title:"HOW IT WORKS", ref_rule_100:"+100 coins for every ACTIVE referral", ref_rule_cond:"A friend activates at Level 2, holding {h}+ $ZM in their wallet.", ref_rule_5:"You earn {c}% of everything your active referrals earn — automatically", ref_friends_title:"YOUR FRIENDS", ref_verified_pill:"VERIFIED", ref_pending_pill:"PENDING", ref_dup_pill:"DUPLICATE",
         hold_wallet_lbl:"Wallet Hold", mine_wallet_lbl:"In-App Balance",
         withdraw_title:"Withdraw", min_wd_lbl:"Minimum:", wd_fee_lbl:"Fee (5%):", net_lbl:"Net:",
         hold_cond_lbl:"{p}% Hold Required:", your_hold_lbl:"Your Hold:", req_wd_btn:"Request Withdrawal",
@@ -4403,7 +4458,7 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
         my_referrals_title:"👥 أصدقائي المدعوون", pending_ref_title:"أرباح الإحالات المعلقة", collect_ref_btn:"جمع أرباح الإحالات",
         ton_wallet_title:"محفظة شبكة TON", connect_wallet_btn:"ربط محفظة TON الآن",
         sync_hold_btn:"تحديث رصيد المحفظة", disconnect_wallet_btn:"إلغاء الربط", unlink_title:"فك ربط المحفظة؟", unlink_warn:"⚠️ فك ربط المحفظة سيلغي توثيق محفظتك، وستضطر لدفع رسوم التوثيق مرة أخرى لإعادة التوثيق.", unlink_confirm:"فك الربط", unlink_cancel:"إلغاء",
-        prof_page_title:"الملف الشخصي", prof_username_lbl:"اسم المستخدم", prof_wallet_lbl:"المحفظة", prof_amount_lbl:"المبلغ", buy_stonfi_btn:"اشترِ من STON.fi", set_sound_lbl:"الصوت", set_lang_lbl:"اللغة", set_title:"⚙️ الإعدادات", modal_close:"إغلاق", set_support:"💬 الدعم", lock_verify:"قم بتوثيق محفظتك أولاً", lock_age:"عمر المحفظة لازم يكون {n} يوم أو أكتر", renews_24h:"تتجدد كل 24 ساعة", renews_48h:"تتجدد كل 48 ساعة", hold_tasks_title:"💰 مهام الاحتفاظ", hold_task_title:"احتفظ بـ {n}", claim_btn:"استلام", hold_rule_banner:"الاستلام بيدفع أعلى مستوى انت مؤهل له بس — بيتحسب على العملات الموجودة في محفظتك دلوقتي. الاستلام بيتجدد كل {r} أيام.", hold_included:"✓ مشمول في الأعلى", hold_aged_note:"بيتحسب على العملات الموجودة في محفظتك دلوقتي", wd_hold_total:"الهولد في المحفظة", wd_hold_aged:"ZM الموجودة في محفظتك دلوقتي", wd_recheck_title:"إعادة فحص الاحتفاظ", wd_recheck_new:"جديد", wd_recheck_days:"الهولد بيتحسب على العملات الموجودة في محفظتك دلوقتي", wd_recheck_txt:"شرط الهولد {p}% ({n}) بيتحقق وقت ما تقدّم طلب السحب، وبيتحسب على العملات الموجودة في محفظتك دلوقتي.", wd_holdcheck_paused:"فحص الاحتفاظ: متوقف — زوّد احتفاظ محفظتك", task_available_in:"متاحة بعد {t}", ref_tasks_title:"مهام الإحالات", ref_tasks_open:"افتح", ref_tasks_sum:"{a} نشط · المكافأة الجاية عند {n}: +{r}", ref_tasks_done:"كل المراحل اتستلمت 🎉", ref_banner_title:"طاقمك", boost_banner_title:"تعزيز المستوى", boost_prog_title:"تقدم المستويات", lvl_current:"الحالي", lvl_completed:"مكتمل", lvl_locked_fmt:"احتفظ بـ {n} {s} لفتح المستوى", daily_profit_lbl:"الربح اليومي", pf64_step1:"الخطوة 1 — اربط محفظتك", pf64_step2:"الخطوة 2 — أكّد إنها محفظتك", pf64_hold_lbl:"الاحتفاظ بالمحفظة", pf64_bal_lbl:"الرصيد", pf64_rate_lbl:"المعدل اليومي", quests_title:"المهام", tap_open_hint:"اضغط على الكارت للفتح", ref_head_earn:"أصحابك اللي بيتنشّطوا بيكسبوك {c}% من كل اللي بيعدّنوه — وبيوصلك هنا لوحده.", ref_head_sub:"الصديق بيتنشط عند المستوى 2", ref_link_lbl:"رابط الدعوة", ref_how_title:"إزاي بيشتغل", ref_rule_100:"+100 عملة عن كل إحالة نشطة", ref_rule_cond:"الصديق بيتنشّط عند المستوى 2، وهو محتفظ بـ {h}+ $ZM في محفظته.", ref_rule_5:"بتكسب {c}% من كل أرباح إحالاتك النشطة — تلقائيًا", ref_friends_title:"أصدقاؤك", ref_verified_pill:"موثّق", ref_pending_pill:"قيد الانتظار", ref_dup_pill:"مكرر",
+        prof_page_title:"الملف الشخصي", prof_username_lbl:"اسم المستخدم", prof_wallet_lbl:"المحفظة", prof_amount_lbl:"المبلغ", buy_stonfi_btn:"اشترِ من STON.fi", set_sound_lbl:"الصوت", set_lang_lbl:"اللغة", set_title:"⚙️ الإعدادات", modal_close:"إغلاق", set_support:"💬 الدعم", lock_verify:"قم بتوثيق محفظتك أولاً", lock_age:"عمر المحفظة لازم يكون {n} يوم أو أكتر", renews_24h:"تجديد كل 24 ساعة", renews_48h:"تتجدد كل 48 ساعة", hold_tasks_title:"💰 مهام الاحتفاظ", hold_task_title:"احتفظ بـ {n}", claim_btn:"استلام", hold_rule_banner:"الاستلام بيدفع أعلى مستوى بس — على العملات اللي في محفظتك دلوقتي. بيتجدد كل {r} أيام.", hold_included:"✓ مشمول في الأعلى", hold_aged_note:"على عملات محفظتك دلوقتي", wd_hold_total:"الهولد في المحفظة", wd_hold_aged:"ZM الموجودة في محفظتك دلوقتي", wd_recheck_title:"إعادة فحص الاحتفاظ", wd_recheck_new:"جديد", wd_recheck_days:"الهولد بيتحسب على العملات الموجودة في محفظتك دلوقتي", wd_recheck_txt:"شرط الهولد {p}% ({n}) بيتحقق وقت ما تقدّم طلب السحب، وبيتحسب على العملات الموجودة في محفظتك دلوقتي.", wd_holdcheck_paused:"فحص الاحتفاظ: متوقف — زوّد احتفاظ محفظتك", task_available_in:"متاحة بعد {t}", ref_tasks_title:"مهام الإحالات", ref_tasks_open:"افتح", ref_tasks_sum:"{a} نشط · المكافأة الجاية عند {n}: +{r}", ref_tasks_done:"كل المراحل اتستلمت 🎉", ref_banner_title:"طاقمك", boost_banner_title:"تعزيز المستوى", boost_prog_title:"تقدم المستويات", lvl_current:"الحالي", lvl_completed:"مكتمل", lvl_locked_fmt:"احتفظ بـ {n} {s} لفتح المستوى", daily_profit_lbl:"الربح اليومي", pf64_step1:"الخطوة 1 — اربط محفظتك", pf64_step2:"الخطوة 2 — أكّد إنها محفظتك", pf64_hold_lbl:"الاحتفاظ بالمحفظة", pf64_bal_lbl:"الرصيد", pf64_rate_lbl:"المعدل اليومي", quests_title:"المهام", tap_open_hint:"اضغط على الكارت للفتح", ref_head_earn:"أصحابك اللي بيتنشّطوا بيكسبوك {c}% من كل اللي بيعدّنوه — وبيوصلك هنا لوحده.", ref_head_sub:"الصديق بيتنشط عند المستوى 2", ref_link_lbl:"رابط الدعوة", ref_how_title:"إزاي بيشتغل", ref_rule_100:"+100 عملة عن كل إحالة نشطة", ref_rule_cond:"الصديق بيتنشّط عند المستوى 2، وهو محتفظ بـ {h}+ $ZM في محفظته.", ref_rule_5:"بتكسب {c}% من كل أرباح إحالاتك النشطة — تلقائيًا", ref_friends_title:"أصدقاؤك", ref_verified_pill:"موثّق", ref_pending_pill:"قيد الانتظار", ref_dup_pill:"مكرر",
         hold_wallet_lbl:"عملات المحفظة (Hold)", mine_wallet_lbl:"رصيد داخل التطبيق",
         withdraw_title:"سحب", min_wd_lbl:"الحد الأدنى:", wd_fee_lbl:"رسوم (5%):", net_lbl:"الصافي:",
         hold_cond_lbl:"شرط {p}% بالمحفظة:", your_hold_lbl:"الهولد بتاعك:", req_wd_btn:"طلب سحب الرصيد",
@@ -4453,7 +4508,7 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
         my_referrals_title:"👥 Мои рефералы", pending_ref_title:"Ожидаемый доход", collect_ref_btn:"Собрать доход",
         ton_wallet_title:"Кошелек TON", connect_wallet_btn:"Подключить TON Кошелек",
         sync_hold_btn:"Обновить Холд", disconnect_wallet_btn:"Отключить", unlink_title:"Отключить кошелёк?", unlink_warn:"⚠️ Отключение отменит верификацию кошелька. Для повторной верификации придётся снова оплатить комиссию.", unlink_confirm:"Отключить", unlink_cancel:"Отмена",
-        prof_page_title:"ПРОФИЛЬ", prof_username_lbl:"ИМЯ ПОЛЬЗОВАТЕЛЯ", prof_wallet_lbl:"КОШЕЛЁК", prof_amount_lbl:"СУММА", buy_stonfi_btn:"Купить на STON.fi", set_sound_lbl:"ЗВУК", set_lang_lbl:"ЯЗЫК", set_title:"⚙️ Настройки", modal_close:"Закрыть", set_support:"💬 Поддержка", lock_verify:"Сначала подтвердите кошелёк", lock_age:"Возраст кошелька должен быть от {n} дн.", renews_24h:"Обновляется каждые 24 часа", renews_48h:"Обновляется каждые 48 часов", hold_tasks_title:"💰 ЗАДАНИЯ НА УДЕРЖАНИЕ", hold_task_title:"Удерживайте {n}", claim_btn:"Забрать", hold_rule_banner:"Выплата — только за ваш ВЫСШИЙ уровень, по монетам, которые сейчас лежат в вашем кошельке. Повторная выплата — каждые {r} дн.", hold_included:"✓ Включено", hold_aged_note:"Считаются монеты, которые сейчас лежат в вашем кошельке", wd_hold_total:"УДЕРЖАНИЕ В КОШЕЛЬКЕ", wd_hold_aged:"ZM сейчас в кошельке", wd_recheck_title:"ПОВТОРНАЯ ПРОВЕРКА УДЕРЖАНИЯ", wd_recheck_new:"НОВОЕ", wd_recheck_days:"Холд считается по монетам, которые сейчас лежат в вашем кошельке", wd_recheck_txt:"Требование холда {p}% ({n}) проверяется в момент запроса вывода — по монетам, которые сейчас находятся в вашем кошельке.", wd_holdcheck_paused:"Проверка удержания: пауза — пополните удержание кошелька", task_available_in:"Доступно через {t}", ref_tasks_title:"Задания за рефералов", ref_tasks_open:"Открыть", ref_tasks_sum:"{a} активных · Следующая награда при {n}: +{r}", ref_tasks_done:"Все этапы получены 🎉", ref_banner_title:"ВАША КОМАНДА", boost_banner_title:"УСИЛЕНИЕ УРОВНЕЙ", boost_prog_title:"ПРОГРЕСС УРОВНЕЙ", lvl_current:"ТЕКУЩИЙ", lvl_completed:"ПРОЙДЕНО", lvl_locked_fmt:"Держите {n} {s}, чтобы открыть уровень", daily_profit_lbl:"ПРИБЫЛЬ В ДЕНЬ", pf64_step1:"Шаг 1 — Подключите кошелёк", pf64_step2:"Шаг 2 — Подтвердите, что он ваш", pf64_hold_lbl:"ХОЛД КОШЕЛЬКА", pf64_bal_lbl:"БАЛАНС", pf64_rate_lbl:"СТАВКА В ДЕНЬ", quests_title:"ЗАДАНИЯ", tap_open_hint:"Нажмите на карточку, чтобы открыть", ref_head_earn:"Активные друзья приносят вам {c}% всего, что добывают, — всё собирается здесь само.", ref_head_sub:"Друг активируется на уровне 2", ref_link_lbl:"ССЫЛКА-ПРИГЛАШЕНИЕ", ref_how_title:"КАК ЭТО РАБОТАЕТ", ref_rule_100:"+100 монет за каждого АКТИВНОГО реферала", ref_rule_cond:"Друг активируется на уровне 2, когда держит {h}+ $ZM в кошельке.", ref_rule_5:"Вы получаете {c}% от всего заработка активных рефералов — автоматически", ref_friends_title:"ВАШИ ДРУЗЬЯ", ref_verified_pill:"ПОДТВЕРЖДЁН", ref_pending_pill:"ОЖИДАЕТ", ref_dup_pill:"ДУБЛИКАТ",
+        prof_page_title:"ПРОФИЛЬ", prof_username_lbl:"ИМЯ ПОЛЬЗОВАТЕЛЯ", prof_wallet_lbl:"КОШЕЛЁК", prof_amount_lbl:"СУММА", buy_stonfi_btn:"Купить на STON.fi", set_sound_lbl:"ЗВУК", set_lang_lbl:"ЯЗЫК", set_title:"⚙️ Настройки", modal_close:"Закрыть", set_support:"💬 Поддержка", lock_verify:"Сначала подтвердите кошелёк", lock_age:"Возраст кошелька должен быть от {n} дн.", renews_24h:"Обновление каждые 24 ч", renews_48h:"Обновляется каждые 48 часов", hold_tasks_title:"💰 ЗАДАНИЯ НА УДЕРЖАНИЕ", hold_task_title:"Удерживайте {n}", claim_btn:"Забрать", hold_rule_banner:"Выплата — только за ваш ВЫСШИЙ уровень, по монетам, которые сейчас лежат в вашем кошельке. Повторная выплата — каждые {r} дн.", hold_included:"✓ Включено", hold_aged_note:"По монетам в кошельке сейчас", wd_hold_total:"УДЕРЖАНИЕ В КОШЕЛЬКЕ", wd_hold_aged:"ZM сейчас в кошельке", wd_recheck_title:"ПОВТОРНАЯ ПРОВЕРКА УДЕРЖАНИЯ", wd_recheck_new:"НОВОЕ", wd_recheck_days:"Холд считается по монетам, которые сейчас лежат в вашем кошельке", wd_recheck_txt:"Требование холда {p}% ({n}) проверяется в момент запроса вывода — по монетам, которые сейчас находятся в вашем кошельке.", wd_holdcheck_paused:"Проверка удержания: пауза — пополните удержание кошелька", task_available_in:"Доступно через {t}", ref_tasks_title:"Задания за рефералов", ref_tasks_open:"Открыть", ref_tasks_sum:"{a} активных · Следующая награда при {n}: +{r}", ref_tasks_done:"Все этапы получены 🎉", ref_banner_title:"ВАША КОМАНДА", boost_banner_title:"УСИЛЕНИЕ УРОВНЕЙ", boost_prog_title:"ПРОГРЕСС УРОВНЕЙ", lvl_current:"ТЕКУЩИЙ", lvl_completed:"ПРОЙДЕНО", lvl_locked_fmt:"Держите {n} {s}, чтобы открыть уровень", daily_profit_lbl:"ПРИБЫЛЬ В ДЕНЬ", pf64_step1:"Шаг 1 — Подключите кошелёк", pf64_step2:"Шаг 2 — Подтвердите, что он ваш", pf64_hold_lbl:"ХОЛД КОШЕЛЬКА", pf64_bal_lbl:"БАЛАНС", pf64_rate_lbl:"СТАВКА В ДЕНЬ", quests_title:"ЗАДАНИЯ", tap_open_hint:"Нажмите на карточку, чтобы открыть", ref_head_earn:"Активные друзья приносят вам {c}% всего, что добывают, — всё собирается здесь само.", ref_head_sub:"Друг активируется на уровне 2", ref_link_lbl:"ССЫЛКА-ПРИГЛАШЕНИЕ", ref_how_title:"КАК ЭТО РАБОТАЕТ", ref_rule_100:"+100 монет за каждого АКТИВНОГО реферала", ref_rule_cond:"Друг активируется на уровне 2, когда держит {h}+ $ZM в кошельке.", ref_rule_5:"Вы получаете {c}% от всего заработка активных рефералов — автоматически", ref_friends_title:"ВАШИ ДРУЗЬЯ", ref_verified_pill:"ПОДТВЕРЖДЁН", ref_pending_pill:"ОЖИДАЕТ", ref_dup_pill:"ДУБЛИКАТ",
         hold_wallet_lbl:"В кошельке", mine_wallet_lbl:"Баланс в приложении",
         withdraw_title:"Вывод", min_wd_lbl:"Минимум:", wd_fee_lbl:"Комиссия (5%):", net_lbl:"Чистыми:",
         hold_cond_lbl:"Нужно {p}% Холда:", your_hold_lbl:"Ваш холд:", req_wd_btn:"Запросить вывод",
@@ -4580,9 +4635,20 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
         im.classList.toggle('lit', on);
       }
     }
+    // Owner order 2026-11-21: no more rushing to 95% and stalling —
+    // the bar mirrors the REAL load: progress = however much of the
+    // total work (every preloaded picture + the hero video + the fonts
+    // + the state fetch) has actually finished, paced so it also cannot
+    // outrun the 3-second minimum. The load is spread over the whole bar.
+    let bootSettled = 0;
+    let bootTotalUnits = 1;
+    let bootStateCounted = false;
     const bootTimer = setInterval(() => {
-      bootProg += Math.random() * 20;
-      if (bootProg > 95) bootProg = 95;
+      const loadedFrac = bootTotalUnits > 0 ? bootSettled / bootTotalUnits : 0;
+      const timeFrac = (Date.now() - BOOT_STARTED_AT) / BOOT_MIN_MS;
+      let target = Math.min(loadedFrac, timeFrac) * 100;
+      if (target > 99) target = 99;
+      if (bootProg < target) bootProg = Math.min(target, bootProg + Math.max(0.7, (target - bootProg) * 0.3));
       const el = document.getElementById('boot-progress');
       if (el) el.style.width = bootProg + '%';
       const bp = document.getElementById('boot-pct');
@@ -4668,9 +4734,9 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
       'assets/hero_king_clean.webp', 'assets/bg_castle.webp', 'assets/stone_tex56.webp', 'assets/pickaxe_bare.webp', 'assets/balance_coin.webp?v=109',
       'assets/nav_glyph_mine.webp', 'assets/nav_glyph_tasks.webp', 'assets/nav_glyph_boost.webp', 'assets/nav_glyph_friends.webp', 'assets/nav_glyph_profile.webp',
       'assets/icon_shield.webp', 'assets/icon_verified.webp', 'assets/icon_chest.webp',
-      'assets/quest_scroll.webp', 'assets/icon_n_moon.webp?v=137', 'assets/icon_n_flag.webp?v=137', 'assets/icon_q_feather.webp', 'assets/icon_n_chest.webp?v=137',
-      'assets/icon_n_king.webp?v=137', 'assets/icon_q_skull.webp', 'assets/icon_q_banner.webp', 'assets/icon_q_crown.webp', 'assets/icon_q_coins.webp',
-      'assets/icon_q_hold1.webp', 'assets/icon_q_hold2.webp', 'assets/icon_q_hold3.webp', 'assets/icon_q_hold4.webp', 'assets/icon_q_hold5.webp',
+      'assets/quest_scroll.webp', 'assets/icon_m2_moon.webp?v=138', 'assets/icon_m2_flag.webp?v=138', 'assets/icon_q_feather.webp', 'assets/icon_m2_chest.webp?v=138',
+      'assets/icon_m2_king.webp?v=138', 'assets/icon_q_skull.webp', 'assets/icon_q_banner.webp', 'assets/icon_q_crown.webp', 'assets/icon_q_coins.webp',
+      'assets/icon_m2_hold1.webp?v=139', 'assets/icon_m2_hold2.webp?v=139', 'assets/icon_m2_hold3.webp?v=139', 'assets/icon_m2_hold4.webp?v=139', 'assets/icon_m2_hold5.webp?v=139', 'assets/icon_m2_ref.webp?v=138', 'assets/card_plate2.webp?v=137', 'assets/icon_tab2_cal.webp?v=137', 'assets/icon_tab2_coins.webp?v=137', 'assets/icon_tab2_people.webp?v=137',
       'assets/hero_tier1.webp', 'assets/hero_tier2.webp', 'assets/hero_tier3.webp',
       'assets/frame.webp', 'assets/cardframe.webp',
       'assets/avatar_1.webp', 'assets/avatar_2.webp', 'assets/avatar_3.webp', 'assets/avatar_4.webp',
@@ -4679,7 +4745,8 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
     (function preloadBootImages() {
       let settled = 0;
       const total = BOOT_IMAGES.length + 2; // + the hero video + the webfonts
-      const one = () => { settled++; if (settled >= total) { bootAssetsReady = true; finishBoot(); } };
+      bootTotalUnits = total + 1; // + the state fetch itself
+      const one = () => { settled++; bootSettled++; if (settled >= total) { bootAssetsReady = true; finishBoot(); } };
       BOOT_IMAGES.forEach((u) => { const im = new Image(); im.onload = one; im.onerror = one; im.src = u; });
       // The Mine stage is a video now (owner order 2026-11-15): the
       // loader also waits until it can actually play — capped at
@@ -5042,6 +5109,7 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
           new Promise((r) => setTimeout(r, 45000))
         ]);
         bootStateReady = true;
+        if (!bootStateCounted) { bootStateCounted = true; bootSettled++; }
       }
       finishBoot();
       // First successful load with a wallet linked: pull the live
@@ -5087,7 +5155,7 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
     // is supposed to wait for everything); this is only the final
     // insurance against a connection that died outright.
     setTimeout(() => {
-      if (!initialLoadDone && bootStateApplied) { bootStateReady = true; bootAssetsReady = true; finishBoot(); }
+      if (!initialLoadDone && bootStateApplied) { bootStateReady = true; if (!bootStateCounted) { bootStateCounted = true; bootSettled++; } bootAssetsReady = true; finishBoot(); }
     }, 75000);
     // Avatar picker REMOVED (owner redesign 2026-11-19): there is
     // no character-selection page anymore. A player who never picked
@@ -5737,15 +5805,15 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
           <div class="q-wrap">
             <div class="q-row">
               <div class="q-row-in">
-                <img class="q-ic" src="assets/icon_q_hold${tier}.webp" alt="">
+                <img class="q-ic" src="assets/icon_m2_hold${tier}.webp?v=139" alt="">
                 <div class="q-mid">
                   <div class="q-title">${(dict.hold_task_title || 'Hold {n}').replace('{n}', req.toLocaleString())} ${esc(config.coinSym)}</div>
-                  <div class="q-sub"><span class="q-renew">⏳ ${dict.hold_aged_note || 'Counts the coins currently in your wallet'}</span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+${rew.toLocaleString()} ${esc(config.coinSym)}</span></div>
+                  <div class="q-sub"><span class="q-renew">⏳ ${dict.hold_aged_note || 'Coins in your wallet now'}</span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+${rew.toLocaleString()} ${esc(config.coinSym)}</span></div>
                 </div>
                 ${btn}
               </div>
             </div>
-            <div class="q-prog"><div class="q-prog-bg"><div class="q-prog-fill" style="width:${pct}%;"></div></div><div class="q-prog-txt">${Math.floor(walletHold).toLocaleString()}/${req.toLocaleString()}</div></div>
+            
           </div>`;
       }).join('');
       box.querySelectorAll('.hold-claim').forEach(b => b.addEventListener('click', async e => {
@@ -5898,7 +5966,7 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
           <div class="q-wrap">
             <div class="q-row">
               <div class="q-row-in">
-                <img class="q-ic" src="assets/icon_q_${QICONS[n] || 'warriors'}.webp" alt="">
+                <img class="q-ic" src="assets/icon_m2_ref.webp?v=138" alt="">
                 <div class="q-mid">
                   <div class="q-title">Invite ${n} active friend${n > 1 ? 's' : ''}</div>
                   <div class="q-sub"><span class="q-renew">${Math.min(activeRefs, n)}/${n} active</span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+${reward} ${esc(config.coinSym)}</span></div>
@@ -5910,7 +5978,7 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
                     : `<button class="q-btn tk-off ref-ach-claim" data-n="${n}" disabled>Claim</button>`)}
               </div>
             </div>
-            <div class="q-prog"><div class="q-prog-bg"><div class="q-prog-fill" style="width:${pct}%;"></div></div><div class="q-prog-txt">${Math.min(activeRefs, n)}/${n}</div></div>
+            
           </div>`;
       }).join('');
       box.querySelectorAll('.ref-ach-claim').forEach(b => b.addEventListener('click', async e => {
@@ -6531,7 +6599,8 @@ body[data-tab="tasks"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),r
     // deep-links into the bot chat (?start=bio); pressing Start there
     // lets the bot verify and credit the reward itself. The card flips
     // to Done via the visibility/focus state refresh on return.
-    document.getElementById('btn-bio-task').addEventListener('click', e => {
+    const bioBtnEl = document.getElementById('btn-bio-task');
+    if (bioBtnEl) bioBtnEl.addEventListener('click', e => {
       if (!isHumanClick(e)) return;
       if (bioTaskDone) return showToast("Already claimed!", "#f59e0b");
       SoundFX.click();
