@@ -3560,6 +3560,89 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     #page-mine .mn-rate-timer{display:inline-flex;align-items:center;gap:5px;font-variant-numeric:tabular-nums}
     #page-mine .mn-rate-timer .mn-shift-clock{width:13px;height:13px;flex:none}
   </style>
+  <style>
+    /* ===== BOUNTY PAGE (owner reference 2026-11-21) ===== */
+    #page-bounty{padding:0 14px 110px;overflow-y:auto}
+    .bn-glow{filter:drop-shadow(0 0 10px rgba(46,230,107,.22));margin-bottom:14px}
+    .bn-card{clip-path:polygon(14px 0,calc(100% - 14px) 0,100% 14px,100% calc(100% - 14px),calc(100% - 14px) 100%,14px 100%,0 calc(100% - 14px),0 14px);background:linear-gradient(180deg,rgba(5,17,9,.84) 0%,rgba(3,11,6,.90) 100%),url('assets/bounty_card_bg.webp') center/cover no-repeat;box-shadow:inset 0 0 0 1.5px rgba(57,255,20,.45),inset 0 0 26px rgba(46,230,107,.06);padding:16px 14px}
+    .bn-head{text-align:center;padding:10px 0 4px;position:relative}
+    .bn-back{position:absolute;left:0;top:6px;width:38px;height:38px;border-radius:10px;border:1px solid rgba(57,255,20,.4);background:rgba(10,26,16,.85);color:#7dff8a;font-size:20px;line-height:1;cursor:pointer;z-index:3}
+    .bn-logo{width:215px;max-width:70%;display:block;margin:0 auto}
+    .bn-div{display:flex;align-items:center;justify-content:center;gap:8px;margin:7px auto 2px}
+    .bn-div-line{height:1.5px;width:86px;background:linear-gradient(90deg,transparent,#39ff14)}
+    .bn-div-line.r{background:linear-gradient(90deg,#39ff14,transparent)}
+    .bn-div img{width:30px;height:30px}
+    .bn-title{font-family:'ZMPirata',serif;font-size:37px;color:#39ff14;text-align:center;letter-spacing:1.5px;text-shadow:0 0 18px rgba(57,255,20,.55),0 2px 0 #06280e;margin:0 0 14px}
+    .bn-ctitle{display:flex;align-items:center;justify-content:center;gap:9px;font-size:19px;font-weight:800;color:#f2f5ee;letter-spacing:.4px;margin-bottom:13px}
+    .bn-ctitle svg{width:21px;height:21px;stroke:#39ff14;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 5px rgba(57,255,20,.6))}
+    .bn-dur{display:flex;align-items:center;gap:12px}
+    .bn-dur-img{width:80px;height:80px;flex:none;object-fit:cover;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);box-shadow:inset 0 0 0 1.5px rgba(57,255,20,.5)}
+    .bn-dur-mid{flex:1;text-align:center}
+    .bn-dur-lbl{display:flex;align-items:center;justify-content:center;gap:7px;color:#e8f5e9;font-size:13.5px;font-weight:700;white-space:nowrap}
+    .bn-dur-lbl svg{width:17px;height:17px;stroke:#39ff14;fill:none;stroke-width:1.8;stroke-linecap:round}
+    .bn-dur-days{font-family:'ZMPirata',serif;font-size:35px;color:#39ff14;text-shadow:0 0 16px rgba(57,255,20,.6);line-height:1.15}
+    .bn-req{display:flex;gap:11px;align-items:flex-start;background:rgba(16,42,24,.65);border:1px solid rgba(57,255,20,.16);border-radius:10px;padding:11px 12px;margin-bottom:9px}
+    .bn-req:last-child{margin-bottom:0}
+    .bn-req-ic{width:37px;height:37px;flex:none;border-radius:50%;border:1.5px solid rgba(57,255,20,.55);display:flex;align-items:center;justify-content:center;background:rgba(57,255,20,.07)}
+    .bn-req-ic svg{width:19px;height:19px;stroke:#39ff14;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .bn-req p{margin:0;font-size:13.5px;line-height:1.5;color:#cfe3d2;padding-top:7px}
+    .bn-hl{color:#39ff14;font-weight:800}
+    .bn-segs{display:flex;gap:10px;margin-bottom:13px}
+    .bn-seg{flex:1;position:relative;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 6px;border-radius:10px;border:1.5px solid rgba(160,190,165,.28);background:rgba(14,30,19,.8);color:#eef4ec;font-size:16px;font-weight:800;cursor:pointer}
+    .bn-seg svg{width:19px;height:19px;fill:#39ff14}
+    .bn-seg .bn-seg-ic-doc{fill:none;stroke:#cfe3d2;stroke-width:1.8}
+    .bn-seg.on{border-color:#39ff14;background:linear-gradient(180deg,rgba(57,255,20,.34),rgba(31,163,74,.30)),url('assets/bounty_btn_bg.webp') center/cover no-repeat;box-shadow:0 0 14px rgba(57,255,20,.35),inset 0 0 12px rgba(57,255,20,.12)}
+    .bn-seg .bn-dot{position:absolute;top:-8px;right:-6px;width:21px;height:21px;border-radius:50%;border:2px solid rgba(190,210,195,.5);background:#0a1a10;color:#39ff14;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center}
+    .bn-seg.on .bn-dot{border-color:#39ff14;background:#123d1e;box-shadow:0 0 9px rgba(57,255,20,.7)}
+    .bn-plat-lbl{display:flex;align-items:center;justify-content:center;gap:8px;color:#e8f5e9;font-size:14.5px;font-weight:700;margin-bottom:10px}
+    .bn-plat-lbl svg{width:17px;height:17px;stroke:#39ff14;fill:none;stroke-width:1.8;stroke-linejoin:round}
+    .bn-plats{display:flex;gap:9px;margin-bottom:12px}
+    .bn-plat{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:11px 4px;border-radius:9px;border:1.5px solid rgba(160,190,165,.25);background:rgba(14,30,19,.8);color:#eef4ec;font-size:13.5px;font-weight:800;cursor:pointer;white-space:nowrap}
+    .bn-plat svg{width:17px;height:17px;fill:#dfeee2}
+    .bn-plat.on{border-color:#39ff14;box-shadow:0 0 11px rgba(57,255,20,.35);background:linear-gradient(180deg,rgba(57,255,20,.20),rgba(31,163,74,.10))}
+    .bn-input{display:flex;align-items:center;gap:9px;border:1.5px solid rgba(160,190,165,.25);border-radius:9px;background:rgba(8,20,12,.9);padding:0 12px;margin-bottom:13px}
+    .bn-input svg{width:17px;height:17px;stroke:#8fae96;fill:none;stroke-width:2;flex:none}
+    .bn-input input{flex:1;background:none;border:none;outline:none;color:#eef4ec;font-size:13.5px;padding:13px 0;min-width:0}
+    .bn-input input::placeholder{color:#7d927f}
+    .bn-reward{display:flex;align-items:center;gap:11px;margin-bottom:14px}
+    .bn-reward img{width:46px;height:46px;border-radius:9px;object-fit:cover;flex:none}
+    .bn-reward-lbl{font-size:12.5px;color:#a9c4ad}
+    .bn-reward-amt{font-size:15.5px;font-weight:900;color:#39ff14;text-shadow:0 0 10px rgba(57,255,20,.35);white-space:nowrap}
+    .bn-note{margin-left:auto;max-width:128px;display:flex;gap:7px;align-items:flex-start;border:1px solid rgba(160,190,165,.3);border-radius:9px;padding:8px 9px;font-size:10.5px;line-height:1.45;color:#b9cfbc}
+    .bn-note svg{width:14px;height:14px;flex:none;stroke:#39ff14;fill:none;stroke-width:2;margin-top:1px}
+    .bn-submit{width:100%;padding:15px;border:none;border-radius:11px;background:linear-gradient(180deg,rgba(26,150,64,.20),rgba(8,84,34,.34)),url('assets/bounty_btn_bg.webp') center/cover no-repeat;color:#fff;font-size:18px;font-weight:900;letter-spacing:.4px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 0 22px rgba(57,255,20,.45),inset 0 1px 0 rgba(255,255,255,.5);text-shadow:0 1px 3px rgba(0,60,10,.55)}
+    .bn-submit svg{width:19px;height:19px;fill:#fff}
+    .bn-submit:active{transform:scale(.985)}
+    .bn-count{display:flex;align-items:flex-start;justify-content:center;gap:2px;margin-top:2px}
+    .bn-cu{display:flex;flex-direction:column;align-items:center;min-width:33px}
+    .bn-cu b{font-family:'ZMPirata',serif;font-size:26px;font-weight:400;color:#39ff14;text-shadow:0 0 14px rgba(57,255,20,.6);line-height:1}
+    .bn-cu span{font-size:7.5px;letter-spacing:1.2px;color:#9fd8a8;font-weight:800;margin-top:3px}
+    .bn-count i{font-family:'ZMPirata',serif;font-style:normal;font-size:20px;color:#39ff14;line-height:1;padding-top:2px}
+    .bn-table{width:100%;font-size:12px;color:#dceadf}
+    .bn-trow{display:grid;grid-template-columns:16px .72fr 1.18fr .74fr .92fr;gap:5px;align-items:center;padding:9px 2px;border-bottom:1px solid rgba(57,255,20,.13);font-size:11.5px}
+    .bn-trow.head{color:#9fd8a8;font-weight:800;font-size:11px;letter-spacing:.3px;border-bottom:1px solid rgba(57,255,20,.3);padding-top:0}
+    .bn-trow:last-child{border-bottom:none}
+    .bn-link{display:flex;align-items:center;gap:5px;color:#cfe3d2;min-width:0}
+    .bn-link svg{width:12px;height:12px;stroke:#8fae96;fill:none;stroke-width:2;flex:none}
+    .bn-link span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .bn-plat-cell{display:flex;align-items:center;gap:4px;color:#e6f2e7;min-width:0}
+    .bn-plat-cell>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .bn-plat-cell svg{width:12px;height:12px;flex:none}
+    .bn-date{color:#b9cfbc;white-space:nowrap;font-size:11px}
+    .bn-status{display:inline-flex;align-items:center;gap:4px;border:1.5px solid rgba(232,184,75,.75);color:#f0c75e;border-radius:999px;padding:3.5px 8px;font-size:10.5px;font-weight:800;white-space:nowrap;background:rgba(232,184,75,.08)}
+    .bn-status svg{width:11px;height:11px;stroke:#f0c75e;fill:none;stroke-width:2}
+    .bn-empty{color:#8fae96;font-size:12.5px;text-align:center;padding:10px 0 2px}
+    /* entry button on the Tasks page */
+    .bn-entry{font:inherit;display:flex;align-items:center;gap:12px;width:100%;margin:12px 0 4px;padding:13px 14px;border-radius:12px;border:1.5px solid rgba(57,255,20,.55);background:linear-gradient(90deg,rgba(57,255,20,.14),rgba(5,17,9,.90) 58%),url('assets/bounty_card_bg.webp') center/cover no-repeat;color:#eef4ec;cursor:pointer;box-shadow:0 0 16px rgba(57,255,20,.22);text-align:left}
+    .bn-entry img{width:44px;height:44px;border-radius:9px;object-fit:cover;flex:none}
+    .bn-entry-t{flex:1;min-width:0}
+    .bn-entry-t b{display:block;font-family:'ZMPirata',serif;font-size:19px;color:#39ff14;letter-spacing:1px}
+    .bn-entry-t span{font-size:11.5px;color:#b9cfbc}
+    .bn-entry .bn-chev{font-size:22px;color:#39ff14;flex:none}
+    .bn-entry-cd{display:flex;align-items:center;gap:5px;margin-top:3px;color:#39ff14}
+    .bn-entry-cd svg{width:11px;height:11px;stroke:#39ff14;fill:none;stroke-width:2;flex:none}
+    .bn-entry-cd b{font-family:'ZMPirata',serif;font-weight:400;letter-spacing:1.2px;font-size:13.5px;text-shadow:0 0 8px rgba(57,255,20,.45)}
+  </style>
 </head>
 <body data-tab="mine" oncontextmenu="return false;">
 
@@ -3760,6 +3843,8 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
           <button class="tk-tab" data-ttab="ref" data-i18n="tab_ref">REFERRALS</button>
         </div>
       </div>
+        <button class="bn-entry" id="btn-open-bounty"><img src="assets/bounty_coins.webp" alt=""><span class="bn-entry-t"><b data-i18n="bounty_entry_title">BOUNTY</b><span data-i18n="bounty_entry_sub">Post about ZOMBIE MINER — earn 500–20,000 ZOM</span><span class="bn-entry-cd"><svg viewBox="0 0 24 24"><path d="M6 3h12M6 21h12M8 3c0 5 8 5 8 9s-8 4-8 9M16 3c0 5-8 5-8 9"/></svg><b id="bn-cd2">10d : 00h : 00m : 00s</b></span></span><span class="bn-chev">›</span></button>
+
 
       <div class="tk-panel" id="tk-panel-ref" style="display:none">
         <div id="ref-ach-list"></div>
@@ -3893,6 +3978,72 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     </div>
 
     <!-- 5. PROFILE PAGE -->
+    <div id="page-bounty" class="page">
+      <div class="bn-head">
+        <button class="bn-back" id="bn-back-btn" aria-label="Back">‹</button>
+        <img class="bn-logo" src="assets/logo_zm.webp?v=143" alt="ZOMBIE MINER">
+        <div class="bn-div"><span class="bn-div-line"></span><img src="assets/icon_div_skull.webp?v=130" alt=""><span class="bn-div-line r"></span></div>
+        <h2 class="bn-title" data-i18n="bounty_title">Bounty</h2>
+      </div>
+
+      <div class="bn-glow"><div class="bn-card">
+        <div class="bn-dur">
+          <img class="bn-dur-img" src="assets/bounty_soldier.webp" alt="">
+          <div class="bn-dur-mid">
+            <div class="bn-dur-lbl"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="bounty_duration">Bounty Duration</span></div>
+            <div class="bn-count">
+              <div class="bn-cu"><b id="bn-cd-d">10</b><span data-i18n="bounty_cd_d">DAYS</span></div><i>:</i>
+              <div class="bn-cu"><b id="bn-cd-h">00</b><span data-i18n="bounty_cd_h">HRS</span></div><i>:</i>
+              <div class="bn-cu"><b id="bn-cd-m">00</b><span data-i18n="bounty_cd_m">MIN</span></div><i>:</i>
+              <div class="bn-cu"><b id="bn-cd-s">00</b><span data-i18n="bounty_cd_s">SEC</span></div>
+            </div>
+          </div>
+          <img class="bn-dur-img" src="assets/bounty_coins.webp" alt="">
+        </div>
+      </div></div>
+
+      <div class="bn-glow"><div class="bn-card">
+        <div class="bn-ctitle"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="18" rx="2"/><path d="M9 4a3 3 0 0 1 6 0M9 11h6M9 15h4"/></svg><span data-i18n="bounty_req_title">Requirements</span></div>
+        <div class="bn-req">
+          <div class="bn-req-ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3 2.8-4.5 5.5-4.5S13.9 16 14.5 19M16 5.4a3.2 3.2 0 0 1 0 5.9M17.8 14.9c1.6.6 2.5 1.9 2.8 4.1"/></svg></div>
+          <p><span data-i18n="bounty_req1a">Your channel must have</span> <b class="bn-hl" data-i18n="bounty_req1b">more than 1,000 members</b> <span data-i18n="bounty_req1c">(real and active members).</span></p>
+        </div>
+        <div class="bn-req">
+          <div class="bn-req-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></div>
+          <p><span data-i18n="bounty_req2a">The post must be live for</span> <b class="bn-hl" data-i18n="bounty_req2b">at least 6 hours</b> <span data-i18n="bounty_req2c">before submission.</span></p>
+        </div>
+      </div></div>
+
+      <div class="bn-glow"><div class="bn-card">
+        <div class="bn-ctitle"><svg viewBox="0 0 24 24"><path d="M3 9h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zM3 9l2-5h3l-1.5 5M11 4h3L12.5 9M17 4h3l-1.5 5"/></svg><span data-i18n="bounty_create_title">Create Your Bounty</span></div>
+        <div class="bn-segs">
+          <button class="bn-seg on" id="bn-seg-video"><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="4"/><path d="M10 9.3v5.4l4.8-2.7z" fill="#06280e"/></svg><span data-i18n="bounty_video">Video</span><span class="bn-dot">✓</span></button>
+          <button class="bn-seg" id="bn-seg-post"><svg class="bn-seg-ic-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v4h4M9 12h6M9 16h6"/></svg><span data-i18n="bounty_post">Post</span><span class="bn-dot"></span></button>
+        </div>
+        <div class="bn-plat-lbl"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5"/></svg><span data-i18n="bounty_choose">Choose a Platform</span></div>
+        <div class="bn-plats">
+          <button class="bn-plat on" data-bplat="Telegram"><svg viewBox="0 0 24 24"><path d="M21.9 4.6l-3.1 14.6c-.2 1-.8 1.3-1.7.8l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.8 8.7-7.9c.4-.3-.1-.5-.6-.2L7.6 13.2 2.9 11.7c-1-.3-1-1 .2-1.5l18.4-7.1c.9-.3 1.6.2 1.4 1.5z"/></svg>Telegram</button>
+          <button class="bn-plat" data-bplat="Twitter (X)"><svg viewBox="0 0 24 24"><path d="M17.8 3h3l-6.7 7.7L22 21h-6.2l-4.8-6.3L5.4 21h-3l7.2-8.2L2 3h6.4l4.4 5.8zm-1.1 16.1h1.7L7.4 4.8H5.6z"/></svg>Twitter (X)</button>
+          <button class="bn-plat" data-bplat="YouTube"><svg viewBox="0 0 24 24"><path d="M22.5 7.2a2.8 2.8 0 0 0-2-2C18.9 4.8 12 4.8 12 4.8s-6.9 0-8.5.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 1 12a29 29 0 0 0 .5 4.8 2.8 2.8 0 0 0 2 2c1.6.4 8.5.4 8.5.4s6.9 0 8.5-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 23 12a29 29 0 0 0-.5-4.8zM9.8 15.3V8.7l5.9 3.3z"/></svg>YouTube</button>
+        </div>
+        <div class="bn-input"><svg viewBox="0 0 24 24"><path d="M10 14a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 10a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg><input id="bn-link" type="url" data-i18n-ph="bounty_link_ph" placeholder="Paste your post or video link here..."></div>
+        <div class="bn-reward">
+          <img src="assets/bounty_coins.webp" alt="">
+          <div><div class="bn-reward-lbl" data-i18n="bounty_reward">Reward</div><div class="bn-reward-amt" data-i18n="bounty_reward_amt">500 – 20,000 Coins</div></div>
+          <div class="bn-note"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.1"/></svg><span data-i18n="bounty_note">Rewards depend on the post's performance.</span></div>
+        </div>
+        <button class="bn-submit" id="bn-submit"><svg viewBox="0 0 24 24"><path d="M21.9 4.6l-3.1 14.6c-.2 1-.8 1.3-1.7.8l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.8 8.7-7.9c.4-.3-.1-.5-.6-.2L7.6 13.2 2.9 11.7c-1-.3-1-1 .2-1.5l18.4-7.1c.9-.3 1.6.2 1.4 1.5z"/></svg><span data-i18n="bounty_submit">Submit Request</span></button>
+      </div></div>
+
+      <div class="bn-glow"><div class="bn-card">
+        <div class="bn-ctitle"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="18" rx="2"/><path d="M9 4a3 3 0 0 1 6 0M9 11h6M9 15h4"/></svg><span data-i18n="bounty_my_title">My Requests</span></div>
+        <div class="bn-table">
+          <div class="bn-trow head"><span>#</span><span data-i18n="bounty_col_link">Post Link</span><span data-i18n="bounty_col_platform">Platform</span><span data-i18n="bounty_col_date">Date</span><span data-i18n="bounty_col_status">Status</span></div>
+          <div id="bn-rows"></div>
+        </div>
+      </div></div>
+    </div>
+
     <div id="page-profile" class="page">
       <!-- Profile replica (owner order 2026-11-14): built 1:1 from his
            reference picture — title bar, big square evolution portrait,
@@ -4811,6 +4962,40 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   "tank_full": "💀 24h Grave Full (100%) — Dig It Up Now!",
   "tank_fill": "🦇 24h Grave Filling:",
   "quests_tagline": "Finish grave quests to earn extra loot",
+      "bounty_title": "Bounty",
+      "bounty_duration": "Bounty Duration",
+      "bounty_days": "10 Days",
+      "bounty_cd_d": "DAYS",
+      "bounty_cd_h": "HRS",
+      "bounty_cd_m": "MIN",
+      "bounty_cd_s": "SEC",
+      "bounty_req_title": "Requirements",
+      "bounty_req1a": "Your channel must have",
+      "bounty_req1b": "more than 1,000 members",
+      "bounty_req1c": "(real and active members).",
+      "bounty_req2a": "The post must be live for",
+      "bounty_req2b": "at least 6 hours",
+      "bounty_req2c": "before submission.",
+      "bounty_create_title": "Create Your Bounty",
+      "bounty_video": "Video",
+      "bounty_post": "Post",
+      "bounty_choose": "Choose a Platform",
+      "bounty_link_ph": "Paste your post or video link here...",
+      "bounty_reward": "Reward",
+      "bounty_reward_amt": "500 – 20,000 Coins",
+      "bounty_note": "Rewards depend on the post's performance.",
+      "bounty_submit": "Submit Request",
+      "bounty_my_title": "My Requests",
+      "bounty_col_link": "Post Link",
+      "bounty_col_platform": "Platform",
+      "bounty_col_date": "Date",
+      "bounty_col_status": "Status",
+      "bounty_status_review": "In Review",
+      "bounty_empty": "No requests yet",
+      "bounty_submitted": "✅ Bounty request submitted — In Review",
+      "bounty_bad_link": "❌ Paste a valid post link first",
+      "bounty_entry_title": "BOUNTY",
+      "bounty_entry_sub": "Post about ZOMBIE MINER — earn 500–20,000 ZOM",
   "tab_ref": "HORDE",
   "tab_hold": "BURIED",
   "tab_daily": "NIGHTLY",
@@ -5020,6 +5205,40 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   "tank_full": "💀 قبر الـ24 ساعة اتملى (100%) — طلّعه دلوقتي!",
   "tank_fill": "🦇 قبر الـ24 ساعة بيتملى:",
   "quests_tagline": "خلّص مهام القبور علشان تكسب غنائم زيادة",
+      "bounty_title": "الباونتي",
+      "bounty_duration": "مدة الباونتي",
+      "bounty_days": "10 أيام",
+      "bounty_cd_d": "أيام",
+      "bounty_cd_h": "ساعات",
+      "bounty_cd_m": "دقائق",
+      "bounty_cd_s": "ثواني",
+      "bounty_req_title": "الشروط",
+      "bounty_req1a": "لازم قناتك يكون فيها",
+      "bounty_req1b": "أكتر من 1,000 عضو",
+      "bounty_req1c": "(أعضاء حقيقيين ونشطين).",
+      "bounty_req2a": "لازم المنشور يفضل منشور",
+      "bounty_req2b": "على الأقل 6 ساعات",
+      "bounty_req2c": "قبل ما تبعته.",
+      "bounty_create_title": "اعمل الباونتي بتاعتك",
+      "bounty_video": "فيديو",
+      "bounty_post": "منشور",
+      "bounty_choose": "اختار المنصة",
+      "bounty_link_ph": "حط لينك المنشور أو الفيديو هنا...",
+      "bounty_reward": "المكافأة",
+      "bounty_reward_amt": "500 – 20,000 عملة",
+      "bounty_note": "المكافآت بتتحدد حسب أداء المنشور.",
+      "bounty_submit": "ابعت الطلب",
+      "bounty_my_title": "طلباتي",
+      "bounty_col_link": "لينك المنشور",
+      "bounty_col_platform": "المنصة",
+      "bounty_col_date": "التاريخ",
+      "bounty_col_status": "الحالة",
+      "bounty_status_review": "قيد المراجعة",
+      "bounty_empty": "مفيش طلبات لسه",
+      "bounty_submitted": "✅ اتبعت طلب الباونتي — قيد المراجعة",
+      "bounty_bad_link": "❌ حط لينك منشور صحيح الأول",
+      "bounty_entry_title": "BOUNTY",
+      "bounty_entry_sub": "انشر عن ZOMBIE MINER — واكسب لحد 20,000 ZOM",
   "tab_ref": "القطيع",
   "tab_hold": "المدفون",
   "tab_daily": "كل ليلة",
@@ -5232,6 +5451,40 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   "tank_full": "💀 Могила 24ч полна (100%) — выкапывай сейчас!",
   "tank_fill": "🦇 Могила 24ч заполняется:",
   "quests_tagline": "Выполняй задания могил ради лишней добычи",
+      "bounty_title": "Bounty",
+      "bounty_duration": "Длительность",
+      "bounty_days": "10 дней",
+      "bounty_cd_d": "ДНЕЙ",
+      "bounty_cd_h": "ЧАС",
+      "bounty_cd_m": "МИН",
+      "bounty_cd_s": "СЕК",
+      "bounty_req_title": "Требования",
+      "bounty_req1a": "На вашем канале должно быть",
+      "bounty_req1b": "больше 1 000 подписчиков",
+      "bounty_req1c": "(настоящих и активных).",
+      "bounty_req2a": "Пост должен быть опубликован",
+      "bounty_req2b": "не менее 6 часов",
+      "bounty_req2c": "до отправки.",
+      "bounty_create_title": "Создать заявку",
+      "bounty_video": "Видео",
+      "bounty_post": "Пост",
+      "bounty_choose": "Выберите платформу",
+      "bounty_link_ph": "Вставьте ссылку на пост или видео...",
+      "bounty_reward": "Награда",
+      "bounty_reward_amt": "500 – 20 000 монет",
+      "bounty_note": "Награда зависит от результатов поста.",
+      "bounty_submit": "Отправить заявку",
+      "bounty_my_title": "Мои заявки",
+      "bounty_col_link": "Ссылка на пост",
+      "bounty_col_platform": "Платформа",
+      "bounty_col_date": "Дата",
+      "bounty_col_status": "Статус",
+      "bounty_status_review": "На проверке",
+      "bounty_empty": "Заявок пока нет",
+      "bounty_submitted": "✅ Заявка отправлена — на проверке",
+      "bounty_bad_link": "❌ Вставьте корректную ссылку",
+      "bounty_entry_title": "BOUNTY",
+      "bounty_entry_sub": "Пост о ZOMBIE MINER — до 20 000 ZOM",
   "tab_ref": "ОРДА",
   "tab_hold": "ЗАКОПАНО",
   "tab_daily": "КАЖДУЮ НОЧЬ",
@@ -5444,6 +5697,10 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       'assets/bg_fog.webp?v=135',
       'assets/bg_tasks.webp?v=135',
       'assets/logo_zm.webp?v=143',
+      'assets/bounty_soldier.webp',
+      'assets/bounty_coins.webp',
+      'assets/bounty_card_bg.webp',
+      'assets/bounty_btn_bg.webp',
       'assets/hero_king_reach.webp',
       'assets/avatar_king.webp',
       'assets/coin_icon.webp?v=108',
@@ -7210,6 +7467,105 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       // manual sync button was removed — see maybeAutoSyncHold).
       if (id === 'profile') maybeAutoSyncHold();
     }
+    // ===== BOUNTY (owner reference 2026-11-21): front-end only for now —
+    // requests are kept on the device until the server endpoints land. =====
+    let bnType = 'Video';
+    let bnPlatform = 'Telegram';
+    const bnT = function (k) { const d = I18N[currentLang] || I18N.en; return d[k] || k; };
+    const BN_PLAT_SVG = {
+      'Telegram': '<svg viewBox="0 0 24 24" fill="#37aee2"><path d="M21.9 4.6l-3.1 14.6c-.2 1-.8 1.3-1.7.8l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.8 8.7-7.9c.4-.3-.1-.5-.6-.2L7.6 13.2 2.9 11.7c-1-.3-1-1 .2-1.5l18.4-7.1c.9-.3 1.6.2 1.4 1.5z"/></svg>',
+      'Twitter (X)': '<svg viewBox="0 0 24 24" fill="#e6f2e7"><path d="M17.8 3h3l-6.7 7.7L22 21h-6.2l-4.8-6.3L5.4 21h-3l7.2-8.2L2 3h6.4l4.4 5.8zm-1.1 16.1h1.7L7.4 4.8H5.6z"/></svg>',
+      'YouTube': '<svg viewBox="0 0 24 24" fill="#ff4e45"><path d="M22.5 7.2a2.8 2.8 0 0 0-2-2C18.9 4.8 12 4.8 12 4.8s-6.9 0-8.5.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 1 12a29 29 0 0 0 .5 4.8 2.8 2.8 0 0 0 2 2c1.6.4 8.5.4 8.5.4s6.9 0 8.5-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 23 12a29 29 0 0 0-.5-4.8zM9.8 15.3V8.7l5.9 3.3z"/></svg>'
+    };
+    const BN_SAMPLES = [
+      { link: 'https://t.me/...', platform: 'Telegram', date: 'Nov 12, 2026' },
+      { link: 'https://youtu.be/...', platform: 'YouTube', date: 'Nov 12, 2026' },
+      { link: 'https://x.com/...', platform: 'Twitter (X)', date: 'Nov 11, 2026' }
+    ];
+    function bnLoadReqs() {
+      try { return JSON.parse(localStorage.getItem('zmBountyReqs') || '[]'); } catch (e) { return []; }
+    }
+    function bnEsc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+    function renderBountyRequests() {
+      const box = document.getElementById('bn-rows');
+      if (!box) return;
+      const rows = bnLoadReqs().concat(BN_SAMPLES);
+      if (!rows.length) { box.innerHTML = '<div class="bn-empty">' + bnT('bounty_empty') + '</div>'; return; }
+      box.innerHTML = rows.map(function (r, i) {
+        return '<div class="bn-trow"><span>' + (i + 1) + '</span>' +
+          '<span class="bn-link"><svg viewBox="0 0 24 24"><path d="M10 14a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 10a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg><span>' + bnEsc(r.link) + '</span></span>' +
+          '<span class="bn-plat-cell">' + (BN_PLAT_SVG[r.platform] || '') + '<span>' + bnEsc(r.platform) + '</span></span>' +
+          '<span class="bn-date">' + bnEsc(r.date) + '</span>' +
+          '<span><span class="bn-status"><svg viewBox="0 0 24 24"><path d="M6 3h12M6 21h12M8 3c0 5 8 5 8 9s-8 4-8 9M16 3c0 5-8 5-8 9"/></svg>' + bnT('bounty_status_review') + '</span></span></div>';
+      }).join('');
+    }
+    function openBounty() {
+      switchTab('bounty');
+      const nav = document.querySelector('.nav-item[data-tab="tasks"]');
+      if (nav) nav.classList.add('active');
+      const pg = document.getElementById('page-bounty'); if (pg) pg.scrollTop = 0;
+      const lin = document.getElementById('bn-link'); if (lin) lin.placeholder = bnT('bounty_link_ph');
+      renderBountyRequests();
+    }
+    (function initBounty() {
+      const entry = document.getElementById('btn-open-bounty');
+      if (entry) entry.addEventListener('click', openBounty);
+      const back = document.getElementById('bn-back-btn');
+      if (back) back.addEventListener('click', function () { switchTab('tasks'); });
+      const segV = document.getElementById('bn-seg-video');
+      const segP = document.getElementById('bn-seg-post');
+      function setSeg(type) {
+        bnType = type;
+        if (segV) { segV.classList.toggle('on', type === 'Video'); segV.querySelector('.bn-dot').textContent = type === 'Video' ? '✓' : ''; }
+        if (segP) { segP.classList.toggle('on', type === 'Post'); segP.querySelector('.bn-dot').textContent = type === 'Post' ? '✓' : ''; }
+      }
+      if (segV) segV.addEventListener('click', function () { SoundFX.click(); setSeg('Video'); });
+      if (segP) segP.addEventListener('click', function () { SoundFX.click(); setSeg('Post'); });
+      document.querySelectorAll('.bn-plat').forEach(function (b) {
+        b.addEventListener('click', function () {
+          SoundFX.click();
+          bnPlatform = b.getAttribute('data-bplat');
+          document.querySelectorAll('.bn-plat').forEach(function (x) { x.classList.toggle('on', x === b); });
+        });
+      });
+      const submit = document.getElementById('bn-submit');
+      if (submit) submit.addEventListener('click', function () {
+        const inp = document.getElementById('bn-link');
+        const link = (inp && inp.value || '').trim();
+        if (!/^https?:\/\/.+/i.test(link)) { showToast(bnT('bounty_bad_link'), '#ef4444'); return; }
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const now = new Date();
+        const reqs = bnLoadReqs();
+        reqs.unshift({ link: link, platform: bnPlatform, type: bnType, date: months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear() });
+        try { localStorage.setItem('zmBountyReqs', JSON.stringify(reqs)); } catch (e) {}
+        if (inp) inp.value = '';
+        renderBountyRequests();
+        showToast(bnT('bounty_submitted'));
+      });
+      // 10-day countdown (per-device until the server owns the campaign dates)
+      function bnEndsAt() {
+        let v = 0;
+        try { v = +localStorage.getItem('zmBountyEndsAt') || 0; } catch (e) {}
+        const now = Date.now();
+        if (!v || v < now) { v = now + 10 * 86400000; try { localStorage.setItem('zmBountyEndsAt', String(v)); } catch (e) {} }
+        return v;
+      }
+      const bnEnd = bnEndsAt();
+      function bnPad(n) { return (n < 10 ? '0' : '') + n; }
+      function bnTick() {
+        let rem = Math.max(0, bnEnd - Date.now());
+        const d = Math.floor(rem / 86400000); rem -= d * 86400000;
+        const h = Math.floor(rem / 3600000); rem -= h * 3600000;
+        const m = Math.floor(rem / 60000); rem -= m * 60000;
+        const sec = Math.floor(rem / 1000);
+        const set = function (id, v) { const el = document.getElementById(id); if (el) el.textContent = v; };
+        set('bn-cd-d', bnPad(d)); set('bn-cd-h', bnPad(h)); set('bn-cd-m', bnPad(m)); set('bn-cd-s', bnPad(sec));
+        const e2 = document.getElementById('bn-cd2'); if (e2) e2.textContent = bnPad(d) + 'd : ' + bnPad(h) + 'h : ' + bnPad(m) + 'm : ' + bnPad(sec) + 's';
+      }
+      bnTick();
+      setInterval(bnTick, 1000);
+      renderBountyRequests();
+    })();
 
     function setActiveTierBtn(activeNum) {
       [1, 2, 3].forEach(n => document.getElementById('tier-btn-' + n).classList.toggle('tier-active', n === activeNum));
