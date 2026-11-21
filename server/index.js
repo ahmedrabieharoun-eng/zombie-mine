@@ -792,8 +792,8 @@ function hit(key, max, windowMs) {
 // verifyCheck 6x at 5s intervals after a TonConnect payment — one poll
 // burst plus a manual re-check must fit with room to spare, or the user
 // hits this limiter for doing exactly what the UI told them to do. The
-// global per-user (90/min) and per-IP caps still bound abuse.
-const ACTION_LIMIT = { state: 20, collect: 6, daily: 6, task: 8, holdTask: 8, bioTask: 8, refAch: 8, wallet: 8, unlink: 6, refCollect: 6, withdraw: 4, verifyInfo: 20, verifyCheck: 20, setAvatar: 8, adTicket: 6, adClaim: 6, adNoFill: 6 }; // per user per minute
+// global per-user (240/min) and per-IP caps still bound abuse.
+const ACTION_LIMIT = { state: 60, collect: 6, daily: 6, task: 8, holdTask: 8, bioTask: 8, refAch: 8, wallet: 8, unlink: 6, refCollect: 6, withdraw: 4, verifyInfo: 20, verifyCheck: 20, setAvatar: 8, adTicket: 6, adClaim: 6, adNoFill: 6 }; // per user per minute
 
 function verifyInitData(initData) {
   if (!BOT_TOKEN) return { error: 'config' };
@@ -5227,7 +5227,7 @@ functions.http('collectMining', async (req, res) => {
   }
   try {
     const ip = clientIp(req);
-    if (!hit('ip:' + ip, 600, 60000)) return res.status(429).json({ error: 'Too many requests, slow down' });
+    if (!hit('ip:' + ip, 1200, 60000)) return res.status(429).json({ error: 'Too many requests, slow down' });
     const body = req.body || {};
     // Admin PANEL API (owner order 2026-11-17): key-guarded web
     // panel actions authenticate by ADMIN_PANEL_KEY in the body,
@@ -5252,7 +5252,7 @@ functions.http('collectMining', async (req, res) => {
     if (!Object.prototype.hasOwnProperty.call(ACTIONS, name)) return res.status(400).json({ error: 'Unknown action' });
     const uid = String(auth.user.id);
     if (!/^\d+$/.test(uid)) return res.status(401).json({ error: 'Unauthorized' }); // Telegram user ids are numeric; anything else never reaches an RTDB path
-    if (!hit('u:' + uid, 90, 60000) || !hit('a:' + uid + ':' + name, ACTION_LIMIT[name] || 60, 60000)) return res.status(429).json({ error: 'Too many requests, slow down' });
+    if (!hit('u:' + uid, 240, 60000) || !hit('a:' + uid + ':' + name, ACTION_LIMIT[name] || 60, 60000)) return res.status(429).json({ error: 'Too many requests, slow down' });
     const cfg = await getConfig();
     // Owner-only maintenance gate (owner order 2026-11-14): the app
     // renders its «update in progress» screen off the maintenance flag.
