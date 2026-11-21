@@ -15,7 +15,8 @@
 
   
   
-  <link rel="preload" as="image" href="assets/boot_scene4.webp?v=107">
+  <link rel="preload" as="font" type="font/woff2" href="assets/font_pirata.woff2" crossorigin>
+  <link rel="preload" as="image" href="assets/boot_king.webp?v=120">
   <link rel="preload" as="image" href="assets/hero_miner2.webp">
   <link rel="preload" as="image" href="assets/tombstone_center.webp">
   <style>
@@ -384,7 +385,8 @@
     .nav-item .nav-ic{display:none}
     .nav-item span{display:none}
   
-  </style>
+  
+</style>
   <style>
     /* ===== REDESIGN3 — EXACT SCENE MATCH (owner reference 2026-11-19) =====
        Full toxic-cave/graveyard scene behind FROSTED, SCRATCHED GLASS cards
@@ -884,7 +886,7 @@
     #btn-goto-boost{padding-top:4px;padding-bottom:4px}
 
     /* ---------- PASS 26: boot = owner's artwork; name is the painted image ---------- */
-    #boot-loader{background:linear-gradient(rgba(7,6,3,0),rgba(7,6,3,.38) 78%,rgba(7,6,3,.72)),url('assets/boot_scene4.webp?v=107') center/cover #04070a;justify-content:flex-end;padding-bottom:40px}
+    #boot-loader{background:linear-gradient(rgba(7,6,3,0),rgba(7,6,3,.38) 78%,rgba(7,6,3,.72)),url('assets/boot_king.webp?v=120') center/cover #030503;justify-content:flex-end;padding-bottom:40px}
     .boot-plaque-zm,.boot-plaque-zm-name{display:none}
 
     /* ================= PASS 27: PAINTED COMPONENTS (owner: اعمل صور علشان تطلع نفس النتيجه) =================
@@ -2691,14 +2693,41 @@
     /* PASS 115 (owner): locked + included buttons — white text too. */
     #page-tasks .q-btn.tk-off,.q-btn.tk-off{color:#ffffff}
     .q-included{color:#ffffff!important}
+
+    /* PASS 117 (owner): the Mine rank card's painted frame on EVERY card. */
+    .q-row,.fr-row,.fr-tablet,.pf64-tile,.pf64-id,.card-3d,.mn-wv-card,.pf-stat,.mn-rate-card,.mn-price-card,.mn-contract,.pf-modal-card,.pf-sec,.fr-sec,.pf-contract,.pf-set-cell,.bst-card{border-style:solid;border-width:15px 12px;border-image-source:url('assets/card_frame.webp');border-image-slice:21% 5.2% 21% 5.2% fill;border-image-repeat:stretch;border-radius:0}
+    .q-row,.fr-row,.fr-tablet,.pf64-tile,.pf-set-cell,.mn-contract{border-width:12px 10px}
+    .bst-card,.mn-wv-card{border-width:18px 14px}
+
+    /* PASS 118: frame at page scope where border shorthands reset it;
+       Mine button labels go white on the black buttons. */
+    #page-mine .mn-rate-card,#page-mine .mn-price-card,#page-mine .mn-contract,#page-friends .fr-tablet,#page-friends .fr-row,#page-friends .fr-sec,#page-profile .mn-wv-card,#page-profile .pf-sec,#page-boost .bst-card{border-style:solid;border-width:15px 12px;border-image-source:url('assets/card_frame.webp');border-image-slice:21% 5.2% 21% 5.2% fill;border-image-repeat:stretch;border-radius:0}
+    #page-friends .fr-tablet,#page-friends .fr-row{border-width:12px 10px}
+    #page-profile .mn-wv-card{border-width:18px 14px}
+    #page-mine .mn-collect-btn span,#page-mine .mn-price-buy span{color:#ffffff}
+    /* ---------- PASS 120: boot = owner's king painting (2026-11-21, final
+       pick — supersedes the PASS 118 hand design before it ever shipped).
+       The painting carries the king, the wordmark and the tagline; its
+       painted bar / % / LOADING were cleaned out of the asset, and the
+       LIVE #boot-bar, #boot-pct and #boot-loading-word are placed over
+       that zone by positionBootBar() from the painting's own geometry
+       (canvas 856x1836), so only one bar and one print ever show.
+       #boot-status-text stays the hidden retry pill. ---------- */
+    #boot-col{justify-content:flex-end!important;padding:36px 0 34px}
+    .boot-panel{display:block;width:100%;margin:0;padding:0}
+    #boot-bar{background:rgba(8,18,10,.55);border:1px solid rgba(120,255,150,.28);border-radius:999px;box-shadow:inset 0 2px 6px rgba(0,0,0,.6),0 0 14px rgba(30,220,90,.12);overflow:hidden}
+    #boot-loader #boot-progress{position:absolute;top:0;bottom:0;left:0;height:100%;width:0%;background:linear-gradient(90deg,#25e84f,#4dff6a)!important;border-radius:999px;box-shadow:0 0 14px rgba(60,255,110,.65),inset 0 1px 0 rgba(255,255,255,.5)}
+    #boot-loader #boot-progress::after{content:'';position:absolute;right:-3px;top:50%;transform:translateY(-50%);height:150%;aspect-ratio:1/1;border-radius:50%;background:#d8ffdf;box-shadow:0 0 16px 6px rgba(90,255,130,.75)}
+    #boot-pct{display:block!important;position:fixed;z-index:100000;color:#ffffff;font-weight:700;text-align:center;text-shadow:0 2px 8px rgba(0,0,0,.7);line-height:1.2}
+    #boot-loading-word{position:fixed;z-index:100000;color:#3ddc5a;font-weight:600;text-align:center;text-shadow:0 1px 6px rgba(0,0,0,.8)}
 </style>
 </head>
 <body oncontextmenu="return false;">
 
   <div id="boot-loader">
-    <img src="assets/boot_scene4.webp?v=107" alt="Zombie" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+    <img src="assets/boot_king.webp?v=120" alt="Zombie" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
     <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(5,7,11,0.30) 0%, rgba(5,7,11,0) 30%, rgba(5,7,11,0) 52%, rgba(5,7,11,0.60) 100%);"></div>
-    <div style="position:relative;z-index:2;width:88%;max-width:340px;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:36px 0 34px;">
+    <div id="boot-col" style="position:relative;z-index:2;width:88%;max-width:340px;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:36px 0 34px;">
       <!-- PASS 52: the boot painting itself carries the medallion +
            wordmark (edit of the owner's loading reference) — the
            plaque overlay is retired. Progress = the reference's
@@ -2708,6 +2737,7 @@
         <div id="boot-pct">0%</div>
         <div id="boot-bar"><div id="boot-progress"></div></div>
         <div id="boot-status-text" style="color:#cbd5e1;font-size:11px;">RAISING THE DEAD</div>
+        <div id="boot-loading-word">LOADING</div>
         <button id="boot-retry-btn" class="btn-3d-gold" style="display:none;">🔄 Retry</button>
       </div>
     </div>
@@ -4527,36 +4557,38 @@
       const loader = document.getElementById('boot-loader');
       const bar = document.getElementById('boot-bar');
       const cap = document.getElementById('boot-status-text');
+      const pct = document.getElementById('boot-pct');
+      const word = document.getElementById('boot-loading-word');
       if (!loader || !bar) return;
-      // PASS 74: geometry comes from the boot IMG's own rendered box,
-      // not window.innerWidth/innerHeight — in Telegram's Android
-      // WebView the two disagree (the loader can extend under the
-      // Telegram header), which put the live bar/caption off the
-      // baked ones on the owner's phone (bar printed over the
-      // caption). The img box IS the cover canvas, so math against
-      // its rect is exact at any viewport.
+      // PASS 120: geometry from the boot IMG's rendered box, canvas =
+      // the king painting's native 856x1836. Painted (now cleaned) bar
+      // rect (154,1421,548,30); % glyph top 1475 (line box 1468);
+      // LOADING glyph top 1517 (line box 1514).
       const img = loader.querySelector('img');
       const r = img ? img.getBoundingClientRect() : null;
       const g = (r && r.width > 0 && r.height > 0)
-        ? (() => { const gg = coverGeom(r.width, r.height, 665, 1630); gg.ox += r.left; gg.oy += r.top; return gg; })()
-        : coverGeom(window.innerWidth, window.innerHeight, 665, 1630);
-      // PASS 54: the baked bar rect is (52,1170,561,53). The baked
-      // caption glyphs were measured ON THE PAINTING (boot_scene4.webp)
-      // at y 1224..1236 — the AI-edited painting moved them up from the
-      // reference screenshot's 1252, and aiming the live caption at
-      // 1252 printed a second line below the baked one. The live
-      // bar/caption are placed from the rendered image box (coverGeom)
-      // with the caption's metrics scaled by the same factor; the
-      // caption's box top is aimed 6 image px above its glyph top
-      // (line-box half-leading), so only ONE bar and ONE print show
-      // at any viewport.
-      bar.style.left = (g.ox + 52 * g.s) + 'px';
-      bar.style.top = (g.oy + 1395 * g.s) + 'px';
-      bar.style.width = (561 * g.s) + 'px';
-      bar.style.height = (53 * g.s) + 'px';
+        ? (() => { const gg = coverGeom(r.width, r.height, 856, 1836); gg.ox += r.left; gg.oy += r.top; return gg; })()
+        : coverGeom(window.innerWidth, window.innerHeight, 856, 1836);
+      bar.style.left = (g.ox + 154 * g.s) + 'px';
+      bar.style.top = (g.oy + 1421 * g.s) + 'px';
+      bar.style.width = (548 * g.s) + 'px';
+      bar.style.height = (30 * g.s) + 'px';
+      if (pct) {
+        pct.style.left = g.ox + 'px';
+        pct.style.width = (856 * g.s) + 'px';
+        pct.style.top = (g.oy + 1468 * g.s) + 'px';
+        pct.style.setProperty('font-size', (30 * g.s) + 'px', 'important');
+      }
+      if (word) {
+        word.style.left = g.ox + 'px';
+        word.style.width = (856 * g.s) + 'px';
+        word.style.top = (g.oy + 1514 * g.s) + 'px';
+        word.style.setProperty('font-size', (18 * g.s) + 'px', 'important');
+        word.style.letterSpacing = (6 * g.s) + 'px';
+      }
       if (cap) {
         cap.style.left = g.ox + 'px';
-        cap.style.width = (665 * g.s) + 'px';
+        cap.style.width = (856 * g.s) + 'px';
         cap.style.top = (g.oy + 1461 * g.s) + 'px';
         cap.style.setProperty('font-size', (19 * g.s) + 'px', 'important');
         cap.style.letterSpacing = (6.5 * g.s) + 'px';
