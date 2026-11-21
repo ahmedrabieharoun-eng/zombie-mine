@@ -3584,17 +3584,6 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   </div>
 
   <div id="toast">Notification</div>
-  <div id="unlink-modal" class="pf-modal" style="display:none">
-    <div class="pf-modal-card">
-      <div class="pf-modal-title" data-i18n="unlink_title">Disconnect Wallet?</div>
-      <div class="pf-modal-body" data-i18n="unlink_warn">⚠️ Disconnecting will cancel your wallet verification. To verify again, you will have to pay the verification fee again.</div>
-      <div class="pf-modal-row">
-        <button class="pf-modal-cancel" id="btn-unlink-cancel"><span data-i18n="unlink_cancel">Cancel</span></button>
-        <button class="pf-modal-confirm" id="btn-unlink-confirm"><span data-i18n="unlink_confirm">Disconnect</span></button>
-      </div>
-    </div>
-  </div>
-
 
   <div id="daily-modal" class="pf-modal" style="display:none">
     <div class="pf-modal-card">
@@ -5581,12 +5570,6 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       }
     }
 
-    function askUnlinkConfirm(e) {
-      if (!isHumanClick(e)) return;
-      SoundFX.click();
-      document.getElementById('unlink-modal').style.display = 'flex';
-    }
-
     async function disconnectTonWallet(e) {
       if (!isHumanClick(e)) return;
       SoundFX.click();
@@ -6720,19 +6703,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       SoundFX.click();
       try { navigator.clipboard.writeText(OFFICIAL_JETTON); showToast("📋 Copied!"); } catch (e) {}
     });
-    document.getElementById('btn-disconnect-wallet').addEventListener('click', askUnlinkConfirm);
-    document.getElementById('btn-unlink-cancel').addEventListener('click', (e) => {
-      if (!isHumanClick(e)) return;
-      SoundFX.click();
-      document.getElementById('unlink-modal').style.display = 'none';
-    });
-    document.getElementById('btn-unlink-confirm').addEventListener('click', (e) => {
-      document.getElementById('unlink-modal').style.display = 'none';
-      disconnectTonWallet(e);
-    });
-    document.getElementById('unlink-modal').addEventListener('click', (e) => {
-      if (e.target && e.target.id === 'unlink-modal') e.currentTarget.style.display = 'none';
-    });
+    document.getElementById('btn-disconnect-wallet').addEventListener('click', disconnectTonWallet);
     // PASS 57: the Referral Tasks card + modal are GONE from
     // Friends — the milestone list lives in the Tasks page's
     // REFERRALS tab now (renderRefAchList paints #ref-ach-list).
