@@ -7477,11 +7477,6 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       'Twitter (X)': '<svg viewBox="0 0 24 24" fill="#e6f2e7"><path d="M17.8 3h3l-6.7 7.7L22 21h-6.2l-4.8-6.3L5.4 21h-3l7.2-8.2L2 3h6.4l4.4 5.8zm-1.1 16.1h1.7L7.4 4.8H5.6z"/></svg>',
       'YouTube': '<svg viewBox="0 0 24 24" fill="#ff4e45"><path d="M22.5 7.2a2.8 2.8 0 0 0-2-2C18.9 4.8 12 4.8 12 4.8s-6.9 0-8.5.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 1 12a29 29 0 0 0 .5 4.8 2.8 2.8 0 0 0 2 2c1.6.4 8.5.4 8.5.4s6.9 0 8.5-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 23 12a29 29 0 0 0-.5-4.8zM9.8 15.3V8.7l5.9 3.3z"/></svg>'
     };
-    const BN_SAMPLES = [
-      { link: 'https://t.me/...', platform: 'Telegram', date: 'Nov 12, 2026' },
-      { link: 'https://youtu.be/...', platform: 'YouTube', date: 'Nov 12, 2026' },
-      { link: 'https://x.com/...', platform: 'Twitter (X)', date: 'Nov 11, 2026' }
-    ];
     function bnLoadReqs() {
       try { return JSON.parse(localStorage.getItem('zmBountyReqs') || '[]'); } catch (e) { return []; }
     }
@@ -7489,7 +7484,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     function renderBountyRequests() {
       const box = document.getElementById('bn-rows');
       if (!box) return;
-      const rows = bnLoadReqs().concat(BN_SAMPLES);
+      const rows = bnLoadReqs();
       if (!rows.length) { box.innerHTML = '<div class="bn-empty">' + bnT('bounty_empty') + '</div>'; return; }
       box.innerHTML = rows.map(function (r, i) {
         return '<div class="bn-trow"><span>' + (i + 1) + '</span>' +
