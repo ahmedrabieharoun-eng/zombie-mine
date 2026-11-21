@@ -3597,6 +3597,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   </div>
 
   <div id="toast"><span id="toast-ic"></span><span id="toast-msg">Notification</span></div>
+  <audio id="amb-audio" loop preload="auto" src="assets/amb_groans.mp3?v=1" style="display:none"></audio>
 
   <div id="daily-modal" class="pf-modal" style="display:none">
     <div class="pf-modal-card">
@@ -4577,6 +4578,20 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
         o.connect(g); g.connect(ctx.destination); o.start(t); o.stop(t + 0.24);
       } catch (e) {}
     }
+    // Background ambience (owner pick 2026-11-21: distant zombie groans,
+    // preview #6). Starts on the first tap anywhere (autoplay policy),
+    // loops at low volume, and follows the soundEnabled flag.
+    function ambSync() {
+      const a = document.getElementById('amb-audio');
+      if (!a) return;
+      a.volume = 0.15;
+      if (soundEnabled) { const pr = a.play(); if (pr) pr.catch(() => {}); }
+      else a.pause();
+    }
+    document.addEventListener('pointerdown', function ambKick() {
+      document.removeEventListener('pointerdown', ambKick);
+      ambSync();
+    });
     const SoundFX = {
       collect: () => { coinShimmer(); },
       buySuccess: () => { hornSwell(); setTimeout(coinShimmer, 120); },
@@ -7166,7 +7181,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     }
 
     // Event Listeners
-    document.getElementById('sound-toggle-btn').addEventListener('click', () => { soundEnabled = !soundEnabled; document.getElementById('sound-toggle-btn').style.opacity = soundEnabled ? "1" : "0.45" });
+    document.getElementById('sound-toggle-btn').addEventListener('click', () => { soundEnabled = !soundEnabled; document.getElementById('sound-toggle-btn').style.opacity = soundEnabled ? "1" : "0.45"; ambSync(); });
     document.getElementById('lang-menu-btn').addEventListener('click', e => { e.stopPropagation(); document.getElementById('lang-dropdown').classList.toggle('show'); });
     // Language pick (fix, owner report 2026-11-15): on touch devices the
     // compatibility click after a tap can be retargeted to the element
