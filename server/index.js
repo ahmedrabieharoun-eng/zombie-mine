@@ -96,12 +96,12 @@ const PAYOUT_MNEMONIC = String(process.env.PAYOUT_MNEMONIC || '').trim();
 const PAYOUT_WALLET_VERSION = String(process.env.PAYOUT_WALLET_VERSION || 'v5').trim().toLowerCase();
 const MAX_AUTH_AGE_SEC = 24 * 60 * 60;
 const MIN_COLLECT_SEC = 10;
-const DAILY = [10, 20, 30, 50, 70, 100, 200, 220, 240, 260, 280, 300, 350, 400, 420, 440, 460, 480, 500, 550, 600, 620, 640, 660, 680, 700, 750, 800, 820, 840, 860, 880, 900, 950, 1000, 1050, 1100, 1150, 1200, 1500];
+const DAILY = [20, 40, 60, 100, 140, 200, 400, 440, 480, 520, 560, 600, 700, 800, 840, 880, 920, 960, 1000, 1100, 1200, 1240, 1280, 1320, 1360, 1400, 1500, 1600, 1640, 1680, 1720, 1760, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 3000];
 const DEFAULTS = {
-  brandTitle: '$ZOMBIE MINE', coinSym: '$ZM', taskReward: 50,
-  bioReward: 50, refAchReward1: 125, refAchReward10: 250, refAchReward25: 625, refAchReward50: 1250, refAchReward100: 2500,
-  refClaimPercent: 5, refMinHold: 200, minWithdraw: 5000, holdPercentReq: 25, withdrawFeePercent: 5,
-  lvl1PerDay: 250, payoutWallet: '', payoutChannel: '@ZOMBI_PAYMENTS', adminChatId: '',
+  brandTitle: '$ZOMBIE MINE', coinSym: '$ZM', taskReward: 100,
+  bioReward: 100, refAchReward1: 250, refAchReward10: 500, refAchReward25: 1250, refAchReward50: 2500, refAchReward100: 5000,
+  refClaimPercent: 5, refMinHold: 400, minWithdraw: 10000, holdPercentReq: 25, withdrawFeePercent: 5,
+  lvl1PerDay: 500, payoutWallet: '', payoutChannel: '@ZOMBI_PAYMENTS', adminChatId: '',
   // Withdrawal-cooldown exemption (owner order 2026-11-14): these
   // Telegram ids never wait the 24 h between withdrawals (the owner
   // + Elshenawy, his tester). settings/global can override the list.
@@ -150,8 +150,8 @@ const DEFAULTS = {
   // that has aged at least adMinWatchSec — see adTicket / adClaim.
   // adsEnabled = 0 disables the whole system (no tickets issued, no
   // gate required, section hidden) as an emergency valve.
-  adsEnabled: 1, adsgramBlockId: '60547', adReward: 5, adDailyLimit: 10, adMinWatchSec: 15, adGateMinSec: 5,
-  holdTaskDefs: [ { hold: 1250, reward: 300 }, { hold: 2500, reward: 500 }, { hold: 5000, reward: 1000 }, { hold: 10000, reward: 1500 }, { hold: 20000, reward: 2500 } ]
+  adsEnabled: 1, adsgramBlockId: '60547', adReward: 10, adDailyLimit: 10, adMinWatchSec: 15, adGateMinSec: 5,
+  holdTaskDefs: [ { hold: 2500, reward: 600 }, { hold: 5000, reward: 1000 }, { hold: 10000, reward: 2000 }, { hold: 20000, reward: 3000 }, { hold: 40000, reward: 5000 } ]
 };
 const NUM_KEYS = ['lvl1PerDay', 'taskReward', 'bioReward', 'refAchReward1', 'refAchReward10', 'refAchReward25', 'refAchReward50', 'refAchReward100', 'refClaimPercent', 'refMinHold', 'minWithdraw', 'holdPercentReq', 'withdrawFeePercent', 'verifyFeeTon', 'verifyMinAgeDays', 'withdrawMinAgeDays', 'holdRenewDays', 'adsEnabled', 'adReward', 'adDailyLimit', 'adMinWatchSec', 'adGateMinSec'];
 const STR_KEYS = ['brandTitle', 'coinSym', 'payoutWallet', 'payoutChannel', 'adminChatId', 'channel1', 'channel2', 'channel3', 'botUsername', 'buySwapUrl', 'verifyDepositWallet', 'adsgramBlockId'];
@@ -1890,14 +1890,14 @@ async function setAvatar(c) {
    The hold is the player's synced on-chain hold (player.hold — the
    same value state() ships and the app itself tiers on). */
 const LEVEL_DEFS = [
-  { req: 0, day: 250 }, { req: 200, day: 300 }, { req: 1250, day: 500 }, { req: 2500, day: 750 },
-  { req: 5000, day: 1000 }, { req: 7000, day: 1200 }, { req: 10000, day: 1500 }, { req: 12000, day: 1800 },
-  { req: 15000, day: 2500 }, { req: 18000, day: 2800 }, { req: 22000, day: 3200 }, { req: 26000, day: 3600 },
-  { req: 31000, day: 4100 }, { req: 37000, day: 4700 }, { req: 44000, day: 5400 }, { req: 52000, day: 6200 },
-  { req: 61000, day: 7100 }, { req: 71000, day: 8100 }, { req: 82000, day: 9200 }, { req: 95000, day: 10500 },
-  { req: 110000, day: 12000 }, { req: 126000, day: 13600 }, { req: 144000, day: 15400 }, { req: 164000, day: 17400 },
-  { req: 186000, day: 19600 }, { req: 210000, day: 22000 }, { req: 236000, day: 24600 }, { req: 264000, day: 27400 },
-  { req: 294000, day: 30400 }, { req: 326000, day: 33600 }
+  { req: 0, day: 250 }, { req: 400, day: 300 }, { req: 2500, day: 500 }, { req: 5000, day: 750 },
+  { req: 10000, day: 1000 }, { req: 14000, day: 1200 }, { req: 20000, day: 1500 }, { req: 24000, day: 1800 },
+  { req: 30000, day: 2500 }, { req: 36000, day: 2800 }, { req: 44000, day: 3200 }, { req: 52000, day: 3600 },
+  { req: 62000, day: 4100 }, { req: 74000, day: 4700 }, { req: 88000, day: 5400 }, { req: 104000, day: 6200 },
+  { req: 122000, day: 7100 }, { req: 142000, day: 8100 }, { req: 164000, day: 9200 }, { req: 190000, day: 10500 },
+  { req: 220000, day: 12000 }, { req: 252000, day: 13600 }, { req: 288000, day: 15400 }, { req: 328000, day: 17400 },
+  { req: 372000, day: 19600 }, { req: 420000, day: 22000 }, { req: 472000, day: 24600 }, { req: 528000, day: 27400 },
+  { req: 588000, day: 30400 }, { req: 652000, day: 33600 }
 ];
 function buildLevelsTable(cfg) {
   const scale = (Number(cfg && cfg.lvl1PerDay) || 250) / 250;

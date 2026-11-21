@@ -3862,7 +3862,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
           <button class="fr-gold-btn" id="btn-copy-ref"><span data-i18n="copy_btn">Copy Link</span></button>
         </div>
         <div class="fr-invite-line" data-i18n="ref_head_earn">Friends who activate earn you 5% of everything they mine — it lands here on its own.</div>
-        <div class="fr-invite-line dim" data-i18n="ref_rule_cond">A friend activates at Level 2, holding 200+ $ZM in their wallet.</div>
+        <div class="fr-invite-line dim" data-i18n="ref_rule_cond">A friend activates at Level 2, holding 400+ $ZM in their wallet.</div>
       </section>
       <div class="fr-tablets">
         <div class="fr-tablet"><div class="fr-tab-notch"></div><small data-i18n="ref_pending">Pending</small><div class="fr-tab-num fr-num-pending" id="ref-pending-count">0</div></div>
@@ -3943,13 +3943,13 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
         <div class="pf-ribbon"><span data-i18n="withdraw_title">Withdraw</span> ⬇</div>
         <div class="pf-amt">
           <div class="pf-amt-lbl" data-i18n="prof_amount_lbl">AMOUNT</div>
-          <input type="text" inputmode="numeric" id="wd-input-amt" value="5,000">
+          <input type="text" inputmode="numeric" id="wd-input-amt" value="10,000">
           <img src="assets/coin_icon.webp?v=108" alt="">
         </div>
         <div class="pf-lines">
-          <div><span data-i18n="wd_fee_lbl">Fee (5%):</span> <strong class="pf-neg">-<span id="wd-fee-calc">250</span></strong></div>
-          <div><span data-i18n="net_lbl">Net:</span> <strong class="pf-net" id="wd-net-calc">4,750</strong></div>
-          <div class="pf-line-sub"><span data-i18n="min_wd_lbl">Minimum:</span> <strong id="wd-min-ui">5,000</strong> · <span data-i18n="hold_cond_lbl">30% Hold Required:</span> <strong id="wd-req-hold-num">1,500</strong> (<span id="wd-your-hold-lbl" data-i18n="your_hold_lbl">Your Hold:</span> <strong id="wd-cur-hold-num">0</strong>) <strong id="wd-hold-status"></strong></div>
+          <div><span data-i18n="wd_fee_lbl">Fee (5%):</span> <strong class="pf-neg">-<span id="wd-fee-calc">500</span></strong></div>
+          <div><span data-i18n="net_lbl">Net:</span> <strong class="pf-net" id="wd-net-calc">9,500</strong></div>
+          <div class="pf-line-sub"><span data-i18n="min_wd_lbl">Minimum:</span> <strong id="wd-min-ui">10,000</strong> · <span data-i18n="hold_cond_lbl">30% Hold Required:</span> <strong id="wd-req-hold-num">3,000</strong> (<span id="wd-your-hold-lbl" data-i18n="your_hold_lbl">Your Hold:</span> <strong id="wd-cur-hold-num">0</strong>) <strong id="wd-hold-status"></strong></div>
         </div>
         <button class="pf-wd-btn" id="btn-request-wd"><img src="assets/icon_chest.webp" alt=""><span id="wd-btn-arrow">↗</span> <span id="wd-btn-label" data-i18n="req_wd_btn">Request Withdrawal</span></button>
         <button class="btn-3d-dark pf-hist-btn" id="btn-wdhist-open"><span data-i18n="wd_hist_title">Withdrawal History</span></button>
@@ -4717,11 +4717,11 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
 
     const defaultConfig = {
       brandTitle: "$ZOMBIE MINE", coinSym: "$ZM",
-      lvl1PerDay: 250,
-      taskReward: 50,
-      bioReward: 50, refAchReward1: 125, refAchReward10: 250, refAchReward25: 625, refAchReward50: 1250, refAchReward100: 2500,
-      refClaimPercent: 5, refMinHold: 200,
-      minWithdraw: 5000, holdPercentReq: 30, withdrawFeePercent: 5, withdrawMinAgeDays: 7,
+      lvl1PerDay: 500,
+      taskReward: 100,
+      bioReward: 100, refAchReward1: 250, refAchReward10: 500, refAchReward25: 1250, refAchReward50: 2500, refAchReward100: 5000,
+      refClaimPercent: 5, refMinHold: 400,
+      minWithdraw: 10000, holdPercentReq: 30, withdrawFeePercent: 5, withdrawMinAgeDays: 7,
       payoutWallet: "", botToken: "", payoutChannel: "@ZOMBI_PAYMENTS",
       adminChatId: "",
       buySwapUrl: "https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=EQCY8LnAfr0NMgw0SGBRkSykRuYy5fCkrvu4TUxt_O-FR8mg",
@@ -4759,7 +4759,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     let isCollecting = false;
     let initialLoadDone = false;
     
-    const DAILY_REWARDS = [10, 20, 30, 50, 70, 100, 200, 220, 240, 260, 280, 300, 350, 400, 420, 440, 460, 480, 500, 550, 600, 620, 640, 660, 680, 700, 750, 800, 820, 840, 860, 880, 900, 950, 1000, 1050, 1100, 1150, 1200, 1500];
+    const DAILY_REWARDS = [20, 40, 60, 100, 140, 200, 400, 440, 480, 520, 560, 600, 700, 800, 840, 880, 920, 960, 1000, 1100, 1200, 1240, 1280, 1320, 1360, 1400, 1500, 1600, 1640, 1680, 1720, 1760, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 3000];
     let currentLevelPage = 1;
 
     const BOOT_STARTED_AT = Date.now();
@@ -4940,14 +4940,14 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     }
 
     const customLevels = [
-      {req: 0, day: 250}, {req: 200, day: 300}, {req: 1250, day: 500}, {req: 2500, day: 750},
-      {req: 5000, day: 1000}, {req: 7000, day: 1200}, {req: 10000, day: 1500}, {req: 12000, day: 1800},
-      {req: 15000, day: 2500}, {req: 18000, day: 2800}, {req: 22000, day: 3200}, {req: 26000, day: 3600},
-      {req: 31000, day: 4100}, {req: 37000, day: 4700}, {req: 44000, day: 5400}, {req: 52000, day: 6200},
-      {req: 61000, day: 7100}, {req: 71000, day: 8100}, {req: 82000, day: 9200}, {req: 95000, day: 10500},
-      {req: 110000, day: 12000}, {req: 126000, day: 13600}, {req: 144000, day: 15400}, {req: 164000, day: 17400},
-      {req: 186000, day: 19600}, {req: 210000, day: 22000}, {req: 236000, day: 24600}, {req: 264000, day: 27400},
-      {req: 294000, day: 30400}, {req: 326000, day: 33600}
+      {req: 0, day: 250}, {req: 400, day: 300}, {req: 2500, day: 500}, {req: 5000, day: 750},
+      {req: 10000, day: 1000}, {req: 14000, day: 1200}, {req: 20000, day: 1500}, {req: 24000, day: 1800},
+      {req: 30000, day: 2500}, {req: 36000, day: 2800}, {req: 44000, day: 3200}, {req: 52000, day: 3600},
+      {req: 62000, day: 4100}, {req: 74000, day: 4700}, {req: 88000, day: 5400}, {req: 104000, day: 6200},
+      {req: 122000, day: 7100}, {req: 142000, day: 8100}, {req: 164000, day: 9200}, {req: 190000, day: 10500},
+      {req: 220000, day: 12000}, {req: 252000, day: 13600}, {req: 288000, day: 15400}, {req: 328000, day: 17400},
+      {req: 372000, day: 19600}, {req: 420000, day: 22000}, {req: 472000, day: 24600}, {req: 528000, day: 27400},
+      {req: 588000, day: 30400}, {req: 652000, day: 33600}
     ];
 
     let LEVELS_DATA = [];
@@ -5920,7 +5920,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
        the tier amount in the connected wallet, and renews every 48h —
        after a claim its button shows the same yellow countdown as the
        channel tasks. */
-    const HOLD_TASK_FALLBACK = [ { hold: 1250, reward: 300 }, { hold: 2500, reward: 500 }, { hold: 5000, reward: 1000 }, { hold: 10000, reward: 1500 }, { hold: 20000, reward: 2500 } ];
+    const HOLD_TASK_FALLBACK = [ { hold: 2500, reward: 600 }, { hold: 5000, reward: 1000 }, { hold: 10000, reward: 2000 }, { hold: 20000, reward: 3000 }, { hold: 40000, reward: 5000 } ];
     function renderHoldTasks() {
       const box = document.getElementById('hold-task-list'); if (!box) return;
       const dict = I18N[currentLang] || I18N.en;
