@@ -5743,6 +5743,12 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       const dict = I18N[currentLang] || I18N.en;
       const isConn = !!(linkedWalletAddr && linkedWalletAddr.length > 8);
       const isVerified = myWalletVerified && isConn && myVerifiedWallet === linkedWalletAddr;
+      // Owner order 2026-11-21: once the wallet is verified, the WHOLE
+      // verification card (the Step 2 section) disappears completely;
+      // it comes back only if verification is ever voided.
+      const vCardEl = document.getElementById(prefix + 'verify-card');
+      const vSecEl = vCardEl ? vCardEl.closest('section') : null;
+      if (vSecEl) vSecEl.style.setProperty('display', isVerified ? 'none' : '', 'important');
       badge.innerText = isVerified ? ("✓ " + dict.verify_verified_badge) : dict.verify_not_verified_badge;
       badge.style.background = isVerified ? "#1d9bf0" : "#64748b";
       badge.style.animation = "none";
