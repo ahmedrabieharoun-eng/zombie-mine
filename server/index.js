@@ -824,112 +824,68 @@ function verifyInitData(initData) {
    captions below; on a Telegram emoji/icon rejection the send
    retries once fully stripped. */
 // ─── Telegram Premium (custom) emoji ─────────────────────────────
-// Owner-chosen packs: TONEmoji + NewsEmoji (t.me/addemoji/TONEmoji,
-// t.me/addemoji/NewsEmoji). pz() wraps every matched emoji char in a
+// Owner-chosen packs (2026-11-21): ZombieHandEmoji + Emoji_fan37
+// (t.me/addemoji/ZombieHandEmoji, t.me/addemoji/Emoji_fan37_by_TgEmodziBot).
+// pz() wraps every matched emoji char in a
 // <tg-emoji> tag inside HTML messages; if Telegram rejects a send
 // (e.g. the bot owner's account has no Premium), callers fall back to
 // the plain text via pzStrip() — no message is ever lost.
 const PREMIUM_EMOJI = {
-  '❌': '5210952531676504517',
-  '⚠': '5447644880824181073',
-  '⚠️': '5447644880824181073',
-  '💰': '5417924076503062111',
-  '💎': '5462902520215002477',
-  '📊': '5203993413346680064',
-  '🔄': '5375338737028841420',
-  '⚡': '5456140674028019486',
-  '⚡️': '5456140674028019486',
-  '🔍': '5231012545799666522',
-  '🚫': '5240241223632954241',
-  '⛔': '5260293700088511294',
-  '⛔️': '5260293700088511294',
-  '💸': '5233326571099534068',
-  '🔗': '5440410042773824003',
-  '🏆': '5188344996356448758',
-  '🔴': '5411225014148014586',
-  '🔓': '5429405838345265327',
-  '🚀': '5188481279963715781',
-  '🎉': '5461151367559141950',
-  '💡': '5422439311196834318',
-  '🏷': '5298877105000439431',
-  '🏷️': '5298877105000439431',
-  '📩': '5472239203590888751',
-  '📌': '5397782960512444700',
-  '⚙': '5341715473882955310',
-  '⚙️': '5341715473882955310',
-  '🟢': '5416081784641168838',
-  '➕': '5397916757333654639',
-  '🚨': '5395695537687123235',
-  '🪙': '5382164415019768638',
-  '🔑': '5307843983102204243',
-  '💳': '5472250091332993630',
-  '🧾': '5204242830687494041',
-  '👛': '5215420556089776398',
-  '🏦': '5238132025323444613',
-  '🎮': '5361741454685256344',
-  '🔒': '5296369303661067030',
-  '📈': '5298614648138919107',
-  '💱': '5377336227533969892',
-  '🔖': '5222444124698853913',
-  'ℹ': '5334544901428229844',
-  'ℹ️': '5334544901428229844',
+  '🧟\u200d♀️': '5391345899752398927',
+  '🧟\u200d♂️': '5391345899752398927',
+  '🧟': '5391345899752398927',
+  '👍': '5393544437676646719',
+  '👇': '5256221151968895599',
+  '👆': '5256032594314667578',
+  '👉': '5256260442329719686',
+  '💵': '5390873668098204548',
+  '💸': '5390873668098204548',
+  '❤️': '5391252286645215101',
+  '❤': '5391252286645215101',
+  '👏': '5393172897235739796',
+  '👁️': '5390996521342737835',
+  '👁': '5390996521342737835',
+  '💀': '4958593954309211065',
+  '⚰️': '4958724224962265918',
+  '⚰': '4958724224962265918',
+  '🪦': '4956214142995268150',
+  '🦴': '4956357289960276851',
+  '👑': '4956420911310832630',
+  '💰': '4958926882994127612',
+  '🪙': '4958926882994127612',
+  '✅': '4956721670690702265',
+  '✔️': '4956721670690702265',
+  '✔': '4956721670690702265',
+  '❌': '4958526153955476488',
+  '🛡️': '4958900559139570572',
+  '🛡': '4958900559139570572',
+  '🌙': '4958941455818163141',
+  '🔥': '4956499161319998529',
+  '👻': '4956285860359177035',
+  '💎': '4956739572114392015',
+  '⚡️': '4958479549265347295',
+  '⚡': '4958479549265347295',
+  '☠️': '4956461073550017373',
+  '☠': '4956461073550017373',
+  '🎁': '4958699241137505132',
+  '⭐️': '4958714479681471536',
+  '⭐': '4958714479681471536',
+  '🧠': '4958937938239947673',
+  '🎉': '4956308456182121758',
+  '⚠️': '4956611513369494230',
+  '⚠': '4956611513369494230',
+  '🚫': '4956337889593000947',
+  '🔄': '4956371914323920049',
+  '🔴': '4956395910306202687',
+  '🟢': '4958920483492857102',
 };
 const PREMIUM_KEYS = Object.keys(PREMIUM_EMOJI).sort((a, b) => b.length - a.length);
 // Near-match substitutions (owner order 2026-11-11): bot emojis with no exact sticker in the
 // NewsEmoji/TONEmoji packs are rendered with the closest-looking pack sticker instead.
 // orig char -> [display char, custom_emoji_id]
-const PREMIUM_SUBS = {
-  '✅': ['✔️', '5206607081334906820'],
-  '🔹': ['💎', '5462902520215002477'],
-  '👤': ['🗣️', '5460795800101594035'],
-  '📭': ['✉️', '5253742260054409879'],
-  '📋': ['🧾', '5204242830687494041'],
-  '🆔': ['🔑', '5307843983102204243'],
-  '📬': ['📩', '5472239203590888751'],
-  '📤': ['🛫', '5463424023734014980'],
-  '🕐': ['⌛', '5386367538735104399'],
-  '📡': ['🌐', '5447410659077661506'],
-  '👥': ['🙂', '5461117441612462242'],
-  '📦': ['🛍', '5229064374403998351'],
-  '📢': ['📣', '5424818078833715060'],
-  '📥': ['📩', '5472239203590888751'],
-  '📝': ['✏️', '5395444784611480792'],
-  '🎁': ['🎉', '5461151367559141950'],
-  '📨': ['📩', '5472239203590888751'],
-  '📅': ['🗓', '5413879192267805083'],
-  '🟣': ['🔴', '5411225014148014586'],
-  '🔁': ['🔄', '5375338737028841420'],
-  '👋': ['🫴', '5440457429147997980'],
-  '🎨': ['✨', '5325547803936572038'],
-  '🖼': ['🖥', '5282843764451195532'],
-  '♻': ['🔄', '5375338737028841420'],
-  '♻️': ['🔄', '5375338737028841420'],
-  '💓': ['🔋', '5307905813451397794'],
-  '🪪': ['💳', '5472250091332993630'],
-  '🕒': ['⌛', '5386367538735104399'],
-  '🤝': ['👍', '5337080053119336309'],
-  '📰': ['📣', '5424818078833715060'],
-  '🕵': ['🔍', '5231012545799666522'],
-  '🎛': ['⚙️', '5341715473882955310'],
-  '🔢': ['⌨️', '5298975240708187753'],
-  '📺': ['🖥', '5282843764451195532'],
-  '🎬': ['▶️', '5264919878082509254'],
-  '📁': ['🧾', '5204242830687494041'],
-  // Zero-loss substitutions (owner order 2026-11-14): the display char IS
-  // the wanted glyph itself — 🎯 borrows the target sticker 🔘 maps to,
-  // and 🌩️ renders with the premium ⚡ sticker. NOTE: '🎯' must stay
-  // BEFORE '🔘' in this literal — PREMIUM_SUB_KEYS is a stable
-  // length-sort and 🔘's display char is 🎯 itself, so processing 🎯
-  // first keeps the 🔘 replacement from being re-wrapped by the 🎯 pass.
-  '🎯': ['🎯', '5461009483314517035'],
-  '🔘': ['🎯', '5461009483314517035'],
-  '🌩️': ['⚡', '5456140674028019486'],
-};
+const PREMIUM_SUBS = {}; // ZOMBIE: no near-match subs — PREMIUM_EMOJI maps every used char directly.
 const PREMIUM_SUB_KEYS = Object.keys(PREMIUM_SUBS).sort((a, b) => b.length - a.length);
 function pz(text) {
-  // ZOMBIE (owner order 2026-11-21): the TON/News premium-emoji packs were VIKING's —
-  // disabled entirely; bot messages use standard emoji only.
-  return text;
   let out = text;
   for (const ch of PREMIUM_KEYS) {
     if (out.indexOf(ch) === -1) continue;
@@ -1018,7 +974,6 @@ function premiumIconFor(text) {
 }
 function premiumizeKeyboard(rm) {
   if (!rm || !Array.isArray(rm.inline_keyboard)) return rm;
-  return rm; // ZOMBIE: no premium button icons (owner order 2026-11-21)
   for (const row of rm.inline_keyboard) {
     if (!Array.isArray(row)) continue;
     for (const b of row) {
@@ -5204,7 +5159,27 @@ async function panelEmojiPack(c) {
   }
   return { ok: true, title: set.title || '', stickerType: set.sticker_type || '', count: out.length, stickers: out };
 }
-const PANEL_ACTIONS = { panelStats, panelPlayers, panelPlayer, panelBan, panelAdjust, panelSetAvatar, panelVerifyPlayer, panelWithdrawals, panelWdApprove, panelWdReject, panelWdBan, panelVerifyQueue, panelVerifyResolve, panelConfigGet, panelConfigSet, panelRequestAdd, panelRequestList, panelRequestReply, panelAuditList, panelEmojiPack };
+
+// ZOMBIE (owner order 2026-11-21): send the owner ONE sample bot message
+// using the mapped chars, so the zombie premium-emoji set can be eyeballed
+// in a real chat before/after any mapping change.
+async function panelEmojiTest(c) {
+  panelKey(c);
+  const text = '🧟 <b>ZOMBIE MINE</b> — premium emoji test\n'
+    + '🪦 Digging: ✅ active ❌ paused\n'
+    + '💀 King of the Dead 👑\n'
+    + '⚰️ Verified 🛡️ 🦴 buried coins 💰\n'
+    + '👇 Tap below 👍 🌙 🔥 👻 🎉';
+  const rm = { inline_keyboard: [[
+    { text: '🧟 Open ZM', url: 'https://t.me/ZOMBIE_MINI_Bot/app' },
+    { text: '💀 Payouts', url: 'https://t.me/ZOMBI_PAYMENTS' },
+    { text: '🦇 News', url: 'https://t.me/ZOMBI_UPDATE' },
+  ]] };
+  const r = await tg('sendMessage', { chat_id: OWNER_ID, text, reply_markup: rm });
+  const ok = !!(r && (r.ok === true || r.message_id || (r.result && r.result.message_id)));
+  return { ok: true, sent: ok };
+}
+const PANEL_ACTIONS = { panelStats, panelPlayers, panelPlayer, panelBan, panelAdjust, panelSetAvatar, panelVerifyPlayer, panelWithdrawals, panelWdApprove, panelWdReject, panelWdBan, panelVerifyQueue, panelVerifyResolve, panelConfigGet, panelConfigSet, panelRequestAdd, panelRequestList, panelRequestReply, panelAuditList, panelEmojiPack, panelEmojiTest };
 
 const ACTIONS = { state, collect, daily, task, holdTask, bioTask, refAch, adTicket, adClaim, adNoFill, wallet, unlink, verifyInfo, verifyCheck, refCollect, withdraw, setAvatar, adminState, adminBan, adminAdjust, adminWd, adminSettings };
 
