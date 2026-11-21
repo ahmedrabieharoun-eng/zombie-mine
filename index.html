@@ -2720,9 +2720,367 @@
     #boot-loader #boot-progress::after{content:'';position:absolute;right:-3px;top:50%;transform:translateY(-50%);height:150%;aspect-ratio:1/1;border-radius:50%;background:#d8ffdf;box-shadow:0 0 16px 6px rgba(90,255,130,.75)}
     #boot-pct{display:block!important;position:fixed;z-index:100000;color:#ffffff;font-weight:700;text-align:center;text-shadow:0 2px 8px rgba(0,0,0,.7);line-height:1.2}
     #boot-loading-word{position:fixed;z-index:100000;color:#3ddc5a;font-weight:600;text-align:center;text-shadow:0 1px 6px rgba(0,0,0,.8)}
+
+    /* ---------- PASS 121: MINE rebuilt to the owner's reference
+       (2026-11-21 — reaching king, logo header, dark-green cards with
+       gold trim, big green CTA, combined price/contract card, gold
+       nav scoped to the Mine tab via body[data-tab]). All ids and
+       handlers are the app's own; only layout/paint moved. ---------- */
+    #page-mine .mn-head{display:flex;align-items:center;justify-content:space-between;padding:4px 4px 8px}
+    #page-mine .mn-oct-btn{width:46px;height:46px;flex:none;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#1a241c,#0b110c);border:1px solid rgba(190,160,90,.45);clip-path:polygon(30% 0,70% 0,100% 30%,100% 70%,70% 100%,30% 100%,0 70%,0 30%);cursor:pointer;position:relative;padding:0}
+    #page-mine .mn-oct-btn svg{width:23px;height:23px}
+    #page-mine .mn-bell-dot{position:absolute;top:9px;right:10px;width:8px;height:8px;border-radius:50%;background:#39d353;box-shadow:0 0 6px #39d353}
+    #page-mine .mn-logo{height:54px;width:auto;max-width:60%;object-fit:contain}
+    #page-mine .mn-topbar{display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,rgba(17,28,19,.94),rgba(9,15,10,.96));border:1px solid rgba(190,160,90,.42);border-image:none!important;border-radius:16px;padding:8px 10px;margin:0 2px;box-shadow:0 8px 20px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.06)}
+    #page-mine #prof-avatar{width:56px;height:56px;flex:none;border-radius:50%;border:2px solid rgba(216,164,65,.9);box-shadow:0 0 0 2px rgba(0,0,0,.55),0 0 12px rgba(216,164,65,.25);object-fit:cover}
+    #page-mine .mn-tb-id{flex:1;min-width:0}
+    #page-mine #prof-name{font-size:18px;margin:0}
+    #page-mine .mn-tb-sub{color:#9db894;font-size:12.5px;margin-top:2px}
+    #page-mine .mn-tb-wallet{display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.45);border:1px solid rgba(190,160,90,.35);border-radius:999px;padding:7px 9px;color:#e8e4d8;font-size:13.5px;font-weight:700;flex:none}
+    #page-mine .mn-tb-wallet svg{width:17px;height:17px;flex:none}
+    #page-mine .mn-tb-wallet .pf-copy-btn{background:none;border:none;padding:2px;cursor:pointer;display:flex}
+    #page-mine .mn-tb-bal{display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.45);border:1px solid rgba(190,160,90,.35);border-radius:999px;padding:5px 12px 5px 6px;flex:none}
+    #page-mine .mn-tb-bal img{width:27px;height:27px}
+    #page-mine #prof-mine-bal{font-family:inherit;font-size:17px;font-weight:800;color:#fff}
+    #page-mine .mn-stage{height:32dvh;min-height:238px;border:none;border-radius:0;box-shadow:none;overflow:visible;background:none;margin:2px -10px 0;flex:none}
+    #page-mine #hero-img{visibility:visible;width:100%;height:100%;object-fit:cover;object-position:50% 32%;display:block;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 7%,#000 86%,transparent 100%),linear-gradient(to right,transparent 0,#000 4%,#000 96%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,transparent 0,#000 7%,#000 86%,transparent 100%),linear-gradient(to right,transparent 0,#000 4%,#000 96%,transparent 100%);mask-composite:intersect;animation:none}
+    #page-mine #hero-video{display:none!important}
+    #page-mine #btn-collect-main{position:absolute;background:transparent;border:none;border-radius:50%;cursor:pointer;padding:0;z-index:4}
+    #page-mine .mn-verify-pill{display:none!important}
+    #page-mine .mn-rate-card{display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,#0e2214,#08160d);border:none;border-image:none!important;box-shadow:inset 0 0 0 1px rgba(200,170,95,.5),0 10px 22px rgba(0,0,0,.5);clip-path:polygon(14px 0,calc(100% - 14px) 0,100% 14px,100% calc(100% - 14px),calc(100% - 14px) 100%,14px 100%,0 calc(100% - 14px),0 14px);padding:13px 15px;margin:4px 2px 0;border-radius:0}
+    #page-mine .mn-rate-axe{width:64px;height:76px;object-fit:contain;flex:none}
+    #page-mine .mn-rate-cell{flex:1;min-width:0}
+    #page-mine .mn-rate-cell.rk{border-left:1px solid rgba(200,170,95,.25);padding-left:13px}
+    #page-mine .mn-rate-lbl{font-size:10.5px;letter-spacing:2.2px;color:#a8b8a2;font-weight:700}
+    #page-mine .mn-rate-val{font-family:inherit;font-size:29px;font-weight:800;color:#fff;line-height:1.15}
+    #page-mine .mn-rate-suffix{color:#d8a83c;font-size:15px;font-weight:700;margin-left:5px}
+    #page-mine .mn-rate-status{display:flex;align-items:center;gap:7px;color:#e8e4d8;font-size:14px;margin-top:3px}
+    #page-mine .mn-rate-status.paused .mn-rate-dot{width:20px;height:20px;flex:none;border-radius:50%;background:#1fa34a;position:relative;box-shadow:0 0 8px rgba(31,163,74,.6)}
+    #page-mine .mn-rate-status.paused .mn-rate-dot::before,#page-mine .mn-rate-status.paused .mn-rate-dot::after{content:'';position:absolute;top:5.5px;width:3px;height:9px;border-radius:2px;background:#eaffea}
+    #page-mine .mn-rate-status.paused .mn-rate-dot::before{left:6px}
+    #page-mine .mn-rate-status.paused .mn-rate-dot::after{right:6px}
+    #page-mine .mn-rank-val{font-family:'ZMPirata',serif;color:#39d353;font-size:26px;line-height:1.15;position:relative;display:inline-block;padding:0 30px}
+    #page-mine .mn-rank-val::before,#page-mine .mn-rank-val::after{content:'';position:absolute;top:50%;width:17px;height:32px;transform:translateY(-50%);background:url('assets/laurel_l.webp') center/contain no-repeat}
+    #page-mine .mn-rank-val::before{left:2px}
+    #page-mine .mn-rank-val::after{right:2px;transform:translateY(-50%) scaleX(-1)}
+    #page-mine .mn-rank-group{color:#9db894;letter-spacing:2.6px;font-size:11.5px;font-weight:700;margin-top:2px}
+    #page-mine .mn-acc-zone{display:flex;flex-direction:column;align-items:center;gap:8px;margin:14px 2px 0}
+    #page-mine:has(.mn-rate-status.paused) .mn-acc-line{display:none}
+    #page-mine .mn-acc-line{font-size:21px}
+    #page-mine .mn-collect-btn{width:100%;height:62px;border-radius:0;background:linear-gradient(180deg,#35c554,#0d7a2c);border:none;box-shadow:inset 0 0 0 1.5px rgba(230,190,90,.75),inset 0 1px 0 rgba(255,255,255,.35),inset 0 -8px 14px rgba(0,0,0,.32),0 0 18px rgba(40,200,90,.30);clip-path:polygon(16px 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,16px 100%,0 50%);color:#fff;font-size:20px;font-weight:800;letter-spacing:2.5px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+    #page-mine .mn-collect-btn.locked{background:linear-gradient(180deg,#35c554,#0d7a2c);color:#fff}
+    #page-mine #collect-mine-lbl{display:inline-flex;align-items:center;gap:10px}
+    #page-mine .mn-collect-btn.locked #collect-mine-lbl::before{content:'';width:21px;height:21px;flex:none;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23e9c766%27%20stroke-width%3D%271.7%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Crect%20x%3D%275.5%27%20y%3D%2710.5%27%20width%3D%2713%27%20height%3D%279%27%20rx%3D%272%27%20fill%3D%27COLOR%27%2F%3E%3Cpath%20d%3D%27M8.5%2010.5V8a3.5%203.5%200%200%201%207%200v2.5%27%20stroke%3D%27COLOR%27%2F%3E%3Ccircle%20cx%3D%2712%27%20cy%3D%2715%27%20r%3D%271.6%27%20fill%3D%27%23101408%27%20stroke%3D%27none%27%2F%3E%3C%2Fsvg%3E") center/contain no-repeat}
+    #page-mine .mn-mc-msg{color:#e8e8e2;font-size:15px;text-align:center}
+    #page-mine .mn-price-card{display:flex;align-items:center;background:linear-gradient(180deg,rgba(17,28,19,.94),rgba(9,15,10,.96));border:1px solid rgba(190,160,90,.42);border-image:none!important;border-radius:14px;padding:12px 14px;margin:12px 2px 0;box-shadow:0 8px 20px rgba(0,0,0,.5)}
+    #page-mine .mn-price-left{flex:none;padding-right:13px;border-right:1px solid rgba(200,170,95,.22)}
+    #page-mine .mn-price-lbl{font-size:10px;letter-spacing:1.8px;color:#a8b8a2;font-weight:700}
+    #page-mine .mn-price-val{font-family:inherit;font-size:20px;font-weight:800;color:#fff;margin-top:2px}
+    #page-mine .mn-price-contract{flex:1;min-width:0;padding:0 13px;border-right:1px solid rgba(200,170,95,.22)}
+    #page-mine .mn-contract-val{display:flex;align-items:center;gap:6px;color:#e8e4d8;font-weight:700;font-size:14px;margin-top:3px}
+    #page-mine .mn-contract-copy{background:none;border:none;padding:2px;cursor:pointer;display:flex;flex:none}
+    #page-mine .mn-price-buy{flex:none;display:flex;align-items:center;gap:7px;background:rgba(0,0,0,.4);border:1px solid rgba(230,190,90,.85);color:#f0c95c;border-radius:999px;padding:10px 17px;font-size:14.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;cursor:pointer;box-shadow:none}
+    #page-mine .mn-shift-zone{display:flex;flex-direction:column;align-items:center;gap:6px;margin:14px 0 0}
+    #page-mine .mn-shift-meta{display:flex;align-items:center;gap:8px;color:#fff;font-size:16.5px;font-weight:700}
+    #page-mine .mn-shift-clock{stroke:#39d353;width:19px;height:19px}
+    #page-mine .mn-shift-track{width:54%;height:2px;background:rgba(255,255,255,.14);border-radius:2px;overflow:hidden}
+    #page-mine #mine-prog-bar{background:#39d353;height:100%}
+    .notif-empty{color:#cfe8c8;text-align:center;padding:22px 0 8px;font-size:15px}
+    body[data-tab="mine"] .bottom-nav-3d{height:98px;background:linear-gradient(180deg,transparent,rgba(4,8,5,.94) 34%);padding:0 8px 12px;gap:6px;align-items:flex-end;perspective:none}
+    body[data-tab="mine"] .bottom-nav-3d::before{content:'';display:block;position:absolute;left:6px;right:6px;bottom:8px;height:76px;background:linear-gradient(180deg,#111b13,#0a120c);border:1px solid rgba(190,160,90,.42);border-radius:14px;box-shadow:0 10px 24px rgba(0,0,0,.6);z-index:0}
+    body[data-tab="mine"] .bottom-nav-3d::after{display:none}
+    body[data-tab="mine"] .nav-item{clip-path:none;background:none;background-image:none;height:76px;padding:13px 2px 9px;justify-content:flex-start;color:#c8b98a;border-radius:12px;gap:4px}
+    body[data-tab="mine"] .nav-item .nav-ic,body[data-tab="mine"] .nav-item .nav-tomb-img{display:none}
+    body[data-tab="mine"] .nav-item::before{content:'';position:relative;inset:auto;z-index:1;width:26px;height:26px;flex:none;background-color:transparent;background-repeat:no-repeat;background-position:center;background-size:contain;opacity:1;transition:none}
+    body[data-tab="mine"] .nav-item span{font-family:inherit!important;font-size:10.5px;font-weight:800;letter-spacing:1.2px}
+    body[data-tab="mine"] .nav-item.active{background:linear-gradient(180deg,#35c554,#0d7a2c);color:#fff;box-shadow:0 0 16px rgba(40,200,90,.40)}
+    body[data-tab="mine"] .nav-item:nth-child(1)::before{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23c9a44a%27%20stroke-width%3D%271.7%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M4.5%2019.5L13%2011%27%2F%3E%3Cpath%20d%3D%27M3.5%204.5C8%202%2014.5%202.2%2020.5%206.5c-4.2.3-8.3%201.9-11.3%204.9C7.3%208.7%205.4%206.3%203.5%204.5Z%27%20fill%3D%27%23c9a44a%27%20stroke%3D%27none%27%2F%3E%3C%2Fsvg%3E")}
+    body[data-tab="mine"] .nav-item.active:nth-child(1)::before{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%2307330f%27%20stroke-width%3D%271.7%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M4.5%2019.5L13%2011%27%2F%3E%3Cpath%20d%3D%27M3.5%204.5C8%202%2014.5%202.2%2020.5%206.5c-4.2.3-8.3%201.9-11.3%204.9C7.3%208.7%205.4%206.3%203.5%204.5Z%27%20fill%3D%27%2307330f%27%20stroke%3D%27none%27%2F%3E%3C%2Fsvg%3E")}
+    body[data-tab="mine"] .nav-item:nth-child(2)::before{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23c9a44a%27%20stroke-width%3D%271.7%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Crect%20x%3D%276%27%20y%3D%274.5%27%20width%3D%2712%27%20height%3D%2716.5%27%20rx%3D%272%27%2F%3E%3Cpath%20d%3D%27M9.5%204.5a2.5%202.5%200%200%201%205%200%27%2F%3E%3Cpath%20d%3D%27M9%2014.5l2%202%204-4.5%27%2F%3E%3C%2Fsvg%3E")}
+    body[data-tab="mine"] .nav-item.active:nth-child(2)::before{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%2307330f%27%20stroke-width%3D%271.7%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Crect%20x%3D%276%27%20y%3D%274.5%27%20width%3D%2712%27%20height%3D%2716.5%27%20rx%3D%272%27%2F%3E%3Cpath%20d%3D%27M9.5%204.5a2.5%202.5%200%200%201%205%200%27%2F%3E%3Cpath%20d%3D%27M9%2014.5l2%202%204-4.5%27%2F%3E%3C%2Fsvg%3E")}
+    body[data-tab="mine"] .nav-item:nth-child(3)::before{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23c9a44a%27%20stroke-width%3D%271.7%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M12%203.5a7%207%200%200%201%207%207c0%202.9-1.9%203.9-1.9%205.7H6.9C6.9%2014.4%205%2013.4%205%2010.5a7%207%200%200%201%207-7Z%27%2F%3E%3Ccircle%20cx%3D%279.2%27%20cy%3D%2711%27%20r%3D%271.3%27%20fill%3D%27%23c9a44a%27%20stroke%3D%27none%27%2F%3E%3Ccircle%20cx%3D%2714.8%27%20cy%3D%2711%27%20r%3D%271.3%27%20fill%3D%27%23c9a44a%27%20stroke%3D%27none%27%2F%3E%3Cpath%20d%3D%27M12%2014.5v2M9.8%2019.5v-2.5M14.2%2019.5v-2.5%27%2F%3E%3C%2Fsvg%3E")}
+    body[data-tab="mine"] .nav-item.active:nth-child(3)::before{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%2307330f%27%20stroke-width%3D%271.7%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M12%203.5a7%207%200%200%201%207%207c0%202.9-1.9%203.9-1.9%205.7H6.9C6.9%2014.4%205%2013.4%205%2010.5a7%207%200%200%201%207-7Z%27%2F%3E%3Ccircle%20cx%3D%279.2%27%20cy%3D%2711%27%20r%3D%271.3%27%20fill%3D%27%2307330f%27%20stroke%3D%27none%27%2F%3E%3Ccircle%20cx%3D%2714.8%27%20cy%3D%2711%27%20r%3D%271.3%27%20fill%3D%27%2307330f%27%20stroke%3D%27none%27%2F%3E%3Cpath%20d%3D%27M12%2014.5v2M9.8%2019.5v-2.5M14.2%2019.5v-2.5%27%2F%3E%3C%2Fsvg%3E")}
+    body[data-tab="mine"] .nav-item:nth-child(4)::before{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23c9a44a%27%20stroke-width%3D%271.7%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Ccircle%20cx%3D%279%27%20cy%3D%278.5%27%20r%3D%273%27%2F%3E%3Cpath%20d%3D%27M3.5%2019.5c.6-3%202.8-4.5%205.5-4.5s4.9%201.5%205.5%204.5%27%2F%3E%3Ccircle%20cx%3D%2717%27%20cy%3D%279.5%27%20r%3D%272.4%27%2F%3E%3Cpath%20d%3D%27M15.5%2015.2c2.3.2%204%201.6%204.5%204.3%27%2F%3E%3C%2Fsvg%3E")}
+    body[data-tab="mine"] .nav-item.active:nth-child(4)::before{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%2307330f%27%20stroke-width%3D%271.7%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Ccircle%20cx%3D%279%27%20cy%3D%278.5%27%20r%3D%273%27%2F%3E%3Cpath%20d%3D%27M3.5%2019.5c.6-3%202.8-4.5%205.5-4.5s4.9%201.5%205.5%204.5%27%2F%3E%3Ccircle%20cx%3D%2717%27%20cy%3D%279.5%27%20r%3D%272.4%27%2F%3E%3Cpath%20d%3D%27M15.5%2015.2c2.3.2%204%201.6%204.5%204.3%27%2F%3E%3C%2Fsvg%3E")}
+    body[data-tab="mine"] .nav-item:nth-child(5)::before{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23c9a44a%27%20stroke-width%3D%271.7%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Ccircle%20cx%3D%2712%27%20cy%3D%278%27%20r%3D%273.4%27%2F%3E%3Cpath%20d%3D%27M5%2020c.8-3.8%203.6-5.5%207-5.5s6.2%201.7%207%205.5%27%2F%3E%3C%2Fsvg%3E")}
+    body[data-tab="mine"] .nav-item.active:nth-child(5)::before{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%2307330f%27%20stroke-width%3D%271.7%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Ccircle%20cx%3D%2712%27%20cy%3D%278%27%20r%3D%273.4%27%2F%3E%3Cpath%20d%3D%27M5%2020c.8-3.8%203.6-5.5%207-5.5s6.2%201.7%207%205.5%27%2F%3E%3C%2Fsvg%3E")}
+    /* ---------- end PASS 121 ---------- */
+
+
+    /* ---------- PASS 121.1: cascade repairs (probe-found) — the
+       stage was display:none since an old pass (line ~1423), flex
+       orders from that era scrambled the column, and !important
+       black-button rules (PASS 116) beat the new green CTA / BUY. */
+    #page-mine .mn-stage{display:block;order:2}
+    #page-mine .mn-acc-zone{order:4}
+    #page-mine .mn-price-card{order:5}
+    #page-mine #btn-collect-mine{background:linear-gradient(180deg,#35c554,#0d7a2c)!important;font-family:inherit;box-shadow:inset 0 0 0 1.5px rgba(230,190,90,.75),inset 0 1px 0 rgba(255,255,255,.35),inset 0 -8px 14px rgba(0,0,0,.32),0 0 18px rgba(40,200,90,.30)!important}
+    #page-mine .mn-price-buy{background:rgba(0,0,0,.4)!important;border:1px solid rgba(230,190,90,.85)!important;color:#f0c95c!important;box-shadow:none!important}
+    #page-mine .mn-price-buy::before{display:none!important}
+    #page-mine .mn-rank-group{font-family:inherit}
+    body[data-tab="mine"] .nav-item::before{display:block}
+    body[data-tab="mine"] .nav-item.active{background:linear-gradient(180deg,#35c554,#0d7a2c)!important}
+    /* ---------- end PASS 121.1 ---------- */
+
+
+    /* ---------- PASS 121.2: fit + shape tuning vs the reference —
+       everything must sit on one screen like his picture: shorter
+       hero, tighter gaps, octagon CTA (not a hexagon), softer top
+       feather so the backdrop medallion stops peeking through. */
+    #page-mine .mn-stage{height:29dvh;min-height:222px}
+    #page-mine #hero-img{-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 3%,#000 88%,transparent 100%),linear-gradient(to right,transparent 0,#000 4%,#000 96%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 3%,#000 88%,transparent 100%),linear-gradient(to right,transparent 0,#000 4%,#000 96%,transparent 100%)}
+    #page-mine .mn-rate-card{padding:11px 15px;margin-top:-2px}
+    #page-mine .mn-rate-axe{width:70px;height:82px}
+    #page-mine .mn-acc-zone{margin-top:11px;gap:7px}
+    #page-mine .mn-collect-btn{height:58px;clip-path:polygon(18px 0,calc(100% - 18px) 0,100% 18px,100% calc(100% - 18px),calc(100% - 18px) 100%,18px 100%,0 calc(100% - 18px),0 18px)}
+    #page-mine .mn-price-card{margin-top:10px}
+    #page-mine .mn-shift-zone{margin-top:11px;padding-bottom:104px}
+    /* ---------- end PASS 121.2 ---------- */
+
+
+    /* ---------- PASS 121.3: final fit vs the reference — timer
+       fully above the nav, deeper CTA green, king raised. */
+    #page-mine .mn-head{padding-bottom:6px}
+    #page-mine .mn-stage{height:27.5dvh;min-height:212px}
+    #page-mine #hero-img{object-position:50% 26%}
+    #page-mine .mn-rate-axe{width:82px;height:90px;margin-left:-4px}
+    #page-mine .mn-acc-zone{margin-top:9px}
+    #page-mine #btn-collect-mine{background:linear-gradient(180deg,#2fb457 0%,#12913a 45%,#0a6626 100%)!important}
+    #page-mine .mn-collect-btn{height:56px}
+    #page-mine .mn-price-card{margin-top:9px}
+    #page-mine .mn-shift-zone{margin-top:9px}
+    /* ---------- end PASS 121.3 ---------- */
+
+
+/* ============ PASS 122 — owner's slice-exact round: the two top
+   header buttons are deleted (logo only); the king painting becomes
+   the page's big background — a tall borderless stage with the cards
+   floating over it; the rate card and the VERIFY/COLLECT button use
+   images sliced from his reference (frame baked in, live text on
+   top); the bottom nav uses his own sliced gold icons on a framed
+   dark bar, app-wide. ============ */
+#page-mine .mn-head{justify-content:center}
+#page-mine .mn-topbar{position:relative;z-index:3;padding:5px 10px;margin:0 -4px;border-radius:12px}
+#page-mine #prof-avatar{width:54px;height:54px}
+#page-mine #prof-mine-bal{font-size:20px}
+#page-mine .mn-stage{height:40dvh;min-height:330px;margin:-10px -12px 0;z-index:1}
+#hero-img{object-position:79% 50%}
+#page-mine .mn-rate-card{position:relative;height:auto;aspect-ratio:851/189;padding:0;margin-top:-12px;z-index:2;clip-path:none;border-radius:10px;background-color:transparent!important;background-image:url('assets/card_rate_ref.webp?v=122')!important;background-size:100% 100%!important;background-repeat:no-repeat!important;box-shadow:0 10px 22px rgba(0,0,0,.5)}
+#page-mine .mn-rate-axe{display:none}
+#page-mine .mn-rate-cell{position:absolute;left:17.5%;top:8%;width:33%}
+#page-mine .mn-rate-cell.rk{left:56.5%;width:38%;border-left:none;padding-left:0}
+#btn-collect-mine{background-color:transparent!important;background-image:url('assets/btn_verify_ref.webp?v=122')!important;background-size:100% 100%!important;background-repeat:no-repeat!important;box-shadow:0 10px 24px rgba(0,0,0,.45)!important}
+#page-mine .mn-collect-btn{clip-path:none;border-radius:8px;height:58px}
+#page-mine .mn-shift-zone{padding-bottom:0;margin-top:9px}
+#page-mine{padding-bottom:112px}
+.bottom-nav-3d{height:92px;padding:0 10px 7px;align-items:flex-end;gap:4px}
+.bottom-nav-3d::before{content:'';display:block;position:absolute;left:6px;right:6px;bottom:7px;height:78px;background:linear-gradient(180deg,#141c15,#0a100b);border:1px solid rgba(190,160,90,.55);border-radius:13px;box-shadow:0 10px 24px rgba(0,0,0,.65),inset 0 1px 0 rgba(240,214,150,.14);z-index:0}
+.bottom-nav-3d::after{display:none!important}
+.bottom-nav-3d .nav-item{clip-path:none;background:none!important;background-image:none!important;height:78px;padding:9px 2px 7px;justify-content:flex-start;gap:3px;border-radius:11px;box-shadow:none}
+.bottom-nav-3d .nav-item::before{display:none!important}
+.bottom-nav-3d .nav-ic{display:block!important;width:37px;height:27px;object-fit:contain}
+.bottom-nav-3d .nav-tomb-img{display:none!important}
+.bottom-nav-3d .nav-item span{font-family:inherit!important;font-size:10.5px;font-weight:800;letter-spacing:1.2px;color:#d8cba0}
+.bottom-nav-3d .nav-item.active{background:linear-gradient(180deg,rgba(24,68,32,.25),rgba(10,40,18,.15))!important;box-shadow:inset 0 0 0 1.5px rgba(64,255,130,.85),0 0 18px rgba(40,220,90,.35)}
+.bottom-nav-3d .nav-item.active span{color:#c9ffd9}
+.bottom-nav-3d .nav-item.active .nav-ic{filter:brightness(1.18)}
+
+/* ---- PASS 122.1: cascade + fit fixes (measured) ---- */
+#page-mine #hero-img{left:0;object-position:48% 50%}
+#page-mine #btn-collect-mine{background-color:transparent!important;background-image:url('assets/btn_verify_ref.webp?v=122')!important;background-size:100% 100%!important;background-repeat:no-repeat!important;box-shadow:0 10px 24px rgba(0,0,0,.45)!important}
+body .bottom-nav-3d .nav-item.active{background:linear-gradient(180deg,rgba(24,68,32,.25),rgba(10,40,18,.15))!important;box-shadow:inset 0 0 0 1.5px rgba(64,255,130,.85),0 0 18px rgba(40,220,90,.35)!important}
+#page-mine .mn-stage{height:35dvh;min-height:296px}
+#page-mine .mn-rate-card{margin-top:-16px}
+#page-mine .mn-collect-btn{height:58px}
+#page-mine .mn-price-card{margin-top:6px}
+#page-mine .mn-shift-zone{margin-top:6px}
+
+/* ---- PASS 122.2: active-nav specificity, rank tint, timer track ---- */
+body[data-tab="mine"] .bottom-nav-3d .nav-item.active,body .bottom-nav-3d .nav-item.active{background:linear-gradient(180deg,rgba(24,68,32,.25),rgba(10,40,18,.15))!important;box-shadow:inset 0 0 0 1.5px rgba(64,255,130,.85),0 0 18px rgba(40,220,90,.35)!important}
+#page-mine .mn-rank-val{color:#d9f2dc}
+#page-mine .mn-shift-track{width:64%;margin:0 auto;opacity:.45}
+
+/* ---- PASS 122.3: breathing room above the nav ---- */
+#page-mine .mn-stage{height:34dvh;min-height:284px}
+#page-mine #mn-verify-note{margin-top:4px}
+#page-mine .mn-shift-zone{margin-top:2px}
+
+/* ============ PASS 123 — owner's crop-by-crop fix list: ornate
+   angled nav frame + dividers + octagon active cell; his sliced
+   gold padlock on VERIFY; rate/rank sizes; medallion player bar;
+   deep-gold BUY. ============ */
+.bottom-nav-3d::before{clip-path:polygon(20px 0,calc(100% - 20px) 0,100% 20px,100% calc(100% - 20px),calc(100% - 20px) 100%,20px 100%,0 calc(100% - 20px),0 20px);background:linear-gradient(180deg,#d8b96a,#8a6d2f 55%,#c9a44a);border:none;border-radius:0;box-shadow:0 10px 24px rgba(0,0,0,.65)}
+.bottom-nav-3d::after{content:'';display:block!important;position:absolute;left:8px;right:8px;bottom:9px;height:74px;clip-path:polygon(18px 0,calc(100% - 18px) 0,100% 18px,100% calc(100% - 18px),calc(100% - 18px) 100%,18px 100%,0 calc(100% - 18px),0 18px);background:linear-gradient(180deg,#131b14,#090f0a);z-index:0}
+.bottom-nav-3d .nav-item{z-index:1}
+.bottom-nav-3d .nav-item + .nav-item{border-left:1px solid rgba(190,160,90,.20)}
+body[data-tab="mine"] .bottom-nav-3d .nav-item.active,body .bottom-nav-3d .nav-item.active{clip-path:polygon(12px 0,calc(100% - 12px) 0,100% 12px,100% calc(100% - 12px),calc(100% - 12px) 100%,12px 100%,0 calc(100% - 12px),0 12px);border-radius:0}
+#page-mine .mn-collect-btn.locked #collect-mine-lbl::before{width:25px;height:28px;background:url('assets/lock_ref.webp?v=123') center/contain no-repeat}
+#page-mine .mn-collect-btn #collect-mine-lbl{color:#f5eedd;font-size:19px;letter-spacing:2.5px}
+#page-mine .mn-rate-lbl{margin-left:16px}
+#page-mine .mn-rate-val{font-size:34px}
+#page-mine .mn-rank-val{font-size:29px;color:#43e576}
+#page-mine #prof-avatar{width:62px;height:62px;margin-left:-16px;border:2px solid #c9a44a;box-shadow:0 0 0 3px rgba(201,164,74,.25),0 4px 10px rgba(0,0,0,.5)}
+#page-mine #prof-name{font-size:19px}
+#page-mine .mn-tb-bal img{width:34px;height:34px;border-radius:50%;box-shadow:0 0 0 2px rgba(201,164,74,.8)}
+#page-mine #prof-mine-bal{font-size:22px}
+#page-mine .mn-price-buy{color:#e9b949!important}
+
+/* ---- PASS 123.1: nav gold plate beats the PASS 121 mine rule;
+   BUY text span; fit trims ---- */
+body[data-tab="mine"] .bottom-nav-3d::before{clip-path:polygon(20px 0,calc(100% - 20px) 0,100% 20px,100% calc(100% - 20px),calc(100% - 20px) 100%,20px 100%,0 calc(100% - 20px),0 20px);background:linear-gradient(180deg,#d8b96a,#8a6d2f 55%,#c9a44a);border:none;border-radius:0}
+#page-mine .mn-price-buy span{color:#e9b949!important}
+#page-mine .mn-stage{height:33dvh;min-height:278px}
+#page-mine #mn-verify-note{margin-top:2px}
+#page-mine .mn-shift-zone{margin-top:0}
+
+/* ---- PASS 123.2: chunkier gold band on the nav frame ---- */
+.bottom-nav-3d::after{left:11px;right:11px;bottom:11px;height:70px}
+body[data-tab="mine"] .bottom-nav-3d::after{left:11px;right:11px;bottom:11px;height:70px}
+
+/* ---- PASS 123.3: brighter uniform gold on the nav frame ---- */
+body[data-tab="mine"] .bottom-nav-3d::before,.bottom-nav-3d::before{background:linear-gradient(180deg,#e8cc7d,#c39a3a 50%,#e8cc7d)}
+
+/* ============ PASS 124 — owner's fog background everywhere: his
+   green-fog castle painting replaces every page scene + the body
+   backdrop (same gradient veils, new art). ============ */
+body{background-image:linear-gradient(180deg,rgba(7,6,3,.88),rgba(7,6,3,0)),linear-gradient(rgba(7,6,4,.10),rgba(7,6,4,.22)),url('assets/bg_fog.webp?v=124')}
+#page-tasks{background-image:linear-gradient(180deg,rgba(7,6,4,.55),rgba(7,6,4,.16) 120px,rgba(7,6,4,0) 230px),linear-gradient(0deg,rgba(6,5,3,.78),rgba(6,5,3,.30) 110px,rgba(6,5,3,0) 210px),linear-gradient(180deg,rgba(0,0,0,0) 42%,rgba(158,141,107,.12) 62%,rgba(158,141,107,.19) 76%,rgba(0,0,0,0) 94%),radial-gradient(118% 82% at 50% 40%,rgba(0,0,0,0) 56%,rgba(0,0,0,.42) 100%),url('assets/bg_fog.webp?v=124')}
+#page-boost{background-image:linear-gradient(180deg,rgba(7,6,4,.55),rgba(7,6,4,.16) 120px,rgba(7,6,4,0) 230px),linear-gradient(0deg,rgba(6,5,3,.78),rgba(6,5,3,.30) 110px,rgba(6,5,3,0) 210px),linear-gradient(180deg,rgba(0,0,0,0) 42%,rgba(158,141,107,.12) 62%,rgba(158,141,107,.19) 76%,rgba(0,0,0,0) 94%),radial-gradient(118% 82% at 50% 40%,rgba(0,0,0,0) 56%,rgba(0,0,0,.42) 100%),url('assets/bg_fog.webp?v=124')}
+#page-friends{background-image:linear-gradient(180deg,rgba(7,6,4,.55),rgba(7,6,4,.16) 120px,rgba(7,6,4,0) 230px),linear-gradient(0deg,rgba(6,5,3,.78),rgba(6,5,3,.30) 110px,rgba(6,5,3,0) 210px),linear-gradient(180deg,rgba(0,0,0,0) 42%,rgba(158,141,107,.12) 62%,rgba(158,141,107,.19) 76%,rgba(0,0,0,0) 94%),radial-gradient(118% 82% at 50% 40%,rgba(0,0,0,0) 56%,rgba(0,0,0,.42) 100%),url('assets/bg_fog.webp?v=124')}
+#page-profile{background-image:linear-gradient(180deg,rgba(7,6,4,.55),rgba(7,6,4,.16) 120px,rgba(7,6,4,0) 230px),linear-gradient(0deg,rgba(6,5,3,.78),rgba(6,5,3,.30) 110px,rgba(6,5,3,0) 210px),linear-gradient(180deg,rgba(0,0,0,0) 42%,rgba(158,141,107,.12) 62%,rgba(158,141,107,.19) 76%,rgba(0,0,0,0) 94%),radial-gradient(118% 82% at 50% 40%,rgba(0,0,0,0) 56%,rgba(0,0,0,.42) 100%),url('assets/bg_fog.webp?v=124')}
+#page-mine{background-image:linear-gradient(180deg,rgba(7,6,4,.36),rgba(7,6,4,0) 170px),linear-gradient(0deg,rgba(6,5,3,.50),rgba(6,5,3,0) 160px),linear-gradient(180deg,rgba(0,0,0,0) 46%,rgba(158,141,107,.09) 66%,rgba(158,141,107,.14) 78%,rgba(0,0,0,0) 94%),radial-gradient(118% 82% at 50% 40%,rgba(0,0,0,0) 60%,rgba(0,0,0,.40) 100%),url('assets/bg_fog.webp?v=124')}
+
+/* ============ PASS 125 — owner: same errors. Avatar stays inside
+   the screen, crown gets its sky gap, nav frame becomes a real
+   6px gold band with the inner hairline (like his crop). ======== */
+#page-mine .mn-bar .mn-avatar{margin-left:-10px}
+#page-mine .mn-stage{margin-top:6px;height:32.5dvh;min-height:272px}
+.bottom-nav-3d::before{left:5px;right:5px;bottom:6px;height:84px;background:linear-gradient(180deg,#f0d488,#d9ae4e 45%,#c39a3a 55%,#e8cc7d)}
+body[data-tab="mine"] .bottom-nav-3d::before{left:5px;right:5px;bottom:6px;height:84px;background:linear-gradient(180deg,#f0d488,#d9ae4e 45%,#c39a3a 55%,#e8cc7d)}
+.bottom-nav-3d::after{left:12px;right:12px;bottom:12px;height:72px;border:1px solid rgba(232,204,125,.5)}
+body[data-tab="mine"] .bottom-nav-3d::after{left:12px;right:12px;bottom:12px;height:72px;border:1px solid rgba(232,204,125,.5)}
+.bottom-nav-3d .nav-item{padding:6px 2px}
+
+/* ============ PASS 126 — avatar inside the screen (x=8 was nearly
+   clipped), nav cells clear the gold frame, timer clears the nav. */
+#page-mine .mn-bar .mn-avatar{margin-left:2px}
+#page-mine .mn-topbar #prof-avatar{margin-left:2px}
+.bottom-nav-3d{padding:6px 16px}
+#page-mine .mn-stage{min-height:266px}
+
+/* ============ PASS 127 — the medallion HANGS over the scene like
+   the reference (74px, dropped 12px, above the stage); the hero
+   crop now starts below the reference's own medallion; the name
+   fits again; the timer rises clear of the nav. ============ */
+#page-mine .mn-topbar{overflow:visible}
+#page-mine .mn-topbar #prof-avatar{width:74px;height:74px;position:relative;top:12px;z-index:3;margin-left:2px}
+#page-mine .mn-topbar{gap:8px}
+#prof-name{font-size:17px}
+#page-mine .mn-stage{height:30.5dvh;min-height:252px}
+
+/* ============ PASS 128 — the name gets its width back: both pills
+   slim down (smaller digits, coin, icons, padding). ============ */
+#page-mine .mn-topbar .mn-tb-wallet{padding:6px 9px;gap:5px}
+#page-mine .mn-topbar .mn-tb-wallet svg{width:16px;height:16px}
+#page-mine .mn-topbar #prof-id{font-size:13px}
+#page-mine .mn-topbar .mn-tb-bal{padding:5px 10px 5px 6px;gap:6px}
+#page-mine .mn-topbar .mn-tb-bal img{width:30px;height:30px}
+#page-mine .mn-topbar #prof-mine-bal{font-size:19px}
+#page-mine .mn-topbar #prof-name{font-size:18px;white-space:nowrap}
+
+/* ============ PASS 129 — Mine/nav leftovers from the zone diff:
+   VERIFY loses its bright outline (the slice carries its own
+   frame); the timer gets its plaque; the top bar becomes the
+   reference's short angled gold-rimmed pill with the medallion
+   hanging lower; nav icons/labels grow; the active cell is the
+   neon octagon with a WHITE label. ============ */
+#page-mine #btn-collect-mine{border:none!important;box-shadow:none!important;border-radius:0}
+#page-mine .mn-shift-zone{position:relative;margin:4px 26px 0;padding:7px 0 9px;background:linear-gradient(180deg,rgba(10,18,12,.72),rgba(8,14,10,.85));clip-path:polygon(16px 0,calc(100% - 16px) 0,100% 100%,0 100%);border-bottom:1px solid rgba(201,164,74,.55)}
+#page-mine .mn-shift-zone::after{content:'';position:absolute;left:50%;bottom:-4px;transform:translateX(-50%) rotate(45deg);width:7px;height:7px;background:#c9a44a}
+#page-mine .mn-topbar{height:66px;padding:6px 12px;border:1px solid transparent;border-radius:0;background:linear-gradient(180deg,rgba(13,26,16,.94),rgba(9,18,12,.97)) padding-box,linear-gradient(180deg,#c9a44a,#5e4a1c) border-box;clip-path:polygon(16px 0,calc(100% - 16px) 0,100% 16px,100% calc(100% - 16px),calc(100% - 16px) 100%,16px 100%,0 calc(100% - 16px),0 16px);box-shadow:none}
+#page-mine .mn-topbar #prof-avatar{top:20px}
+#page-mine .mn-topbar .mn-tb-bal img{width:44px;height:44px}
+#page-mine .mn-topbar #prof-mine-bal{font-size:21px}
+#page-mine .mn-topbar #prof-name{font-size:17px}
+.bottom-nav-3d .nav-ic{width:46px;height:34px}
+.bottom-nav-3d .nav-item span{font-size:13px}
+.bottom-nav-3d .nav-item.active{background:linear-gradient(180deg,rgba(24,68,32,.88),rgba(11,36,17,.92));box-shadow:inset 0 0 0 2px #3fe03a,inset 0 0 18px rgba(57,255,20,.22)}
+.bottom-nav-3d .nav-item.active span{color:#fff}
+
+/* ============ PASS 130 — TASKS rebuilt to the owner's picture:
+   logo + skull divider + glowing title, icon tabs, iron plates
+   with the neon bottom edge, big sheet art, neon pill buttons.
+   The player top bar is hidden (his picture has none). ======== */
+#page-tasks .tk-topbar{display:none}
+#page-tasks .tk-hero{background:none;padding-top:10px}
+#page-tasks .tk-tagline{display:none}
+#page-tasks .tk-head{text-align:center;margin-bottom:12px}
+#page-tasks .tk-logo{width:176px;filter:drop-shadow(0 4px 14px rgba(0,0,0,.6))}
+#page-tasks .tk-div{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:0}
+#page-tasks .tk-div-line{display:block;width:96px;height:2px;background:linear-gradient(90deg,transparent,rgba(57,255,20,.75))}
+#page-tasks .tk-div-line.r{background:linear-gradient(90deg,rgba(57,255,20,.75),transparent)}
+#page-tasks .tk-div img{width:66px}
+#page-tasks .tk-title{font-family:'ZMPirata',serif;font-size:45px;line-height:1.05;color:#3dff5e;letter-spacing:2px;text-shadow:0 0 20px rgba(57,255,20,.5),0 2px 0 #05270c;margin-top:1px}
+#page-tasks .tk-title::after{content:'';display:block;width:190px;height:3px;margin:3px auto 0;background:linear-gradient(90deg,transparent,#39ff14,transparent);box-shadow:0 0 12px 2px rgba(57,255,20,.5);border-radius:2px}
+#page-tasks .tk-tabs{display:flex;gap:8px;padding:0 2px}
+#page-tasks .tk-tab{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;height:45px;background:linear-gradient(180deg,#12241a,#0a140d);border:1px solid rgba(190,170,110,.35);clip-path:polygon(10px 0,calc(100% - 10px) 0,100% 10px,100% calc(100% - 10px),calc(100% - 10px) 100%,10px 100%,0 calc(100% - 10px),0 10px);color:#d8c391;font-family:'ZMPirata',serif;font-size:15.5px;letter-spacing:1px;cursor:pointer}
+#page-tasks .tk-tab::before{content:'';width:21px;height:21px;background-size:contain;background-repeat:no-repeat;background-position:center}
+#page-tasks .tk-tab[data-ttab="daily"]::before{background-image:url('assets/icon_tab_cal.webp?v=130')}
+#page-tasks .tk-tab[data-ttab="hold"]::before{background-image:url('assets/icon_tab_coins.webp?v=130')}
+#page-tasks .tk-tab[data-ttab="ref"]::before{background-image:url('assets/icon_tab_people.webp?v=130')}
+#page-tasks .tk-tab.active{background:linear-gradient(180deg,#1d5c26,#0e2f16);border-color:#39ff14;color:#fff;box-shadow:0 0 14px rgba(57,255,20,.35),inset 0 0 12px rgba(57,255,20,.18)}
+#page-tasks .q-wrap{margin:0 2px 13px;filter:drop-shadow(0 4px 9px rgba(57,255,20,.16))}
+#page-tasks .q-row{position:relative;background:linear-gradient(180deg,rgba(17,32,21,.94),rgba(8,16,11,.97));clip-path:polygon(14px 0,calc(100% - 14px) 0,100% 14px,100% calc(100% - 14px),calc(100% - 14px) 100%,14px 100%,0 calc(100% - 14px),0 14px);border:none;box-shadow:none;border-radius:0}
+#page-tasks .q-row::before{content:'';position:absolute;left:9%;right:9%;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(225,255,225,.35),transparent)}
+#page-tasks .q-row::after{content:'';position:absolute;left:6%;right:6%;bottom:0;height:2px;background:linear-gradient(90deg,transparent,#39ff14,transparent);box-shadow:0 0 10px 2px rgba(57,255,20,.5)}
+#page-tasks .q-row-in{display:flex;align-items:center;gap:12px;padding:13px 12px}
+#page-tasks .q-ic{width:76px;height:76px;object-fit:contain;flex:0 0 auto;filter:drop-shadow(0 0 10px rgba(57,255,20,.22))}
+#page-tasks .q-title{font-size:15px;font-weight:800;color:#fff;line-height:1.25}
+#page-tasks .q-sub{font-size:12.5px;color:#9fb8a4;margin-top:3px}
+#page-tasks .q-rew{color:#3dff5e;font-weight:800}
+#page-tasks .q-rew img{width:17px;height:17px;vertical-align:-3px}
+#page-tasks .q-btn{min-width:104px;height:39px;padding:0 16px;border-radius:999px;background:linear-gradient(180deg,#12351a,#08170c);border:2px solid #39ff14;color:#fff;font-weight:800;font-size:14.5px;box-shadow:0 0 12px rgba(57,255,20,.35),inset 0 0 10px rgba(57,255,20,.12);flex:0 0 auto;cursor:pointer}
+#page-tasks #btn-daily-info{width:23px;height:23px;border-radius:50%;background:#0c1a10;border:1.5px solid rgba(57,255,20,.6);color:#3dff5e;font-weight:900;flex:0 0 auto}
+#page-tasks .btn-3d-dark{border-radius:999px;background:linear-gradient(180deg,#12351a,#08170c);border:2px solid rgba(57,255,20,.65);color:#fff;box-shadow:0 0 10px rgba(57,255,20,.25)}
+
+/* ============ PASS 131 — Tasks fixes: no black slabs behind the
+   cards, icons sit bare on the plate (contain, no tile), card
+   text goes back to the clean sans, tabs sans-bold, cards
+   compact like the reference. ============ */
+#page-tasks .q-wrap{background:transparent!important;border:none!important;border-image:none!important;box-shadow:none!important}
+#page-tasks .q-ic{object-fit:contain!important;background:transparent!important;border:none!important;border-radius:0!important;width:68px;height:68px}
+#page-tasks .q-row-in{padding:10px 12px}
+#page-tasks .q-title{font-family:var(--font)}
+#page-tasks .q-sub{font-family:var(--font)}
+#page-tasks .tk-tab{font-family:var(--font);font-weight:800}
+
+/* ============ PASS 132 — owner: restore the gear + bell in the
+   Mine header (his latest order reverses the PASS 122 removal);
+   crisper rate/rank type. ============ */
+#page-mine .mn-head{justify-content:space-between;padding:2px 2px 6px}
+.mn-oct-btn{width:46px;height:46px;flex:none;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#1a241c,#0b110c);border:1px solid rgba(190,160,90,.45);clip-path:polygon(30% 0,70% 0,100% 30%,100% 70%,70% 100%,30% 100%,0 70%,0 30%);cursor:pointer;position:relative;padding:0}
+.mn-oct-btn svg{width:23px;height:23px}
+.mn-bell-dot{position:absolute;top:9px;right:10px;width:8px;height:8px;border-radius:50%;background:#39d353;box-shadow:0 0 6px #39d353}
+#page-mine .mn-rate-val{font-size:36px}
+#page-mine .mn-rank-val{font-size:31px;letter-spacing:1px}
+
+/* ============ PASS 133 — the bar's clip-path was slicing the
+   hanging medallion: the angled gold-rim plate moves to the
+   bar's ::before/::after so children overflow freely again.
+   Name zone rebalanced; timer plaque narrows. ============ */
+#page-mine .mn-topbar{clip-path:none;background:transparent;border:none;position:relative}
+#page-mine .mn-topbar::before{content:'';position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,#c9a44a,#5e4a1c);clip-path:polygon(16px 0,calc(100% - 16px) 0,100% 16px,100% calc(100% - 16px),calc(100% - 16px) 100%,16px 100%,0 calc(100% - 16px),0 16px)}
+#page-mine .mn-topbar::after{content:'';position:absolute;inset:1px;z-index:0;background:linear-gradient(180deg,rgba(13,26,16,.97),rgba(9,18,12,.98));clip-path:polygon(15px 0,calc(100% - 15px) 0,100% 15px,100% calc(100% - 15px),calc(100% - 15px) 100%,15px 100%,0 calc(100% - 15px),0 15px)}
+#page-mine .mn-topbar>*{position:relative;z-index:1}
+#page-mine .mn-topbar{padding:6px 10px;gap:6px}
+#page-mine .mn-topbar .mn-tb-bal img{width:40px;height:40px}
+#page-mine .mn-topbar #prof-mine-bal{font-size:20px}
+#page-mine .mn-topbar #prof-id{font-size:12.5px}
+#page-mine .mn-topbar #prof-name{font-size:16px}
+#page-mine .mn-shift-zone{margin:4px 92px 0;padding:5px 0 7px;background:linear-gradient(180deg,rgba(10,18,12,.55),rgba(8,14,10,.68))}
 </style>
 </head>
-<body oncontextmenu="return false;">
+<body data-tab="mine" oncontextmenu="return false;">
 
   <div id="boot-loader">
     <img src="assets/boot_king.webp?v=120" alt="Zombie" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
@@ -2796,17 +3154,25 @@
            the coin picture on the right. The gear/speaker header
            buttons are DELETED — sound + language live on Profile's
            settings row (sound-toggle-btn / lang-menu-btn). -->
+      <div class="mn-head">
+        <button id="mn-gear-btn" class="mn-oct-btn" aria-label="Settings"><svg viewBox="0 0 24 24" fill="#cfd6c8"><g><rect x="11.05" y="2.4" width="1.9" height="4.4" rx="0.95" transform="rotate(0 12 12)"/><rect x="11.05" y="2.4" width="1.9" height="4.4" rx="0.95" transform="rotate(45 12 12)"/><rect x="11.05" y="2.4" width="1.9" height="4.4" rx="0.95" transform="rotate(90 12 12)"/><rect x="11.05" y="2.4" width="1.9" height="4.4" rx="0.95" transform="rotate(135 12 12)"/><rect x="11.05" y="2.4" width="1.9" height="4.4" rx="0.95" transform="rotate(180 12 12)"/><rect x="11.05" y="2.4" width="1.9" height="4.4" rx="0.95" transform="rotate(225 12 12)"/><rect x="11.05" y="2.4" width="1.9" height="4.4" rx="0.95" transform="rotate(270 12 12)"/><rect x="11.05" y="2.4" width="1.9" height="4.4" rx="0.95" transform="rotate(315 12 12)"/></g><circle cx="12" cy="12" r="6.1" fill="none" stroke="#cfd6c8" stroke-width="2.7"/><circle cx="12" cy="12" r="2.1" fill="#101810"/></svg></button>
+        <img class="mn-logo" src="assets/logo_zm.webp?v=121" alt="ZOMBIE MINE">
+        <button id="mn-bell-btn" class="mn-oct-btn" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="#cfd6c8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.6 3.2H4.4L6 16Z"/><path d="M10.2 21a2 2 0 0 0 3.6 0"/></svg><span class="mn-bell-dot"></span></button>
+      </div>
       <div class="mn-topbar">
         <img id="prof-avatar" src="assets/avatar_1.webp" alt="">
         <div class="mn-tb-id">
           <h3 id="prof-name">MANSAWY</h3>
-          <div class="mn-tb-sub"><span id="prof-username">@mansawy1</span><span class="mn-tb-idnum"><span id="prof-id">7216746593</span> <button id="btn-copy-id" class="pf-copy-btn" aria-label="Copy ID"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#aea07f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></span></div>
+          <div class="mn-tb-sub"><span id="prof-username">@mansawy1</span></div>
         </div>
-        <div class="mn-tb-bal"><span id="prof-mine-bal">0</span> <img src="assets/balance_coin.webp?v=109" alt=""></div>
+        <div class="mn-tb-wallet"><svg viewBox="0 0 24 24" fill="none" stroke="#d8a83c" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg><span id="prof-id">7216746593</span><button id="btn-copy-id" class="pf-copy-btn" aria-label="Copy ID"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#aea07f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+        <div class="mn-tb-bal"><img src="assets/coin_king.webp?v=121" alt=""><span id="prof-mine-bal">0</span></div>
       </div>
       <div class="mn-stage" id="coin-3d-trigger">
-        <img id="hero-img" src="assets/mock_hero.webp" alt="Zombie">
+        <img id="hero-img" src="assets/hero_king_reach.webp?v=127" alt="Zombie">
         <video id="hero-video" src="assets/hero_miner2.mp4" poster="assets/hero_miner2.webp" autoplay muted loop playsinline preload="auto"></video>
+        <button class="mn-coin-btn" id="btn-collect-main" aria-label="Collect"></button>
+        <div class="mn-verify-pill" id="mn-verify-pill" style="display:none"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="#dba441" stroke-width="2.4" stroke-linecap="round"/><rect x="5" y="10.5" width="14" height="9.5" rx="2" fill="#dba441"/><circle cx="12" cy="15.2" r="1.7" fill="#171106"/></svg><span id="mn-vp-txt">VERIFY FIRST</span></div>
 
 
       </div>
@@ -2844,23 +3210,6 @@
            live accrued amount (+...) and the 24h shift bar.
            Unverified: the coin greys out with the VERIFY FIRST lock
            pill and its tap scrolls to the wallet+verify card. -->
-      <div class="mn-coin-zone">
-        <!-- PASS 51: the zombie flanks are REMOVED — the flanking
-             kings live in the hero scene behind the coin now. -->
-        <!-- PASS 53: the button is a TRANSPARENT overlay on the
-             shield baked into the reference hero slice; its box is
-             positioned over the shield by positionShieldBtn(). The
-             DOM coin + lock pill are retired (the unverified hero
-             slice carries the reference's own VERIFY FIRST pill). -->
-        <button class="mn-coin-btn" id="btn-collect-main" aria-label="Collect"></button>
-        <!-- PASS 56: the VERIFY FIRST pill is a DOM overlay again
-             (the owner's CLEAN hero painting has no pill baked);
-             SHEET styling — gold lock, gold rim, warm-white text.
-             Shown only while unverified, placed over the shield's
-             lower third by positionShieldBtn(); pointer-events
-             none, so the shield tap still lands on the button. -->
-        <div class="mn-verify-pill" id="mn-verify-pill" style="display:none"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="#dba441" stroke-width="2.4" stroke-linecap="round"/><rect x="5" y="10.5" width="14" height="9.5" rx="2" fill="#dba441"/><circle cx="12" cy="15.2" r="1.7" fill="#171106"/></svg><span id="mn-vp-txt">VERIFY FIRST</span></div>
-      </div>
       <div class="mn-acc-zone">
         <div class="mn-acc-line"><span>+</span><span id="live-mined-num">0</span></div>
         <!-- PASS 53: the CLAIM slab was REMOVED (owner: the result
@@ -2873,11 +3222,6 @@
         <button class="mn-collect-btn" id="btn-collect-mine"><span id="collect-mine-lbl" data-i18n="collect_lbl">COLLECT</span></button>
         <div class="mn-mc-msg" id="mining-verify-msg" data-i18n="mining_verify_msg" style="display:none;">Verify your wallet to start mining</div>
       </div>
-      <div class="mn-shift-zone">
-        <div class="mn-shift-meta"><svg class="mn-shift-clock" viewBox="0 0 24 24" fill="none" stroke="#a87c33" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span id="shift-pct">0%</span><span class="mn-shift-dash">-</span><span id="shift-timer">24:00:00</span></div>
-        <div class="mn-shift-track"><div id="mine-prog-bar"></div></div>
-      </div>
-
       <!-- PASS 48: PRICE card — live ZM price from DexScreener
            (keyed by OFFICIAL_JETTON; degrades to —, never a
            fabricated number) + the BUY button, same .btn-stonfi-buy
@@ -2887,7 +3231,16 @@
           <div class="mn-price-lbl" data-i18n="price_lbl">PRICE</div>
           <div class="mn-price-val" id="mine-price-val">—</div>
         </div>
-        <button class="btn-3d-dark btn-stonfi-buy mn-price-buy"><span data-i18n="buy_btn">Buy</span></button>
+                <div class="mn-price-contract">
+          <div class="mn-price-lbl">OFFICIAL CONTRACT</div>
+          <div class="mn-contract-val"><span id="mine-contract-addr">—</span><button class="mn-contract-copy" id="btn-copy-mine-contract" aria-label="Copy contract address"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#aea07f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+        </div>
+        <button class="btn-3d-dark btn-stonfi-buy mn-price-buy"><svg viewBox="0 0 24 24" fill="none" stroke="#f0c95c" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px"><circle cx="9.5" cy="20" r="1.3" fill="#f0c95c" stroke="none"/><circle cx="17.5" cy="20" r="1.3" fill="#f0c95c" stroke="none"/><path d="M2.5 3h2l2.3 11.2a1.5 1.5 0 0 0 1.5 1.2h8.9a1.5 1.5 0 0 0 1.5-1.2L20.5 7H6"/></svg><span data-i18n="buy_btn">Buy</span></button>
+      </div>
+
+      <div class="mn-shift-zone">
+        <div class="mn-shift-meta"><svg class="mn-shift-clock" viewBox="0 0 24 24" fill="none" stroke="#a87c33" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span id="shift-pct">0%</span><span class="mn-shift-dash">-</span><span id="shift-timer">24:00:00</span></div>
+        <div class="mn-shift-track"><div id="mine-prog-bar"></div></div>
       </div>
 
       <!-- PASS 48: CONTRACT bar (last on Mine) — the ZM jetton
@@ -2895,12 +3248,6 @@
            #official-contract-addr strip, middle-truncated via
            shortAddr; the copy button copies the FULL address and
            shows the usual toast. Painted at init (see bindings). -->
-      <div class="mn-contract">
-        <span class="mn-contract-lbl">OFFICIAL CONTRACT:</span>
-        <span id="mine-contract-addr">—</span>
-        <button class="mn-contract-copy" id="btn-copy-mine-contract" aria-label="Copy contract address"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#aea07f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
-      </div>
-
       <!-- PASS 48: the BUY row (.mn-actions with the lone BUY pill)
            is DELETED from Mine (owner) — the BUY button lives on in
            the price card above; Boost's and Profile's buy/swap
@@ -2935,6 +3282,11 @@
       </div>
 
       <div class="tk-hero">
+        <div class="tk-head">
+          <img class="tk-logo" src="assets/logo_zm.webp?v=121" alt="">
+          <div class="tk-div"><span class="tk-div-line"></span><img src="assets/icon_div_skull.webp?v=130" alt=""><span class="tk-div-line r"></span></div>
+          <h2 class="tk-title" data-i18n="nav_tasks">Tasks</h2>
+        </div>
         <div class="tk-tagline" data-i18n="quests_tagline">Complete quests to earn extra rewards</div>
         <div class="tk-tabs">
           <button class="tk-tab active" data-ttab="daily" data-i18n="tab_daily">DAILY</button>
@@ -2956,7 +3308,7 @@
       <div class="q-wrap" id="daily-card">
         <div class="q-row">
           <div class="q-row-in">
-            <img class="q-ic" src="assets/icon_q_sun.webp" alt="">
+            <img class="q-ic" src="assets/icon_t_moon.webp?v=130" alt="">
             <div class="q-mid">
               <div class="q-title" data-i18n="daily_login_title">🎁 Daily Login (40 Days)</div>
               <div class="q-sub"><span id="daily-streak-txt"></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt=""><span id="daily-rew-amt">+25</span></span></div>
@@ -2972,7 +3324,7 @@
       <div class="q-wrap">
         <div class="q-row" id="ch1-row">
           <div class="q-row-in">
-            <img class="q-ic" src="assets/icon_q_flag.webp" alt="">
+            <img class="q-ic" src="assets/icon_t_flag.webp?v=130" alt="">
             <div class="q-mid">
               <div class="q-title" id="ch-1-title" data-i18n="ch1_title">📢 Official Telegram Channel</div>
               <div class="q-sub"><span class="q-renew">🔄 <span data-i18n="renews_24h">Renews every 24 hours</span></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+<span class="ui-task-rew">50</span> <span class="coin-sym">$ZM</span></span></div>
@@ -2986,7 +3338,7 @@
       <div class="q-wrap">
         <div class="q-row" id="ch2-row">
           <div class="q-row-in">
-            <img class="q-ic" src="assets/icon_q_chest.webp" alt="">
+            <img class="q-ic" src="assets/icon_t_chest.webp?v=130" alt="">
             <div class="q-mid">
               <div class="q-title" id="ch-2-title" data-i18n="ch2_title">💬 Payouts & Community Channel</div>
               <div class="q-sub"><span class="q-renew">🔄 <span data-i18n="renews_24h">Renews every 24 hours</span></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+<span class="ui-task-rew">50</span> <span class="coin-sym">$ZM</span></span></div>
@@ -3000,7 +3352,7 @@
       <div class="q-wrap">
         <div class="q-row" id="ch3-row">
           <div class="q-row-in">
-            <img class="q-ic" src="assets/icon_q_warriors.webp" alt="">
+            <img class="q-ic" src="assets/icon_t_king.webp?v=130" alt="">
             <div class="q-mid">
               <div class="q-title" id="ch-3-title" data-i18n="ch3_title">👥 Community Channel</div>
               <div class="q-sub"><span class="q-renew">🔄 <span data-i18n="renews_24h">Renews every 24 hours</span></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+<span class="ui-task-rew">50</span> <span class="coin-sym">$ZM</span></span></div>
@@ -3215,26 +3567,35 @@
 
     <!-- 6. OWNER ADMIN PANEL -->
 
+  <div id="notif-modal" class="pf-modal" style="display:none">
+    <div class="pf-modal-card">
+      <div class="pf-modal-title"><span>🔔 Notifications</span></div>
+      <div class="pf-modal-body">
+        <div class="notif-empty">No new notifications</div>
+        <button id="btn-notif-close" class="btn-3d-gold" style="width:100%;margin-top:14px;">Close</button>
+      </div>
+    </div>
+  </div>
+
   <div class="bottom-nav-3d">
     <div class="nav-item active" data-tab="mine">
-      <img class="nav-ic" src="assets/nav3_1.webp" alt="">
+      <img class="nav-ic" src="assets/nav_axe_gold.webp?v=130" alt="">
       <span data-i18n="nav_mine">Mine</span>
     </div>
     <div class="nav-item" data-tab="tasks">
-      <img class="nav-ic" src="assets/nav3_2.webp" alt="">
+      <img class="nav-ic" src="assets/nav_clip_gold.webp?v=131" alt="">
       <span data-i18n="nav_tasks">Tasks</span>
     </div>
     <div class="nav-item" data-tab="boost">
-      <img class="nav-tomb-img" src="assets/tombstone_center.webp" alt="">
-      <img class="nav-ic" src="assets/nav3_3.webp" alt="">
+      <img class="nav-ic" src="assets/nav_ref_3.webp?v=122" alt="">
       <span data-i18n="nav_boost">Boost</span>
     </div>
     <div class="nav-item" data-tab="friends">
-      <img class="nav-ic" src="assets/nav3_4.webp" alt="">
+      <img class="nav-ic" src="assets/nav_ref_4.webp?v=122" alt="">
       <span data-i18n="nav_friends">Friends</span>
     </div>
     <div class="nav-item" data-tab="profile">
-      <img class="nav-ic" src="assets/nav3_5.webp" alt="">
+      <img class="nav-ic" src="assets/nav_ref_5.webp?v=122" alt="">
       <span data-i18n="nav_profile">Profile</span>
     </div>
   </div>
@@ -4067,8 +4428,8 @@
       'assets/hero_king_clean.webp', 'assets/bg_castle.webp', 'assets/stone_tex56.webp', 'assets/pickaxe_bare.webp', 'assets/balance_coin.webp?v=109',
       'assets/nav_glyph_mine.webp', 'assets/nav_glyph_tasks.webp', 'assets/nav_glyph_boost.webp', 'assets/nav_glyph_friends.webp', 'assets/nav_glyph_profile.webp',
       'assets/icon_shield.webp', 'assets/icon_verified.webp', 'assets/icon_chest.webp',
-      'assets/quest_scroll.webp', 'assets/icon_q_sun.webp', 'assets/icon_q_flag.webp', 'assets/icon_q_feather.webp', 'assets/icon_q_chest.webp',
-      'assets/icon_q_warriors.webp', 'assets/icon_q_skull.webp', 'assets/icon_q_banner.webp', 'assets/icon_q_crown.webp', 'assets/icon_q_coins.webp',
+      'assets/quest_scroll.webp', 'assets/icon_t_moon.webp?v=130', 'assets/icon_t_flag.webp?v=130', 'assets/icon_q_feather.webp', 'assets/icon_t_chest.webp?v=130',
+      'assets/icon_t_king.webp?v=130', 'assets/icon_q_skull.webp', 'assets/icon_q_banner.webp', 'assets/icon_q_crown.webp', 'assets/icon_q_coins.webp',
       'assets/icon_q_hold1.webp', 'assets/icon_q_hold2.webp', 'assets/icon_q_hold3.webp', 'assets/icon_q_hold4.webp', 'assets/icon_q_hold5.webp',
       'assets/hero_tier1.webp', 'assets/hero_tier2.webp', 'assets/hero_tier3.webp',
       'assets/frame.webp', 'assets/cardframe.webp',
@@ -4521,37 +4882,25 @@
       return { s, ox: (cw - iw * s) / 2, oy: (ch - ih * s) / 2 };
     }
     function positionShieldBtn() {
-      const zone = document.querySelector('#page-mine .mn-coin-zone');
+      const zone = document.getElementById('coin-3d-trigger');
       const btn = document.getElementById('btn-collect-main');
       if (!zone || !btn) return;
       const zw = zone.clientWidth, zh = zone.clientHeight;
       if (!zw || !zh) return;
-      // PASS 56: the hero is the owner's CLEAN painting, cropped
-      // to 915x569; the shield disc sits at rect (246,248,432,432)
-      // in file coords (grounded on the source, re-verified on
-      // the crop: centre ~(0.51,0.60) of frame, r ~0.21w).
-      const g = coverGeom(zw, zh, 915, 569);
-      let x = g.ox + 246 * g.s, y = g.oy + 248 * g.s;
-      const x2 = Math.min(zw, x + 432 * g.s), y2 = Math.min(zh, y + 432 * g.s);
+      // PASS 121: the hero is the owner's reaching-king painting
+      // (941x544 crop of his Mine reference); the palm coin sits at
+      // rect (614,218,158,158) in file coords — the transparent
+      // collect button overlays exactly that coin.
+      const s = Math.max(zw / 941, zh / 498);
+      const ox = (zw - 941 * s) * 0.48, oy = (zh - 498 * s) * 0.5;
+      let x = ox + 614 * s, y = oy + 172 * s;
+      const x2 = Math.min(zw, x + 158 * s), y2 = Math.min(zh, y + 158 * s);
       x = Math.max(0, x); y = Math.max(0, y);
       btn.style.left = x + 'px'; btn.style.top = y + 'px';
       btn.style.width = Math.max(40, x2 - x) + 'px'; btn.style.height = Math.max(40, y2 - y) + 'px';
-      // PASS 56: the VERIFY FIRST pill rides the same cover math
-      // on its rect in the painting (291,494,343,57 — over the
-      // shield's lower third, as in the reference), then clamps
-      // fully inside the zone: at wide aspects its natural spot
-      // falls past the zone's bottom edge, and the reference
-      // pill hugs the band's bottom.
-      const pill = document.getElementById('mn-verify-pill');
-      if (pill) {
-        const pw = 343 * g.s, ph = 57 * g.s;
-        let px = g.ox + 291 * g.s, py = g.oy + 494 * g.s;
-        px = Math.max(4, Math.min(zw - pw - 4, px));
-        py = Math.max(4, Math.min(zh - ph - 6, py));
-        pill.style.left = px + 'px'; pill.style.top = py + 'px';
-        pill.style.width = pw + 'px'; pill.style.height = ph + 'px';
-        pill.style.fontSize = Math.max(10, Math.round(30 * g.s)) + 'px';
-      }
+      // The VERIFY FIRST pill is retired on Mine (PASS 121: the big
+      // CTA under the rate card carries the gate now); it stays
+      // display:none via CSS.
     }
     function positionBootBar() {
       const loader = document.getElementById('boot-loader');
@@ -4632,7 +4981,7 @@
       if (cb55) {
         cb55.classList.toggle('locked', !!unv);
         const cl55 = document.getElementById('collect-mine-lbl');
-        if (cl55) cl55.innerText = unv ? ('🔒 ' + (dict.collect_verify_first || 'VERIFY FIRST')) : (dict.collect_lbl || 'COLLECT');
+        if (cl55) cl55.innerText = unv ? (dict.collect_verify_first || 'VERIFY FIRST') : (dict.collect_lbl || 'COLLECT');
       }
       // PASS 56: ONE hero for both states (the owner's clean
       // painting — no state swap, no .unv class, no composite).
@@ -5811,8 +6160,13 @@
     }
 
 
+    const _gb = document.getElementById('mn-gear-btn'); if (_gb) _gb.addEventListener('click', () => { SoundFX.click(); const m = document.getElementById('settings-modal'); if (m) m.style.display = 'flex'; });
+    const _bb = document.getElementById('mn-bell-btn'); if (_bb) _bb.addEventListener('click', () => { SoundFX.click(); const m = document.getElementById('notif-modal'); if (m) m.style.display = 'flex'; });
+    const _nbc = document.getElementById('btn-notif-close'); if (_nbc) _nbc.addEventListener('click', () => { const m = document.getElementById('notif-modal'); if (m) m.style.display = 'none'; });
+    const _nmd = document.getElementById('notif-modal'); if (_nmd) _nmd.addEventListener('click', e => { if (e.target === _nmd) _nmd.style.display = 'none'; });
     function switchTab(id) {
       SoundFX.click();
+      document.body.dataset.tab = id;
       document.getElementById('lang-dropdown').classList.remove('show');
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById('page-' + id)?.classList.add('active');
