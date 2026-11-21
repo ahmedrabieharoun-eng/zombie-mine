@@ -3450,6 +3450,56 @@ body[data-tab="friends"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
 #page-friends .fr-row{padding:7px 10px!important;margin-top:6px!important}
 #page-friends .fr-empty{padding:16px 9px 14px!important;font-size:12px!important}
 #page-friends .fr-empty-ic{width:52px}
+/* ==== OWNER: Profile page = his picture (2026-11-21) ==== */
+body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2,6,3,.62)),url("assets/bg_paint.webp?v=140")!important;background-size:cover!important;background-position:center top!important;background-repeat:no-repeat!important;background-attachment:fixed!important}
+#page-profile .pf64-id,#page-profile .pf64-tile,#page-profile .mn-wv-card,#page-profile .pf-sec{position:relative!important;background:transparent!important;border:none!important;border-radius:0!important;box-shadow:none!important;clip-path:none!important;z-index:0}
+#page-profile .pf64-id::before,#page-profile .pf64-tile::before,#page-profile .mn-wv-card::before,#page-profile .pf-sec::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#b7d2ba,#617c66 32%,#8cab90 58%,#48604c);clip-path:polygon(13px 0,calc(100% - 13px) 0,100% 13px,100% calc(100% - 13px),calc(100% - 13px) 100%,13px 100%,0 calc(100% - 13px),0 13px);z-index:-2;pointer-events:none}
+#page-profile .pf64-id::after,#page-profile .pf64-tile::after,#page-profile .mn-wv-card::after,#page-profile .pf-sec::after{content:"";position:absolute;inset:1px;background:linear-gradient(rgba(9,13,9,.58),rgba(9,13,9,.58)),url('assets/card_plate2.webp?v=137') center/cover;clip-path:polygon(12px 0,calc(100% - 12px) 0,100% 12px,100% calc(100% - 12px),calc(100% - 12px) 100%,12px 100%,0 calc(100% - 12px),0 12px);z-index:-1;pointer-events:none}
+#page-profile .pf64-id{padding:16px!important;display:flex;align-items:center;gap:14px}
+#page-profile #pf64-ava{width:84px!important;height:84px!important;min-height:0!important;border-radius:50%!important;border:2px solid rgba(57,255,20,.55)!important;object-fit:cover;box-shadow:0 0 16px rgba(57,255,20,.25)!important;background:#0c0f0c!important}
+#page-profile #pf64-name{font-size:21px!important;color:#fff!important;text-transform:none!important;letter-spacing:.2px!important;margin:0 0 3px!important;white-space:normal!important;line-height:1.15!important}
+#page-profile #pf64-sub{color:#9fb4a0!important;font-size:12.5px!important}
+#page-profile .pf64-lvl{display:inline-block;margin-top:8px;padding:5px 14px;border:1px solid rgba(190,200,170,.45);border-radius:99px;background:rgba(0,0,0,.45);color:#e8dcb5;font-size:11.5px;letter-spacing:1.6px}
+#page-profile .pf-gear{position:absolute!important;top:12px;inset-inline-end:12px;width:40px;height:40px;display:flex!important;align-items:center;justify-content:center;background:#10160f!important;color:#d8b25a!important;clip-path:polygon(8px 0,calc(100% - 8px) 0,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0 calc(100% - 8px),0 8px);box-shadow:inset 0 0 0 1.5px rgba(216,178,90,.5);border:none!important;border-radius:0!important;z-index:3}
+#page-profile .pf-gear svg{width:21px;height:21px}
+#page-profile .pf64-tiles{gap:9px!important}
+#page-profile .pf64-tile{padding:11px 6px 10px!important;text-align:center}
+#page-profile .pf64-tile small{display:block;color:#d3e2cf!important;font-size:10.5px!important;letter-spacing:1.4px!important}
+#page-profile .pf64-tile small::before{content:"";display:block;width:27px;height:27px;margin:0 auto 5px;background:url("assets/icon_pf_wallet.webp?v=141") center/contain no-repeat}
+#page-profile .pf64-tile:nth-child(2) small::before{background-image:url("assets/icon_fr_coins.webp?v=144")}
+#page-profile .pf64-tile:nth-child(3) small::before{background-image:url("assets/icon_pf_chart.webp?v=141")}
+#page-profile .pf64-tile-num{color:#f2f5ee!important;font-size:19px!important;font-weight:800;display:flex!important;align-items:center;justify-content:center;gap:6px;margin-top:5px}
+#page-profile .pf64-tile-num img{width:19px;height:19px}
+#page-profile .mn-wv-card{padding:15px 14px 14px!important;margin:0 0 11px!important}
+#page-profile .pf64-step{display:flex!important;align-items:center;gap:9px;color:#dce8da!important;font-family:Georgia,'Times New Roman',serif!important;font-size:13.5px!important;letter-spacing:1.6px!important;text-transform:uppercase;margin:0 0 12px!important}
+#page-profile .pf64-step::before{content:"";flex:none;width:29px;height:29px;border-radius:50%;background-color:rgba(8,18,10,.9);border:1px solid rgba(120,240,150,.35);background-image:url("assets/icon_fr_link.webp?v=144");background-repeat:no-repeat;background-position:center;background-size:19px}
+#page-profile .mn-wv-card2 .pf64-step::before{background-image:url("assets/icon_pf_shield.webp?v=141")}
+#page-profile .pf64-step::after{content:"";flex:1;height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(57,255,20,.8),rgba(57,255,20,.05));box-shadow:0 0 9px rgba(57,255,20,.55)}
+#page-profile .pf-wallet-row{display:flex;align-items:center;gap:9px;color:#cfe0cc!important;font-size:13.5px!important;margin-bottom:12px}
+#page-profile #btn-connect-wallet{display:flex!important;align-items:center;justify-content:center;gap:9px;width:100%;height:50px;font-size:0!important;background:radial-gradient(ellipse at center,rgba(57,255,20,.30),rgba(8,26,12,.96) 74%)!important;border:2px solid #39ff14!important;border-radius:99px!important;color:#fff!important;box-shadow:0 0 22px rgba(57,255,20,.4),inset 0 0 16px rgba(57,255,20,.22)!important;text-shadow:none!important}
+#page-profile #btn-connect-wallet span{font-size:14.5px!important;font-weight:700;color:#fff!important}
+#page-profile #btn-connect-wallet::before{content:"";width:22px;height:22px;background:url("assets/icon_fr_wallet.webp?v=144") center/contain no-repeat}
+#page-profile #verify-card{background:transparent!important;border:none!important;box-shadow:none!important;padding:0!important;margin:0!important;border-radius:0!important}
+#page-profile #verify-card h4{font-size:15px!important;color:#eef4ea!important;margin:0!important;font-weight:700}
+#page-profile #verify-status-badge{border-radius:99px!important;padding:4px 12px!important;font-size:11px!important;background:#5b6672!important;color:#e8edf2!important;border:none!important}
+#page-profile #verify-rows{color:#c9d8c5!important;font-size:12.5px!important;margin-top:8px}
+#page-profile #verify-actions .btn-3d-gold{display:flex!important;align-items:center;justify-content:center;gap:8px;width:100%;height:48px;margin-top:12px;background:radial-gradient(ellipse at center,rgba(57,255,20,.30),rgba(8,26,12,.96) 74%)!important;border:2px solid #39ff14!important;border-radius:99px!important;color:#fff!important;font-size:13.5px!important;font-weight:700;box-shadow:0 0 22px rgba(57,255,20,.4),inset 0 0 16px rgba(57,255,20,.22)!important;text-shadow:none!important}
+#page-profile #verify-actions .btn-3d-gold:disabled{background:rgba(10,14,10,.85)!important;border:1.5px solid rgba(160,175,160,.35)!important;color:#9aa79c!important;box-shadow:none!important}
+#page-profile .pf-sec{padding:15px 14px!important}
+#page-profile .pf-ribbon{display:flex!important;align-items:center;gap:9px;color:#dce8da!important;font-family:Georgia,'Times New Roman',serif!important;letter-spacing:2px!important;text-transform:uppercase;font-size:0!important;margin:0!important;background:transparent!important;border:none!important;box-shadow:none!important}
+#page-profile .pf-ribbon span{font-size:14px!important}
+#page-profile .pf-ribbon::before{content:"";flex:none;width:29px;height:29px;border-radius:50%;background-color:rgba(8,18,10,.9);border:1px solid rgba(120,240,150,.35);background-image:url("assets/icon_fr_coins.webp?v=144");background-repeat:no-repeat;background-position:center;background-size:19px}
+#page-profile .pf-ribbon::after{content:"";flex:1;height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(57,255,20,.8),rgba(57,255,20,.05));box-shadow:0 0 9px rgba(57,255,20,.55)}
+#page-profile .pf-amt{position:relative!important;margin-top:16px!important}
+#page-profile .pf-amt-lbl{position:absolute!important;top:-9px;left:50%;transform:translateX(-50%);background:#0d1510;border:1px solid rgba(168,205,175,.45);border-radius:99px;padding:2px 14px;font-size:10px!important;letter-spacing:2.5px;color:#d8e6d4;z-index:2;margin:0!important}
+#page-profile #wd-input-amt{width:100%;height:52px;background:rgba(0,0,0,.5)!important;border:1px solid rgba(168,205,175,.38)!important;border-radius:14px!important;color:#fff!important;font-size:20px!important;font-weight:800;padding:0 52px 0 16px!important;box-sizing:border-box}
+#page-profile .pf-amt img{position:absolute;right:13px;top:50%;transform:translateY(-50%);width:29px;height:29px;margin:0!important}
+#page-profile .pf-lines{color:#a9bfa4!important;font-size:12px!important;margin-top:11px!important;line-height:1.65}
+#page-profile .pf-wd-btn{display:flex!important;align-items:center;justify-content:center;gap:8px;width:100%;height:50px;margin-top:13px;background:radial-gradient(ellipse at center,rgba(57,255,20,.30),rgba(8,26,12,.96) 74%)!important;border:2px solid #39ff14!important;border-radius:99px!important;color:#fff!important;font-size:14.5px!important;font-weight:700;box-shadow:0 0 22px rgba(57,255,20,.4),inset 0 0 16px rgba(57,255,20,.22)!important;text-shadow:none!important}
+#page-profile .pf-wd-btn img{width:20px;height:20px}
+#page-profile .pf-hist-btn{width:100%;height:44px;margin-top:9px;background:rgba(10,14,10,.85)!important;border:1.5px solid rgba(160,175,160,.35)!important;border-radius:99px!important;color:#d5e2d0!important;font-size:13px!important;font-weight:700;box-shadow:none!important}
+#page-profile .pf-contract{background:transparent!important;border:none!important;box-shadow:none!important;color:#8fa58c!important;font-size:10.5px!important}
+
 
 #page-boost .bst-card{flex-basis:62%!important;height:415px!important;padding:64px 10px 10px!important}
 #page-boost .bst-frame{inset:-13px -11px!important}
@@ -3855,7 +3905,8 @@ body[data-tab="friends"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
         </div>
         <button class="btn-3d-gold" id="btn-connect-wallet">👛 <span data-i18n="connect_wallet_btn">Connect TON Wallet</span></button>
         <div id="ton-connect-container" style="display:none;"></div>
-        <div class="mn-wv-div"></div>
+      </section>
+      <section class="mn-wv-card mn-wv-card2">
         <div class="pf64-step" data-i18n="pf64_step2">Step 2 — Verify it’s yours</div>
       <div class="card-3d" id="verify-card">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
