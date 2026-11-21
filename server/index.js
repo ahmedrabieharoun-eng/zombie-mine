@@ -2332,7 +2332,7 @@ const BIO_TEXTS = {
     // once, by whichever path completes the verification (the in-app
     // Check button or the background deposit watcher) — the verified
     // badge announcement with the wallet facts.
-    verifiedMsg: (o) => `🛡️✅ <b>WALLET VERIFIED!</b> ✅🛡️\n\n🎉 Congratulations, <b>${o.name}</b> — your wallet is now <b>VERIFIED</b> and the blue badge shines next to your name everywhere in ZOMBIE MINE! 💎\n\n👛 <b>Wallet:</b> <code>${o.walletShort}</code>\n🗓️ <b>Wallet age:</b> ${o.ageDays} days\n🔢 <b>Your mark:</b> ZM-${o.userNo}\n📅 <b>Verified on:</b> ${o.date}\n\n⛏️ SKÅL, verified warrior! ⚔️`
+    verifiedMsg: (o) => `🛡️✅ <b>WALLET VERIFIED!</b> ✅🛡️\n\n🎉 Congratulations, <b>${o.name}</b> — your wallet is now <b>VERIFIED</b> and the blue badge shines next to your name everywhere in ZOMBIE MINE! 💎\n\n👛 <b>Wallet:</b> <code>${o.walletShort}</code>\n🗓️ <b>Wallet age:</b> ${o.ageDays} days\n🔢 <b>Your mark:</b> ZOM-${o.userNo}\n📅 <b>Verified on:</b> ${o.date}\n\n⛏️ SKÅL, verified warrior! ⚔️`
   },
   ar: {
     welcome: (name) => `⚔️🔥 قف أيها المحارب! 🔥⚔️\n\nأهلًا بك يا ${name} في ZOMBIE MINE — لا مكان للضعفاء هنا؛ الكنز لا ينتظر إلا من يجرؤ! 🛡️\n\n⛏ في أراضي الشمال المتجمدة تبدأ ملحمتك: عدّن ZM كل ٢٤ ساعة، اشحذ فأسك، واصعد من محارب مبتدئ (المستوى 1) إلى أسطورة تُغنّى في فالهالا (المستوى 100)! 🏆 كل مستوى يضاعف قوة تعدينك — وخزائنك تفيض بالذهب 💰\n\nطريقك إلى المجد:\n• ⚔️ عدّن كل يوم واخطف حصتك قبل غيرك\n• 🪙 اسحق المهام واجمع غنائمها\n• 😀 ادعُ إخوتك في السلاح: عملات فورية + ٥٪ من تعدينهم، للأبد!\n\n💎 اسحب أرباحك إلى محفظة TON — ذهب حقيقي في يدك.\n\n🩸 الضعفاء يتراجعون. أيها الفايكنج… اضغط الزر! 👇`,
@@ -2781,7 +2781,8 @@ async function unlink(c) {
    whose hash has not been claimed before (verifyClaims/{txHash}).
    On a match it claims the hash, marks the player verified, flags the
    wallets-registry node, and syncs the inviter's referral entry. */
-const verifyComment = (userNo) => 'ZM-' + userNo;
+const verifyComment = (userNo) => 'ZOM-' + userNo;
+const legacyVerifyComment = (userNo) => 'ZM-' + userNo; // pre-2026-11-21 prefix - still accepted by matchers so payments already sent with it are not lost
 async function verifyGatePlayer(c) {
   const ref = await ensurePlayer(c);
   const p = await getVal(ref);
@@ -3006,7 +3007,7 @@ async function verifyCheck(c) {
     try { val = BigInt(String(inMsg.value || '0')); } catch (e) { continue; }
     if (val < minNano) continue;
     const text = decodeTextComment(inMsg);
-    if (!text || text.trim() !== comment) continue;
+    if (!text || (text.trim() !== comment && text.trim() !== legacyVerifyComment(userNo))) continue;
     const hash = txHashHex(tx.hash); // toncenter v3 sends base64 — canonical hex before the guard/claim/store
     if (!/^[0-9a-fA-F]{64}$/.test(hash)) continue;
     const done = await completeVerification(uid, hash, c.cfg);
@@ -3196,7 +3197,7 @@ async function processVerifyDeposit(tx, cfg, ctx) {
   if (!inMsg) return 'skip';
   const text = decodeTextComment(inMsg);
   if (!text) return 'skip';
-  const m = /^ZM-(\d+)$/.exec(text.trim());
+  const m = /^(?:ZOM|ZM)-(\d+)$/.exec(text.trim());
   if (!m) return 'skip';
   const hash = txHashHex(tx.hash);
   if (!/^[0-9a-fA-F]{64}$/.test(hash)) return 'skip';
@@ -3379,7 +3380,7 @@ async function verifySweepTick() {
       if (!inMsg) continue;
       const text = decodeTextComment(inMsg);
       if (!text) continue;
-      const m = /^ZM-(\d+)$/.exec(text.trim());
+      const m = /^(?:ZOM|ZM)-(\d+)$/.exec(text.trim());
       if (!m) continue;
       const hash = txHashHex(tx.hash);
       if (!/^[0-9a-fA-F]{64}$/.test(hash)) continue;

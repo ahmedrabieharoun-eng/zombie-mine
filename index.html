@@ -6337,7 +6337,8 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       document.getElementById('prof-wallet-addr-display').innerText = isConn ? shortAddr(linkedWalletAddr) : "Not connected";
       document.getElementById('wallet-badge-status').innerText = isConn ? "Connected ✅" : "Disconnected";
       document.getElementById('wallet-badge-status').style.background = isConn ? "#a68c23" : "#ef4444";
-      document.getElementById('btn-connect-wallet').style.display = isConn ? "none" : "flex";
+      const _cwb = document.getElementById('btn-connect-wallet');
+      if (_cwb) _cwb.style.setProperty('display', isConn ? 'none' : 'flex', 'important');
       document.getElementById('connected-wallet-actions').style.display = isConn ? "grid" : "none";
 
       document.getElementById('prof-hold-bal').innerText = Math.floor(walletHold).toLocaleString();
