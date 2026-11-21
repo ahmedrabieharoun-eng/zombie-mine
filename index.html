@@ -3597,7 +3597,6 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   </div>
 
   <div id="toast"><span id="toast-ic"></span><span id="toast-msg">Notification</span></div>
-  <audio id="amb-audio" loop preload="auto" src="assets/amb_groans.mp3?v=1" style="display:none"></audio>
 
   <div id="daily-modal" class="pf-modal" style="display:none">
     <div class="pf-modal-card">
@@ -3955,9 +3954,8 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       </section>
 
       <section class="pf-sec">
-        <div class="pf-ribbon"><span data-i18n="withdraw_title">Withdraw</span> ⬇</div>
         <div class="pf-amt">
-          <div class="pf-amt-lbl" data-i18n="prof_amount_lbl">AMOUNT</div>
+          <div class="pf-amt-lbl" data-i18n="prof_amount_lbl">WITHDRAW</div>
           <input type="text" inputmode="numeric" id="wd-input-amt" value="10,000">
           <img src="assets/coin_icon.webp?v=108" alt="">
         </div>
@@ -3968,7 +3966,6 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
         </div>
         <button class="pf-wd-btn" id="btn-request-wd"><img src="assets/icon_chest.webp" alt=""><span id="wd-btn-arrow">↗</span> <span id="wd-btn-label" data-i18n="req_wd_btn">Request Withdrawal</span></button>
         <button class="btn-3d-dark pf-hist-btn" id="btn-wdhist-open"><span data-i18n="wd_hist_title">Withdrawal History</span></button>
-        <button class="btn-3d-bronze btn-stonfi-buy" id="btn-wd-buy" style="display:none;justify-content:center;">🪙 <span data-i18n="buy_stonfi_btn">Buy on STON.fi</span></button>
       </section>
 
 
@@ -4579,19 +4576,42 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       } catch (e) {}
     }
     // Background ambience (owner pick 2026-11-21: distant zombie groans,
-    // preview #6). Starts on the first tap anywhere (autoplay policy),
-    // loops at low volume, and follows the soundEnabled flag.
-    function ambSync() {
-      const a = document.getElementById('amb-audio');
-      if (!a) return;
-      a.volume = 0.15;
-      if (soundEnabled) { const pr = a.play(); if (pr) pr.catch(() => {}); }
-      else a.pause();
+    // preview #6). Routed through WebAudio — the same pipeline as the
+    // button sounds — after the first HTMLAudio attempt never played in
+    // the Telegram WebView (owner report 2026-11-21). The mp3 is decoded
+    // once and looped through a gain node at low volume; starting is
+    // retried on every tap until the loop is actually running, and the
+    // settings toggle mutes / unmutes it through the gain.
+    let ambGainNode = null, ambStarted = false, ambLoading = false;
+    function ambEnsure() {
+      if (ambStarted || ambLoading) return;
+      ambLoading = true;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const ctx = audioCtx;
+        fetch('assets/amb_groans.mp3?v=1')
+          .then(r => r.arrayBuffer())
+          .then(buf => ctx.decodeAudioData(buf))
+          .then(decoded => {
+            ambLoading = false;
+            if (ambStarted) return;
+            const src = ctx.createBufferSource();
+            src.buffer = decoded; src.loop = true;
+            ambGainNode = ctx.createGain();
+            ambGainNode.gain.value = soundEnabled ? 0.15 : 0;
+            src.connect(ambGainNode); ambGainNode.connect(ctx.destination);
+            src.start();
+            ambStarted = true;
+          })
+          .catch(() => { ambLoading = false; });
+      } catch (e) { ambLoading = false; }
     }
-    document.addEventListener('pointerdown', function ambKick() {
-      document.removeEventListener('pointerdown', ambKick);
-      ambSync();
-    });
+    function ambSync() {
+      if (!ambStarted) { ambEnsure(); return; }
+      if (ambGainNode) ambGainNode.gain.value = soundEnabled ? 0.15 : 0;
+    }
+    document.addEventListener('pointerdown', () => { ambEnsure(); ambSync(); });
     const SoundFX = {
       collect: () => { coinShimmer(); },
       buySuccess: () => { hornSwell(); setTimeout(coinShimmer, 120); },
@@ -4656,8 +4676,9 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   "prof_page_title": "THE CRYPT",
   "prof_username_lbl": "USERNAME",
   "prof_wallet_lbl": "WALLET",
-  "prof_amount_lbl": "AMOUNT",
+  "prof_amount_lbl": "WITHDRAW",
   "buy_stonfi_btn": "Buy on STON.fi",
+  "wd_go_buy": "Go Buy Coins",
   "set_sound_lbl": "SOUND",
   "set_lang_lbl": "LANGUAGE",
   "set_title": "⚙️ Crypt Settings",
@@ -4864,8 +4885,9 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   "prof_page_title": "القبو",
   "prof_username_lbl": "اسم المستخدم",
   "prof_wallet_lbl": "المحفظة",
-  "prof_amount_lbl": "المبلغ",
+  "prof_amount_lbl": "سحب",
   "buy_stonfi_btn": "اشترِ من STON.fi",
+  "wd_go_buy": "اذهب لشراء عملات",
   "set_sound_lbl": "الصوت",
   "set_lang_lbl": "اللغة",
   "set_title": "⚙️ إعدادات القبو",
@@ -5075,8 +5097,9 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   "prof_page_title": "СКЛЕП",
   "prof_username_lbl": "ИМЯ ПОЛЬЗОВАТЕЛЯ",
   "prof_wallet_lbl": "КОШЕЛЁК",
-  "prof_amount_lbl": "СУММА",
+  "prof_amount_lbl": "ВЫВОД",
   "buy_stonfi_btn": "Купить на STON.fi",
+  "wd_go_buy": "Купить монеты",
   "set_sound_lbl": "ЗВУК",
   "set_lang_lbl": "ЯЗЫК",
   "set_title": "⚙️ Настройки склепа",
@@ -5283,6 +5306,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     let serverTimeOffset = 0;
     let lastWithdrawTime = 0;
     let wdCooldownActive = false;
+    let wdBtnMode = 'ready';
     let pendingRefComm = 0;
     let task1Done = false, task2Done = false, task3Done = false;
     let task1At = 0, task2At = 0, task3At = 0;
@@ -6361,12 +6385,14 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       const dict = I18N[currentLang] || I18N.en;
       const isConn = !!(linkedWalletAddr && linkedWalletAddr.length > 8);
       const isVerified = myWalletVerified && isConn && myVerifiedWallet === linkedWalletAddr;
-      // Owner order 2026-11-21: once the wallet is verified, the WHOLE
-      // verification card (the Step 2 section) disappears completely;
-      // it comes back only if verification is ever voided.
+      // Owner orders 2026-11-21: the WHOLE verification card (the Step 2
+      // section) shows ONLY while a wallet is connected and not yet
+      // verified. Before connection it stays hidden; once verified it
+      // disappears completely (and returns if verification is voided
+      // or the wallet disconnects back through the connected state).
       const vCardEl = document.getElementById(prefix + 'verify-card');
       const vSecEl = vCardEl ? vCardEl.closest('section') : null;
-      if (vSecEl) vSecEl.style.setProperty('display', isVerified ? 'none' : '', 'important');
+      if (vSecEl) vSecEl.style.setProperty('display', (isVerified || !isConn) ? 'none' : '', 'important');
       badge.innerText = isVerified ? ("✓ " + dict.verify_verified_badge) : dict.verify_not_verified_badge;
       badge.style.background = isVerified ? "#1d9bf0" : "#64748b";
       badge.style.animation = "none";
@@ -6951,23 +6977,32 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       else if (rawAmt < config.minWithdraw) { lockReason = dict.lock_min.replace('{n}', config.minWithdraw.toLocaleString()); lockKind = 'min'; }
       else if (rawAmt > minedInApp) { lockReason = dict.lock_balance; lockKind = 'balance'; }
       else if (walletHold < reqHold) { lockReason = dict.lock_hold.replace('{n}', reqHold.toLocaleString()).replace('{p}', holdPct); lockKind = 'hold'; }
-      if (lockReason) {
+      // ONE state button (owner order 2026-11-21): the separate STON.fi
+      // buy button is deleted — this single button morphs with the state:
+      // not connected -> "Connect Wallet First" (tap connects), connected
+      // but unverified -> "Verify Your Wallet First" (tap jumps to the
+      // verify card), hold too low -> "Go Buy Coins" (tap opens the
+      // swap). Pure waits (wallet age / cooldown / minimum / balance)
+      // stay greyed + disabled carrying their reason; ready -> withdraw.
+      if (lockKind === 'connect' || lockKind === 'verify' || lockKind === 'hold') {
+        wdBtn.disabled = false;
+        wdBtn.classList.remove('btn-wd-locked');
+        wdArrow.style.display = 'none';
+        wdBtnMode = lockKind === 'hold' ? 'buy' : lockKind;
+        wdLbl.textContent = lockKind === 'hold' ? ('🛒 ' + (dict.wd_go_buy || 'Go Buy Coins')) : lockReason;
+      } else if (lockReason) {
         wdBtn.disabled = true;
         wdBtn.classList.add('btn-wd-locked');
         wdArrow.style.display = 'none';
+        wdBtnMode = 'locked';
         wdLbl.textContent = '🔒 ' + lockReason;
       } else {
         wdBtn.disabled = false;
         wdBtn.classList.remove('btn-wd-locked');
         wdArrow.style.display = '';
+        wdBtnMode = 'ready';
         wdLbl.textContent = dict.req_wd_btn;
       }
-      // Owner order 2026-11-14: the two permanent buy buttons under the
-      // withdraw button are gone. ONE STON.fi button appears ONLY while
-      // the withdraw is locked for the hold reason — a player who
-      // already holds enough never sees a buy button here.
-      const wdBuyBtn = document.getElementById('btn-wd-buy');
-      if (wdBuyBtn) wdBuyBtn.style.display = (lockKind === 'hold') ? 'flex' : 'none';
     }
 
     function updateLiveMining() {
@@ -7248,7 +7283,12 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       e.target.value = digits ? Number(digits).toLocaleString('en-US') : '';
       updateWdCalculation();
     });
-    document.getElementById('btn-request-wd').addEventListener('click', requestWithdrawal);
+    document.getElementById('btn-request-wd').addEventListener('click', (e) => {
+      if (wdBtnMode === 'connect') { SoundFX.click(); const cb = document.getElementById('btn-connect-wallet'); if (cb) cb.click(); }
+      else if (wdBtnMode === 'verify') { SoundFX.click(); const vc = document.getElementById('verify-card'); if (vc) vc.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+      else if (wdBtnMode === 'buy') { openStonfiSwap(e); }
+      else if (wdBtnMode === 'ready') { requestWithdrawal(e); }
+    });
 
     document.getElementById('btn-open-ch1').addEventListener('click', () => { chV[1] = true; safeOpen(config.channel1); paintChBtn(1); });
     document.getElementById('btn-open-ch2').addEventListener('click', () => { chV[2] = true; safeOpen(config.channel2); paintChBtn(2); });
