@@ -3971,7 +3971,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       </section>
 
       <div class="pf-contract">
-        <strong>OFFICIAL CONTRACT:</strong> <span id="official-contract-addr">EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c</span> <button class="btn-3d-dark" id="btn-copy-contract" data-i18n="verify_copy_btn">Copy</button>
+        <strong>OFFICIAL CONTRACT:</strong> <span id="official-contract-addr">EQCY8LnAfr0NMgw0SGBRkSykRuYy5fCkrvu4TUxt_O-FR8mg</span> <button class="btn-3d-dark" id="btn-copy-contract" data-i18n="verify_copy_btn">Copy</button>
       </div>
 
 
@@ -4428,7 +4428,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     const tgUser = resolvedUser;
     const CURRENT_UID = String(tgUser.id);
     if (!tg || !tg.initData) { document.body.innerHTML = '<div style="padding:40px 20px;text-align:center;color:#fff">Please open this app from Telegram.</div>'; throw new Error("Open from Telegram"); }
-    const OFFICIAL_JETTON = "EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c";
+    const OFFICIAL_JETTON = "EQCY8LnAfr0NMgw0SGBRkSykRuYy5fCkrvu4TUxt_O-FR8mg";
 
     if (localStorage.getItem('vk_banned_' + CURRENT_UID) === '1') {
       document.getElementById('boot-loader').style.display = 'none';
@@ -4736,10 +4736,10 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       bioReward: 50, refAchReward1: 125, refAchReward10: 250, refAchReward25: 625, refAchReward50: 1250, refAchReward100: 2500,
       refClaimPercent: 5, refMinHold: 200,
       minWithdraw: 5000, holdPercentReq: 30, withdrawFeePercent: 5, withdrawMinAgeDays: 7,
-      payoutWallet: "", botToken: "", payoutChannel: "@YGRAM1",
+      payoutWallet: "", botToken: "", payoutChannel: "@ZOMBI_PAYMENTS",
       adminChatId: "",
-      buySwapUrl: "https://app.ston.fi/swap?chartVisible=false&tt=EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c&ft=GRAM",
-      channel1: "https://t.me/YGRAM1", channel2: "https://t.me/telegram", channel3: "https://t.me/ZombieMiner_Community", botUsername: "ZM_MINER_BOT"
+      buySwapUrl: "https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=EQCY8LnAfr0NMgw0SGBRkSykRuYy5fCkrvu4TUxt_O-FR8mg",
+      channel1: "https://t.me/ZOMBI_UPDATE", channel2: "https://t.me/ZOMBI_PAYMENTS", channel3: "https://t.me/ZOMBI_COMMUNITY", botUsername: "ZOMBIE_MINI_Bot"
     };
     let config = Object.assign({}, defaultConfig, JSON.parse(localStorage.getItem('vksec_config') || "{}"));
     delete config.botToken;
@@ -6697,7 +6697,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     const _whc = document.getElementById('btn-wdhist-close'); if (_whc) _whc.addEventListener('click', () => { SoundFX.click(); const m = document.getElementById('wdhist-modal'); if (m) m.style.display = 'none'; });
     const _whm = document.getElementById('wdhist-modal'); if (_whm) _whm.addEventListener('click', (e) => { if (e.target === _whm) _whm.style.display = 'none'; });
     const _smd = document.getElementById('settings-modal'); if (_smd) _smd.addEventListener('click', e => { if (e.target === _smd) _smd.style.display = 'none'; });
-    const _sup = document.getElementById('btn-support'); if (_sup) _sup.addEventListener('click', () => { const u = 'https://t.me/telegram'; try { if (window.Telegram && Telegram.WebApp && Telegram.WebApp.openTelegramLink) { Telegram.WebApp.openTelegramLink(u); return; } } catch (e) {} window.open(u, '_blank'); });
+    const _sup = document.getElementById('btn-support'); if (_sup) _sup.addEventListener('click', () => { const u = 'https://t.me/ZOMBI_COMMUNITY'; try { if (window.Telegram && Telegram.WebApp && Telegram.WebApp.openTelegramLink) { Telegram.WebApp.openTelegramLink(u); return; } } catch (e) {} window.open(u, '_blank'); });
     const _dm = document.getElementById('daily-modal'); if (_dm) _dm.addEventListener('click', (e) => { if (e.target === _dm) _dm.style.display = 'none'; });
 
     document.querySelectorAll('.btn-stonfi-buy').forEach(b => b.addEventListener('click', openStonfiSwap));

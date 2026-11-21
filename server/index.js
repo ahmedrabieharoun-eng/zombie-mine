@@ -81,7 +81,7 @@ function nextToncKey() {
   return k;
 }
 
-const JETTON = 'EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c';
+const JETTON = 'EQCY8LnAfr0NMgw0SGBRkSykRuYy5fCkrvu4TUxt_O-FR8mg';
 /* Automatic $ZM payouts (owner order 2026-11-14): when the
    PAYOUT_MNEMONIC env var holds the payout wallet's 24 words, an
    owner-approved withdrawal is paid the net amount in the $ZM
