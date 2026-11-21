@@ -3619,7 +3619,6 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
           <h3 id="prof-name">MANSAWY</h3>
           <div class="mn-tb-sub"><span id="prof-username">@mansawy1</span></div>
         </div>
-        <div class="mn-tb-wallet"><svg viewBox="0 0 24 24" fill="none" stroke="#d8a83c" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg><span id="prof-id">7216746593</span><button id="btn-copy-id" class="pf-copy-btn" aria-label="Copy ID"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#aea07f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
         <div class="mn-tb-bal"><img src="assets/coin_king.webp?v=121" alt=""><span id="prof-mine-bal">0</span></div>
       </div>
       <div class="mn-stage" id="coin-3d-trigger">
@@ -3729,7 +3728,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
         <img id="tk-avatar" src="assets/avatar_1.webp" alt="">
         <div class="tk-tb-id">
           <h3 id="tk-name">PLAYER</h3>
-          <div class="tk-tb-sub"><span id="tk-username">@user</span><span class="tk-tb-idnum"><span id="tk-id"></span> <button id="btn-copy-id-tk" class="pf-copy-btn" aria-label="Copy ID"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#aea07f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></span></div>
+          <div class="tk-tb-sub"><span id="tk-username">@user</span></div>
         </div>
         <div class="tk-tb-bal"><span id="tk-mine-bal">0</span> <img src="assets/balance_coin.webp?v=109" alt=""></div>
       </div>
@@ -6279,7 +6278,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       const mun = document.getElementById('mine-user-name'); if (mun) mun.textContent = tgUser.first_name || "MANSAWY";
       const mub = document.getElementById('mine-user-badge'); if (mub) mub.innerHTML = myWalletVerified ? verifiedBadgeSVG() : '';
       document.getElementById('prof-username').innerText = tgUser.username ? "@" + tgUser.username : "@user";
-      document.getElementById('prof-id').innerText = CURRENT_UID;
+      const profIdEl = document.getElementById('prof-id'); if (profIdEl) profIdEl.innerText = CURRENT_UID;
       // PASS 64: Profile dossier header mirrors (same values).
       const p64n = document.getElementById('pf64-name'); if (p64n) p64n.innerHTML = esc(tgUser.first_name || "MANSAWY") + (myWalletVerified ? verifiedBadgeSVG() : '');
       const p64s = document.getElementById('pf64-sub'); if (p64s) p64s.innerText = (tgUser.username ? "@" + tgUser.username : "@user") + " · ID " + CURRENT_UID;
@@ -6698,9 +6697,10 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     // PASS 57: the Referral Tasks card + modal are GONE from
     // Friends — the milestone list lives in the Tasks page's
     // REFERRALS tab now (renderRefAchList paints #ref-ach-list).
-    document.getElementById('btn-copy-id').addEventListener('click', () => {
+    const cpyIdBtn = document.getElementById('btn-copy-id');
+    if (cpyIdBtn) cpyIdBtn.addEventListener('click', () => {
       SoundFX.click();
-      const a = (document.getElementById('prof-id').textContent || "").trim();
+      const a = ((document.getElementById('prof-id') || {}).textContent || "").trim();
       try { navigator.clipboard.writeText(a); showToast("📋 Copied!"); } catch (e) {}
     });
     document.getElementById('wd-input-amt').addEventListener('input', (e) => {
