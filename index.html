@@ -17,7 +17,6 @@
   
   <link rel="preload" as="font" type="font/woff2" href="assets/font_pirata.woff2" crossorigin>
   <link rel="preload" as="image" href="assets/boot_king.webp?v=120">
-  <link rel="preload" as="image" href="assets/hero_miner2.webp">
   <link rel="preload" as="image" href="assets/tombstone_center.webp">
   <style>
     /* ===== ZOMBIE MINE — TOXIC GRAVEYARD LAB (owner redesign 2026-11-19) =====
@@ -92,8 +91,8 @@
        Five wooden coffin doors on a shared plank frame; the active door
        stands taller with toxic-green light spilling from inside it. */
     .bottom-nav-3d{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:460px;height:124px;display:flex;align-items:flex-end;gap:5px;padding:0 9px 10px;z-index:100;direction:ltr;background:linear-gradient(180deg,transparent 0%,rgba(7,6,3,.34) 36%,rgba(7,6,3,.88) 100%)}
-    .bottom-nav-3d::before{content:'';position:absolute;left:5px;right:5px;bottom:6px;height:90px;background-image:linear-gradient(rgba(9,7,4,.50),rgba(9,7,4,.60)),url('assets/tex_coffin.webp');background-size:cover;background-position:center 64%;border:1px solid rgba(0,0,0,.85);border-radius:9px;box-shadow:0 14px 30px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.06),inset 0 -12px 20px rgba(0,0,0,.55);z-index:0}
-    .nav-item{position:relative;z-index:1;flex:1;height:100px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:5px;padding:18px 2px 0;color:#afa897;font-size:9.5px;font-weight:800;letter-spacing:1.1px;text-transform:uppercase;cursor:pointer;clip-path:polygon(31% 0%,69% 0%,100% 27%,87% 100%,13% 100%,0% 27%);background-color:#181008;background-image:radial-gradient(circle 2.2px at 50% 8px,rgba(205,210,214,.55) 98%,transparent),radial-gradient(circle 2px at 17% 35%,rgba(205,210,214,.38) 98%,transparent),radial-gradient(circle 2px at 83% 35%,rgba(205,210,214,.38) 98%,transparent),linear-gradient(180deg,rgba(0,0,0,.34) 0%,rgba(0,0,0,.04) 30%,rgba(0,0,0,.42) 100%),url('assets/tex_coffin.webp');background-size:auto,auto,auto,cover,cover;background-position:center,center,center,center,var(--coffin-pos,50% 32%);transition:height .18s,filter .18s,color .18s}
+    .bottom-nav-3d::before{content:'';position:absolute;left:5px;right:5px;bottom:6px;height:90px;background-image:linear-gradient(rgba(9,7,4,.50),rgba(9,7,4,.60)),url('assets/tex_coffin.webp?v=141');background-size:cover;background-position:center 64%;border:1px solid rgba(0,0,0,.85);border-radius:9px;box-shadow:0 14px 30px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.06),inset 0 -12px 20px rgba(0,0,0,.55);z-index:0}
+    .nav-item{position:relative;z-index:1;flex:1;height:100px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:5px;padding:18px 2px 0;color:#afa897;font-size:9.5px;font-weight:800;letter-spacing:1.1px;text-transform:uppercase;cursor:pointer;clip-path:polygon(31% 0%,69% 0%,100% 27%,87% 100%,13% 100%,0% 27%);background-color:#181008;background-image:radial-gradient(circle 2.2px at 50% 8px,rgba(205,210,214,.55) 98%,transparent),radial-gradient(circle 2px at 17% 35%,rgba(205,210,214,.38) 98%,transparent),radial-gradient(circle 2px at 83% 35%,rgba(205,210,214,.38) 98%,transparent),linear-gradient(180deg,rgba(0,0,0,.34) 0%,rgba(0,0,0,.04) 30%,rgba(0,0,0,.42) 100%),url('assets/tex_coffin.webp?v=141');background-size:auto,auto,auto,cover,cover;background-position:center,center,center,center,var(--coffin-pos,50% 32%);transition:height .18s,filter .18s,color .18s}
     .nav-item:nth-child(1){--coffin-pos:12% 30%}
     .nav-item:nth-child(2){--coffin-pos:34% 58%}
     .nav-item:nth-child(3){--coffin-pos:55% 26%}
@@ -3625,7 +3624,6 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       </div>
       <div class="mn-stage" id="coin-3d-trigger">
         <img id="hero-img" src="assets/hero_king_reach.webp?v=127" alt="Zombie">
-        <video id="hero-video" src="assets/hero_miner2.mp4" poster="assets/hero_miner2.webp" autoplay muted loop playsinline preload="auto"></video>
         <button class="mn-coin-btn" id="btn-collect-main" aria-label="Collect"></button>
         <div class="mn-verify-pill" id="mn-verify-pill" style="display:none"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="#dba441" stroke-width="2.4" stroke-linecap="round"/><rect x="5" y="10.5" width="14" height="9.5" rx="2" fill="#dba441"/><circle cx="12" cy="15.2" r="1.7" fill="#171106"/></svg><span id="mn-vp-txt">VERIFY FIRST</span></div>
 
@@ -4869,24 +4867,17 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       } catch (e) { /* the loader must never hang on the wallet settle */ }
     }
     const BOOT_IMAGES = [
-      'assets/load_skull_off.webp', 'assets/load_skull_on.webp',
-      'assets/boot_scene4.webp?v=107',
-      'assets/bg_fjord.webp', 'assets/bg_wood.webp', 'assets/ref_stone_plain.webp', 'assets/ref_stone_card.webp', 'assets/coin_icon.webp?v=108',
-      'assets/hero_miner2.webp',
-      'assets/mock_hero.webp', 'assets/mock_sign.webp', 'assets/tex_stone_dark.webp', 'assets/mock_hand.webp', 'assets/mock_skull_deco.webp',
-      'assets/nav_cell_1.webp', 'assets/nav_cell_2.webp', 'assets/nav_cell_3.webp', 'assets/nav_cell_4.webp', 'assets/nav_cell_5.webp',
-      'assets/bg_backdrop.webp', 'assets/card_frame.webp', 'assets/collect_frame.webp', 'assets/nav_cut_1.webp', 'assets/nav_cut_2.webp', 'assets/nav_cut_3.webp', 'assets/nav_cut_4.webp', 'assets/nav_cut_5.webp',
-      'assets/bg_tasks.webp', 'assets/bg_boost.webp', 'assets/bg_friends.webp', 'assets/bg_profile.webp', 'assets/bg_cave.webp',
-      'assets/hero_king_clean.webp', 'assets/bg_castle.webp', 'assets/stone_tex56.webp', 'assets/pickaxe_bare.webp', 'assets/balance_coin.webp?v=109',
-      'assets/nav_glyph_mine.webp', 'assets/nav_glyph_tasks.webp', 'assets/nav_glyph_boost.webp', 'assets/nav_glyph_friends.webp', 'assets/nav_glyph_profile.webp',
-      'assets/icon_shield.webp', 'assets/icon_verified.webp', 'assets/icon_chest.webp',
-      'assets/quest_scroll.webp', 'assets/icon_m2_moon.webp?v=138', 'assets/icon_m2_flag.webp?v=138', 'assets/icon_q_feather.webp', 'assets/icon_m2_chest.webp?v=138',
-      'assets/icon_m2_king.webp?v=138', 'assets/icon_q_skull.webp', 'assets/icon_q_banner.webp', 'assets/icon_q_crown.webp', 'assets/icon_q_coins.webp',
-      'assets/icon_m2_hold1.webp?v=139', 'assets/icon_m2_hold2.webp?v=139', 'assets/icon_m2_hold3.webp?v=139', 'assets/icon_m2_hold4.webp?v=139', 'assets/icon_m2_hold5.webp?v=139', 'assets/icon_m2_ref.webp?v=138', 'assets/card_plate2.webp?v=137', 'assets/icon_tab2_cal.webp?v=137', 'assets/icon_tab2_coins.webp?v=137', 'assets/icon_tab2_people.webp?v=137',
-      'assets/hero_tier1.webp', 'assets/hero_tier2.webp', 'assets/hero_tier3.webp',
-      'assets/frame.webp', 'assets/cardframe.webp',
-      'assets/avatar_1.webp', 'assets/avatar_2.webp', 'assets/avatar_3.webp', 'assets/avatar_4.webp',
-      'assets/avatar_5.webp', 'assets/avatar_6.webp', 'assets/avatar_7.webp', 'assets/avatar_8.webp'
+      'assets/load_skull_off.webp', 'assets/load_skull_on.webp', 'assets/coin_icon.webp?v=108', 'assets/hero_miner2.webp',
+      'assets/tex_stone_dark.webp', 'assets/nav_cell_1.webp', 'assets/nav_cell_2.webp', 'assets/nav_cell_3.webp',
+      'assets/nav_cell_4.webp', 'assets/nav_cell_5.webp', 'assets/bg_backdrop.webp', 'assets/card_frame.webp',
+      'assets/collect_frame.webp', 'assets/bg_tasks.webp', 'assets/bg_boost.webp', 'assets/bg_friends.webp',
+      'assets/bg_profile.webp', 'assets/bg_cave.webp', 'assets/hero_king_clean.webp', 'assets/bg_castle.webp',
+      'assets/stone_tex56.webp', 'assets/pickaxe_bare.webp', 'assets/balance_coin.webp?v=109', 'assets/icon_verified.webp',
+      'assets/icon_chest.webp', 'assets/icon_m2_moon.webp?v=138', 'assets/icon_m2_flag.webp?v=138', 'assets/icon_m2_chest.webp?v=138',
+      'assets/icon_m2_king.webp?v=138', 'assets/icon_m2_hold1.webp?v=139', 'assets/icon_m2_hold2.webp?v=139', 'assets/icon_m2_hold3.webp?v=139',
+      'assets/icon_m2_hold4.webp?v=139', 'assets/icon_m2_hold5.webp?v=139', 'assets/icon_m2_ref.webp?v=138', 'assets/card_plate2.webp?v=137',
+      'assets/icon_tab2_cal.webp?v=137', 'assets/icon_tab2_coins.webp?v=137', 'assets/icon_tab2_people.webp?v=137', 'assets/hero_tier1.webp',
+      'assets/avatar_1.webp'
     ];
     const BOOT_CRITICAL = [
       'assets/boot_king.webp', 'assets/bg_fog.webp?v=135', 'assets/bg_tasks.webp?v=135',
@@ -4903,21 +4894,14 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       const total = BOOT_CRITICAL.length + 2; // + the hero video + the webfonts
       bootTotalUnits = total + 1; // + the state fetch itself
       let warmed = false;
-      const warm = () => { if (warmed) return; warmed = true; BOOT_IMAGES.forEach((u, i) => { setTimeout(() => { const im = new Image(); im.src = u; }, 500 + i * 60); }); };
+      const warm = () => { if (warmed) return; warmed = true; BOOT_IMAGES.forEach((u, i) => { setTimeout(() => { const im = new Image(); im.src = u; }, 2500 + i * 150); }); };
       const one = () => { settled++; bootSettled++; if (settled >= total) { bootAssetsReady = true; finishBoot(); warm(); } };
       BOOT_CRITICAL.forEach((u) => { const im = new Image(); im.onload = one; im.onerror = one; im.src = u; });
       // The Mine stage is a video now (owner order 2026-11-15): the
       // loader also waits until it can actually play — capped at
       // 12 s so a slow network cannot hold the app hostage (the
       // poster still above is already counted in BOOT_IMAGES).
-      const hv = document.getElementById('hero-video');
-      if (hv && hv.readyState < 3) {
-        let vDone = false;
-        const vFin = () => { if (!vDone) { vDone = true; one(); } };
-        hv.addEventListener('canplay', vFin, { once: true });
-        hv.addEventListener('error', vFin, { once: true });
-        setTimeout(vFin, 12000);
-      } else one();
+      one(); // LITE (owner order 2026-11-21): the hero video is gone — the loader no longer waits on it
       // Section titles render in the Norse webfont — pages are only
       // «ready» once the fonts have landed too.
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(one, one); else one();
@@ -6517,7 +6501,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     function bstSceneHTML(it) {
       const t = it.level <= 30 ? 1 : (it.level <= 70 ? 2 : 3);
       const fb = (myAvatar >= 1 && myAvatar <= 8) ? `assets/evo_a${myAvatar}_t${Math.min(10, Math.max(1, Math.ceil(it.level / 10)))}.webp` : `assets/hero_tier${t}.webp`;
-      return `<img draggable="false" src="assets/level_${it.level}.webp" onerror="this.onerror=null;this.src='${fb}'" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;border-radius:11px;">`;
+      return `<img draggable="false" src="assets/level_${it.level}.webp?v=141" onerror="this.onerror=null;this.src='${fb}'" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;border-radius:11px;">`;
     }
     function bstCardHTML(it, cur, dict) {
       const state = it.level < cur.level ? 'done' : (it.level > cur.level ? 'lock' : 'cur');
