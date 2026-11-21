@@ -1524,7 +1524,7 @@ async function sendRefJoinDM(inviterId, user) {
     const botUname = await resolveBotUsername(cfg);
     const kb = botUname ? { inline_keyboard: [[{ text: '🧟 Open ZOM', url: `https://t.me/${botUname}/app` }]] } : undefined;
     const name = esc(String((user && user.first_name) || 'Zombie').trim() || 'Zombie');
-    await tg('sendMessage', { chat_id: String(inviterId), text: `🧟 <b>New Zombie in the Horde!</b>\n👤 <b>${name}</b> just rose from the grave and joined ZOM with your link.\n💡 When they verify their wallet and hold 200+ ${esc(cfg.coinSym)}, they turn <b>Active ✅</b> — and you earn <b>5%</b> of everything they dig up.`, reply_markup: kb });
+    await tg('sendMessage', { chat_id: String(inviterId), text: `🧟 <b>New Zombie in the Horde!</b>\n👤 <b>${name}</b> just rose from the grave and joined ZOM with your link.\n💡 When they verify their wallet and hold ${Number(cfg.refMinHold) || 400}+ ${esc(cfg.coinSym)}, they turn <b>Active ✅</b> — and you earn <b>5%</b> of everything they dig up.`, reply_markup: kb });
   } catch (e) { console.error('ref join dm', e.message); }
 }
 async function sendRefActiveDM(inviterId, inviteeName, cfg) {
