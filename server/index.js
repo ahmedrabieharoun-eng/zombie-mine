@@ -5177,7 +5177,34 @@ async function panelAuditList(c) {
   return { ok: true, rows: [...entries].reverse().slice(0, 200) };
 }
 
-const PANEL_ACTIONS = { panelStats, panelPlayers, panelPlayer, panelBan, panelAdjust, panelSetAvatar, panelVerifyPlayer, panelWithdrawals, panelWdApprove, panelWdReject, panelWdBan, panelVerifyQueue, panelVerifyResolve, panelConfigGet, panelConfigSet, panelRequestAdd, panelRequestList, panelRequestReply, panelAuditList };
+
+// ZOMBIE (owner order 2026-11-21): fetch a custom-emoji pack's stickers
+// (underlying emoji + custom_emoji_id + thumbnail) so the owner-chosen
+// zombie packs can replace the old Viking premium packs in PREMIUM_EMOJI.
+async function panelEmojiPack(c) {
+  panelKey(c);
+  const name = String(c.body.name || '').trim();
+  if (!/^[A-Za-z0-9_]+$/.test(name)) fail(400, 'Bad pack name');
+  const r = await tg('getStickerSet', { name });
+  const set = r && r.stickers ? r : (r && r.result ? r.result : null);
+  if (!set || !Array.isArray(set.stickers)) fail(404, 'Pack not found');
+  const out = [];
+  for (const st of set.stickers) {
+    let thumb = '';
+    const fid = (st.thumbnail && st.thumbnail.file_id) || st.file_id;
+    try {
+      const fr = await tg('getFile', { file_id: fid });
+      const fp = fr && fr.file_path ? fr.file_path : (fr && fr.result ? fr.result.file_path : null);
+      if (fp && BOT_TOKEN) {
+        const resp = await fetch('https://api.telegram.org/file/bot' + BOT_TOKEN + '/' + fp);
+        if (resp.ok) thumb = Buffer.from(await resp.arrayBuffer()).toString('base64');
+      }
+    } catch (e) { /* thumbnail is best-effort */ }
+    out.push({ e: st.emoji || '', id: st.custom_emoji_id || '', thumb });
+  }
+  return { ok: true, title: set.title || '', stickerType: set.sticker_type || '', count: out.length, stickers: out };
+}
+const PANEL_ACTIONS = { panelStats, panelPlayers, panelPlayer, panelBan, panelAdjust, panelSetAvatar, panelVerifyPlayer, panelWithdrawals, panelWdApprove, panelWdReject, panelWdBan, panelVerifyQueue, panelVerifyResolve, panelConfigGet, panelConfigSet, panelRequestAdd, panelRequestList, panelRequestReply, panelAuditList, panelEmojiPack };
 
 const ACTIONS = { state, collect, daily, task, holdTask, bioTask, refAch, adTicket, adClaim, adNoFill, wallet, unlink, verifyInfo, verifyCheck, refCollect, withdraw, setAvatar, adminState, adminBan, adminAdjust, adminWd, adminSettings };
 
