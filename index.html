@@ -3646,6 +3646,8 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     .bn-date{color:#b9cfbc;white-space:nowrap;font-size:11px}
     .bn-status{display:inline-flex;align-items:center;gap:4px;border:1.5px solid rgba(232,184,75,.75);color:#f0c75e;border-radius:999px;padding:3.5px 8px;font-size:10.5px;font-weight:800;white-space:nowrap;background:rgba(232,184,75,.08)}
     .bn-status svg{width:11px;height:11px;stroke:#f0c75e;fill:none;stroke-width:2}
+    .bn-status.bn-ok{border-color:rgba(46,230,107,.8);color:#4ce07d;background:rgba(46,230,107,.10)}
+    .bn-status.bn-no{border-color:rgba(239,68,68,.75);color:#f87171;background:rgba(239,68,68,.08)}
     .bn-empty{color:#8fae96;font-size:12.5px;text-align:center;padding:10px 0 2px}
     /* entry button on the Tasks page */
     .bn-entry{font:inherit;display:flex;align-items:center;gap:12px;width:100%;margin:12px 0 4px;padding:13px 14px;border-radius:12px;border:1.5px solid rgba(57,255,20,.55);background:linear-gradient(90deg,rgba(57,255,20,.14),rgba(5,17,9,.90) 58%),url('assets/bounty_card_bg.webp') center/cover no-repeat;color:#eef4ec;cursor:pointer;box-shadow:0 0 16px rgba(57,255,20,.22);text-align:left}
@@ -4844,7 +4846,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   "open_ch": "1. Open the channel",
   "open_grp": "1. Open the group",
   "verify_btn": "Verify Wallet",
-  "bio_task_desc": "Add <strong id=\"bio-bot-username\" style=\"color:#fff;\">@BOT</strong> to your Telegram bio, then tap the button below and press Start in the bot — your loot is buried in your balance automatically. Come back here and it will show as done.",
+  "bio_task_desc": "Add <strong id=\"bio-bot-username\" style=\"color:#fff;\">@BOT</strong> to your Telegram bio, then tap the button below and press Start in the bot — your coins are buried in your balance automatically. Come back here and it will show as done.",
   "bio_verify_btn": "Verify in bot",
   "join_channel_btn": "Join",
   "verify_join_btn": "Verify",
@@ -4859,7 +4861,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   "copy_btn": "Copy Link",
   "share_btn": "Share",
   "my_referrals_title": "🧟 My Horde",
-  "pending_ref_title": "Loot Your Horde Owes You",
+  "pending_ref_title": "Coins Your Horde Owes You",
   "collect_ref_btn": "DIG UP",
   "ton_wallet_title": "TON Blockchain Wallet",
   "connect_wallet_btn": "Connect TON Wallet",
@@ -4908,7 +4910,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   "lvl_current": "CURRENT",
   "lvl_completed": "CONQUERED",
   "lvl_locked_fmt": "Bury {n} {s} to unlock",
-  "daily_profit_lbl": "DAILY LOOT",
+  "daily_profit_lbl": "DAILY COINS",
   "pf64_step1": "Step 1 — Connect your wallet",
   "pf64_step2": "Step 2 — Verify it’s yours",
   "pf64_hold_lbl": "BURIED COINS",
@@ -4938,7 +4940,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   "req_wd_btn": "Request Withdrawal",
   "lock_connect": "Connect Wallet First",
   "lock_min": "Minimum {n} Required",
-  "lock_balance": "Not Enough Loot",
+  "lock_balance": "Not Enough Coins",
   "lock_hold": "You must keep {p}% of the withdrawal buried in your wallet (need {n})",
   "lock_cooldown": "The grave rests — wait {t}",
   "buy_hold_btn": "Buy on STON.fi to Bury the {p}%",
@@ -5006,7 +5008,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   "nav_profile": "Crypt",
   "tank_full": "💀 24h Grave Full (100%) — Dig It Up Now!",
   "tank_fill": "🦇 24h Grave Filling:",
-  "quests_tagline": "Finish grave quests to earn extra loot",
+  "quests_tagline": "Finish grave quests to earn extra coins",
       "bounty_title": "Bounty",
       "bounty_duration": "Bounty Duration",
       "bounty_days": "10 Days",
@@ -5036,6 +5038,8 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       "bounty_col_date": "Date",
       "bounty_col_status": "Status",
       "bounty_status_review": "In Review",
+      "bounty_status_approved": "Approved",
+      "bounty_status_rejected": "Rejected",
       "bounty_empty": "No requests yet",
       "bounty_submitted": "✅ Bounty request submitted — In Review",
       "bounty_cf_title": "Confirm Your Request",
@@ -5064,7 +5068,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   "ads_none": "No ads available right now — try again later",
   "ad_watch_full": "Watch the full ad to continue",
   "ad_loading": "Ad loading, try again",
-  "wd_bal_lbl": "YOUR LOOT",
+  "wd_bal_lbl": "YOUR COINS",
   "day": "Night",
   "claimed": "Unearthed",
   "no_refs_yet": "Your horde is empty — no zombies risen yet."
@@ -5289,6 +5293,8 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       "bounty_col_date": "التاريخ",
       "bounty_col_status": "الحالة",
       "bounty_status_review": "قيد المراجعة",
+      "bounty_status_approved": "تمت الموافقة والدفع",
+      "bounty_status_rejected": "مرفوض",
       "bounty_empty": "مفيش طلبات لسه",
       "bounty_submitted": "✅ اتبعت طلب الباونتي — قيد المراجعة",
       "bounty_cf_title": "تأكيد الطلب",
@@ -5545,6 +5551,8 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       "bounty_col_date": "Дата",
       "bounty_col_status": "Статус",
       "bounty_status_review": "На проверке",
+      "bounty_status_approved": "Одобрено",
+      "bounty_status_rejected": "Отклонено",
       "bounty_empty": "Заявок пока нет",
       "bounty_submitted": "✅ Заявка отправлена — на проверке",
       "bounty_cf_title": "Подтвердите заявку",
@@ -7543,10 +7551,12 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       // manual sync button was removed — see maybeAutoSyncHold).
       if (id === 'profile') maybeAutoSyncHold();
     }
-    // ===== BOUNTY (owner reference 2026-11-21): front-end only for now —
-    // requests are kept on the device until the server endpoints land. =====
+    // ===== BOUNTY (owner reference 2026-11-21; server phase 2026-11-22):
+    // requests go to the server (bountySubmit), the owner reviews them in
+    // the panel Bounty tab, and My Requests mirrors the server (bountyMine). =====
     let bnType = 'Video';
     let bnPlatform = 'Telegram';
+    let bnSyncMineFn = null;
     const bnT = function (k) { const d = I18N[currentLang] || I18N.en; return d[k] || k; };
     const BN_PLAT_SVG = {
       'Telegram': '<svg viewBox="0 0 24 24" fill="#37aee2"><path d="M21.9 4.6l-3.1 14.6c-.2 1-.8 1.3-1.7.8l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.8 8.7-7.9c.4-.3-.1-.5-.6-.2L7.6 13.2 2.9 11.7c-1-.3-1-1 .2-1.5l18.4-7.1c.9-.3 1.6.2 1.4 1.5z"/></svg>',
@@ -7557,6 +7567,12 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       try { return JSON.parse(localStorage.getItem('zmBountyReqs') || '[]'); } catch (e) { return []; }
     }
     function bnEsc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+    function bnStatusCell(r) {
+      const st = String((r && r.status) || '');
+      if (st.indexOf('Approved') === 0) return '<span><span class="bn-status bn-ok">✓ ' + bnT('bounty_status_approved') + (r.reward ? ' +' + Number(r.reward).toLocaleString('en-US') : '') + '</span></span>';
+      if (st.indexOf('Rejected') === 0) return '<span><span class="bn-status bn-no">✕ ' + bnT('bounty_status_rejected') + '</span></span>';
+      return '<span><span class="bn-status"><svg viewBox="0 0 24 24"><path d="M6 3h12M6 21h12M8 3c0 5 8 5 8 9s-8 4-8 9M16 3c0 5-8 5-8 9"/></svg>' + bnT('bounty_status_review') + '</span></span>';
+    }
     function renderBountyRequests() {
       const box = document.getElementById('bn-rows');
       if (!box) return;
@@ -7567,7 +7583,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
           '<span class="bn-link"><svg viewBox="0 0 24 24"><path d="M10 14a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 10a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg><span>' + bnEsc(r.link) + '</span></span>' +
           '<span class="bn-plat-cell">' + (BN_PLAT_SVG[r.platform] || '') + '<span>' + bnEsc(r.platform) + '</span></span>' +
           '<span class="bn-date">' + bnEsc(r.date) + '</span>' +
-          '<span><span class="bn-status"><svg viewBox="0 0 24 24"><path d="M6 3h12M6 21h12M8 3c0 5 8 5 8 9s-8 4-8 9M16 3c0 5-8 5-8 9"/></svg>' + bnT('bounty_status_review') + '</span></span></div>';
+          bnStatusCell(r) + '</div>';
       }).join('');
     }
     function openBounty() {
@@ -7577,6 +7593,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       const pg = document.getElementById('page-bounty'); if (pg) pg.scrollTop = 0;
       const lin = document.getElementById('bn-link'); if (lin) lin.placeholder = bnT('bounty_link_ph');
       renderBountyRequests();
+      if (bnSyncMineFn) bnSyncMineFn();
     }
     (function initBounty() {
       const entry = document.getElementById('btn-open-bounty');
@@ -7655,22 +7672,45 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
         const md = document.getElementById('bn-confirm');
         if (md) md.classList.add('open');
       }
-      function bnDoSubmit() {
+      async function bnDoSubmit() {
         const link = bnPendingLink;
         if (!link) return;
+        bnPendingLink = '';
+        bnCloseConfirm();
+        const d = bnDerive(link, bnPlatform);
+        let svr = null;
+        try {
+          svr = await api('bountySubmit', { type: bnType, platform: bnPlatform, link: link, channel: d ? d.name : '' });
+        } catch (e) {
+          showToast(((e && e.message) || 'Server error'), '#ef4444');
+          return;
+        }
         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         const now = new Date();
         const reqs = bnLoadReqs();
-        reqs.unshift({ link: link, platform: bnPlatform, type: bnType, date: months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear(), ts: Date.now() });
+        reqs.unshift({ link: link, platform: bnPlatform, type: bnType, date: months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear(), ts: Date.now(), bnNum: svr ? svr.bnNum : 0, status: 'Pending ⏳', reward: 0 });
         try { localStorage.setItem('zmBountyReqs', JSON.stringify(reqs)); } catch (e) {}
         const inp = document.getElementById('bn-link');
         if (inp) inp.value = '';
-        bnPendingLink = '';
-        bnCloseConfirm();
         renderBountyRequests();
         bnRefreshCd();
         showToast(bnT('bounty_submitted'));
       }
+      async function bnSyncMine() {
+        try {
+          const r = await api('bountyMine');
+          if (!r || !Array.isArray(r.rows)) return;
+          const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+          const reqs = r.rows.map(function (x) {
+            const dt = new Date(Number(x.createdAt) || Date.now());
+            return { link: x.link, platform: x.platform, type: x.type, date: months[dt.getMonth()] + ' ' + dt.getDate() + ', ' + dt.getFullYear(), ts: Number(x.createdAt) || 0, bnNum: x.bnNum, status: x.status, reward: Number(x.reward) || 0 };
+          });
+          try { localStorage.setItem('zmBountyReqs', JSON.stringify(reqs)); } catch (e) {}
+          renderBountyRequests();
+          bnRefreshCd();
+        } catch (e) {}
+      }
+      bnSyncMineFn = bnSyncMine;
       const submit = document.getElementById('bn-submit');
       if (submit) submit.addEventListener('click', function () {
         if (bnCdLeft() > 0) { bnRefreshCd(); return; }
