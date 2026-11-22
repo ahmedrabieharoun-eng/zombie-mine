@@ -7557,6 +7557,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     let bnType = 'Video';
     let bnPlatform = 'Telegram';
     let bnSyncMineFn = null;
+    let bnImportOldFn = null;
     const bnT = function (k) { const d = I18N[currentLang] || I18N.en; return d[k] || k; };
     const BN_PLAT_SVG = {
       'Telegram': '<svg viewBox="0 0 24 24" fill="#37aee2"><path d="M21.9 4.6l-3.1 14.6c-.2 1-.8 1.3-1.7.8l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.8 8.7-7.9c.4-.3-.1-.5-.6-.2L7.6 13.2 2.9 11.7c-1-.3-1-1 .2-1.5l18.4-7.1c.9-.3 1.6.2 1.4 1.5z"/></svg>',
@@ -7593,7 +7594,8 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       const pg = document.getElementById('page-bounty'); if (pg) pg.scrollTop = 0;
       const lin = document.getElementById('bn-link'); if (lin) lin.placeholder = bnT('bounty_link_ph');
       renderBountyRequests();
-      if (bnSyncMineFn) bnSyncMineFn();
+      if (bnImportOldFn) bnImportOldFn().then(function () { if (bnSyncMineFn) bnSyncMineFn(); });
+      else if (bnSyncMineFn) bnSyncMineFn();
     }
     (function initBounty() {
       const entry = document.getElementById('btn-open-bounty');
@@ -7705,11 +7707,25 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
             const dt = new Date(Number(x.createdAt) || Date.now());
             return { link: x.link, platform: x.platform, type: x.type, date: months[dt.getMonth()] + ' ' + dt.getDate() + ', ' + dt.getFullYear(), ts: Number(x.createdAt) || 0, bnNum: x.bnNum, status: x.status, reward: Number(x.reward) || 0 };
           });
+          const srvLinks = {}; reqs.forEach(function (x) { srvLinks[x.link] = 1; });
+          bnLoadReqs().forEach(function (x) { if (x && !x.bnNum && x.link && !srvLinks[x.link]) reqs.push(x); });
           try { localStorage.setItem('zmBountyReqs', JSON.stringify(reqs)); } catch (e) {}
           renderBountyRequests();
           bnRefreshCd();
         } catch (e) {}
       }
+      let bnImportTried = false;
+      async function bnImportOld() {
+        if (bnImportTried) return; bnImportTried = true;
+        try {
+          if (localStorage.getItem('zmBountyImported') === '1') return;
+          const old = bnLoadReqs().filter(function (r) { return r && !r.bnNum && r.link; });
+          if (!old.length) { try { localStorage.setItem('zmBountyImported', '1'); } catch (e) {} return; }
+          const r = await api('bountyImport', { items: old.map(function (x) { return { link: x.link, platform: x.platform, type: x.type, ts: Number(x.ts) || 0 }; }) });
+          if (r && r.ok) { try { localStorage.setItem('zmBountyImported', '1'); } catch (e) {} }
+        } catch (e) {}
+      }
+      bnImportOldFn = bnImportOld;
       bnSyncMineFn = bnSyncMine;
       const submit = document.getElementById('bn-submit');
       if (submit) submit.addEventListener('click', function () {
