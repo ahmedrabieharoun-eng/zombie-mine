@@ -5244,12 +5244,13 @@ async function bountySubmit(c) {
 async function bountyMine(c) {
   await ensurePlayer(c);
   const uid = String(c.user.id);
+  const p = (await getVal(P(uid))) || {};
   const rows = (await bountyScan())
     .filter((r) => String(r.userId) === uid)
     .sort((a, b) => (Number(b.bnNum) || 0) - (Number(a.bnNum) || 0))
     .slice(0, 20)
     .map((r) => ({ bnNum: r.bnNum, type: r.type, platform: r.platform, link: r.link, channel: r.channel || '', status: r.status, reward: Number(r.reward) || 0, payTx: r.payTx || '', createdAt: Number(r.createdAt) || 0 }));
-  return { ok: true, rows };
+  return { ok: true, rows, lastBountyAt: Number(p.lastBountyAt) || 0 };
 }
 
 /* One-time migration of pre-server bounty requests (owner order

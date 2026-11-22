@@ -7623,7 +7623,14 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       // ---- 24h cooldown: one pending request at a time ----
       const BN_CD_MS = 24 * 3600000;
       function bnLastTs() { const r = bnLoadReqs(); return (r.length && r[0].ts) ? r[0].ts : 0; }
-      function bnCdLeft() { const t = bnLastTs(); return t ? Math.max(0, t + BN_CD_MS - Date.now()) : 0; }
+      function bnCdLeft() {
+        let t = 0;
+        try {
+          const v = localStorage.getItem('zmBountyLastAt');
+          t = v !== null ? (+v || 0) : bnLastTs();
+        } catch (e) { t = bnLastTs(); }
+        return t ? Math.max(0, t + BN_CD_MS - Date.now()) : 0;
+      }
       let bnCdOn = null;
       function bnRefreshCd() {
         const btn = document.getElementById('bn-submit');
@@ -7692,6 +7699,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
         const reqs = bnLoadReqs();
         reqs.unshift({ link: link, platform: bnPlatform, type: bnType, date: months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear(), ts: Date.now(), bnNum: svr ? svr.bnNum : 0, status: 'Pending ⏳', reward: 0 });
         try { localStorage.setItem('zmBountyReqs', JSON.stringify(reqs)); } catch (e) {}
+        try { localStorage.setItem('zmBountyLastAt', String(Date.now())); } catch (e) {}
         const inp = document.getElementById('bn-link');
         if (inp) inp.value = '';
         renderBountyRequests();
@@ -7702,6 +7710,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
         try {
           const r = await api('bountyMine');
           if (!r || !Array.isArray(r.rows)) return;
+          try { localStorage.setItem('zmBountyLastAt', String(Number(r.lastBountyAt) || 0)); } catch (e) {}
           const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
           const reqs = r.rows.map(function (x) {
             const dt = new Date(Number(x.createdAt) || Date.now());
