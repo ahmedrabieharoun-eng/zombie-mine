@@ -3630,6 +3630,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     .bn-cf-link{color:#39ff14}
     .bn-cf-btns{display:flex;gap:10px;margin-top:16px}
     .bn-cf-cancel{flex:1;padding:12px;border-radius:10px;border:1.5px solid rgba(160,190,165,.35);background:rgba(8,20,12,.9);color:#cfe3d2;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit}
+    .bn-cf-ok:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
     .bn-cf-ok{flex:1.5;padding:12px;border:none;border-radius:10px;background:linear-gradient(180deg,rgba(26,150,64,.20),rgba(8,84,34,.34)),url('assets/bounty_btn_bg.webp') center/cover no-repeat;color:#fff;font-size:15px;font-weight:900;cursor:pointer;font-family:inherit;box-shadow:0 0 18px rgba(57,255,20,.4);text-shadow:0 1px 3px rgba(0,60,10,.55)}
     .bn-submit.cd{filter:grayscale(.6) brightness(.55);box-shadow:none;cursor:not-allowed}
     .bn-submit .bn-cd-t{font-family:'ZMPirata',serif;letter-spacing:1.5px;font-size:19px}
@@ -5031,6 +5032,12 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       "bounty_reward": "Reward",
       "bounty_reward_amt": "500 – 20,000 Coins",
       "bounty_note": "Rewards depend on the post's performance.",
+      "bounty_cf_posted": "Post age",
+      "bounty_checking": "Checking the post…",
+      "bounty_posted_ago": "Posted {x} ago",
+      "bounty_too_young": "Too new — a bounty post must be at least 12 hours old. Wait {x} and submit it again.",
+      "bounty_duplicate": "This post link was already submitted before",
+      "bounty_age_unknown": "Post age could not be verified — an admin will check it manually",
       "bounty_submit": "Submit Request",
       "bounty_my_title": "My Requests",
       "bounty_col_link": "Post Link",
@@ -5286,6 +5293,12 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       "bounty_reward": "المكافأة",
       "bounty_reward_amt": "500 – 20,000 عملة",
       "bounty_note": "المكافآت بتتحدد حسب أداء المنشور.",
+      "bounty_cf_posted": "عمر المنشور",
+      "bounty_checking": "جاري فحص المنشور…",
+      "bounty_posted_ago": "اتنشر من {x}",
+      "bounty_too_young": "لسه جديد — لازم يعدي على المنشور 12 ساعة على الأقل. استنى {x} وارجع اعمله تاني.",
+      "bounty_duplicate": "رابط المنشور ده اتقدّم قبل كده",
+      "bounty_age_unknown": "مقدرناش نتحقق من عمر المنشور — الأدمن هيتحقق يدويًا",
       "bounty_submit": "ابعت الطلب",
       "bounty_my_title": "طلباتي",
       "bounty_col_link": "لينك المنشور",
@@ -5544,6 +5557,12 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       "bounty_reward": "Награда",
       "bounty_reward_amt": "500 – 20 000 монет",
       "bounty_note": "Награда зависит от результатов поста.",
+      "bounty_cf_posted": "Возраст поста",
+      "bounty_checking": "Проверяем пост…",
+      "bounty_posted_ago": "Опубликовано {x} назад",
+      "bounty_too_young": "Слишком новый — посту должно быть не менее 12 часов. Подождите {x} и отправьте снова.",
+      "bounty_duplicate": "Эта ссылка на пост уже была отправлена",
+      "bounty_age_unknown": "Не удалось проверить возраст поста — администратор проверит вручную",
       "bounty_submit": "Отправить заявку",
       "bounty_my_title": "Мои заявки",
       "bounty_col_link": "Ссылка на пост",
@@ -7664,6 +7683,32 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       }
       let bnPendingLink = '';
       function bnCloseConfirm() { const md = document.getElementById('bn-confirm'); if (md) md.classList.remove('open'); }
+      function bnAgeFmt(ms) {
+        const m = Math.max(0, Math.floor(ms / 60000));
+        if (m < 60) return m + 'm';
+        const h = Math.floor(m / 60);
+        if (h < 24) return h + 'h ' + (m % 60) + 'm';
+        const d = Math.floor(h / 24);
+        return d + 'd ' + (h % 24) + 'h';
+      }
+      async function bnCheckPost(link) {
+        const okBtn = document.getElementById('bn-cf-ok');
+        let r = null;
+        try { r = await api('bountyCheckLink', { link: link }); } catch (e) { r = null; }
+        if (bnPendingLink !== link) return;
+        const el = document.getElementById('bn-age-line');
+        if (!el) return;
+        if (!r) { el.textContent = bnT('bounty_age_unknown'); if (okBtn) okBtn.disabled = false; return; }
+        if (r.duplicate) { el.textContent = bnT('bounty_duplicate'); el.style.color = '#ef4444'; return; }
+        if (r.ageUnknown || !r.postedAt) { el.textContent = bnT('bounty_age_unknown'); if (okBtn) okBtn.disabled = false; return; }
+        if (r.tooYoung) {
+          el.textContent = bnT('bounty_posted_ago').replace('{x}', bnAgeFmt(r.ageMs)) + ' — ' + bnT('bounty_too_young').replace('{x}', bnAgeFmt(r.waitMs));
+          el.style.color = '#ef4444';
+          return;
+        }
+        el.textContent = bnT('bounty_posted_ago').replace('{x}', bnAgeFmt(r.ageMs));
+        if (okBtn) okBtn.disabled = false;
+      }
       function bnOpenConfirm(link) {
         const rows = [];
         rows.push([bnT('bounty_cf_type'), bnEsc(bnT(bnType === 'Video' ? 'bounty_video' : 'bounty_post'))]);
@@ -7674,12 +7719,16 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
           if (d.link) rows.push([bnT('bounty_cf_chlink'), '<span class="bn-cf-link">' + bnEsc(d.link) + '</span>']);
         }
         rows.push([bnT('bounty_cf_post'), '<span class="bn-cf-link">' + bnEsc(link) + '</span>']);
+        rows.push([bnT('bounty_cf_posted'), '<span id="bn-age-line">' + bnEsc(bnT('bounty_checking')) + '</span>']);
         rows.push([bnT('bounty_reward'), bnEsc(bnT('bounty_reward_amt'))]);
         const box = document.getElementById('bn-cf-rows');
         if (box) box.innerHTML = rows.map(function (r) { return '<div class="bn-cf-row"><span class="bn-cf-k">' + r[0] + '</span><span class="bn-cf-v">' + r[1] + '</span></div>'; }).join('');
         bnPendingLink = link;
         const md = document.getElementById('bn-confirm');
         if (md) md.classList.add('open');
+        const okBtn = document.getElementById('bn-cf-ok');
+        if (okBtn) okBtn.disabled = true;
+        bnCheckPost(link);
       }
       async function bnDoSubmit() {
         const link = bnPendingLink;
