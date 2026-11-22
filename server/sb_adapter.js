@@ -23,7 +23,7 @@
    Modes (env DB_BACKEND): 'supabase' = this adapter alone;
    'dual' = DualDb below (RTDB primary, this adapter as shadow). */
 
-const MAP_ROOTS = new Set(['wallets', 'sigs', 'deviceIds', 'devices', 'verifyClaims', 'refRepairQueue', 'verifyUnresolved']);
+const MAP_ROOTS = new Set(['wallets', 'sigs', 'deviceIds', 'devices', 'verifyClaims', 'refRepairQueue', 'verifyUnresolved', 'bountyRequests']);
 const PLAYER_QUERY_COLS = { verifyPendingAt: 'verify_pending_at', walletVerified: 'wallet_verified', invitedBy: 'invited_by', userNo: 'user_no' };
 const WD_QUERY_COLS = { userId: 'user_id' };
 
