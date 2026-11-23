@@ -3950,6 +3950,19 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
         </div>
         <button class="btn-3d-dark" id="btn-open-ch3" data-i18n="open_ch" style="display:none;">1. Open Channel</button>
       </div>
+      <div class="q-wrap">
+        <div class="q-row" id="x-row">
+          <div class="q-row-in">
+            <svg class="q-ic" viewBox="0 0 24 24"><rect width="24" height="24" rx="5.5" fill="#000"/><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93zM17.61 20.64h2.04L6.49 3.24H4.3z" fill="#fff" transform="translate(4.4 4.4) scale(0.65)"/></svg>
+            <div class="q-mid">
+              <div class="q-title-line"><span class="q-line-ic"><svg width="19" height="19" viewBox="0 0 24 24"><rect width="24" height="24" rx="5.5" fill="#000"/><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93zM17.61 20.64h2.04L6.49 3.24H4.3z" fill="#fff" transform="translate(4.4 4.4) scale(0.65)"/></svg></span><div class="q-title" id="x-title" data-i18n="x_title">Follow us on X</div></div>
+              <div class="q-sub"><span class="q-renew"><span class="q-line-ic"><svg viewBox="0 0 24 24" width="17" height="17"><rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="#5b6b72"/><g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21.5,4.5 21.5,9.5 16.5,9.5"/><path d="M20.2,15.2a8,8 0 1,1-1.8-8.2l3.1,2.5"/></g></svg></span> <span data-i18n="renews_24h">Renews every 24h</span></span><span class="q-rew"><img src="assets/balance_coin.webp?v=109" alt="">+<span class="ui-task-rew">50</span> <span class="coin-sym">$ZOM</span></span></div>
+            </div>
+            <button class="btn-3d-gold q-btn" id="x-task-btn">Follow</button>
+          </div>
+        </div>
+        <button class="btn-3d-dark" id="btn-open-x" data-i18n="open_x" style="display:none;">1. Open X</button>
+      </div>
       </div>
 
     </div>
@@ -4806,6 +4819,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   "avatar_confirm2": "SEAL IT FOREVER",
   "avatar_warn": "⚠ Once sealed, your zombie can never be changed",
   "ch1_title": "The Official Graveyard Channel",
+      "x_title": "Follow us on X", "follow_x_btn": "Follow", "open_x": "1. Open X",
   "ch2_title": "Payouts from the Crypt",
   "ch3_title": "The Horde Community",
   "open_ch": "1. Open the channel",
@@ -5067,6 +5081,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   "avatar_confirm2": "اختمها للأبد",
   "avatar_warn": "⚠ بعد الختم، الزومبي بتاعك مش هيتغير أبدًا",
   "ch1_title": "قناة المقبرة الرسمية",
+      "x_title": "تابعنا على X", "follow_x_btn": "متابعة", "open_x": "1. افتح X",
   "ch2_title": "الدفعات من القبو",
   "ch3_title": "مجتمع القطيع",
   "open_ch": "1. افتح القناة",
@@ -5331,6 +5346,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   "avatar_confirm2": "ЗАПЕЧАТАТЬ НАВСЕГДА",
   "avatar_warn": "⚠ После запечатывания твоего зомби нельзя изменить",
   "ch1_title": "Официальный канал кладбища",
+      "x_title": "Мы в X (Twitter)", "follow_x_btn": "Подписаться", "open_x": "1. Открыть X",
   "ch2_title": "Выплаты из склепа",
   "ch3_title": "Сообщество орды",
   "open_ch": "1. Открыть канал",
@@ -5629,9 +5645,11 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     let pendingRefComm = 0;
     let task1Done = false, task2Done = false, task3Done = false;
     let task1At = 0, task2At = 0, task3At = 0;
+    let taskXDone = false, taskXAt = 0;
     let holdTaskAt = {};
     let adsDay = 0, adsDayCount = 0;
     let chV = {1:false, 2:false, 3:false};
+    let chVX = false;
     let bioTaskDone = false, refAchClaimed = {}, activeRefs = 0;
     const REF_MILESTONES = [1, 10, 25, 50, 100];
     let linkedWalletAddr = localStorage.getItem('vksec_wallet_addr') || "";
@@ -6177,6 +6195,8 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       task1At = Number(d.task1At) || 0;
       task2At = Number(d.task2At) || 0;
       task3At = Number(d.task3At) || 0;
+      taskXDone = !!d.taskXDone;
+      taskXAt = Number(d.taskXAt) || 0;
       holdTaskAt = d.holdTaskAt || {};
       adsDay = Number(d.adsDay) || 0; adsDayCount = Number(d.adsDayCount) || 0;
       bioTaskDone = !!d.bioTaskDone;
@@ -7116,6 +7136,27 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       btn.innerText = (chDone(n) || chV[n]) ? (d.verify_join_btn || "Verify") : (d.join_channel_btn || "Join");
     }
 
+    function xRemaining() { if (!taskXAt) return 0; return Math.max(0, taskXAt + TASK_RENEW_MS - Date.now()); }
+    function paintXBtn() {
+      const btn = document.getElementById('x-task-btn'); if (!btn) return;
+      const d = I18N[currentLang] || I18N.en;
+      const rem = xRemaining();
+      btn.classList.remove('btn-done-green');
+      if (rem > 0) {
+        btn.disabled = true;
+        btn.classList.remove('tk-go-state');
+        btn.classList.add('btn-cooldown-yellow');
+        btn.dataset.cdX = '1';
+        btn.innerText = '\u23F3 ' + fmtCd(rem);
+        return;
+      }
+      btn.disabled = false;
+      btn.classList.remove('btn-cooldown-yellow');
+      delete btn.dataset.cdX;
+      btn.classList.toggle('tk-go-state', !(taskXDone || chVX));
+      btn.innerText = (taskXDone || chVX) ? (d.verify_join_btn || "Verify") : (d.follow_x_btn || "Follow");
+    }
+
     function tickTaskTimers() {
       let dirty = false;
       document.querySelectorAll('[data-cd-ch]').forEach(btn => {
@@ -7123,12 +7164,17 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
         if (rem <= 0) { dirty = true; return; }
         btn.innerText = '⏳ ' + fmtCd(rem);
       });
+      document.querySelectorAll('[data-cd-x]').forEach(btn => {
+        const rem = xRemaining();
+        if (rem <= 0) { dirty = true; return; }
+        btn.innerText = '\u23F3 ' + fmtCd(rem);
+      });
       document.querySelectorAll('[data-hold-cd]').forEach(btn => {
         const rem = holdRemaining(Number(btn.getAttribute('data-hold-cd')));
         if (rem <= 0) { dirty = true; return; }
         btn.innerText = '⏳ ' + fmtCd(rem);
       });
-      if (dirty) { paintChBtn(1); paintChBtn(2); paintChBtn(3); renderHoldTasks(); }
+      if (dirty) { paintChBtn(1); paintChBtn(2); paintChBtn(3); paintXBtn(); renderHoldTasks(); }
     }
 
     function applyUI() {
@@ -7151,7 +7197,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       const rgEl = document.getElementById('mine-rank-group'); if (rgEl) rgEl.innerText = String(cur.groupName || '').toUpperCase();
       document.getElementById('mine-to-go').innerText = `Hold: ${Math.floor(walletHold).toLocaleString()} ${config.coinSym}`;
 
-      paintChBtn(1); paintChBtn(2); paintChBtn(3);
+      paintChBtn(1); paintChBtn(2); paintChBtn(3); paintXBtn();
       renderTasksExtras();
 
       document.getElementById('boost-lvl-header').innerText = "Level " + cur.level;
@@ -7892,6 +7938,19 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
         catch (err) { chV[n] = false; paintChBtn(n); showToast("❌ " + err.message, "#ef4444"); }
       });
     }));
+
+    document.getElementById('btn-open-x').addEventListener('click', () => { chVX = true; api("taskXVisit", {}).catch(() => {}); safeOpen(config.twitterUrl); paintXBtn(); });
+    const xRow = document.getElementById('x-row'); if (xRow) xRow.addEventListener('click', e => { if (e.target.closest('button')) return; document.getElementById('btn-open-x').click(); });
+    document.getElementById('x-task-btn').addEventListener('click', async e => {
+      if (!isHumanClick(e)) return;
+      const rem = xRemaining();
+      if (rem > 0) { const d = I18N[currentLang] || I18N.en; return showToast("\u23F3 " + (d.task_available_in || "Available in {t}").replace('{t}', fmtCd(rem)), "#f59e0b"); }
+      if (!chVX && !taskXDone) { document.getElementById('btn-open-x').click(); return; }
+      await withBtnBusy(e.currentTarget, async () => {
+        try { const r = await api("taskX", {}); SoundFX.buySuccess(); showToast(`\uD83C\uDF89 +${r.reward} ${config.coinSym}!`); await refreshState(); }
+        catch (err) { chVX = false; paintXBtn(); showToast("\u274C " + err.message, "#ef4444"); }
+      });
+    });
 
     // Bio task is verified IN THE BOT now: Telegram only shows the bot a
     // fresh bio at the moment the user interacts with it, so the button

@@ -127,7 +127,7 @@ const DEFAULTS = {
   // deposits, payout failures). settings/global can override the list.
   adminUsers: [],
   buySwapUrl: 'https://app.ston.fi/swap?chartVisible=false&tt=EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c&ft=GRAM',
-  channel1: 'https://t.me/ZOMBI_UPDATE', channel2: 'https://t.me/ZOMBI_PAYMENTS', channel3: 'https://t.me/ZOMBI_COMMUNITY', botUsername: 'ZOMBIE_MINER_bot',
+  channel1: 'https://t.me/ZOMBI_UPDATE', channel2: 'https://t.me/ZOMBI_PAYMENTS', channel3: 'https://t.me/ZOMBI_COMMUNITY', botUsername: 'ZOMBIE_MINER_bot', twitterUrl: 'https://x.com/ZOMBIE_MINER',
   // Wallet verification (owner order 2026-11-14): the fee is paid to
   // verifyDepositWallet with the comment ZM-<userNo>.
   // verifyMinAgeDays is LEGACY since 2026-11-17 (owner order):
@@ -154,7 +154,7 @@ const DEFAULTS = {
   holdTaskDefs: [ { hold: 2500, reward: 600 }, { hold: 5000, reward: 1000 }, { hold: 10000, reward: 2000 }, { hold: 20000, reward: 3000 }, { hold: 40000, reward: 5000 } ]
 };
 const NUM_KEYS = ['lvl1PerDay', 'taskReward', 'bioReward', 'refAchReward1', 'refAchReward10', 'refAchReward25', 'refAchReward50', 'refAchReward100', 'refClaimPercent', 'refMinHold', 'minWithdraw', 'holdPercentReq', 'withdrawFeePercent', 'verifyFeeTon', 'verifyMinAgeDays', 'withdrawMinAgeDays', 'holdRenewDays', 'adsEnabled', 'adReward', 'adDailyLimit', 'adMinWatchSec', 'adGateMinSec'];
-const STR_KEYS = ['brandTitle', 'coinSym', 'payoutWallet', 'payoutChannel', 'adminChatId', 'channel1', 'channel2', 'channel3', 'botUsername', 'buySwapUrl', 'verifyDepositWallet', 'adsgramBlockId'];
+const STR_KEYS = ['brandTitle', 'coinSym', 'payoutWallet', 'payoutChannel', 'adminChatId', 'channel1', 'channel2', 'channel3', 'twitterUrl', 'botUsername', 'buySwapUrl', 'verifyDepositWallet', 'adsgramBlockId'];
 
 /* ---------- helpers ---------- */
 class Fail extends Error { constructor(status, msg) { super(msg); this.status = status; } }
@@ -773,7 +773,7 @@ async function getConfig() {
   await loadHarvestedEmoji(); // the harvested premium-emoji map rides the same refresh cycle
   return v;
 }
-const PUBLIC_KEYS = ['brandTitle', 'coinSym', 'taskReward', 'bioReward', 'refAchReward1', 'refAchReward10', 'refAchReward25', 'refAchReward50', 'refAchReward100', 'refClaimPercent', 'refMinHold', 'minWithdraw', 'holdPercentReq', 'withdrawFeePercent', 'withdrawMinAgeDays', 'lvl1PerDay', 'buySwapUrl', 'channel1', 'channel2', 'channel3', 'botUsername', 'holdTaskDefs', 'holdRenewDays', 'adsEnabled', 'adsgramBlockId', 'adReward', 'adDailyLimit'];
+const PUBLIC_KEYS = ['brandTitle', 'coinSym', 'taskReward', 'bioReward', 'refAchReward1', 'refAchReward10', 'refAchReward25', 'refAchReward50', 'refAchReward100', 'refClaimPercent', 'refMinHold', 'minWithdraw', 'holdPercentReq', 'withdrawFeePercent', 'withdrawMinAgeDays', 'lvl1PerDay', 'buySwapUrl', 'channel1', 'channel2', 'channel3', 'twitterUrl', 'botUsername', 'holdTaskDefs', 'holdRenewDays', 'adsEnabled', 'adsgramBlockId', 'adReward', 'adDailyLimit'];
 const publicConfig = (c) => Object.fromEntries(PUBLIC_KEYS.map((k) => [k, c[k]]));
 
 // simple in-memory rate limiter (per server instance)
@@ -793,7 +793,7 @@ function hit(key, max, windowMs) {
 // burst plus a manual re-check must fit with room to spare, or the user
 // hits this limiter for doing exactly what the UI told them to do. The
 // global per-user (240/min) and per-IP caps still bound abuse.
-const ACTION_LIMIT = { state: 60, collect: 6, daily: 6, task: 8, holdTask: 8, bioTask: 8, refAch: 8, wallet: 8, unlink: 6, refCollect: 6, withdraw: 4, verifyInfo: 20, verifyCheck: 20, setAvatar: 8, adTicket: 6, adClaim: 6, adNoFill: 6 }; // per user per minute
+const ACTION_LIMIT = { state: 60, collect: 6, daily: 6, task: 8, taskX: 8, taskXVisit: 8, holdTask: 8, bioTask: 8, refAch: 8, wallet: 8, unlink: 6, refCollect: 6, withdraw: 4, verifyInfo: 20, verifyCheck: 20, setAvatar: 8, adTicket: 6, adClaim: 6, adNoFill: 6 }; // per user per minute
 
 function verifyInitData(initData) {
   if (!BOT_TOKEN) return { error: 'config' };
@@ -1652,7 +1652,7 @@ const newPlayer = (user, extra) => ({
   deviceHash: '', mined: 0, hold: 0, lastCollectTime: Date.now(), walletAddr: '', banned: false, invitedBy: null,
   refBonusPaid: false, refCommissionEarned: 0, pendingRefComm: 0, lastWithdrawTime: 0, adsWatched: 0,
   earnMining: 0, earnDaily: 0, earnTasks: 0, earnRef: 0, // lifetime earnings by source (owner review card, 2026-11-14); pre-existing players read as 0 until they earn again
-  lastAdUtcDay: dayOf(Date.now()), adsDay: 0, adsDayCount: 0, task1Done: false, task2Done: false, task3Done: false, task1At: 0, task2At: 0, task3At: 0, holdTaskAt: {}, bioTaskDone: false, dailyStreak: 0, lastDailyCheckIn: 0,
+  lastAdUtcDay: dayOf(Date.now()), adsDay: 0, adsDayCount: 0, task1Done: false, task2Done: false, task3Done: false, task1At: 0, task2At: 0, task3At: 0, taskXDone: false, taskXAt: 0, taskXVisitAt: 0, holdTaskAt: {}, bioTaskDone: false, dailyStreak: 0, lastDailyCheckIn: 0,
   lastSeen: Date.now(), referrals: [], createdAt: Date.now(), avatar: 0, ...extra
 });
 
@@ -1965,6 +1965,41 @@ async function task(c) {
     const reward = Number(c.cfg.taskReward) || 50;
     return {
       value: { ...d, [key]: true, [atKey]: now, mined: (Number(d.mined) || 0) + reward, earnTasks: (Number(d.earnTasks) || 0) + reward },
+      out: { success: true, reward, nextAt: now + 86400000 }
+    };
+  });
+}
+
+/* X (Twitter) follow task (owner order 2026-11-23): same shape as the
+   channel tasks — pays cfg.taskReward, renewable every 24 h — but an X
+   follow cannot be verified through the Telegram bot, so the claim is
+   gated on a server-stamped visit: taskXVisit stamps taskXVisitAt when
+   the player opens the X page from inside the app, and the claim
+   requires that stamp to be at least 10 s old (time to actually hit
+   Follow) and no older than 10 min. The 24 h timer is re-checked
+   inside the credit transaction, like the channel tasks. */
+async function taskXVisit(c) {
+  const ref = await ensurePlayer(c);
+  return txUpdate(ref, (d) => {
+    if (d === null) return { error: new Fail(404, 'User not found') };
+    if (d.banned === true) return { error: new Fail(403, 'Account banned') };
+    return { value: { ...d, taskXVisitAt: Date.now() }, out: { success: true } };
+  });
+}
+async function taskX(c) {
+  const ref = await ensurePlayer(c);
+  return txUpdate(ref, (d) => {
+    if (d === null) return { error: new Fail(404, 'User not found') };
+    if (d.banned === true) return { error: new Fail(403, 'Account banned') };
+    const now = Date.now();
+    const lastAt = Number(d.taskXAt) || 0;
+    if (lastAt && now - lastAt < 86400000) return { error: new Fail(400, 'Already claimed — task renews every 24 hours') };
+    const visitAt = Number(d.taskXVisitAt) || 0;
+    if (!visitAt || now - visitAt < 10000) return { error: new Fail(403, 'Open the X page first, follow, then claim') };
+    if (now - visitAt > 600000) return { error: new Fail(403, 'Visit expired — open the X page again') };
+    const reward = Number(c.cfg.taskReward) || 50;
+    return {
+      value: { ...d, taskXDone: true, taskXAt: now, taskXVisitAt: 0, mined: (Number(d.mined) || 0) + reward, earnTasks: (Number(d.earnTasks) || 0) + reward },
       out: { success: true, reward, nextAt: now + 86400000 }
     };
   });
@@ -5662,7 +5697,7 @@ async function panelBountyReject(c) {
 
 const PANEL_ACTIONS = { panelStats, panelPlayers, panelPlayer, panelBan, panelAdjust, panelSetAvatar, panelVerifyPlayer, panelWithdrawals, panelWdApprove, panelWdReject, panelWdBan, panelVerifyQueue, panelVerifyResolve, panelConfigGet, panelConfigSet, panelRequestAdd, panelRequestList, panelRequestReply, panelAuditList, panelEmojiPack, panelEmojiTest, panelBountyList, panelBountyApprove, panelBountyReject };
 
-const ACTIONS = { state, collect, daily, task, holdTask, bioTask, refAch, adTicket, adClaim, adNoFill, wallet, unlink, verifyInfo, verifyCheck, refCollect, withdraw, setAvatar, adminState, adminBan, adminAdjust, adminWd, adminSettings, bountySubmit, bountyMine, bountyImport, bountyCheckLink };
+const ACTIONS = { state, collect, daily, task, taskX, taskXVisit, holdTask, bioTask, refAch, adTicket, adClaim, adNoFill, wallet, unlink, verifyInfo, verifyCheck, refCollect, withdraw, setAvatar, adminState, adminBan, adminAdjust, adminWd, adminSettings, bountySubmit, bountyMine, bountyImport, bountyCheckLink };
 
 ensureWebhook(); // self-register the Telegram webhook once per process (never blocks boot)
 startVerifyWatcher(); // background deposit watcher (see verifyWatchTick; no-op when VERIFY_WATCH_MS=0)
