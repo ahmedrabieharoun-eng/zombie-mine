@@ -4774,43 +4774,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
         o.connect(g); g.connect(ctx.destination); o.start(t); o.stop(t + 0.24);
       } catch (e) {}
     }
-    // Background ambience (owner pick 2026-11-21: distant zombie groans,
-    // preview #6). Routed through WebAudio — the same pipeline as the
-    // button sounds — after the first HTMLAudio attempt never played in
-    // the Telegram WebView (owner report 2026-11-21). The mp3 is decoded
-    // once and looped through a gain node at low volume; starting is
-    // retried on every tap until the loop is actually running, and the
-    // settings toggle mutes / unmutes it through the gain.
-    let ambGainNode = null, ambStarted = false, ambLoading = false;
-    function ambEnsure() {
-      if (ambStarted || ambLoading) return;
-      ambLoading = true;
-      try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        const ctx = audioCtx;
-        fetch('assets/amb_groans.mp3?v=1')
-          .then(r => r.arrayBuffer())
-          .then(buf => ctx.decodeAudioData(buf))
-          .then(decoded => {
-            ambLoading = false;
-            if (ambStarted) return;
-            const src = ctx.createBufferSource();
-            src.buffer = decoded; src.loop = true;
-            ambGainNode = ctx.createGain();
-            ambGainNode.gain.value = soundEnabled ? 0.15 : 0;
-            src.connect(ambGainNode); ambGainNode.connect(ctx.destination);
-            src.start();
-            ambStarted = true;
-          })
-          .catch(() => { ambLoading = false; });
-      } catch (e) { ambLoading = false; }
-    }
-    function ambSync() {
-      if (!ambStarted) { ambEnsure(); return; }
-      if (ambGainNode) ambGainNode.gain.value = soundEnabled ? 0.15 : 0;
-    }
-    document.addEventListener('pointerdown', () => { ambEnsure(); ambSync(); });
+    // Background ambience removed (owner order 2026-11-23): no background music, UI sounds only.
     const SoundFX = {
       collect: () => { coinShimmer(); },
       buySuccess: () => { hornSwell(); setTimeout(coinShimmer, 120); },
@@ -7831,7 +7795,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     }
 
     // Event Listeners
-    document.getElementById('sound-toggle-btn').addEventListener('click', () => { soundEnabled = !soundEnabled; document.getElementById('sound-toggle-btn').style.opacity = soundEnabled ? "1" : "0.45"; ambSync(); });
+    document.getElementById('sound-toggle-btn').addEventListener('click', () => { soundEnabled = !soundEnabled; document.getElementById('sound-toggle-btn').style.opacity = soundEnabled ? "1" : "0.45"; });
     document.getElementById('lang-menu-btn').addEventListener('click', e => { e.stopPropagation(); document.getElementById('lang-dropdown').classList.toggle('show'); });
     // Language pick (fix, owner report 2026-11-15): on touch devices the
     // compatibility click after a tap can be retargeted to the element
