@@ -96,7 +96,7 @@ const PAYOUT_MNEMONIC = String(process.env.PAYOUT_MNEMONIC || '').trim();
 const PAYOUT_WALLET_VERSION = String(process.env.PAYOUT_WALLET_VERSION || 'v5').trim().toLowerCase();
 const MAX_AUTH_AGE_SEC = 24 * 60 * 60;
 const MIN_COLLECT_SEC = 10;
-const DAILY = [20, 40, 60, 100, 140, 200, 400, 440, 480, 520, 560, 600, 700, 800, 840, 880, 920, 960, 1000, 1100, 1200, 1240, 1280, 1320, 1360, 1400, 1500, 1600, 1640, 1680, 1720, 1760, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 3000];
+const DAILY = [5, 10, 15, 20, 25, 30, 75, 30, 35, 40, 45, 50, 50, 130, 50, 55, 60, 60, 65, 70, 160, 70, 75, 80, 80, 85, 90, 230, 90, 95, 100, 105, 110, 115, 120, 120, 125, 130, 135, 465];
 const DEFAULTS = {
   brandTitle: '$ZOMBIE MINER', coinSym: '$ZOM', taskReward: 20,
   bioReward: 100, refAchReward1: 250, refAchReward10: 500, refAchReward25: 1250, refAchReward50: 2500, refAchReward100: 5000,
@@ -2636,6 +2636,18 @@ async function wallet(c) {
      the full normal flow below (ownership claim included) minus the
      cooldown failure; binding a DIFFERENT wallet inside the window
      still gets the 429 exactly as before. */
+  /* ONE WALLET PER ACCOUNT (owner order 2026-11-23, multi-phone
+     glitch): the same Telegram account opened on two phones restored
+     a DIFFERENT TonConnect wallet on each phone, and every app open
+     silently REBOUND the account to that phone's wallet — the bound
+     wallet, the hold and the verification flipped back and forth
+     depending on which phone synced last, so one account effectively
+     shopped holds across as many wallets as it had phones. A bind
+     that names a DIFFERENT wallet while one is already bound is now
+     rejected: switching wallets is an explicit act — Disconnect
+     (unlink) first, then connect the new wallet. Same-wallet syncs
+     and binds onto an empty binding are unaffected. */
+  if ((p.walletAddr || '') && raw !== (p.walletAddr || '')) fail(409, 'A different wallet is linked to this account. Disconnect it first to link another wallet.');
   if (raw !== (p.walletAddr || '') && Date.now() - (p.lastSyncAt || 0) < 8000) fail(429, 'Please wait a few seconds');
   /* The chain read must never decide whether a bind succeeds (live
      incident 2026-11-15): under the signup flood, tonapi rate-limits

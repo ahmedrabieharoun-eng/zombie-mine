@@ -5648,7 +5648,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     let isCollecting = false;
     let initialLoadDone = false;
     
-    const DAILY_REWARDS = [20, 40, 60, 100, 140, 200, 400, 440, 480, 520, 560, 600, 700, 800, 840, 880, 920, 960, 1000, 1100, 1200, 1240, 1280, 1320, 1360, 1400, 1500, 1600, 1640, 1680, 1720, 1760, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 3000];
+    const DAILY_REWARDS = [5, 10, 15, 20, 25, 30, 75, 30, 35, 40, 45, 50, 50, 130, 50, 55, 60, 60, 65, 70, 160, 70, 75, 80, 80, 85, 90, 230, 90, 95, 100, 105, 110, 115, 120, 120, 125, 130, 135, 465];
     let currentLevelPage = 1;
 
     const BOOT_STARTED_AT = Date.now();
@@ -6495,8 +6495,15 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
           // loop-failed every re-link attempt (incident 2026-11-14).
           // Keep the session in that case; the warning toast below
           // still shows exactly as before.
-          if (/linked to another account/i.test(err.message || "")) {
+          if (/linked to another account/i.test(err.message || "") || /different wallet is linked to this account/i.test(err.message || "")) {
+            // Also covers the one-wallet-per-account rejection
+            // (2026-11-23): this device restored a wallet that is NOT
+            // the account's server-bound wallet (e.g. the same
+            // account opened on a second phone). Drop the stale local
+            // session and repaint from server state so this device
+            // shows the ONE bound wallet instead of flip-rebinding.
             try { await tonConnectUI.disconnect(); } catch (e) {}
+            try { await refreshState(); } catch (e) {}
           }
           if (announce) showToast("❌ " + err.message, "#ef4444");
         }
