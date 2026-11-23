@@ -3404,7 +3404,7 @@ async function refHoldWatchTick() {
     // rotates coverage — every candidate is re-read within a few
     // ticks — and an in-app sync still refreshes a hold the moment
     // it matters to the player himself.
-    cands.sort((a, b) => (Number(a[1].lastSyncAt) || 0) - (Number(b[1].lastSyncAt) || 0));
+    cands.sort((a, b) => ((Number(a[1].holdCheckedAt) || Number(a[1].lastSyncAt) || 0)) - ((Number(b[1].holdCheckedAt) || Number(b[1].lastSyncAt) || 0))); // rotate by last CHECK, not last sync (2026-11-23 starvation fix)
     const batch = cands.slice(0, REF_HOLD_WATCH_BATCH);
     const cfg = await getConfig();
     const notes = [];
@@ -3413,8 +3413,8 @@ async function refHoldWatchTick() {
         const hold = await jettonHold(p.walletAddr);
         if (!Number.isFinite(hold)) continue;
         const holdChanged = Math.abs(hold - (Number(p.hold) || 0)) >= 1e-9;
-        if (!holdChanged) continue; // unchanged: no write, no re-eval
-        await P(uid).update({ hold, lastSyncAt: Date.now() });
+        if (!holdChanged) { await P(uid).update({ holdCheckedAt: Date.now() }); continue; } // unchanged: stamp the check so this player rotates to the back of the queue instead of clogging the stalest-first front forever (2026-11-23)
+        await P(uid).update({ hold, lastSyncAt: Date.now(), holdCheckedAt: Date.now() });
         if (p.invitedBy) await syncReferralActive(uid, cfg);
         if (holdChanged) notes.push(uid + ': hold ' + (Number(p.hold) || 0) + '->' + hold);
       } catch (e) { /* failed read: skip this player this tick */ }
