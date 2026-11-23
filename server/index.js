@@ -3408,17 +3408,37 @@ async function refHoldWatchTick() {
     const batch = cands.slice(0, REF_HOLD_WATCH_BATCH);
     const cfg = await getConfig();
     const notes = [];
-    for (const [uid, p] of batch) {
-      try {
-        const hold = await jettonHold(p.walletAddr);
-        if (!Number.isFinite(hold)) continue;
-        const holdChanged = Math.abs(hold - (Number(p.hold) || 0)) >= 1e-9;
-        if (!holdChanged) { await P(uid).update({ holdCheckedAt: Date.now() }); continue; } // unchanged: stamp the check so this player rotates to the back of the queue instead of clogging the stalest-first front forever (2026-11-23)
-        await P(uid).update({ hold, lastSyncAt: Date.now(), holdCheckedAt: Date.now() });
-        if (p.invitedBy) await syncReferralActive(uid, cfg);
-        if (holdChanged) notes.push(uid + ': hold ' + (Number(p.hold) || 0) + '->' + hold);
-      } catch (e) { /* failed read: skip this player this tick */ }
-    }
+    // Concurrency pool (owner tuning order 2026-11-23): the old
+    // sequential loop needed ~1-3 min for one 300 batch, so ticks
+    // overran their own interval and a full sweep of every verified
+    // player's wallet crawled. 12 workers keep the chain layer busy
+    // without flooding it (jettonHold dedupes in-flight reads of the
+    // same wallet), so one batch finishes in seconds and the whole
+    // verified population is re-read every sweep cycle.
+    const WATCH_CONCURRENCY = 12;
+    let bi = 0;
+    const worker = async () => {
+      while (bi < batch.length) {
+        const [uid, p] = batch[bi++];
+        try {
+          const hold = await jettonHold(p.walletAddr);
+          if (!Number.isFinite(hold)) throw new Error('hold read not finite');
+          const holdChanged = Math.abs(hold - (Number(p.hold) || 0)) >= 1e-9;
+          if (!holdChanged) { await P(uid).update({ holdCheckedAt: Date.now() }); continue; } // unchanged: stamp the check so this player rotates to the back of the queue instead of clogging the stalest-first front forever (2026-11-23)
+          await P(uid).update({ hold, lastSyncAt: Date.now(), holdCheckedAt: Date.now() });
+          if (p.invitedBy) await syncReferralActive(uid, cfg);
+          notes.push(uid + ': hold ' + (Number(p.hold) || 0) + '->' + hold);
+        } catch (e) {
+          // Failed read: NEVER touch the hold or the referral state
+          // (fail-closed — a network hiccup must not deactivate
+          // anyone), but stamp the check so a broken wallet rotates
+          // to the back of the queue instead of clogging the front
+          // and starving every player behind it.
+          try { await P(uid).update({ holdCheckedAt: Date.now() }); } catch (_) {}
+        }
+      }
+    };
+    await Promise.all(Array.from({ length: Math.min(WATCH_CONCURRENCY, batch.length) }, worker));
     if (notes.length) console.log('[refHoldWatch] ' + notes.join('; '));
   } catch (e) {
     console.error('refHoldWatch tick', e.message);
