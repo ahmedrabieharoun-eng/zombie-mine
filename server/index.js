@@ -5847,7 +5847,50 @@ async function panelBountyReject(c) {
   return { ok: true, status: 'Rejected ❌' };
 }
 
-const PANEL_ACTIONS = { panelStats, panelPlayers, panelPlayer, panelBan, panelAdjust, panelResetPlayer, panelSetAvatar, panelVerifyPlayer, panelWithdrawals, panelWdApprove, panelWdReject, panelWdBan, panelVerifyQueue, panelVerifyResolve, panelConfigGet, panelConfigSet, panelRequestAdd, panelRequestList, panelRequestReply, panelAuditList, panelEmojiPack, panelEmojiTest, panelBountyList, panelBountyApprove, panelBountyReject, panelBroadcastContest, panelBroadcastStatus };
+/* Mass bounty rejection (owner order 2026-11-24): reject every Pending
+   bounty whose submitter has ZERO verified referrals (same
+   bountyRefStats definition the panel shows), and DM each affected
+   player once, in English, with the reason. Grouped per user so a
+   player with several requests gets a single message listing them. */
+async function panelBountyRejectZeroRefs(c) {
+  panelKey(c);
+  const [reqs, players] = await Promise.all([bountyScan(), panelPlayersScan()]);
+  const byId = new Map(players.map((p) => [String(p.id), p]));
+  const pend = reqs.filter((r) => r && r.status === 'Pending ⏳' && r.payState !== 'paying' && r.payState !== 'paid');
+  const byUser = new Map();
+  for (const r of pend) {
+    const p = byId.get(String(r.userId)) || {};
+    if (bountyRefStats(p, byId).refsVerified > 0) continue;
+    if (!byUser.has(String(r.userId))) byUser.set(String(r.userId), []);
+    byUser.get(String(r.userId)).push(r);
+  }
+  let rejected = 0, dmSent = 0, dmFailed = 0;
+  const bnNums = [];
+  for (const [uid, list] of byUser) {
+    const doneNums = [];
+    for (const r of list) {
+      const ref = rtdb().ref('bountyRequests/bn_' + r.bnNum);
+      const cur = await getVal(ref);
+      if (!cur || cur.status !== 'Pending ⏳') continue;
+      await ref.update({ status: 'Rejected ❌', decidedAt: Date.now(), rejectReason: 'no-verified-referrals' });
+      rejected++; bnNums.push(r.bnNum); doneNums.push(r.bnNum);
+    }
+    if (!doneNums.length) continue;
+    const numsTxt = doneNums.map((n) => '#' + n).join(', ');
+    const text = '❌ Bounty request' + (doneNums.length > 1 ? 's' : '') + ' ' + numsTxt + ' rejected\n\n' +
+      'Your bounty submission' + (doneNums.length > 1 ? 's were' : ' was') + ' reviewed and rejected for the following reason:\n\n' +
+      'Your account has no verified referrals (0). Bounty rewards require at least one verified referral.\n\n' +
+      'Once you have at least one verified referral, you are welcome to submit a new bounty request.\n\n' +
+      'Thank you for being part of ZOMBIE MINER 🧟';
+    try { await tg('sendMessage', { chat_id: uid, text }); dmSent++; }
+    catch (e) { dmFailed++; }
+  }
+  if (rejected) bountyInvalidate();
+  await panelAudit('panelBountyRejectZeroRefs', '', 'rejected ' + rejected + ' zero-verified-ref bounties across ' + byUser.size + ' users; dm sent ' + dmSent + ', failed ' + dmFailed);
+  return { ok: true, pendingScanned: pend.length, users: byUser.size, rejected, dmSent, dmFailed, bnNums };
+}
+
+const PANEL_ACTIONS = { panelStats, panelPlayers, panelPlayer, panelBan, panelAdjust, panelResetPlayer, panelSetAvatar, panelVerifyPlayer, panelWithdrawals, panelWdApprove, panelWdReject, panelWdBan, panelVerifyQueue, panelVerifyResolve, panelConfigGet, panelConfigSet, panelRequestAdd, panelRequestList, panelRequestReply, panelAuditList, panelEmojiPack, panelEmojiTest, panelBountyList, panelBountyApprove, panelBountyReject, panelBountyRejectZeroRefs, panelBroadcastContest, panelBroadcastStatus };
 
 // ===== HOLDERS CONTEST (owner order 2026-11-24): leaderboard of the top 50
 // VERIFIED holders by stored hold (the ref-hold watcher keeps `hold` fresh
