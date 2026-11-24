@@ -5932,7 +5932,23 @@ async function panelBountyRejectZeroRefHold(c) {
   return { ok: true, pendingScanned: pend.length, users: byUser.size, rejected, dmSent, dmFailed, bnNums };
 }
 
-const PANEL_ACTIONS = { panelStats, panelPlayers, panelPlayer, panelBan, panelAdjust, panelResetPlayer, panelSetAvatar, panelVerifyPlayer, panelWithdrawals, panelWdApprove, panelWdReject, panelWdBan, panelVerifyQueue, panelVerifyResolve, panelConfigGet, panelConfigSet, panelRequestAdd, panelRequestList, panelRequestReply, panelAuditList, panelEmojiPack, panelEmojiTest, panelBountyList, panelBountyApprove, panelBountyReject, panelBountyRejectZeroRefs, panelBountyRejectZeroRefHold, panelBroadcastContest, panelBroadcastStatus };
+/* Send one free-text DM to a player from the bot (owner order
+   2026-11-24, first use: bounty #299's submitter has no wallet linked
+   and must be told to link one before his bounty can be paid). */
+async function panelDmPlayer(c) {
+  panelKey(c);
+  const uid = String(c.body.id || '').trim();
+  const text = String(c.body.text || '').trim();
+  if (!/^\d{5,}$/.test(uid)) fail(400, 'Bad id');
+  if (!text || text.length > 3500) fail(400, 'Bad text');
+  let sent = true, err = '';
+  try { await tg('sendMessage', { chat_id: uid, text }); }
+  catch (e) { sent = false; err = String((e && e.message) || e).slice(0, 120); }
+  await panelAudit('panelDmPlayer', uid, (sent ? 'DM sent: ' : 'DM FAILED (' + err + '): ') + text.slice(0, 80));
+  return { ok: true, sent, error: err };
+}
+
+const PANEL_ACTIONS = { panelStats, panelPlayers, panelPlayer, panelBan, panelAdjust, panelResetPlayer, panelSetAvatar, panelVerifyPlayer, panelWithdrawals, panelWdApprove, panelWdReject, panelWdBan, panelVerifyQueue, panelVerifyResolve, panelConfigGet, panelConfigSet, panelRequestAdd, panelRequestList, panelRequestReply, panelAuditList, panelEmojiPack, panelEmojiTest, panelBountyList, panelBountyApprove, panelBountyReject, panelBountyRejectZeroRefs, panelBountyRejectZeroRefHold, panelBroadcastContest, panelBroadcastStatus, panelDmPlayer };
 
 // ===== HOLDERS CONTEST (owner order 2026-11-24): leaderboard of the top 50
 // VERIFIED holders by stored hold (the ref-hold watcher keeps `hold` fresh
