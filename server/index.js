@@ -5908,10 +5908,14 @@ async function contest(c) {
       const holdNow = Number(p.hold) || 0;
       const base = (startsAt > 0 && Number(p.contestBaseAt || 0) === startsAt) ? (Number(p.contestBase) || 0) : null;
       const score = base === null ? 0 : Math.max(0, holdNow - base);
-      return { id: String(p.id), userNo: Number(p.userNo) || 0, name: String(p.name || ''), avatar: Number(p.avatar) || 0, hold: score, walletAddr: String(p.walletAddr), base, photoFileId: p.photoFileId || '', photoAt: Number(p.photoAt) || 0 };
+      return { id: String(p.id), userNo: Number(p.userNo) || 0, name: String(p.name || ''), avatar: Number(p.avatar) || 0, hold: score, cur: holdNow, walletAddr: String(p.walletAddr), base, photoFileId: p.photoFileId || '', photoAt: Number(p.photoAt) || 0 };
     })
-    .filter((p) => p.hold > 0)
-    .sort((a, b) => b.hold - a.hold);
+    // Owner order 2026-11-24 (evening): the board always shows a full
+    // top 50 — after the positive scores, verified players who have a
+    // baseline but have not bought yet fill the remaining rows at 0,
+    // ordered by their current wallet hold.
+    .filter((p) => p.base !== null)
+    .sort((a, b) => (b.hold - a.hold) || (b.cur - a.cur) || (a.userNo - b.userNo));
   // Owner order 2026-11-24: the contest depends ONLY on the hold in the
   // player's WALLET (on-chain), never on his in-app (bot) balance. The
   // stored hold is the watcher's last sync of that wallet; for the
@@ -5920,10 +5924,10 @@ async function contest(c) {
   await Promise.all(cand.map(async (p) => {
     try {
       const fresh = await jettonHold(p.walletAddr);
-      if (Number.isFinite(fresh) && p.base !== null) p.hold = Math.max(0, fresh - p.base);
+      if (Number.isFinite(fresh) && p.base !== null) { p.hold = Math.max(0, fresh - p.base); p.cur = fresh; }
     } catch (e) { /* chain error: keep the last synced wallet score */ }
   }));
-  cand.sort((a, b) => b.hold - a.hold);
+  cand.sort((a, b) => (b.hold - a.hold) || (b.cur - a.cur) || (a.userNo - b.userNo));
   const top = cand.map((p, i) => ({ rank: i + 1, userNo: p.userNo, name: p.name, avatar: p.avatar, hold: Math.floor(p.hold), prize: contestPrizeFor(i + 1, c.cfg) }));
   let me = null;
   const mi = elig.findIndex((p) => p.id === uid);
