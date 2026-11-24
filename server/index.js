@@ -1885,21 +1885,39 @@ async function collect(c) {
   const ref = await ensurePlayer(c);
   // The table is built ONCE per call, outside the transaction: the
   // txUpdate callback may re-run under contention, so inside it the
-  // rate is a pure function of this table + the fresh record's hold.
+  // rate is a pure function of this table + the fresh chain read
+  // taken just below (the same pattern holdTask uses).
   const levels = buildLevelsTable(c.cfg);
+  const p = await getVal(ref);
+  if (!p) fail(404, 'User not found'); // unreachable after ensurePlayer; kept as a guard
+  if (p.banned === true) fail(403, 'Account banned');
+  if (!p.walletAddr) fail(403, 'Verify your wallet first');
+  /* Fresh-hold mining (owner order 2026-11-24, closing the
+     phantom-hold exploit): the mining rate is judged on a FRESH
+     on-chain read of the player's VERIFIED wallet — never the
+     stored `hold`, which a bad chain read or a stale sync could
+     inflate (the kishan_verma / RAJ case: 92k–166k mined against
+     wallets that never held more than ~2,500 ZOM). Mining requires
+     a VERIFIED wallet (owner order 2026-11-15), and the verified
+     wallet must be the currently bound wallet — checked here AND
+     again inside the credit transaction against the exact address
+     the chain read used. A chain-read failure fails CLOSED (503,
+     nothing credited, the mining clock is left untouched). */
+  const raw = p.walletAddr;
+  if (p.walletVerified !== true || (p.verifiedWallet || '') !== raw) fail(403, 'Verify your wallet first');
+  let freshHold;
+  try { freshHold = await jettonHold(raw); } catch (e) { fail(503, 'Hold check failed, please try again'); }
+  if (!Number.isFinite(freshHold)) fail(503, 'Hold check failed, please try again');
   const out = await txUpdate(ref, (d) => {
     if (d === null) return { error: new Fail(404, 'User not found') };
     if (d.banned === true) return { error: new Fail(403, 'Account banned') };
-    // Mining requires a VERIFIED wallet (owner order 2026-11-15): the
-    // app gates the whole UI behind the wallet-verification page, and
-    // the server enforces the same rule for the mining action itself.
-    if (d.walletVerified !== true) return { error: new Fail(403, 'Verify your wallet first') };
+    if (d.walletVerified !== true || (d.verifiedWallet || '') !== raw || (d.walletAddr || '') !== raw) return { error: new Fail(403, 'Verify your wallet first') };
     const now = Date.now();
     const elapsed = Math.max(0, (now - (Number(d.lastCollectTime) || now)) / 1000);
     if (elapsed < MIN_COLLECT_SEC) return { error: new Fail(400, 'Wait 10 seconds') };
-    const added = Math.min(86400, elapsed) * (levelPerDay(levels, Number(d.hold) || 0) / 86400);
+    const added = Math.min(86400, elapsed) * (levelPerDay(levels, freshHold) / 86400);
     return {
-      value: { ...d, mined: (Number(d.mined) || 0) + added, earnMining: (Number(d.earnMining) || 0) + added, lastCollectTime: now },
+      value: { ...d, mined: (Number(d.mined) || 0) + added, earnMining: (Number(d.earnMining) || 0) + added, lastCollectTime: now, hold: freshHold, holdCheckedAt: now },
       out: { added, inviterId: d.invitedBy && d.refBonusPaid ? String(d.invitedBy) : null }
     };
   });
