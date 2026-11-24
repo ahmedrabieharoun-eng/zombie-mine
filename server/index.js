@@ -4985,6 +4985,91 @@ async function panelResetPlayer(c) {
   return { ok: true, mined: Number(after && after.mined) || 0, earnMining: Number(after && after.earnMining) || 0 };
 }
 
+// --- Contest announcement broadcast (owner order 2026-11-24) ---
+// Sends the owner-approved contest message to every player via DIRECT
+// Telegram calls — deliberately NOT through tg()/tgPaced: the paced chain
+// serializes all bot DMs, so 13k broadcast sends queued there would delay
+// verification and payout DMs for hours. One-shot: the meta/contestBroadcast
+// doc latches startedAt/finishedAt, so the panel action can never
+// double-send. Progress is written to the same doc for panelBroadcastStatus.
+const CONTEST_BROADCAST_TEXT = [
+  '🏆 <b>$250 HOLDERS CONTEST IS LIVE!</b> 🏆',
+  '',
+  'The race for the biggest ZOM bags has begun, zombies! 🧟',
+  '',
+  '🥇 1st — $70',
+  '🥈 2nd — $50',
+  '🥉 3rd — $40',
+  '🎖 Ranks 4–7 — $15 each',
+  '🎖 Ranks 8–10 — $10 each',
+  '💵 Ranks 11–50 — $1 each',
+  '',
+  "⚠️ Only ZOM you buy <b>after the contest start</b> counts toward your rank — your old bag doesn't.",
+  '💰 Prizes are paid in <b>USDT</b> straight to your linked wallet.',
+  '⏳ Ends <b>Sunday, Nov 29 at 20:28</b> (Cairo time).',
+  '',
+  'Verified wallets only. Open the app → <b>Contest</b> tab and start climbing! 🚀',
+].join('\n');
+const CONTEST_BROADCAST_MARKUP = { inline_keyboard: [[{ text: '🏆 Open the Contest', web_app: { url: 'https://zombie-mine.vercel.app/' } }]] };
+let contestBroadcastRunning = false;
+async function contestBroadcastSend(chatId) {
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const r = await fetch(TG_API_BASE + '/bot' + BOT_TOKEN + '/sendMessage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, text: CONTEST_BROADCAST_TEXT, parse_mode: 'HTML', reply_markup: CONTEST_BROADCAST_MARKUP }),
+      });
+      const j = await r.json().catch(() => ({}));
+      if (j.ok) return 'ok';
+      if (r.status === 429 || (j.parameters && j.parameters.retry_after)) { await new Promise((res) => setTimeout(res, ((j.parameters && j.parameters.retry_after) || 5) * 1000)); continue; }
+      if (r.status === 403) return 'blocked';
+      return 'fail';
+    } catch (e) { await new Promise((res) => setTimeout(res, 2000)); }
+  }
+  return 'fail';
+}
+async function runContestBroadcast() {
+  contestBroadcastRunning = true;
+  const metaRef = rtdb().ref('meta/contestBroadcast');
+  try {
+    const players = (await getVal(rtdb().ref('players'))) || {};
+    const ids = Object.keys(players).filter((id) => /^\d{5,15}$/.test(id));
+    await metaRef.update({ total: ids.length });
+    let ok = 0, blocked = 0, failCount = 0, done = 0, idx = 0;
+    async function worker() {
+      while (idx < ids.length) {
+        const id = ids[idx++];
+        const res = await contestBroadcastSend(id);
+        if (res === 'ok') ok++; else if (res === 'blocked') blocked++; else failCount++;
+        done++;
+        if (done % 500 === 0) { try { await metaRef.update({ done, ok, blocked, fail: failCount }); } catch (e) {} }
+        await new Promise((res) => setTimeout(res, 40));
+      }
+    }
+    await Promise.all(Array.from({ length: 10 }, worker));
+    await metaRef.update({ done, ok, blocked, fail: failCount, finishedAt: Date.now() });
+    console.log('[broadcast] contest announcement done: total=' + ids.length + ' ok=' + ok + ' blocked=' + blocked + ' fail=' + failCount);
+  } catch (e) {
+    try { await metaRef.update({ error: String(e && e.message || e), finishedAt: Date.now() }); } catch (e2) {}
+    console.log('[broadcast] contest announcement FAILED: ' + (e && e.message));
+  } finally { contestBroadcastRunning = false; }
+}
+async function panelBroadcastContest(c) {
+  panelKey(c);
+  const meta = (await getVal(rtdb().ref('meta/contestBroadcast'))) || {};
+  if (contestBroadcastRunning || meta.startedAt) fail(409, 'Contest broadcast already ' + (meta.finishedAt ? 'sent' : 'running'));
+  await rtdb().ref('meta/contestBroadcast').set({ startedAt: Date.now(), done: 0, ok: 0, blocked: 0, fail: 0 });
+  await panelAudit('panelBroadcastContest', 'all players', 'contest announcement broadcast started');
+  runContestBroadcast().catch(() => {});
+  return { ok: true, started: true };
+}
+async function panelBroadcastStatus(c) {
+  panelKey(c);
+  const meta = (await getVal(rtdb().ref('meta/contestBroadcast'))) || {};
+  return { ok: true, running: contestBroadcastRunning, startedAt: meta.startedAt || 0, finishedAt: meta.finishedAt || 0, total: meta.total || 0, done: meta.done || 0, okCount: meta.ok || 0, blocked: meta.blocked || 0, fail: meta.fail || 0 };
+}
+
 async function panelSetAvatar(c) {
   panelKey(c);
   if (!isId(c.body.id)) fail(400, 'Bad id');
@@ -5762,7 +5847,7 @@ async function panelBountyReject(c) {
   return { ok: true, status: 'Rejected ❌' };
 }
 
-const PANEL_ACTIONS = { panelStats, panelPlayers, panelPlayer, panelBan, panelAdjust, panelResetPlayer, panelSetAvatar, panelVerifyPlayer, panelWithdrawals, panelWdApprove, panelWdReject, panelWdBan, panelVerifyQueue, panelVerifyResolve, panelConfigGet, panelConfigSet, panelRequestAdd, panelRequestList, panelRequestReply, panelAuditList, panelEmojiPack, panelEmojiTest, panelBountyList, panelBountyApprove, panelBountyReject };
+const PANEL_ACTIONS = { panelStats, panelPlayers, panelPlayer, panelBan, panelAdjust, panelResetPlayer, panelSetAvatar, panelVerifyPlayer, panelWithdrawals, panelWdApprove, panelWdReject, panelWdBan, panelVerifyQueue, panelVerifyResolve, panelConfigGet, panelConfigSet, panelRequestAdd, panelRequestList, panelRequestReply, panelAuditList, panelEmojiPack, panelEmojiTest, panelBountyList, panelBountyApprove, panelBountyReject, panelBroadcastContest, panelBroadcastStatus };
 
 // ===== HOLDERS CONTEST (owner order 2026-11-24): leaderboard of the top 50
 // VERIFIED holders by stored hold (the ref-hold watcher keeps `hold` fresh
