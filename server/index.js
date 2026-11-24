@@ -1162,15 +1162,18 @@ async function rawAddress(addr) {
   if (!j || !j.raw_form) fail(400, 'Invalid wallet address');
   return j.raw_form;
 }
-/* Hold reads (permanent fix, owner order 2026-11-15): every hold in
-   the system funnels through here, so the resilience lives here —
-   (a) concurrent reads of the same wallet coalesce into one call
-   (the boot / double-tap bursts), and (b) when tonapi fails — its
-   rate limit is per-IP and this server speaks with one voice — the
-   SAME balance is read from toncenter v3, a different provider with
-   its own limits. Only when BOTH providers fail does the read throw,
-   and every caller already treats a throw as "no fresh data", never
-   as a state change. Deliberately NO result cache: a sync must
+/* Hold reads (permanent fix, owner order 2026-11-15; CROSS-CHECK
+   hardening, owner order 2026-11-24, closing the phantom-hold
+   exploit): every hold in the system funnels through here. Concurrent
+   reads of the same wallet coalesce into one call (the boot /
+   double-tap bursts). The balance is read from BOTH providers —
+   tonapi AND toncenter v3 — and the LOWER value wins: a single
+   provider returning a wrong, inflated figure during an outage (the
+   2026-11-23 exploit window) can no longer be acted on, because the
+   other provider's read caps it. If EITHER provider fails, the read
+   throws and every caller treats that as "no fresh data" (claims
+   answer 503, syncs keep the stored value, the watcher skips) —
+   never as a state change. Deliberately NO result cache: a sync must
    reflect the chain NOW (buy coins -> sync -> activation flips on
    that very read); a cached value broke exactly that loop in
    testing (t11 R6 / t12) and is not worth the saved calls. */
@@ -1190,12 +1193,11 @@ async function jettonHold(raw) {
   const flying = holdInflight.get(raw);
   if (flying) return flying;
   const run = (async () => {
-    try {
-      const j = await ton('/accounts/' + encodeURIComponent(raw) + '/jettons/' + JETTON);
-      return !j ? 0 : parseFloat(j.balance || '0') / Math.pow(10, (j.jetton && j.jetton.decimals) || 9);
-    } catch (e) {
-      return jettonHoldViaToncenter(raw); // fallback provider; its own throw propagates
-    }
+    const j = await ton('/accounts/' + encodeURIComponent(raw) + '/jettons/' + JETTON);
+    const a = !j ? 0 : parseFloat(j.balance || '0') / Math.pow(10, (j.jetton && j.jetton.decimals) || 9);
+    const b = await jettonHoldViaToncenter(raw);
+    if (!Number.isFinite(a) || !Number.isFinite(b)) fail(503, 'Hold check failed, please try again');
+    return Math.min(a, b);
   })();
   holdInflight.set(raw, run);
   run.then(() => holdInflight.delete(raw), () => holdInflight.delete(raw));
@@ -2679,6 +2681,14 @@ async function wallet(c) {
   if (p.banned === true) fail(403, 'Account banned');
   const raw = c.body.address ? await rawAddress(String(c.body.address).slice(0, 100)) : p.walletAddr;
   if (!raw) fail(400, 'Connect a wallet first');
+  /* System wallets can never be bound (owner order 2026-11-24): the
+     payout wallet and the verify-deposit wallet belong to the game
+     itself. Binding one by address alone is just a string in a
+     request, but it made a player's displayed hold/level mirror the
+     game's own treasury — reject it outright so the cosmetic hole is
+     closed too, not only the paying paths. */
+  const sysWallets = [c.cfg.payoutWallet, c.cfg.verifyDepositWallet].filter(Boolean).map(toRawAddress);
+  if (sysWallets.includes(raw)) fail(403, 'This wallet cannot be linked');
   /* Idempotent re-sync (round 3, incident 2026-11-14): the 8 s sync
      cooldown guards against bind churn, but a call whose address
      normalises to the wallet ALREADY bound changes nothing — it is
