@@ -4939,6 +4939,32 @@ async function panelAdjust(c) {
   return { ok: true, mined };
 }
 
+async function panelResetPlayer(c) {
+  panelKey(c);
+  if (!isId(c.body.id)) fail(400, 'Bad id');
+  const ref = P(c.body.id);
+  const before = await getVal(ref);
+  if (before === null) fail(404, 'User not found');
+  // Full progress reset (owner order): zero every earnings/progress field.
+  // Identity, wallet binding + verification, referral links, device data
+  // and the ban state are kept exactly as they are — the account stays in
+  // the game, it just starts over from zero.
+  const patch = {
+    mined: 0, hold: 0, lastCollectTime: Date.now(),
+    refBonusPaid: false, refCommissionEarned: 0, pendingRefComm: 0, lastWithdrawTime: 0, adsWatched: 0,
+    earnMining: 0, earnDaily: 0, earnTasks: 0, earnRef: 0,
+    lastAdUtcDay: 0, adsDay: 0, adsDayCount: 0,
+    task1Done: false, task2Done: false, task3Done: false, task1At: 0, task2At: 0, task3At: 0,
+    taskXDone: false, taskXAt: 0, taskXVisitAt: 0,
+    holdTaskAt: {}, refAchClaimed: {}, bioTaskDone: false, dailyStreak: 0, lastDailyCheckIn: 0,
+    lastBountyAt: 0, holdCheckedAt: 0
+  };
+  await ref.update(patch);
+  await panelAudit('panelResetPlayer', c.body.id, 'full reset: mined ' + (Number(before.mined) || 0) + ' -> 0, earnMining ' + (Number(before.earnMining) || 0) + ' -> 0, earnTasks ' + (Number(before.earnTasks) || 0) + ' -> 0');
+  const after = await getVal(ref);
+  return { ok: true, mined: Number(after && after.mined) || 0, earnMining: Number(after && after.earnMining) || 0 };
+}
+
 async function panelSetAvatar(c) {
   panelKey(c);
   if (!isId(c.body.id)) fail(400, 'Bad id');
@@ -5713,7 +5739,7 @@ async function panelBountyReject(c) {
   return { ok: true, status: 'Rejected ❌' };
 }
 
-const PANEL_ACTIONS = { panelStats, panelPlayers, panelPlayer, panelBan, panelAdjust, panelSetAvatar, panelVerifyPlayer, panelWithdrawals, panelWdApprove, panelWdReject, panelWdBan, panelVerifyQueue, panelVerifyResolve, panelConfigGet, panelConfigSet, panelRequestAdd, panelRequestList, panelRequestReply, panelAuditList, panelEmojiPack, panelEmojiTest, panelBountyList, panelBountyApprove, panelBountyReject };
+const PANEL_ACTIONS = { panelStats, panelPlayers, panelPlayer, panelBan, panelAdjust, panelResetPlayer, panelSetAvatar, panelVerifyPlayer, panelWithdrawals, panelWdApprove, panelWdReject, panelWdBan, panelVerifyQueue, panelVerifyResolve, panelConfigGet, panelConfigSet, panelRequestAdd, panelRequestList, panelRequestReply, panelAuditList, panelEmojiPack, panelEmojiTest, panelBountyList, panelBountyApprove, panelBountyReject };
 
 const ACTIONS = { state, collect, daily, task, taskX, taskXVisit, holdTask, bioTask, refAch, adTicket, adClaim, adNoFill, wallet, unlink, verifyInfo, verifyCheck, refCollect, withdraw, setAvatar, adminState, adminBan, adminAdjust, adminWd, adminSettings, bountySubmit, bountyMine, bountyImport, bountyCheckLink };
 
