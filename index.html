@@ -3674,6 +3674,66 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     @keyframes bfGlow{0%,34%{opacity:0}52%,66%{opacity:1}84%,100%{opacity:0}}
     @keyframes bfCoin{0%,38%{opacity:0;transform:translateY(0)}56%{opacity:1}74%,100%{opacity:0;transform:translateY(-7px)}}
   </style>
+  <style>
+    /* ===== HOLDERS CONTEST PAGE (owner order 2026-11-24) ===== */
+    body[data-tab="contest"]{background-image:linear-gradient(180deg,rgba(7,6,3,.88),rgba(7,6,3,0)),linear-gradient(rgba(7,6,4,.10),rgba(7,6,4,.22)),url('assets/bg_fog.webp?v=135')}
+    #page-contest.page.active{display:flex;flex-direction:column;overflow:hidden;position:relative;padding:14px 16px 12px}
+    #ct-info-btn{position:absolute;top:54px;inset-inline-end:14px;width:38px;height:38px;border-radius:50%;background:#000;border:1.5px solid #1fa34a;box-shadow:0 0 12px rgba(31,163,74,.5);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;padding:0}
+    #ct-info-btn svg{width:21px;height:21px;fill:#39FF14}
+    .ct-title{font-family:'ZMPirata',serif;text-align:center;color:#39FF14;font-size:29px;text-shadow:0 0 18px rgba(57,255,20,.45),0 2px 0 #062b12}
+    .ct-endsline{text-align:center;font-size:11px;color:#ffd54a;letter-spacing:2px;margin-top:8px}
+    .ct-timer{display:flex;gap:7px;justify-content:center;margin-top:7px}
+    .ct-tcell{background:#000;border:1.5px solid #1fa34a;border-radius:11px;width:64px;padding:6px 0 5px;text-align:center;box-shadow:0 0 12px rgba(31,163,74,.4)}
+    .ct-tv{font-family:'ZMPirata',serif;font-size:25px;color:#39FF14;line-height:1}
+    .ct-tk{font-size:9px;color:#b9d8c0;letter-spacing:2px;margin-top:2px}
+    .ct-sub{text-align:center;color:#e8f5e9;font-size:12.5px;margin-top:7px}
+    .ct-usdt{margin-top:8px;text-align:center;font-size:12px;font-weight:700;color:#d9ffe2;background:rgba(10,40,18,.85);border:1.5px solid #1fa34a;border-radius:11px;padding:7px 10px;box-shadow:0 0 12px rgba(31,163,74,.35)}
+    .ct-pod{display:flex;align-items:flex-end;gap:10px;margin:8px 2px 9px}
+    .ct-pcol{flex:1;text-align:center}
+    .ct-pav{border-radius:50%;object-fit:cover;border:2px solid rgba(57,255,20,.5);width:46px;height:46px}
+    .ct-pcol.first .ct-pav{width:60px;height:60px;border-color:#ffd54a;box-shadow:0 0 18px rgba(255,213,74,.55)}
+    .ct-crown{font-size:21px}
+    .ct-pnm{font-weight:700;font-size:13px;margin-top:6px}
+    .ct-phd{font-size:11px;color:#b9d8c0}
+    .ct-pbar{border-radius:12px 12px 0 0;margin-top:7px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1.5px solid rgba(31,163,74,.6);background:linear-gradient(180deg,rgba(16,46,24,.95),rgba(6,20,10,.95))}
+    .ct-pcol.first .ct-pbar{border-color:#ffd54a}
+    .ct-plbl{font-size:10px;color:#b9d8c0}
+    .ct-pcol.first .ct-plbl{color:#ffd54a}
+    .ct-prize{font-family:'ZMPirata',serif;color:#ffd54a;font-size:21px}
+    .ct-list{flex:1;overflow-y:auto;scrollbar-width:none;min-height:60px}
+    .ct-list::-webkit-scrollbar{display:none}
+    .ct-row{display:flex;align-items:center;gap:10px;padding:6px 12px;margin-bottom:6px;background:rgba(8,22,12,.88);border:1.5px solid rgba(31,163,74,.55);border-radius:14px}
+    .ct-badge{display:flex;align-items:center;justify-content:center;font-family:'ZMPirata',serif;border-radius:50%;flex:none;width:30px;height:30px;font-size:14px;background:#0d2818;color:#7fc98f;border:1.5px solid #1fa34a}
+    .ct-av{border-radius:50%;object-fit:cover;border:2px solid rgba(57,255,20,.5);width:34px;height:34px}
+    .ct-who{flex:1;min-width:0}
+    .ct-nm{font-weight:700;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .ct-hd{font-size:11.5px;color:#b9d8c0}
+    .ct-noprize{color:#5b7a63;font-size:15px;padding-right:6px}
+    .ct-row .ct-prize{font-size:18px}
+    .ct-cut{text-align:center;font-family:'ZMPirata',serif;color:#ffd54a;font-size:14.5px;padding:9px 6px;margin:2px 0 10px;border-top:2px dashed rgba(255,213,74,.65);border-bottom:2px dashed rgba(255,213,74,.65);background:rgba(40,30,2,.35)}
+    .ct-empty{text-align:center;color:#9db8a4;font-size:13px;padding:22px 10px}
+    .ct-rules{font-size:11px;color:#9db8a4;text-align:center;line-height:1.5;padding-top:8px}
+    .ct-my{display:flex;align-items:center;gap:10px;background:rgba(6,25,12,.95);border:1.5px solid #1fa34a;border-radius:14px;padding:9px 14px;box-shadow:0 0 14px rgba(31,163,74,.35) inset;margin-top:9px}
+    .ct-mybadge{width:38px;height:38px;font-size:15px}
+    .ct-myright{text-align:end;font-size:11.5px}
+    .ct-gold{color:#ffd54a}
+    .ct-me-btn{flex:none;width:27px;height:27px;border-radius:50%;background:#000;border:2px solid #39FF14;color:#39FF14;font-family:'ZMPirata',serif;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+    .ct-me-body{margin-top:10px;text-align:start;max-height:46vh;overflow-y:auto}
+    .ct-me-row{display:flex;justify-content:space-between;gap:10px;padding:7px 2px;border-bottom:1px dashed rgba(57,255,20,.18);font-size:13.5px;color:#e8f5e9}
+    .ct-me-row b{color:#ffd54a;font-weight:800;white-space:nowrap}
+    .ct-me-row.score b{color:#39FF14;font-size:16px}
+    .ct-me-note{font-size:12px;color:#b9d8c0;line-height:1.55;margin-top:8px}
+    .ct-me-txh{font-family:'ZMPirata',serif;color:#39FF14;font-size:16px;margin:13px 0 4px}
+    .ct-me-tx{display:flex;justify-content:space-between;gap:10px;padding:5px 2px;font-size:12.5px;color:#e8f5e9;border-bottom:1px dashed rgba(57,255,20,.12)}
+    .ct-me-tx .plus{color:#39FF14;font-weight:800;white-space:nowrap}
+    .ct-me-tx .minus{color:#ff7a6b;font-weight:800;white-space:nowrap}
+    .ct-me-tx .when{color:#8fae97;font-size:11px;white-space:nowrap}
+    .ct-dim{color:#b9d8c0}
+    .ct-buy{background:#000;color:#fff;border:1.5px solid #1fa34a;border-radius:12px;padding:11px;text-align:center;font-family:'ZMPirata',serif;letter-spacing:1px;box-shadow:0 0 12px rgba(31,163,74,.55);margin-top:9px;width:100%;cursor:pointer;font-size:16px}
+    .ct-info-card{max-width:340px}
+    .ct-info-title{font-family:'ZMPirata',serif;color:#39FF14;font-size:22px;text-align:center;margin-bottom:10px}
+    .ct-info-lines p{font-size:13px;line-height:1.55;color:#e8f5e9;margin-bottom:9px}
+  </style>
 </head>
 <body data-tab="mine" oncontextmenu="return false;">
 
@@ -4105,6 +4165,51 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       </div>
     </div>
 
+    <div id="page-contest" class="page">
+      <button id="ct-info-btn" aria-label="Contest info"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 15.5a1.4 1.4 0 1 1 0-2.8 1.4 1.4 0 0 1 0 2.8zM11 7h2v6h-2z"/></svg></button>
+      <div class="ct-title" data-i18n="ct_title">🏆 HOLDERS CONTEST</div>
+      <div class="ct-endsline" id="ct-endsline" data-i18n="ct_ends_in">⏰ CONTEST ENDS IN</div>
+      <div class="ct-timer">
+        <div class="ct-tcell"><div class="ct-tv" id="ct-d">--</div><div class="ct-tk" data-i18n="ct_days">DAYS</div></div>
+        <div class="ct-tcell"><div class="ct-tv" id="ct-h">--</div><div class="ct-tk" data-i18n="ct_hours">HOURS</div></div>
+        <div class="ct-tcell"><div class="ct-tv" id="ct-m">--</div><div class="ct-tk" data-i18n="ct_min">MIN</div></div>
+        <div class="ct-tcell"><div class="ct-tv" id="ct-s">--</div><div class="ct-tk" data-i18n="ct_sec">SEC</div></div>
+      </div>
+      <div class="ct-sub" data-i18n="ct_sub">Top 10 holders split $250 • 5-day contest</div>
+      <div class="ct-pod" id="ct-pod"></div>
+      <div class="ct-list" id="ct-rows"><div class="ct-empty" data-i18n="ct_loading">Loading the board…</div></div>
+      <div class="ct-rules"><span data-i18n="ct_rules2">Snapshot of verified wallets when the timer ends</span></div>
+      <div class="ct-my" id="ct-my" style="display:none">
+        <div class="ct-badge ct-mybadge" id="ct-my-badge">#–</div>
+        <div class="ct-who"><div class="ct-nm" data-i18n="ct_your_rank">Your rank</div><div class="ct-hd" id="ct-my-hold">0 ZOM</div></div>
+        <button id="ct-me-btn" class="ct-me-btn" aria-label="info">i</button><div class="ct-myright" id="ct-my-right"></div>
+      </div>
+      <button class="ct-buy" id="ct-buy-btn" data-i18n="ct_buy">BUY ZOM & CLIMB</button>
+    </div>
+
+  <div id="ct-me-modal" class="pf-modal" style="display:none">
+    <div class="pf-modal-card">
+      <div class="pf-modal-title" data-i18n="ct_me_title">🧮 Your contest balance</div>
+      <div id="ct-me-body" class="ct-me-body"></div>
+      <button class="pf-modal-close" id="ct-me-close" data-i18n="bn_close">Close</button>
+    </div>
+  </div>
+  <div id="ct-info-modal" class="pf-modal" style="display:none">
+    <div class="pf-modal-card ct-info-card">
+      <div class="ct-info-title" data-i18n="ct_info_title">🏆 CONTEST INFO</div>
+      <div class="ct-info-lines">
+        <p data-i18n="ct_i1">💰 Prize pool: $250 for the top 10 — 1st $70 • 2nd $50 • 3rd $40 • 4th–7th $15 each • 8th–10th $10 each. Ranks 11–50 get a $1 consolation each.</p>
+        <p data-i18n="ct_i2">⏰ The contest runs for 5 days. When the timer ends, a snapshot of all verified wallets is taken.</p>
+        <p data-i18n="ct_i3">🏆 The top 10 holders win the main prizes, and ranks 11–50 get a $1 consolation each. The board shows the top 50 so everyone can chase a prize spot.</p>
+        <p data-i18n="ct_i4">💵 Prizes are paid in USDT (dollars) to the wallet linked in the bot — never in ZOM coins, so the price is not dumped.</p>
+        <p data-i18n="ct_i5">🔗 Only verified wallets count. Your rank counts only the ZOM you bought after the contest started — tap the ⓘ next to your balance to see your starting balance and your transactions.</p>
+        <p data-i18n="ct_i6">⚠️ One wallet, one account. Multi-accounts and fake holds are disqualified and banned.</p>
+        <p data-i18n="ct_i7">📣 Winners are announced in the channel after the snapshot, and prizes are sent after a final check.</p>
+      </div>
+      <button class="pf-modal-cancel" id="ct-info-close"><span data-i18n="modal_close">Close</span></button>
+    </div>
+  </div>
+
     <div id="page-profile" class="page">
       <!-- Profile replica (owner order 2026-11-14): built 1:1 from his
            reference picture — title bar, big square evolution portrait,
@@ -4252,6 +4357,10 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     <div class="nav-item" data-tab="friends">
       <img class="nav-ic" src="assets/nav_ref_4.webp?v=135" alt="">
       <span data-i18n="nav_friends">Friends</span>
+    </div>
+    <div class="nav-item" data-tab="contest">
+      <img class="nav-ic" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27%23e8b64c%27%3E%3Cpath%20d%3D%27M5%203h14v2h3v3a5%205%200%200%201-5%205h-.4A6%206%200%200%201%2013%2016.9V19h3v2H8v-2h3v-2.1A6%206%200%200%201%207.4%2013H7a5%205%200%200%201-5-5V5h3V3zm14%204v4.2c.6-.7%201-1.7%201-3.2V7h-1zM5%207H4v1c0%201.5.4%202.5%201%203.2V7z%27%2F%3E%3C%2Fsvg%3E" alt="">
+      <span data-i18n="nav_contest">Contest</span>
     </div>
     <div class="nav-item" data-tab="profile">
       <img class="nav-ic" src="assets/nav_ref_5.webp?v=135" alt="">
@@ -4985,6 +5094,32 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   "nav_boost": "Rise",
   "nav_friends": "Horde",
   "nav_profile": "Crypt",
+  "nav_contest": "Contest",
+  "ct_title": "🏆 HOLDERS CONTEST",
+  "ct_ends_in": "⏰ CONTEST ENDS IN",
+  "ct_days": "DAYS", "ct_hours": "HOURS", "ct_min": "MIN", "ct_sec": "SEC",
+  "ct_sub": "Top 10 holders split $250 • 5-day contest",
+  "ct_usdt": "💵 Prizes are paid in USDT to your linked wallet — NOT in ZOM coins",
+  "ct_prizes_end": "🏆 TOP-10 PRIZES END HERE — $1 CONSOLATION BELOW 🏆",
+  "ct_rules1": "Top 50 shown live • Only ZOM bought after the start counts",
+  "ct_rules2": "Snapshot of verified wallets when the timer ends",
+  "ct_your_rank": "Your rank",
+  "ct_to5": "to reach #10", "ct_me_title": "🧮 Your contest balance", "ct_me_now": "💼 Wallet balance now", "ct_me_base": "🏁 Balance at contest start", "ct_me_score": "🏆 Counted in the contest", "ct_me_txs": "🧾 Your transactions since the start", "ct_me_buy": "🛒 Buy (STON.fi)", "ct_me_sell": "💱 Sell (STON.fi)", "ct_me_in": "📥 Received", "ct_me_out": "📤 Sent", "ct_me_notxs": "No ZOM transactions since the contest started yet.", "ct_me_nobase": "Your starting snapshot is not recorded yet — it is frozen when the contest starts, or the moment you verify your wallet.", "ct_me_loading": "Loading…", "ct_me_none": "Could not load your breakdown right now — try again in a moment.",
+  "ct_inprizes": "🏆 You are in the prizes!",
+  "ct_needverify": "Verify your wallet to join the board",
+  "ct_buy": "BUY ZOM & CLIMB",
+  "ct_info_title": "🏆 CONTEST INFO",
+  "ct_i1": "💰 Prize pool: $250 for the top 10 — 1st $70 • 2nd $50 • 3rd $40 • 4th–7th $15 each • 8th–10th $10 each. Ranks 11–50 get a $1 consolation each.",
+  "ct_i2": "⏰ The contest runs for 5 days. When the timer ends, a snapshot of all verified wallets is taken.",
+  "ct_i3": "🏆 The top 10 holders win the main prizes, and ranks 11–50 get a $1 consolation each. The board shows the top 50 so everyone can chase a prize spot.",
+  "ct_i4": "💵 Prizes are paid in USDT (dollars) to the wallet linked in the bot — never in ZOM coins, so the price is not dumped.",
+  "ct_i5": "🔗 Only verified wallets count. Your rank counts only the ZOM you bought after the contest started — tap the ⓘ next to your balance to see your starting balance and your transactions.",
+  "ct_i6": "⚠️ One wallet, one account. Multi-accounts and fake holds are disqualified and banned.",
+  "ct_i7": "📣 Winners are announced in the channel after the snapshot, and prizes are sent after a final check.",
+  "ct_loading": "Loading the board…",
+  "ct_nodata": "No verified holders yet — be the first on the board!",
+  "ct_ended": "⏰ CONTEST ENDED — snapshot taken",
+  "ct_soon": "⏰ STARTS SOON",
   "tank_full": "💀 24h Grave Full (100%) — Dig It Up Now!",
   "tank_fill": "🦇 24h Grave Filling:",
   "quests_tagline": "Finish grave quests to earn extra coins",
@@ -5247,6 +5382,32 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   "nav_boost": "اصحى",
   "nav_friends": "القطيع",
   "nav_profile": "القبو",
+  "nav_contest": "المسابقة",
+  "ct_title": "🏆 مسابقة الحاملين",
+  "ct_ends_in": "⏰ المسابقة تنتهي خلال",
+  "ct_days": "يوم", "ct_hours": "ساعة", "ct_min": "دقيقة", "ct_sec": "ثانية",
+  "ct_sub": "أفضل 10 حاملين يقسمون $250 • مسابقة 5 أيام",
+  "ct_usdt": "💵 الجوائز تُدفع بالدولار (USDT) في محفظتك المربوطة — وليست بعملات ZOM",
+  "ct_prizes_end": "🏆 جوائز العشرة الأوائل تنتهي هنا — تحتها ترضية $1 🏆",
+  "ct_rules1": "يظهر أفضل 50 مباشرة • يُحتسب فقط ما اشتريته بعد بدء المسابقة",
+  "ct_rules2": "لقطة للمحافظ الموثّقة عند انتهاء العدّاد",
+  "ct_your_rank": "ترتيبك",
+  "ct_to5": "للوصول إلى المركز 10", "ct_me_title": "🧮 رصيدك في المسابقة", "ct_me_now": "💼 رصيد محفظتك الآن", "ct_me_base": "🏁 رصيدك عند بدء المسابقة", "ct_me_score": "🏆 المحسوب لك في المسابقة", "ct_me_txs": "🧾 معاملاتك منذ بدء المسابقة", "ct_me_buy": "🛒 شراء (STON.fi)", "ct_me_sell": "💱 بيع (STON.fi)", "ct_me_in": "📥 استلام", "ct_me_out": "📤 إرسال", "ct_me_notxs": "لا توجد معاملات ZOM منذ بدء المسابقة بعد.", "ct_me_nobase": "لم تُسجَّل لقطة البداية الخاصة بك بعد — تُجمَّد عند بدء المسابقة أو لحظة توثيق محفظتك.", "ct_me_loading": "جارٍ التحميل…", "ct_me_none": "تعذّر تحميل التفاصيل الآن — حاول بعد قليل.",
+  "ct_inprizes": "🏆 أنت ضمن الفائزين!",
+  "ct_needverify": "وثّق محفظتك لدخول اللوحة",
+  "ct_buy": "اشتري ZOM واصعد",
+  "ct_info_title": "🏆 معلومات المسابقة",
+  "ct_i1": "💰 مجموع الجوائز: $250 لأول 10 — الأول $70 • الثاني $50 • الثالث $40 • من الرابع للسابع $15 لكل واحد • من الثامن للعاشر $10 لكل واحد. والمراكز 11–50 ترضية $1 لكل واحد.",
+  "ct_i2": "⏰ مدة المسابقة 5 أيام. عند انتهاء العدّاد تُؤخذ لقطة لكل المحافظ الموثّقة.",
+  "ct_i3": "🏆 أول 10 حاملين يفوزون بالجوائز الكبيرة، والمراكز 11–50 ترضية $1 لكل واحد. اللوحة تعرض أفضل 50 حتى يطارد الجميع مركزًا فائزًا.",
+  "ct_i4": "💵 الجوائز تُدفع بالدولار (USDT) إلى المحفظة المربوطة في البوت — أبدًا بعملات ZOM، حتى لا يهبط السعر.",
+  "ct_i5": "🔗 المحافظ الموثّقة فقط تُحتسب. وترتيبك يُحسب فقط من الـZOM الذي اشتريته بعد بدء المسابقة — اضغط ⓘ بجانب رصيدك لترى رصيد البداية ومعاملاتك.",
+  "ct_i6": "⚠️ محفظة واحدة = حساب واحد. الحسابات المتعددة والهولد الوهمي يُستبعدان ويُحظران.",
+  "ct_i7": "📣 يُعلن الفائزون في القناة بعد اللقطة، وتُرسل الجوائز بعد فحص أخير.",
+  "ct_loading": "جارٍ تحميل اللوحة…",
+  "ct_nodata": "لا يوجد حاملون موثّقون بعد — كن أول اسم على اللوحة!",
+  "ct_ended": "⏰ انتهت المسابقة — تم أخذ اللقطة",
+  "ct_soon": "⏰ تبدأ قريبًا",
   "tank_full": "💀 قبر الـ24 ساعة اتملى (100%) — طلّعه دلوقتي!",
   "tank_fill": "🦇 قبر الـ24 ساعة بيتملى:",
   "quests_tagline": "خلّص مهام القبور علشان تكسب غنائم زيادة",
@@ -5512,6 +5673,32 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
   "nav_boost": "Восстать",
   "nav_friends": "Орда",
   "nav_profile": "Склеп",
+  "nav_contest": "Конкурс",
+  "ct_title": "🏆 КОНКУРС ХОЛДЕРОВ",
+  "ct_ends_in": "⏰ КОНКУРС ЗАКОНЧИТСЯ ЧЕРЕЗ",
+  "ct_days": "ДНЕЙ", "ct_hours": "ЧАСОВ", "ct_min": "МИН", "ct_sec": "СЕК",
+  "ct_sub": "Топ-10 холдеров делят $250 • конкурс на 5 дней",
+  "ct_usdt": "💵 Призы выплачиваются в USDT на ваш привязанный кошелёк — НЕ в монетах ZOM",
+  "ct_prizes_end": "🏆 ПРИЗЫ ТОП-10 ЗАКАНЧИВАЮТСЯ ЗДЕСЬ — НИЖЕ УТЕШЕНИЕ $1 🏆",
+  "ct_rules1": "Топ-50 в реальном времени • считается только ZOM, купленный после старта",
+  "ct_rules2": "Снапшот верифицированных кошельков по окончании таймера",
+  "ct_your_rank": "Ваше место",
+  "ct_to5": "до места #10", "ct_me_title": "🧮 Ваш конкурсный баланс", "ct_me_now": "💼 Баланс кошелька сейчас", "ct_me_base": "🏁 Баланс на старте конкурса", "ct_me_score": "🏆 Засчитано в конкурсе", "ct_me_txs": "🧾 Ваши транзакции с начала конкурса", "ct_me_buy": "🛒 Покупка (STON.fi)", "ct_me_sell": "💱 Продажа (STON.fi)", "ct_me_in": "📥 Получено", "ct_me_out": "📤 Отправлено", "ct_me_notxs": "Транзакций ZOM с начала конкурса пока нет.", "ct_me_nobase": "Стартовый снимок ещё не записан — он фиксируется на старте конкурса или в момент верификации кошелька.", "ct_me_loading": "Загрузка…", "ct_me_none": "Не удалось загрузить данные — попробуйте чуть позже.",
+  "ct_inprizes": "🏆 Вы в призах!",
+  "ct_needverify": "Верифицируйте кошелёк, чтобы попасть на доску",
+  "ct_buy": "КУПИТЬ ZOM И ПОДНЯТЬСЯ",
+  "ct_info_title": "🏆 О КОНКУРСЕ",
+  "ct_i1": "💰 Призовой фонд: $250 за топ-10 — 1-е $70 • 2-е $50 • 3-е $40 • 4–7-е по $15 • 8–10-е по $10. Места 11–50 получают утешение $1.",
+  "ct_i2": "⏰ Конкурс длится 5 дней. Когда таймер закончится, делается снапшот всех верифицированных кошельков.",
+  "ct_i3": "🏆 Топ-10 холдеров выигрывают главные призы, а места 11–50 получают утешение $1. Доска показывает топ-50, чтобы каждый мог бороться за приз.",
+  "ct_i4": "💵 Призы выплачиваются в USDT (долларах) на кошелёк, привязанный в боте, — никогда в монетах ZOM, чтобы не ронять цену.",
+  "ct_i5": "🔗 Засчитываются только верифицированные кошельки. Ваше место считается только по ZOM, купленному после старта конкурса, — нажмите ⓘ рядом с балансом, чтобы увидеть стартовый баланс и транзакции.",
+  "ct_i6": "⚠️ Один кошелёк — один аккаунт. Мультиаккаунты и фейковые холды дисквалифицируются и банятся.",
+  "ct_i7": "📣 Победители объявляются в канале после снапшота, а призы отправляются после финальной проверки.",
+  "ct_loading": "Загрузка доски…",
+  "ct_nodata": "Верифицированных холдеров пока нет — станьте первым на доске!",
+  "ct_ended": "⏰ КОНКУРС ЗАВЕРШЁН — снапшот сделан",
+  "ct_soon": "⏰ СКОРО СТАРТ",
   "tank_full": "💀 Могила 24ч полна (100%) — выкапывай сейчас!",
   "tank_fill": "🦇 Могила 24ч заполняется:",
   "quests_tagline": "Выполняй задания могил ради лишней добычи",
@@ -5629,7 +5816,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       payoutWallet: "", botToken: "", payoutChannel: "@ZOMBI_PAYMENTS",
       adminChatId: "",
       buySwapUrl: "https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=EQCY8LnAfr0NMgw0SGBRkSykRuYy5fCkrvu4TUxt_O-FR8mg",
-      channel1: "https://t.me/ZOMBI_UPDATE", channel2: "https://t.me/ZOMBI_PAYMENTS", channel3: "https://t.me/ZOMBI_COMMUNITY", botUsername: "ZOMBIE_MINER_bot"
+      channel1: "https://t.me/ZOMBI_UPDATE", channel2: "https://t.me/ZOMBI_PAYMENTS", channel3: "https://t.me/ZOMBI_COMMUNITY", botUsername: "ZOMBIE_MINER_bot", contestEndsAt: 0, contestPrizes: [70, 50, 40, 15, 15, 15, 15, 10, 10, 10]
     };
     let config = Object.assign({}, defaultConfig, JSON.parse(localStorage.getItem('vksec_config') || "{}"));
     delete config.botToken;
@@ -7576,6 +7763,126 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
     const _bb = document.getElementById('mn-bell-btn'); if (_bb) _bb.addEventListener('click', () => { SoundFX.click(); const m = document.getElementById('notif-modal'); if (m) m.style.display = 'flex'; });
     const _nbc = document.getElementById('btn-notif-close'); if (_nbc) _nbc.addEventListener('click', () => { const m = document.getElementById('notif-modal'); if (m) m.style.display = 'none'; });
     const _nmd = document.getElementById('notif-modal'); if (_nmd) _nmd.addEventListener('click', e => { if (e.target === _nmd) _nmd.style.display = 'none'; });
+    // ===== HOLDERS CONTEST PAGE (owner order 2026-11-24) =====
+    const ctT = function (k) { const d = I18N[currentLang] || I18N.en; return (d && d[k]) || I18N.en[k] || k; };
+    function ctEsc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+    function ctFmt(n) { return Math.floor(Number(n) || 0).toLocaleString('en-US'); }
+    function ctAvatar(a) { const n = Number(a); return 'assets/avatar_' + ((n >= 1 && n <= 8) ? n : 1) + '.webp'; }
+    function ctImg(p, cls) { const fb = ctAvatar(p.avatar); const src = p.photo ? (API_URL + p.photo) : fb; return '<img class="' + cls + '" src="' + src + '" onerror="this.onerror=null;this.src=\'' + fb + '\'" alt="">'; }
+    let ctEndsAt = 0;
+    let ctPrizes = [70, 50, 40, 15, 15, 15, 15, 10, 10, 10];
+    function ctSetCell(id, v) { const e = document.getElementById(id); if (e) e.textContent = v; }
+    function ctTick() {
+      const line = document.getElementById('ct-endsline');
+      if (!ctEndsAt) { ctSetCell('ct-d', '--'); ctSetCell('ct-h', '--'); ctSetCell('ct-m', '--'); ctSetCell('ct-s', '--'); if (line) line.textContent = ctT('ct_soon'); return; }
+      const ms = ctEndsAt - Date.now();
+      if (ms <= 0) { ctSetCell('ct-d', '00'); ctSetCell('ct-h', '00'); ctSetCell('ct-m', '00'); ctSetCell('ct-s', '00'); if (line) line.textContent = ctT('ct_ended'); return; }
+      if (line) line.textContent = ctT('ct_ends_in');
+      const s = Math.floor(ms / 1000);
+      const pad = function (x) { return String(x).padStart(2, '0'); };
+      ctSetCell('ct-d', pad(Math.floor(s / 86400)));
+      ctSetCell('ct-h', pad(Math.floor((s % 86400) / 3600)));
+      ctSetCell('ct-m', pad(Math.floor((s % 3600) / 60)));
+      ctSetCell('ct-s', pad(s % 60));
+    }
+    setInterval(ctTick, 1000);
+    function ctRowHtml(p) {
+      const prize = Number(p.prize) > 0 ? '<div class="ct-prize">$' + Number(p.prize) + '</div>' : '<div class="ct-noprize">—</div>';
+      return '<div class="ct-row"><div class="ct-badge">' + p.rank + '</div>' + ctImg(p, 'ct-av') + '<div class="ct-who"><div class="ct-nm">' + ctEsc(p.name || ('#' + p.userNo)) + '</div><div class="ct-hd">' + ctFmt(p.hold) + ' ZOM</div></div>' + prize + '</div>';
+    }
+    function renderContest(j) {
+      const top = Array.isArray(j.top) ? j.top : [];
+      const pod = document.getElementById('ct-pod');
+      const list = document.getElementById('ct-rows');
+      const my = document.getElementById('ct-my');
+      if (!pod || !list || !my) return;
+      if (!top.length) {
+        pod.innerHTML = '';
+        list.innerHTML = '<div class="ct-empty">' + ctT('ct_nodata') + '</div>';
+      } else {
+        const col = function (p, cls, h, lbl) {
+          if (!p) return '<div class="ct-pcol"></div>';
+          return '<div class="ct-pcol ' + cls + '">' + (cls === 'first' ? '<div class="ct-crown">👑</div>' : '') + ctImg(p, 'ct-pav') + '<div class="ct-pnm">' + ctEsc(p.name || ('#' + p.userNo)) + '</div><div class="ct-phd">' + ctFmt(p.hold) + ' ZOM</div><div class="ct-pbar" style="height:' + h + 'px"><div class="ct-prize">$' + (Number(p.prize) > 0 ? Number(p.prize) : ctPrizes[p.rank - 1]) + '</div><div class="ct-plbl">' + lbl + '</div></div></div>';
+        };
+        pod.innerHTML = col(top[1], '', 54, '2ND') + col(top[0], 'first', 74, '1ST') + col(top[2], '', 40, '3RD');
+        let html = '';
+        top.slice(3).forEach(function (p) {
+          html += ctRowHtml(p);
+          if (p.rank === 10 && top.length > 10) html += '<div class="ct-cut">' + ctT('ct_prizes_end') + '</div>';
+        });
+        list.innerHTML = html;
+      }
+      const me = j.me;
+      if (!me) { my.style.display = 'none'; return; }
+      my.style.display = 'flex';
+      const badge = document.getElementById('ct-my-badge');
+      const holdEl = document.getElementById('ct-my-hold');
+      const right = document.getElementById('ct-my-right');
+      if (badge) badge.textContent = me.rank > 0 ? ('#' + me.rank) : '#–';
+      if (holdEl) holdEl.textContent = ctFmt(me.hold) + ' ZOM';
+      if (right) {
+        if (me.rank >= 1 && me.rank <= 10) right.innerHTML = '<span class="ct-gold">' + ctT('ct_inprizes') + '</span>';
+        else if (me.rank === 0) right.innerHTML = '<span class="ct-dim">' + ctT('ct_needverify') + '</span>';
+        else if (top.length >= 10) right.innerHTML = '<span class="ct-gold">+' + ctFmt(Math.max(0, top[9].hold - me.hold)) + ' ZOM</span><br><span class="ct-dim">' + ctT('ct_to5') + '</span>';
+        else right.innerHTML = '';
+      }
+    }
+    async function loadContest() {
+      ctEndsAt = Number(config.contestEndsAt || 0);
+      if (Array.isArray(config.contestPrizes) && config.contestPrizes.length === 10) ctPrizes = config.contestPrizes.map(Number);
+      ctTick();
+      try {
+        const j = await api('contest', {});
+        if (j && j.ok) {
+          ctEndsAt = Number(j.endsAt || 0);
+          if (Array.isArray(j.prizes) && j.prizes.length === 10) ctPrizes = j.prizes.map(Number);
+          renderContest(j);
+          ctTick();
+        }
+      } catch (e) {}
+    }
+    function closeCtMe() { const m = document.getElementById('ct-me-modal'); if (m) m.style.display = 'none'; }
+    async function openCtMe() {
+      SoundFX.click();
+      const m = document.getElementById('ct-me-modal'); if (m) m.style.display = 'flex';
+      const body = document.getElementById('ct-me-body'); if (!body) return;
+      body.innerHTML = '<div class="ct-me-note">' + ctT('ct_me_loading') + '</div>';
+      let j = null;
+      try { j = await api('contestMe', {}); } catch (e) {}
+      if (!j || !j.ok) { body.innerHTML = '<div class="ct-me-note">' + ctT('ct_me_none') + '</div>'; return; }
+      const signs = { buy: '+', in: '+', sell: '-', out: '-' };
+      let h = '';
+      h += '<div class="ct-me-row"><span>' + ctT('ct_me_now') + '</span><b>' + ctFmt(j.holdNow) + ' ZOM</b></div>';
+      h += '<div class="ct-me-row"><span>' + ctT('ct_me_base') + '</span><b>' + (j.baseKnown ? ctFmt(j.base) + ' ZOM' : '—') + '</b></div>';
+      h += '<div class="ct-me-row score"><span>' + ctT('ct_me_score') + '</span><b>' + ctFmt(j.score) + ' ZOM</b></div>';
+      if (!j.baseKnown) h += '<div class="ct-me-note">' + ctT('ct_me_nobase') + '</div>';
+      h += '<div class="ct-me-txh">' + ctT('ct_me_txs') + '</div>';
+      if (Array.isArray(j.txs) && j.txs.length) {
+        for (const t of j.txs) {
+          const sgn = signs[t.kind] || '+';
+          const when = new Date(t.ts).toLocaleString([], { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+          h += '<div class="ct-me-tx"><span>' + ctT('ct_me_' + t.kind) + '</span><span class="' + (sgn === '+' ? 'plus' : 'minus') + '">' + sgn + ctFmt(t.amount) + ' ZOM</span><span class="when">' + when + '</span></div>';
+        }
+      } else h += '<div class="ct-me-note">' + ctT('ct_me_notxs') + '</div>';
+      body.innerHTML = h;
+    }
+    (function initContest() {
+      const info = document.getElementById('ct-info-btn');
+      const modal = document.getElementById('ct-info-modal');
+      const close = document.getElementById('ct-info-close');
+      if (info && modal) info.addEventListener('click', function () { SoundFX.click(); modal.style.display = 'flex'; });
+      if (close && modal) close.addEventListener('click', function () { SoundFX.click(); modal.style.display = 'none'; });
+      if (modal) modal.addEventListener('click', function (e) { if (e.target === modal) modal.style.display = 'none'; });
+      const meBtn = document.getElementById('ct-me-btn');
+      const meModal = document.getElementById('ct-me-modal');
+      const meClose = document.getElementById('ct-me-close');
+      if (meBtn) meBtn.addEventListener('click', openCtMe);
+      if (meClose) meClose.addEventListener('click', function () { SoundFX.click(); closeCtMe(); });
+      if (meModal) meModal.addEventListener('click', function (e) { if (e.target === meModal) closeCtMe(); });
+      const buy = document.getElementById('ct-buy-btn');
+      if (buy) buy.addEventListener('click', openStonfiSwap);
+      ctTick();
+    })();
     function switchTab(id) {
       SoundFX.click();
       document.body.dataset.tab = id;
@@ -7586,6 +7893,7 @@ body[data-tab="profile"]{background-image:linear-gradient(rgba(2,6,3,.45),rgba(2
       // Opening Profile refreshes the on-chain hold silently (the
       // manual sync button was removed — see maybeAutoSyncHold).
       if (id === 'profile') maybeAutoSyncHold();
+      if (id === 'contest') loadContest();
     }
     // ===== BOUNTY (owner reference 2026-11-21; server phase 2026-11-22):
     // requests go to the server (bountySubmit), the owner reviews them in

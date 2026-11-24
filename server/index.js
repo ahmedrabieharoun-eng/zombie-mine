@@ -151,9 +151,13 @@ const DEFAULTS = {
   // adsEnabled = 0 disables the whole system (no tickets issued, no
   // gate required, section hidden) as an emergency valve.
   adsEnabled: 0, adsgramBlockId: '60547', adReward: 10, adDailyLimit: 10, adMinWatchSec: 15, adGateMinSec: 5,
-  holdTaskDefs: [ { hold: 2500, reward: 600 }, { hold: 5000, reward: 1000 }, { hold: 10000, reward: 2000 }, { hold: 20000, reward: 3000 }, { hold: 40000, reward: 5000 } ]
+  holdTaskDefs: [ { hold: 2500, reward: 600 }, { hold: 5000, reward: 1000 }, { hold: 10000, reward: 2000 }, { hold: 20000, reward: 3000 }, { hold: 40000, reward: 5000 } ],
+  // Holders contest (owner order 2026-11-24): 3-day board of the top 50
+  // verified holders; only the top 5 win, paid in USDT to the linked
+  // wallet (never in ZOM). contestEndsAt is set when a contest starts.
+  contestStartsAt: 0, contestEndsAt: 0, contestPrizes: [70, 50, 40, 15, 15, 15, 15, 10, 10, 10]
 };
-const NUM_KEYS = ['lvl1PerDay', 'taskReward', 'bioReward', 'refAchReward1', 'refAchReward10', 'refAchReward25', 'refAchReward50', 'refAchReward100', 'refClaimPercent', 'refMinHold', 'minWithdraw', 'holdPercentReq', 'withdrawFeePercent', 'verifyFeeTon', 'verifyMinAgeDays', 'withdrawMinAgeDays', 'holdRenewDays', 'adsEnabled', 'adReward', 'adDailyLimit', 'adMinWatchSec', 'adGateMinSec'];
+const NUM_KEYS = ['lvl1PerDay', 'taskReward', 'bioReward', 'refAchReward1', 'refAchReward10', 'refAchReward25', 'refAchReward50', 'refAchReward100', 'refClaimPercent', 'refMinHold', 'minWithdraw', 'holdPercentReq', 'withdrawFeePercent', 'verifyFeeTon', 'verifyMinAgeDays', 'withdrawMinAgeDays', 'holdRenewDays', 'adsEnabled', 'adReward', 'adDailyLimit', 'adMinWatchSec', 'adGateMinSec', 'contestEndsAt', 'contestStartsAt'];
 const STR_KEYS = ['brandTitle', 'coinSym', 'payoutWallet', 'payoutChannel', 'adminChatId', 'channel1', 'channel2', 'channel3', 'twitterUrl', 'botUsername', 'buySwapUrl', 'verifyDepositWallet', 'adsgramBlockId'];
 
 /* ---------- helpers ---------- */
@@ -773,7 +777,7 @@ async function getConfig() {
   await loadHarvestedEmoji(); // the harvested premium-emoji map rides the same refresh cycle
   return v;
 }
-const PUBLIC_KEYS = ['brandTitle', 'coinSym', 'taskReward', 'bioReward', 'refAchReward1', 'refAchReward10', 'refAchReward25', 'refAchReward50', 'refAchReward100', 'refClaimPercent', 'refMinHold', 'minWithdraw', 'holdPercentReq', 'withdrawFeePercent', 'withdrawMinAgeDays', 'lvl1PerDay', 'buySwapUrl', 'channel1', 'channel2', 'channel3', 'twitterUrl', 'botUsername', 'holdTaskDefs', 'holdRenewDays', 'adsEnabled', 'adsgramBlockId', 'adReward', 'adDailyLimit'];
+const PUBLIC_KEYS = ['brandTitle', 'coinSym', 'taskReward', 'bioReward', 'refAchReward1', 'refAchReward10', 'refAchReward25', 'refAchReward50', 'refAchReward100', 'refClaimPercent', 'refMinHold', 'minWithdraw', 'holdPercentReq', 'withdrawFeePercent', 'withdrawMinAgeDays', 'lvl1PerDay', 'buySwapUrl', 'channel1', 'channel2', 'channel3', 'twitterUrl', 'botUsername', 'holdTaskDefs', 'holdRenewDays', 'adsEnabled', 'adsgramBlockId', 'adReward', 'adDailyLimit', 'contestStartsAt', 'contestEndsAt', 'contestPrizes'];
 const publicConfig = (c) => Object.fromEntries(PUBLIC_KEYS.map((k) => [k, c[k]]));
 
 // simple in-memory rate limiter (per server instance)
@@ -793,7 +797,7 @@ function hit(key, max, windowMs) {
 // burst plus a manual re-check must fit with room to spare, or the user
 // hits this limiter for doing exactly what the UI told them to do. The
 // global per-user (240/min) and per-IP caps still bound abuse.
-const ACTION_LIMIT = { state: 60, collect: 6, daily: 6, task: 8, taskX: 8, taskXVisit: 8, holdTask: 8, bioTask: 8, refAch: 8, wallet: 8, unlink: 6, refCollect: 6, withdraw: 4, verifyInfo: 20, verifyCheck: 20, setAvatar: 8, adTicket: 6, adClaim: 6, adNoFill: 6 }; // per user per minute
+const ACTION_LIMIT = { state: 60, collect: 6, daily: 6, task: 8, taskX: 8, taskXVisit: 8, holdTask: 8, bioTask: 8, refAch: 8, wallet: 8, unlink: 6, refCollect: 6, withdraw: 4, verifyInfo: 20, verifyCheck: 20, setAvatar: 8, adTicket: 6, adClaim: 6, adNoFill: 6, contest: 12, contestMe: 6 }; // per user per minute
 
 function verifyInitData(initData) {
   if (!BOT_TOKEN) return { error: 'config' };
@@ -2992,6 +2996,12 @@ async function completeVerification(uid, hash, cfg) {
     });
   } catch (e) { console.error('verify notify-mark FAILED for uid', uid, 'hash', hash, '-', e.message); }
   if (notify) await sendVerificationMessages(uid, flip.player, cfg, hash, ageDays);
+  try {
+    const cs = Number(cfg.contestStartsAt || 0);
+    if (cs > 0 && Date.now() >= cs && Number(flip.player.contestBaseAt || 0) !== cs) {
+      await P(uid).update({ contestBase: Number(flip.player.hold) || 0, contestBaseAt: cs });
+    }
+  } catch (e) { /* baseline stamping is best-effort; the snapshot covers the rest */ }
   return { won: true, tx: hash };
 }
 
@@ -5751,7 +5761,167 @@ async function panelBountyReject(c) {
 
 const PANEL_ACTIONS = { panelStats, panelPlayers, panelPlayer, panelBan, panelAdjust, panelResetPlayer, panelSetAvatar, panelVerifyPlayer, panelWithdrawals, panelWdApprove, panelWdReject, panelWdBan, panelVerifyQueue, panelVerifyResolve, panelConfigGet, panelConfigSet, panelRequestAdd, panelRequestList, panelRequestReply, panelAuditList, panelEmojiPack, panelEmojiTest, panelBountyList, panelBountyApprove, panelBountyReject };
 
-const ACTIONS = { state, collect, daily, task, taskX, taskXVisit, holdTask, bioTask, refAch, adTicket, adClaim, adNoFill, wallet, unlink, verifyInfo, verifyCheck, refCollect, withdraw, setAvatar, adminState, adminBan, adminAdjust, adminWd, adminSettings, bountySubmit, bountyMine, bountyImport, bountyCheckLink };
+// ===== HOLDERS CONTEST (owner order 2026-11-24): leaderboard of the top 50
+// VERIFIED holders by stored hold (the ref-hold watcher keeps `hold` fresh
+// from the chain). Only verifiedWallet === bound wallet counts, so a
+// cosmetic bind of a rich wallet never ranks. Prizes are informational
+// here — the owner pays the top 5 in USDT manually after the snapshot. =====
+// Telegram profile photos for the contest board (owner order 2026-11-24):
+// the board shows each player's real Telegram photo. The file_id is cached
+// on the player doc for 6h; the image itself is served through /photo/<uid>
+// so the bot token (embedded in Telegram file URLs) never reaches clients.
+async function ensurePlayerPhoto(p) {
+  const now = Date.now();
+  if (p.photoAt && now - Number(p.photoAt) < 6 * 3600 * 1000) return p.photoFileId ? '/photo/' + p.id : '';
+  try {
+    const r = await tg('getUserProfilePhotos', { user_id: Number(p.id), limit: 1 });
+    const photos = (r && r.photos) || (r && r.result && r.result.photos) || [];
+    let fid = '';
+    if (Array.isArray(photos) && photos.length && Array.isArray(photos[0]) && photos[0].length) {
+      const sizes = photos[0];
+      fid = String((sizes[Math.min(1, sizes.length - 1)] || {}).file_id || '');
+    }
+    await P(p.id).update({ photoFileId: fid, photoAt: now });
+    return fid ? '/photo/' + p.id : '';
+  } catch (e) { return p.photoFileId ? '/photo/' + p.id : ''; }
+}
+
+async function servePlayerPhoto(req, res) {
+  const uid = decodeURIComponent(String(req.url || '').slice(7).split('?')[0]);
+  if (!/^\d+$/.test(uid)) { res.writeHead(404); return res.end(); }
+  try {
+    const p = (await getVal(P(uid))) || {};
+    if (!p.photoFileId || !BOT_TOKEN) { res.writeHead(404); return res.end(); }
+    const fr = await tg('getFile', { file_id: p.photoFileId });
+    const fp = fr && fr.file_path ? fr.file_path : (fr && fr.result ? fr.result.file_path : null);
+    if (!fp) { res.writeHead(404); return res.end(); }
+    const resp = await fetch('https://api.telegram.org/file/bot' + BOT_TOKEN + '/' + fp);
+    if (!resp.ok) { res.writeHead(502); return res.end(); }
+    const buf = Buffer.from(await resp.arrayBuffer());
+    res.writeHead(200, { 'Content-Type': resp.headers.get('content-type') || 'image/jpeg', 'Cache-Control': 'public, max-age=21600', 'Access-Control-Allow-Origin': '*' });
+    return res.end(buf);
+  } catch (e) { res.writeHead(502); return res.end(); }
+}
+
+function contestPrizeFor(rank, cfg) {
+  const top = (Array.isArray(cfg.contestPrizes) && cfg.contestPrizes.length === 10) ? cfg.contestPrizes.map(Number) : [70, 50, 40, 15, 15, 15, 15, 10, 10, 10];
+  if (rank >= 1 && rank <= 10) return top[rank - 1] || 0;
+  if (rank >= 11 && rank <= 50) return 1;
+  return 0;
+}
+
+async function contest(c) {
+  const uid = String(c.user.id);
+  const rows = await panelPlayersScan();
+  const startsAt = Number(c.cfg.contestStartsAt || 0);
+  const elig = rows
+    .filter((p) => p && !p.banned && p.walletVerified === true && p.verifiedWallet && p.walletAddr && String(p.verifiedWallet) === String(p.walletAddr))
+    .map((p) => {
+      const holdNow = Number(p.hold) || 0;
+      const base = (startsAt > 0 && Number(p.contestBaseAt || 0) === startsAt) ? (Number(p.contestBase) || 0) : null;
+      const score = base === null ? 0 : Math.max(0, holdNow - base);
+      return { id: String(p.id), userNo: Number(p.userNo) || 0, name: String(p.name || ''), avatar: Number(p.avatar) || 0, hold: score, walletAddr: String(p.walletAddr), base, photoFileId: p.photoFileId || '', photoAt: Number(p.photoAt) || 0 };
+    })
+    .filter((p) => p.hold > 0)
+    .sort((a, b) => b.hold - a.hold);
+  // Owner order 2026-11-24: the contest depends ONLY on the hold in the
+  // player's WALLET (on-chain), never on his in-app (bot) balance. The
+  // stored hold is the watcher's last sync of that wallet; for the
+  // visible board we re-read the chain fresh and re-rank before answering.
+  const cand = elig.slice(0, 50);
+  await Promise.all(cand.map(async (p) => {
+    try {
+      const fresh = await jettonHold(p.walletAddr);
+      if (Number.isFinite(fresh) && p.base !== null) p.hold = Math.max(0, fresh - p.base);
+    } catch (e) { /* chain error: keep the last synced wallet score */ }
+  }));
+  cand.sort((a, b) => b.hold - a.hold);
+  const top = cand.map((p, i) => ({ rank: i + 1, userNo: p.userNo, name: p.name, avatar: p.avatar, hold: Math.floor(p.hold), prize: contestPrizeFor(i + 1, c.cfg) }));
+  let me = null;
+  const mi = elig.findIndex((p) => p.id === uid);
+  if (mi >= 0) me = { rank: mi + 1, hold: Math.floor(elig[mi].hold) };
+  else {
+    const mp = rows.find((p) => String(p.id) === uid);
+    if (mp) me = { rank: 0, hold: 0 };
+  }
+  await Promise.all(top.map(async (r, i) => { r.photo = await ensurePlayerPhoto(cand[i]); }));
+  const prizes = (Array.isArray(c.cfg.contestPrizes) && c.cfg.contestPrizes.length === 10) ? c.cfg.contestPrizes.map(Number) : [70, 50, 40, 15, 15, 15, 15, 10, 10, 10];
+  return { ok: true, endsAt: Number(c.cfg.contestEndsAt || 0), prizes, top, me };
+}
+
+// Contest baseline snapshot (owner order 2026-11-24): the board ranks
+// only the ZOM accumulated AFTER the contest starts, so the moment a
+// contest starts we freeze every verified player's current hold as their
+// baseline (contestBase). Runs once per contest, keyed by contestStartsAt
+// in meta/contestSnap. Players who verify mid-contest get their baseline
+// stamped inside completeVerification instead.
+let contestSnapBusy = false;
+async function contestSnapTick() {
+  if (contestSnapBusy) return;
+  contestSnapBusy = true;
+  try {
+    const cfg = await getConfig();
+    const startsAt = Number(cfg.contestStartsAt || 0);
+    if (!startsAt || Date.now() < startsAt) return;
+    const doneFor = Number((await getVal(rtdb().ref('meta/contestSnap'))) || 0);
+    if (doneFor === startsAt) return;
+    const obj = (await getVal(rtdb().ref('players'))) || {};
+    const rows = Object.entries(obj).filter(([, v]) => v && typeof v === 'object' && v.walletVerified === true);
+    for (let i = 0; i < rows.length; i += 100) {
+      await Promise.all(rows.slice(i, i + 100).map(([k, v]) => P(String(v.id || k)).update({ contestBase: Number(v.hold) || 0, contestBaseAt: startsAt })));
+    }
+    await rtdb().ref('meta/contestSnap').set(startsAt);
+    console.log('[contestSnap] baselines frozen for', rows.length, 'verified players, contestStartsAt', startsAt);
+  } catch (e) { console.error('contestSnap FAILED', e.message); }
+  finally { contestSnapBusy = false; }
+}
+setInterval(() => { contestSnapTick(); }, 60000);
+
+// Personal contest breakdown (owner order 2026-11-24): why is my contest
+// balance what it is — starting baseline, current wallet balance, the
+// counted difference, and the player's ZOM transactions in the window.
+async function contestMe(c) {
+  const uid = String(c.user.id);
+  const p = (await getVal(P(uid))) || {};
+  const startsAt = Number(c.cfg.contestStartsAt || 0);
+  const endsAt = Number(c.cfg.contestEndsAt || 0);
+  let holdNow = Number(p.hold) || 0;
+  if (p.walletAddr) { try { holdNow = await jettonHold(p.walletAddr); } catch (e) { /* keep the stored hold */ } }
+  const baseKnown = startsAt > 0 && Number(p.contestBaseAt || 0) === startsAt;
+  const base = baseKnown ? (Number(p.contestBase) || 0) : 0;
+  const score = baseKnown ? Math.max(0, holdNow - base) : 0;
+  const txs = [];
+  if (p.walletAddr && startsAt > 0) {
+    try {
+      const myRaw = toRawAddress(p.walletAddr);
+      const ev = await ton('/accounts/' + myRaw + '/events?limit=100');
+      const events = (ev && ev.events) || [];
+      for (const e of events) {
+        const ts = Number(e.timestamp || 0) * 1000;
+        if (!ts || ts < startsAt || (endsAt > 0 && ts > endsAt)) continue;
+        for (const a of (e.actions || [])) {
+          if (a.type === 'JettonSwap' && a.JettonSwap) {
+            const out = Number(a.JettonSwap.amount_out || 0) / 1e9;
+            const inn = Number(a.JettonSwap.amount_in || 0) / 1e9;
+            if (out > 0) txs.push({ ts, kind: 'buy', amount: out });
+            else if (inn > 0) txs.push({ ts, kind: 'sell', amount: inn });
+          } else if (a.type === 'JettonTransfer' && a.JettonTransfer) {
+            const amt = Number(a.JettonTransfer.amount || 0) / 1e9;
+            if (!(amt > 0)) continue;
+            const snd = a.JettonTransfer.sender && a.JettonTransfer.sender.address;
+            const rcp = a.JettonTransfer.recipient && a.JettonTransfer.recipient.address;
+            if (rcp && toRawAddress(rcp) === myRaw) txs.push({ ts, kind: 'in', amount: amt });
+            else if (snd && toRawAddress(snd) === myRaw) txs.push({ ts, kind: 'out', amount: amt });
+          }
+        }
+      }
+      txs.sort((x, y) => y.ts - x.ts);
+    } catch (e) { /* the breakdown still answers without the tx list */ }
+  }
+  return { ok: true, startsAt, endsAt, verified: p.walletVerified === true, baseKnown, base, holdNow, score, txs: txs.slice(0, 50) };
+}
+
+const ACTIONS = { state, collect, daily, task, taskX, taskXVisit, holdTask, bioTask, refAch, adTicket, adClaim, adNoFill, wallet, unlink, verifyInfo, verifyCheck, refCollect, withdraw, setAvatar, adminState, adminBan, adminAdjust, adminWd, adminSettings, bountySubmit, bountyMine, bountyImport, bountyCheckLink, contest, contestMe };
 
 ensureWebhook(); // self-register the Telegram webhook once per process (never blocks boot)
 startVerifyWatcher(); // background deposit watcher (see verifyWatchTick; no-op when VERIFY_WATCH_MS=0)
@@ -5772,6 +5942,7 @@ functions.http('collectMining', async (req, res) => {
   // the embedded panel HTML behind Basic Auth (password = the
   // panel key). It intercepts ONLY that exact path; every other
   // GET keeps the 405 below and all POST handling is unaffected.
+  if (req.method === 'GET' && String(req.url || '').startsWith('/photo/')) return servePlayerPhoto(req, res);
   if (req.method === 'GET' && panelPagePath(req) === '/panel') return servePanelPage(req, res);
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   // Telegram webhook updates arrive on this same endpoint: they carry
