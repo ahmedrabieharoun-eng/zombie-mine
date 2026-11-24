@@ -157,7 +157,7 @@ const DEFAULTS = {
   // wallet (never in ZOM). contestEndsAt is set when a contest starts.
   contestStartsAt: 0, contestEndsAt: 0, contestPrizes: [70, 50, 40, 15, 15, 15, 15, 10, 10, 10]
 };
-const NUM_KEYS = ['lvl1PerDay', 'taskReward', 'bioReward', 'refAchReward1', 'refAchReward10', 'refAchReward25', 'refAchReward50', 'refAchReward100', 'refClaimPercent', 'refMinHold', 'minWithdraw', 'holdPercentReq', 'withdrawFeePercent', 'verifyFeeTon', 'verifyMinAgeDays', 'withdrawMinAgeDays', 'holdRenewDays', 'adsEnabled', 'adReward', 'adDailyLimit', 'adMinWatchSec', 'adGateMinSec', 'contestEndsAt', 'contestStartsAt'];
+const NUM_KEYS = ['lvl1PerDay', 'taskReward', 'bioReward', 'refAchReward1', 'refAchReward10', 'refAchReward25', 'refAchReward50', 'refAchReward100', 'refClaimPercent', 'refMinHold', 'minWithdraw', 'holdPercentReq', 'withdrawFeePercent', 'verifyFeeTon', 'verifyMinAgeDays', 'withdrawMinAgeDays', 'holdRenewDays', 'adsEnabled', 'adReward', 'adDailyLimit', 'adMinWatchSec', 'adGateMinSec', ];
 const STR_KEYS = ['brandTitle', 'coinSym', 'payoutWallet', 'payoutChannel', 'adminChatId', 'channel1', 'channel2', 'channel3', 'twitterUrl', 'botUsername', 'buySwapUrl', 'verifyDepositWallet', 'adsgramBlockId'];
 
 /* ---------- helpers ---------- */
@@ -5184,6 +5184,9 @@ async function panelConfigSet(c) {
   // adminSettings' whitelist + validation, mirrored exactly...
   for (const k of NUM_KEYS) if (s[k] !== undefined) { const v = Number(s[k]); if (!Number.isFinite(v) || v < 0 || v > 1e12) fail(400, 'Bad ' + k); if ((k === 'withdrawFeePercent' || k === 'holdPercentReq') && v > 100) fail(400, 'Bad ' + k); out[k] = v; }
   for (const k of STR_KEYS) if (s[k] !== undefined) out[k] = clean(s[k], 300);
+  // Contest window timestamps are epoch milliseconds (~1.8e12), above the
+  // generic NUM_KEYS cap of 1e12 — they validate against their own cap.
+  for (const k of ['contestStartsAt', 'contestEndsAt']) if (s[k] !== undefined) { const v = Number(s[k]); if (!Number.isFinite(v) || v < 0 || v > 1e14) fail(400, 'Bad ' + k); out[k] = v; }
   // ...plus the panel-only keys.
   if (s.holdTaskDefs !== undefined) {
     const defs = s.holdTaskDefs;
